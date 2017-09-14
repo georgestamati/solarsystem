@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	#universe
+		.wrapper
+			.planet-wrapper
+				.planet-img(style="background-image: url(../img/earth.jpg)")
+			.info-wrapper
+
+	ul.menu
+		each item in items
+			li
+				a(href="/planet") #{item.name}
+				//- a(href="/#{item.link_address}") #{item.name}

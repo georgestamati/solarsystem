@@ -1,0 +1,377 @@
+body 
+	font-size: 10px
+	font-weight: 300
+	background-color: #08090A
+	color: #fff
+
+#universe 
+	// z-index: 1
+	position: absolute
+	overflow: hidden
+	width: 100%
+	height: 100%
+	background-image: url('../img/universe-bg.jpg')
+	background-repeat: no-repeat
+	background-size: cover 
+	box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5)
+
+#galaxy 
+	position: relative
+	width: 100%
+	height: 100%
+
+#sun, .planet 
+	position: absolute
+	top: 50%
+	left: 50%
+	@include elementPosition(1em, 1em, -0.5em, -0.5em)
+	border-radius: 50%
+
+#sun 
+	background-image: url('../img/sun.png')
+	background-repeat: no-repeat
+	background-size: cover
+
+.planet-wrap 
+	position: absolute
+	top: -1px
+	left: 50%
+
+
+.planet 
+	background-color: #202020
+	background-repeat: no-repeat
+	background-size: cover
+	animation-iteration-count: infinite
+	animation-timing-function: linear
+
+.orbit 
+	position: absolute
+	top: 50%
+	left: 50%
+	width: 12em
+	height: 12em
+	margin-top: -6em
+	margin-left: -6em
+	border: 1px solid rgba(255, 255, 255, 0.4)
+	border-radius: 50%
+	animation-name: orbit
+	animation-iteration-count: infinite
+	animation-timing-function: linear 
+	transform-style: preserve-3d
+
+#sun 
+	font-size: 24em
+
+#mercury
+	&.orbit 
+		animation-duration: $mercuryAnimationDuration
+	.planet-wrap 
+		@include planetPosition(50%, 0)
+		animation-duration: $mercuryAnimationDuration
+	.planet 
+		@include axialInclination($mercuryAxisInclination)
+		background-image: url(../img/mercur.jpg)
+		animation-duration: $mercuryAnimationDuration
+
+#venus
+	&.orbit 
+		animation-duration: $venusAnimationDuration
+	.planet-wrap 
+		@include planetPosition(50%, 100%)
+		animation-duration: $venusAnimationDuration
+	.planet 
+		@include axialInclination($venusAxisInclination)
+		background-image: url(../img/venus.jpg)
+		animation-duration: $venusAnimationDuration
+
+#earth
+	&.orbit 
+		animation-duration: $earthAnimationDuration
+	.planet-wrap 
+		@include planetPosition(100%, 50%)
+		animation-duration: $earthAnimationDuration
+	.planet 
+		@include axialInclination($earthAxisInclination)
+		background-image: url(../img/earth.jpg)
+		animation-duration: $earthAnimationDuration
+	#moon
+		@include elementPosition(1.8em, 1.8em, -0.9em, -0.9em)
+		animation-name: suborbit
+		animation-duration: $moonAnimationDuration
+		.planet-wrap
+			left: 50%
+			top: -1px 
+			animation-duration: $moonAnimationDuration
+			.planet
+				@include elementPosition(0.3em, 0.3em, -0.15em, -0.15em)
+				background-image: url(../img/moon.jpg)
+				border-radius: 50%
+	
+				animation-duration: $moonAnimationDuration
+
+#mars
+	&.orbit 
+		animation-duration: $marsAnimationDuration
+	.planet-wrap 
+		@include planetPosition(50%, 100%)
+		animation-duration: $marsAnimationDuration
+	.planet 
+		@include axialInclination($marsAxisInclination)
+		background-image: url(../img/mars.jpg)
+		animation-duration: $marsAnimationDuration
+
+#jupiter
+	&.orbit 
+		animation-duration: $jupiterAnimationDuration
+	.planet-wrap 
+		@include planetPosition(50%, 0)
+		animation-duration: $jupiterAnimationDuration
+	.planet 
+		@include axialInclination($jupiterAxisInclination)
+		background-image: url(../img/jupiter.jpg)
+		animation-duration: $jupiterAnimationDuration
+
+#saturn
+	&.orbit 
+		animation-duration: $saturnAnimationDuration
+	.planet-wrap 
+		@include planetPosition(0, 50%)
+		animation-duration: $saturnAnimationDuration
+	.planet 
+		@include axialInclination($saturnAxisInclination)
+		background-image: url(../img/saturn.jpg)
+		animation-duration: $saturnAnimationDuration
+		.rings
+			@include elementPosition(2em, 2em, -0.5em, -0.5em)
+			border: 0.3em solid rgba(160, 147, 130, 0.8)
+			transform: rotateX(90deg)
+			border-radius: 50%
+			&:after
+				content: ""
+				position: absolute
+				@include elementPosition(2.1em, 2.1em, -0.45em, -0.45em)
+				border: 0.1em solid rgba(160, 147, 130, 0.8)
+				border-radius: 50%
+
+#uranus
+	&.orbit 
+		animation-duration: $uranusAnimationDuration
+	.planet-wrap 
+		@include planetPosition(50%, 100%)
+		animation-duration: $uranusAnimationDuration
+	.planet 
+		@include axialInclination($uranusAxisInclination)
+		background-image: url(../img/uranus.jpg)
+		animation-duration: $uranusAnimationDuration
+		.rings
+			@include elementPosition(1.8em, 1.8em, -0.4em, -0.4em)
+			border: 0.1em solid rgba(132, 101, 66, 0.8)
+			transform: rotateX(60deg)
+			border-radius: 50%
+			&:after
+				content: ""
+				position: absolute
+				@include elementPosition(1.35em, 1.35em, 0.07em, 0.07em)
+				border: 0.05em solid rgba(132, 101, 66, 0.8)
+				border-radius: 50%
+
+#neptune
+	&.orbit 
+		animation-duration: $neptuneAnimationDuration
+	.planet-wrap 
+		@include planetPosition(100%, 50%)
+		animation-duration: $neptuneAnimationDuration
+	.planet 
+		@include axialInclination($neptuneAxisInclination)
+		background-image: url(../img/neptune.jpg)
+		animation-duration: $neptuneAnimationDuration
+
+
+
+@keyframes animateShadow 
+	0% 
+		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5)
+	/* TOP */ 
+
+	25% 
+		box-shadow: inset 16px 0 8px rgba(0, 0, 0, 0.5)
+	/* LEFT */ 
+
+	50% 
+		box-shadow: inset 40px -20px 16px rgba(0, 0, 0, 0.5)
+	/* BOTTOM */ 
+
+	50.01% 
+		box-shadow: inset -40px -20px 16px rgba(0, 0, 0, 0.5)
+	/* BOTTOM */ 
+
+	75% 
+		box-shadow: inset -16px 0 8px rgba(0, 0, 0, 0.5)
+	/* RIGHT */ 
+	
+	100% 
+		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5)
+	/* TOP */	
+
+
+.galaxy-view--3D, .galaxy-view--2D
+	#sun 
+		font-size: $sun3dViewSize
+	#mercury
+		font-size: $mercuryOrbitSize
+		.planet
+			font-size: $mercury3dViewSize
+	#venus
+		font-size: $venusOrbitSize
+		.planet
+			font-size: $venus3dViewSize
+	#earth
+		font-size: $earthOrbitSize
+		.planet
+			font-size: $earth3dViewSize
+	#mars
+		font-size: $marsOrbitSize
+		.planet
+			font-size: $mars3dViewSize
+	#jupiter
+		font-size: $jupiterOrbitSize
+		.planet
+			font-size: $jupiter3dViewSize
+	#saturn
+		font-size: $saturnOrbitSize
+		.planet
+			font-size: $saturn3dViewSize
+	#uranus
+		font-size: $uranusOrbitSize
+		.planet
+			font-size: $uranus3dViewSize
+	#neptune
+		font-size: $neptuneOrbitSize
+		.planet
+			font-size: $neptune3dViewSize
+
+
+.galaxy-view--3D
+	font-size: 85%
+	transform: rotateX(75deg)
+	transform-style: preserve-3d
+	transition: all 1s ease
+	#sun
+		transform: rotateX(-75deg)
+		transform-style: preserve-3d
+	.planet-wrap
+		transform-style: preserve-3d
+		animation-name: invert
+		animation-iteration-count: infinite
+		animation-timing-function: linear
+		.planet
+			animation-name: animateShadow
+			transform-style: preserve-3d
+
+.galaxy-view--2D
+	font-size: 75%
+	transform: rotateX(0)
+	transform-style: flat
+	transition: all 1s ease
+	#sun
+		transform: rotateX(0)
+	#saturn .rings
+		transform: rotateX(70deg)
+	.planet-wrap
+		transform-style: flat
+		animation-name: none
+		animation-iteration-count: infinite
+		animation-timing-function: linear
+
+.galaxy-view--distance
+	#sun 
+		font-size: 545em
+	#mercury
+		font-size: 0.7742em
+	#venus
+		font-size: 1.8998em
+	#earth
+		font-size: 2em
+	#mars
+		font-size: 1.064em
+	#jupiter
+		font-size: 22em
+	#saturn
+		font-size: 18.4em
+	#uranus
+		font-size: 8em
+	#neptune
+		font-size: 7.72em
+
+@keyframes orbit 
+	0%	
+		transform: rotateZ(0deg) 
+	100%  
+		transform: rotateZ(-360deg)  
+
+@keyframes suborbit
+	0%
+		transform: rotateX(90deg) rotateZ(0deg)
+
+	100%
+		transform: rotateX(90deg) rotateZ(-360deg)
+
+@keyframes invert 
+	0%	
+		transform: rotateX(-90deg) rotateY(360deg) rotateZ(0deg) 
+	100%  
+		transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg)  
+
+
+
+@media all and (min-width: 1600px)
+	#galaxy.galaxy-view--2D
+		font-size: 50%
+
+@media all and (max-width: 1600px)
+	#galaxy.galaxy-view--3D
+		font-size: 60%
+	#galaxy.galaxy-view--2D
+		font-size: 40%
+
+@media all and (max-width: 1200px)
+	#galaxy.galaxy-view--3D
+		font-size: 50%
+
+
+
+
+// .change-view
+// 	position: relative
+// 	z-index: 1
+
+.menu
+	position: relative
+	padding: 15px 0
+	background-color: transparent
+	font-size: initial
+	text-align: center
+	li
+		display: inline
+		margin: 0 10px
+		a
+			color: aqua
+			font-size: 20px
+			text-decoration: none
+			transition: color ease .5s
+			&:hover
+				color: #fff
+				transition: color ease .5s
+
+.wrapper
+	display: flex
+	padding: 30px
+	.planet-wrapper
+		padding: 30px
+	// .info-wrapper
+
+	.planet-img
+		@extend .planet
+		position: initial
+		@include elementPosition(40em, 40em, 0em, 0em)
