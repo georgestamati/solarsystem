@@ -4,11 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mysql = require('mysql');
+// var mysql = require('mysql');
 // var db = require('./db');
 
-// var index = require('./routes/index');
-// var planet = require('./routes/planet');
 var route = require('./routes')
 
 var app = express();
@@ -27,7 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // setup routes
 app.use('/', route);
-// app.use('/:planet', planet);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
