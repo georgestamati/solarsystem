@@ -19,10 +19,14 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-		    dist: {
-		      	src: ['public/js/scripts/*.js'],
+		    js: {
+		      	src: ['public/css/*.css'],
+		      	dest: 'public/css/style.css',
+		    },
+		    css: {
+		      	src: ['public/js/**/*.js'],
 		      	dest: 'public/js/min.js',
-		    }
+		    },
 		},
 		uglify: {
 			dist: {
