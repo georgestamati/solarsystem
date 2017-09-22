@@ -4,4 +4,4 @@ Launch server:
 npm start
 
 Launch server with debug and supervisor : 
-set debug=helloworld:* & npm start
+SET DEBUG=solarsystem:* & npm start

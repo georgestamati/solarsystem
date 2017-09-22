@@ -14,3 +14,10 @@ block content
 		each item in items
 			li
 				a(href="/#{item.link_address}") #{item.name}
+
+
+	script.
+		var socket = io.connect();
+		socket.on('urlchange', function (data) {
+			window.location.href = data.url;
+		});

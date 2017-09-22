@@ -1,0 +1,33 @@
+extends layout
+
+block content
+	ul.menu
+		each item in items
+			li
+				a(href="/#{item.link_address}") #{item.name}
+
+	style.
+		@media all and (max-width: 992px){
+			html, body{
+				height: 100%;
+			}
+			.menu{
+				height: 100%;
+			}
+			.menu li{
+				display: block;
+				height: calc(100% / 9);
+			}
+			.menu li a{
+				font-size: 32px;
+			}
+		}
+
+	script.
+		var socket = io.connect();
+		[].forEach.call( document.querySelectorAll( 'a' ), function ( a ) {
+			a.addEventListener( 'click', function (e) {
+				socket.emit('statechange', { url : e.target.href });
+				e.preventDefault();
+			}, false );
+		});

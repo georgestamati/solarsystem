@@ -14,7 +14,7 @@ $(document).ready(function(){
 				$.each(stars, function(index, element){
 					if(word.toLowerCase() == element.toLowerCase()){
 						console.log(word, index, element);
-						window.location = word.toLowerCase() + '.php';
+						window.location = word.toLowerCase();
 					}
 				})
             }

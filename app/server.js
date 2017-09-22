@@ -1,5 +1,5 @@
 var app = require('../app')
-var debug = require('debug')('helloworld:server');
+var debug = require('debug')('solarsystem:server');
 var http = require('http');
 
 // Get port from environment and store in Express.
@@ -8,6 +8,17 @@ app.set('port', port);
 
 //  Create HTTP server.
 var server = http.createServer(app);
+
+var io = require('socket.io')(server);
+// Socket IO
+io.on('connection', function (socket) {
+    // Create a room to broadcast to
+    socket.join('main');
+    socket.on('statechange', function (data) {
+        // Broadcast changes to all clients in room
+        socket.to('main').emit('urlchange', { url : data.url });
+    });
+});
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
