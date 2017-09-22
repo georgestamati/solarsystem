@@ -1,12 +1,16 @@
 var app = require('../app')
 var debug = require('debug')('helloworld:server');
+var http = require('http').Server(app);
+var io = require('socket.io')(server);
+
+// Get port from environment and store in Express.
+var port = process.env.PORT || '3000';
+app.set('port', port);
 
 //  Create HTTP server.
-var http = require('http').Server(app);
 // var server = http.createServer(app);
 
 // Socket IO
-var io = require('socket.io')(server);
 io.on('connection', function (socket) {
     // Create a room to broadcast to
     socket.join('main');
@@ -17,7 +21,7 @@ io.on('connection', function (socket) {
 });
 
 // Listen on provided port, on all network interfaces.
-server.listen(process.env.PORT || '3000');
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
