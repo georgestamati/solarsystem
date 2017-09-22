@@ -339,6 +339,15 @@ body
 	#galaxy.galaxy-view--3D
 		font-size: 50%
 
+@media all and (max-width: 992px)
+	html, body
+		height: 100%
+	.menu
+		height: 100%
+		li
+			height: calc(100% / 9)
+		a
+			font-size: 32px
 
 
 
@@ -375,3 +384,4 @@ body
 		@extend .planet
 		position: initial
 		@include elementPosition(40em, 40em, 0em, 0em)
+
