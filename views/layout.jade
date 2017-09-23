@@ -9,6 +9,7 @@ html
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 
 		link(rel="icon", href="favicon.ico")
+		link(rel="stylesheet", href="/css/normalize.css", media="none", onload="if(media!='all') media='all'")
 		link(rel='stylesheet', href='/css/style.css', media="none", onload="if(media!='all') media='all'")
 
 	body
@@ -16,4 +17,6 @@ html
 			
 		block content
 
+		script(type="text/javascript", src="js/libs/jquery-3.2.1.min.js")
+		script(type="text/javascript", src="js/libs/annyang.min.js")
 		script(type="text/javascript", src="js/min.js")

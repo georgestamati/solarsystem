@@ -1,27 +1,15 @@
 extends layout
 
 block content
-	ul.menu
+	div.menu.mobile-menu
 		each item in items
-			li
-				a(href="/#{item.link_address}") #{item.name}
-
-	style.
-		@media all and (max-width: 992px){
-			html, body{
-				height: 100%;
-			}
-			.menu{
-				height: 100%;
-			}
-			.menu li{
-				display: block;
-				height: calc(100% / 9);
-			}
-			.menu li a{
-				font-size: 32px;
-			}
-		}
+			a(href="/#{item.url}") #{item.name}
+				div(class="menu-item", id="#{item.url}")
+					//- div(class="planet-wrap")
+					if item.url != 'sun'
+						.planet
+							if item.url == 'saturn' || item.url == 'uranus'
+								.rings
 
 	script.
 		var socket = io.connect();

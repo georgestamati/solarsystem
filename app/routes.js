@@ -5,45 +5,44 @@ var router = express.Router();
 var rows = [
 	{
 		name: 'Sun',
-		link_address: 'sun'
+		url: 'sun'
 	},
 	{
 		name: 'Mercury',
-		link_address: 'mercury'
+		url: 'mercury'
 	},
 	{
 		name: 'Venus',
-		link_address: 'venus'
+		url: 'venus'
 	},
 	{
 		name: 'Earth',
-		link_address: 'earth'
+		url: 'earth'
 	},
 	{
 		name: 'Mars',
-		link_address: 'mars'
+		url: 'mars'
 	},
 	{
 		name: 'Jupiter',
-		link_address: 'jupiter'
+		url: 'jupiter'
 	},
 	{
 		name: 'Saturn',
-		link_address: 'saturn'
+		url: 'saturn'
 	},
 	{
 		name: 'Uranus',
-		link_address: 'uranus'
+		url: 'uranus'
 	},
 	{
 		name: 'Neptune',
-		link_address: 'neptune'
+		url: 'neptune'
 	}
 ];
 
 router.get('/', function(req, res, next) {
 	var ua = req.headers['user-agent'];
-	console.log(ua);
 	if (/mobile/i.test(ua)) {
 		res.render('mobile', { 'title': 'Solar System', 'items': rows });
 	} else {
@@ -52,7 +51,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:planet', function(req, res, next) {
-	res.render('planet', { 'title': req.params.planet, 'link_address': req.params.planet, 'items': rows});
+	res.render('planet', { 'title': req.params.planet, 'url': req.params.planet, 'items': rows});
 });
 
 
