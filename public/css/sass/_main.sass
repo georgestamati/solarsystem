@@ -3,17 +3,30 @@ body
 	font-weight: 300
 	background-color: #08090A
 	color: #fff
+	// transition: all 2s ease
+	// &.loading
+	// 	background: #333 url(http://code.jquery.com/mobile/1.3.1/images/ajax-loader.gif) no-repeat 50% -100%
+	// 	opacity: 0
+
+// .loader 
+// 	position: absolute
+// 	top: 0px
+// 	left: 0px
+// 	z-index: 9999
+// 	opacity: .8
+
+	
 
 #universe 
 	// z-index: 1
 	position: absolute
-	overflow: hidden
+	// overflow: hidden
 	width: 100%
 	height: 100%
-	background-image: url('../img/universe-bg.jpg')
+	background-image: url('../img/stars.jpg')
 	background-repeat: no-repeat
 	background-size: cover 
-	box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5)
+	// box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5)
 
 #galaxy 
 	position: relative
@@ -28,7 +41,7 @@ body
 	border-radius: 50%
 
 #sun 
-	background-image: url('../img/sun.png')
+	background-image: url('../img/sun.jpg')
 	background-repeat: no-repeat
 	background-size: cover
 
@@ -103,12 +116,11 @@ body
 			left: 50%
 			top: -1px 
 			animation-duration: $moonAnimationDuration
-			.planet
-				@include elementPosition(0.3em, 0.3em, -0.15em, -0.15em)
-				background-image: url(../img/moon.jpg)
-				border-radius: 50%
-	
-				animation-duration: $moonAnimationDuration
+		.planet
+			@include elementPosition(0.3em, 0.3em, -0.15em, -0.15em)
+			background-image: url(../img/moon.jpg)
+			border-radius: 50%
+			animation-duration: $moonAnimationDuration
 
 #mars
 	&.orbit 
@@ -254,11 +266,11 @@ body
 
 .galaxy-view--3D
 	font-size: 85%
-	transform: rotateX(75deg)
+	transform: rotateX(70deg)
 	transform-style: preserve-3d
 	transition: all 1s ease
 	#sun
-		transform: rotateX(-75deg)
+		transform: rotateX(-70deg)
 		transform-style: preserve-3d
 	.planet-wrap
 		transform-style: preserve-3d
@@ -342,31 +354,47 @@ body
 @media all and (max-width: 992px)
 	html, body
 		height: 100%
-	.mobile-menu.menu
-		display: -webkit-box
-		align-items: center
-		height: 100%
-		overflow: auto
-		white-space: nowrap
-		a
-			display: block
-			width: 100%
-			padding: 14px
-			margin: 30px
-			color: white
-			font-size: 32px
-			text-align: center
-			text-decoration: none
-			&:first-child
-				margin-left: 0
-			&:last-child
-				margin-right: 0
-		.planet, #sun
-			position: static
-			width: 300px
-			height: 300px
-			margin: 40px auto
-			font-size: inherit
+	.menu
+		&.main-page-link
+			position: absolute
+			left: 0
+			right: 0
+			z-index: 1
+		&.mobile-menu
+			display: -webkit-box
+			align-items: center
+			height: 100%
+			overflow: auto
+			white-space: nowrap
+			> div
+				display: block
+				width: 100%
+				padding: 14px
+				margin: 30px
+				&:first-child
+					margin-left: 0
+				&:last-child
+					margin-right: 0
+				a
+					font-size: 32px
+					text-align: center
+					text-decoration: none
+
+			.planet, #sun
+				position: static
+				width: 300px
+				height: 300px
+				margin: 40px auto
+				font-size: inherit
+				box-shadow: inset 0px 0px 25px 5px #000
+
+			.planet
+				background-size: 600px
+				animation-name: animatedBackground
+				animation-duration: 10s !important
+				animation-timing-function: linear
+				animation-iteration-count: infinite
+				box-shadow: inset -9px -2px 39px 15px #000
 
 
 
@@ -383,14 +411,14 @@ body
 	li
 		display: inline
 		margin: 0 10px
-		a
-			color: aqua
-			font-size: 20px
-			text-decoration: none
+	a
+		color: aqua
+		font-size: 20px
+		text-decoration: none
+		transition: color ease .5s
+		&:hover
+			color: #fff
 			transition: color ease .5s
-			&:hover
-				color: #fff
-				transition: color ease .5s
 
 .wrapper
 	display: flex
@@ -404,3 +432,9 @@ body
 		position: initial
 		@include elementPosition(40em, 40em, 0em, 0em)
 
+
+@keyframes animatedBackground 
+	0%
+		background-position-x: left
+	100%  
+		background-position-x: right

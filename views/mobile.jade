@@ -1,9 +1,12 @@
 extends layout
 
 block content
+	div.menu.main-page-link
+		a(href='/') Back to main page
 	div.menu.mobile-menu
 		each item in items
-			a(href="/#{item.url}") #{item.name}
+			div
+				a(href="/#{item.url}") #{item.name}
 				div(class="menu-item", id="#{item.url}")
 					//- div(class="planet-wrap")
 					if item.url != 'sun'

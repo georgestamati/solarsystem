@@ -4,16 +4,13 @@ block content
 	#universe
 		.wrapper
 			.planet-wrapper
-				if title == 'sun'
-					.planet-img(style="background-image: url(../img/sun.png); background-color: transparent;")
-				else 
-					.planet-img(style="background-image: url(../img/#{title}.jpg)")
+				.planet-img(style="background-image: url(../img/#{title}.jpg)")
 			.info-wrapper
 
 	ul.menu
 		each item in items
 			li
-				a(href="/#{item.link_address}") #{item.name}
+				a(href="/#{item.url}") #{item.name}
 
 
 	script.

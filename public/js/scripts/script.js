@@ -1,4 +1,16 @@
+// $(window).load(function() {
+// 	console.log('loaded')
+//     $(".loader").hide();
+// })
+
 $(document).ready(function(){
+	// var body = $('body');
+	// var removeLoading = function() {
+	// 	setTimeout(function() {
+	// 		body.removeClass('loading');
+	// 	}, 3000);
+	// };
+	// removeLoading();
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
