@@ -257,7 +257,7 @@ body
 	transform-style: preserve-3d
 	transition: all 1s ease
 	#sun
-		transform: rotateX(-70deg)
+		// transform: rotateX(-70deg)
 		transform-style: preserve-3d
 	.planet-wrap
 		transform-style: preserve-3d
@@ -411,14 +411,28 @@ body
 	display: flex
 	padding: 30px
 	.planet-wrapper
+		position: static !important
 		padding: 30px
+		margin: 0
+		background: none !important
+		font-size: inherit !important
+		> div
+			display: block
+			width: 100%
+			padding: 14px
+			margin: 30px
+		.planet
+			position: static
+			width: 300px
+			height: 300px
+			margin: 40px auto
+			background-size: 600px
+			animation-name: animatedBackground
+			animation-duration: 30s !important
+			animation-timing-function: linear
+			animation-iteration-count: infinite
+			box-shadow: inset -9px -2px 39px 15px #000
 	// .info-wrapper
-
-	.planet-img
-		@extend .planet
-		position: initial
-		@include elementPosition(40em, 40em, 0em, 0em)
-
 
 @keyframes animatedBackground 
 	0%

@@ -3,8 +3,8 @@ extends layout
 block content
 	#universe
 		.wrapper
-			.planet-wrapper
-				.planet-img(style="background-image: url(../img/#{title}.jpg)")
+			div(class="planet-wrapper" id="#{title}")
+				.planet(style="background-image: url(../img/#{title}.jpg)")
 			.info-wrapper
 
 	ul.menu
