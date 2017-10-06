@@ -1,45 +1,6 @@
 var express = require('express');
 var router = express.Router();
-// var db = require('../db');
-
-var rows = [
-	{
-		name: 'Sun',
-		url: 'sun'
-	},
-	{
-		name: 'Mercury',
-		url: 'mercury'
-	},
-	{
-		name: 'Venus',
-		url: 'venus'
-	},
-	{
-		name: 'Earth',
-		url: 'earth'
-	},
-	{
-		name: 'Mars',
-		url: 'mars'
-	},
-	{
-		name: 'Jupiter',
-		url: 'jupiter'
-	},
-	{
-		name: 'Saturn',
-		url: 'saturn'
-	},
-	{
-		name: 'Uranus',
-		url: 'uranus'
-	},
-	{
-		name: 'Neptune',
-		url: 'neptune'
-	}
-];
+var rows = require('./db');
 
 router.get('/', function(req, res, next) {
 	var ua = req.headers['user-agent'];
