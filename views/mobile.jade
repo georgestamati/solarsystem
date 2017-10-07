@@ -5,9 +5,9 @@ block content
 		a(href='/') Back to main page
 	div.menu.mobile-menu
 		each item in items
-			div
+			.menu-item
 				a(href="/#{item.url}") #{item.name}
-				div(class="menu-item", id="#{item.url}")
+				div(id="#{item.url}")
 					if item.url != 'sun'
 						.planet
 							if item.url == 'saturn' || item.url == 'uranus'
