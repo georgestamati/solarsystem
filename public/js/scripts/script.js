@@ -1,12 +1,12 @@
 $(document).ready(function(){
 
-	// setTimeout(function(){
-	// 	$('.loader').css({
-	// 		'opacity': 0,
-	// 		'visibility': 'hidden',
-	// 		'transition': 'all 2s ease'
-	// 	});
-	// }, 6000)
+	setTimeout(function(){
+		$('.loader').css({
+			'opacity': 0,
+			'visibility': 'hidden',
+			'transition': 'all 2s ease'
+		});
+	}, 6000)
 
 	// setTimeout(function(){
 	// 	$('.loader').css({
