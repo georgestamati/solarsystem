@@ -40,8 +40,21 @@ block content
 				a(href="/#{item.url}") #{item.name}
 
 	script.
-		//- var socket = io.connect('localhost:3000')
-		var socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
+		var socket;
+		if(window.location.hostname.indexOf('localhost')){
+			socket = io.connect('localhost:3000')
+		}
+		else{
+			socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
+		}
 		socket.on('urlchange', function (data) {
 			window.location.href = data.url
 		})
+
+	script.
+		setTimeout(function(){
+			jQuery('.loader__planet').css({
+				'animation': 'none',
+				'transition': 'all 2s ease'
+			});
+		}, 5000)

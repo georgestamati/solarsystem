@@ -1,5 +1,21 @@
 $(document).ready(function(){
 
+	// setTimeout(function(){
+	// 	$('.loader').css({
+	// 		'opacity': 0,
+	// 		'visibility': 'hidden',
+	// 		'transition': 'all 2s ease'
+	// 	});
+	// }, 6000)
+
+	// setTimeout(function(){
+	// 	$('.loader').css({
+	// 		'opacity': 0,
+	// 		'visibility': 'hidden',
+	// 		'transition': 'all 1s ease'
+	// 	});
+	// }, 1000)
+
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
 	// $('#galaxy').addClass('galaxy-view--3D');

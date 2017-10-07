@@ -4,6 +4,43 @@ body
 	background-color: #08090A
 	color: #fff
 
+.loader
+	position: absolute
+	z-index: 1
+	height: 100%
+	width: 100%
+	overflow: hidden
+	background: #000
+	transition: all 1s ease
+
+.loader__planet
+	position: absolute
+	top: 50%
+	left: 50%
+	width: 200px
+	height: 200px
+	border-radius: 50%
+	background: url('../img/earth.jpg')
+	background-size: cover
+	background-position-x: -450px 
+	transform: translate(-50%, -50%)
+	animation: animatedBackground 10s infinite linear
+	&:after
+		content: ""
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		border-radius: 50%
+		box-shadow: 0px 0px 30px #8ff, 0px 0px 100px #000 inset, 0px 0px 50px #5ff inset, -20px -10px 100px #000 inset
+		animation: loaderAnimation 3s infinite linear
+
+.hidden
+	opacity: 0
+	visibility: hidden
+	transition: all .3s ease
+
 #universe 
 	// z-index: 1
 	position: absolute
@@ -186,34 +223,6 @@ body
 		background-image: url(../img/neptune.jpg)
 		animation-duration: $neptuneAnimationDuration
 
-
-
-@keyframes animateShadow 
-	0% 
-		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5)
-	/* TOP */ 
-
-	25% 
-		box-shadow: inset 16px 0 8px rgba(0, 0, 0, 0.5)
-	/* LEFT */ 
-
-	50% 
-		box-shadow: inset 40px -20px 16px rgba(0, 0, 0, 0.5)
-	/* BOTTOM */ 
-
-	50.01% 
-		box-shadow: inset -40px -20px 16px rgba(0, 0, 0, 0.5)
-	/* BOTTOM */ 
-
-	75% 
-		box-shadow: inset -16px 0 8px rgba(0, 0, 0, 0.5)
-	/* RIGHT */ 
-	
-	100% 
-		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5)
-	/* TOP */	
-
-
 .galaxy-view--3D, .galaxy-view--2D
 	#sun 
 		font-size: $sun3dViewSize
@@ -303,87 +312,6 @@ body
 	#neptune
 		font-size: 7.72em
 
-@keyframes orbit 
-	0%	
-		transform: rotateZ(0deg) 
-	100%  
-		transform: rotateZ(-360deg)  
-
-@keyframes suborbit
-	0%
-		transform: rotateX(90deg) rotateZ(0deg)
-
-	100%
-		transform: rotateX(90deg) rotateZ(-360deg)
-
-@keyframes invert 
-	0%	
-		transform: rotateX(-90deg) rotateY(360deg) rotateZ(0deg) 
-	100%  
-		transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg)  
-
-
-
-@media all and (min-width: 1600px)
-	#galaxy.galaxy-view--2D
-		font-size: 50%
-
-@media all and (max-width: 1600px)
-	#galaxy.galaxy-view--3D
-		font-size: 60%
-	#galaxy.galaxy-view--2D
-		font-size: 40%
-
-@media all and (max-width: 1200px)
-	#galaxy.galaxy-view--3D
-		font-size: 50%
-
-@media all and (max-width: 992px)
-	html, body
-		height: 100%
-	.menu
-		&.main-page-link
-			position: absolute
-			left: 0
-			right: 0
-			z-index: 1
-		&.mobile-menu
-			display: -webkit-box
-			align-items: center
-			height: 100%
-			overflow: auto
-			white-space: nowrap
-			> div
-				display: block
-				width: 100%
-				padding: 14px
-				margin: 30px
-				&:first-child
-					margin-left: 0
-				&:last-child
-					margin-right: 0
-				a
-					font-size: 32px
-					text-align: center
-					text-decoration: none
-
-			.planet, #sun
-				position: static
-				width: 300px
-				height: 300px
-				margin: 40px auto
-				font-size: inherit
-				box-shadow: inset 0px 0px 25px 5px #000
-
-			.planet
-				background-size: 600px
-				animation-name: animatedBackground
-				animation-duration: 10s !important
-				animation-timing-function: linear
-				animation-iteration-count: infinite
-				box-shadow: inset -9px -2px 39px 15px #000
-
-
 
 // .change-view
 // 	position: relative
@@ -427,15 +355,10 @@ body
 			height: 300px
 			margin: 40px auto
 			background-size: 600px
+			background-repeat: repeat-x
 			animation-name: animatedBackground
 			animation-duration: 30s !important
 			animation-timing-function: linear
 			animation-iteration-count: infinite
 			box-shadow: inset -9px -2px 39px 15px #000
 	// .info-wrapper
-
-@keyframes animatedBackground 
-	0%
-		background-position-x: left
-	100%  
-		background-position-x: right
