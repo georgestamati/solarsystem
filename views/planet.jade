@@ -3,8 +3,11 @@ extends layout
 block content
 	#universe
 		.wrapper
-			div(class="planet-wrapper" id="#{title}")
+			.planet-wrapper(id="#{title}")
 				.planet(style="background-image: url(../img/#{title}.jpg)")
+					title
+					if title == 'saturn' || title == 'uranus'
+						.rings
 			.info-wrapper
 
 	ul.menu

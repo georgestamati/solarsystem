@@ -4,9 +4,9 @@ $(document).ready(function(){
 		$('.loader').css({
 			'opacity': 0,
 			'visibility': 'hidden',
-			'transition': 'all 2s ease'
+			'transition': 'all 1s ease'
 		});
-	}, 6000)
+	}, 3000)
 
 	// setTimeout(function(){
 	// 	$('.loader').css({

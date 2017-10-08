@@ -20,8 +20,8 @@ body
 	width: 200px
 	height: 200px
 	border-radius: 50%
-	background: url('../img/earth.jpg')
-	background-size: cover
+	background: url('../img/earth.jpg') repeat-x
+	background-size: 600px
 	background-position-x: -450px 
 	transform: translate(-50%, -50%)
 	animation: animatedBackground 10s infinite linear
@@ -362,4 +362,8 @@ body
 			animation-timing-function: linear
 			animation-iteration-count: infinite
 			box-shadow: inset -9px -2px 39px 15px #000
+		#uranus .rings
+			@include uranusRings()
+		#saturn .rings
+			@include saturnRings()
 	// .info-wrapper
