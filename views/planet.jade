@@ -17,6 +17,6 @@ block content
 
 	script.
 		var socket = io.connect();
-		socket.on('urlchange', function (data) {
+		socket.on('urlcontrol', function (data) {
 			window.location.href = data.url;
 		});

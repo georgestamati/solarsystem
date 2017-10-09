@@ -43,6 +43,6 @@ block content
 		//- var socket = io.connect('localhost:3000')
 		var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
 		
-		socket.on('urlchange', function (data) {
+		socket.on('urlcontrol', function (data) {
 			window.location.href = data.url
 		})

@@ -15,9 +15,16 @@ block content
 
 	script.
 		var socket = io.connect();
-		[].forEach.call( document.querySelectorAll( 'a' ), function ( a ) {
-			a.addEventListener( 'click', function (e) {
-				socket.emit('statechange', { url : e.target.href });
-				e.preventDefault();
+
+		//- Get anchors from menu
+		var menuLinks = document.getElementsByTagName('a');
+
+		// Transform from NodeList to Array
+		menuLinks = Array.prototype.slice.call(menuLinks);
+
+		menuLinks.forEach(function(link) {
+			link.addEventListener('click', function (ev) {
+				ev.preventDefault();
+				socket.emit('eventchange', { url : ev.target.href });
 			}, false );
 		});
