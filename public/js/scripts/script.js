@@ -1,20 +1,16 @@
 $(document).ready(function(){
 
-	setTimeout(function(){
-		$('.loader').css({
-			'opacity': 0,
-			'visibility': 'hidden',
-			'transition': 'all 1s ease'
-		});
-	}, 3000)
+	$('.loader__button').on('click', function(){
+		// setTimeout(function(){
+			$('.loader').css({
+				// 'opacity': 0,
+				// 'visibility': 'hidden',
+				'margin-top': '-100%',
+				'transition': 'all 1.5s ease-in'
+			});
+		// }, 3000)
+	})
 
-	// setTimeout(function(){
-	// 	$('.loader').css({
-	// 		'opacity': 0,
-	// 		'visibility': 'hidden',
-	// 		'transition': 'all 1s ease'
-	// 	});
-	// }, 1000)
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
