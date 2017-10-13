@@ -5,7 +5,7 @@ $(document).ready(function(){
 			$('.loader').css({
 				// 'opacity': 0,
 				// 'visibility': 'hidden',
-				'margin-top': '-100%',
+				'margin-top': '-1000px',
 				'transition': 'all 1.5s ease-in'
 			});
 		// }, 3000)
