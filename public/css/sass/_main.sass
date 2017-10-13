@@ -1,3 +1,7 @@
+html, body
+	width: 100%
+	height: 100%
+
 body 
 	font-size: 10px
 	font-weight: 300
@@ -14,7 +18,6 @@ body
 	height: 100%
 	width: 100%
 	overflow: hidden
-	background: #000
 	transition: all 1s ease
 
 .loader__planet
@@ -55,20 +58,19 @@ body
 	transition: all .3s ease
 
 #universe 
-	// z-index: 1
 	position: absolute
 	overflow: hidden
 	width: 100%
 	height: 100%
-	background-image: url('../img/stars.jpg')
+	background-image: url('../img/stars.png')
 	background-repeat: no-repeat
 	background-size: cover 
-	// box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5)
 
 #galaxy 
 	position: relative
 	width: 100%
 	height: 100%
+	margin-top: 1000px
 
 #sun, .planet 
 	position: absolute
@@ -332,8 +334,12 @@ body
 // 	z-index: 2
 
 .menu
-	position: relative
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
 	padding: 15px 0
+	margin-top: 1000px
 	background-color: transparent
 	font-size: initial
 	text-align: center

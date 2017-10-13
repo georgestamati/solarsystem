@@ -34,14 +34,14 @@ block content
 				.planet-wrap
 					.planet
 
-	ul.menu
-		each item in items
-			li
-				a(href="/#{item.url}") #{item.name}
+		ul.menu
+			each item in items
+				li
+					a(href="/#{item.url}") #{item.name}
 
 	script.
-		var socket = io.connect('localhost:3000')
-		//- var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
+		//- var socket = io.connect('localhost:3000')
+		var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
 		
 		socket.on('urlcontrol', function (data) {
 			window.location.href = data.url
