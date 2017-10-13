@@ -1,17 +1,15 @@
 $(document).ready(function(){
 
-	$('.loader__button').on('click', function(){
-		$('.loader').css({
-			'opacity': 0,
-			'visibility': 'hidden',
-			'margin-top': '-1000px',
-			'transition': 'all 1.5s ease-in'
-		});
-		$('#galaxy, .menu').delay(1500).css({
-			'margin-top': 0,
-			'transition': 'all 1.5s ease-in'
-		});
-	})
+	if( sessionStorage.getItem('loader') == null ) { 
+		$('.loader').show();
+		sessionStorage.setItem('loader', 'true');
+
+		$('.loader__button').on('click', loaderAnimation)
+	}
+	else{
+		$('.loader').hide();
+		loaderAnimation();
+	}
 
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
@@ -51,6 +49,19 @@ $(document).ready(function(){
 		});
 	}
 	else {
-		console.log("Speech Recognition is not supported");
+		console.log('Speech Recognition is not supported');
 	}
 })
+
+function loaderAnimation(){
+	$('.loader').css({
+		'opacity': 0,
+		'visibility': 'hidden',
+		'margin-top': '-1000px',
+		'transition': 'all 1.5s ease-in'
+	});
+	$('#galaxy, .menu').delay(1500).css({
+		'margin-top': 0,
+		'transition': 'all 1.5s ease-in'
+	});
+}
