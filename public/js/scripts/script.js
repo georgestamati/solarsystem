@@ -60,7 +60,7 @@ function loaderAnimation(){
 		'margin-top': '-1000px',
 		'transition': 'all 1.5s ease-in'
 	});
-	$('#galaxy, .menu').delay(1500).css({
+	$('#galaxy, .menu').css({
 		'margin-top': 0,
 		'transition': 'all 1.5s ease-in'
 	});
