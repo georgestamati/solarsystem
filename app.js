@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 // var mysql = require('mysql');
 // var db = require('./app/db');
+var compression = require('compression');
 
 var route = require('./app/routes')
 
@@ -14,6 +15,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+app.set('view cache', true);
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -24,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // setup routes
 app.use('/', route);
+
+// enable compression
+app.use(compression());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
