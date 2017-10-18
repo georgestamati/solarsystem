@@ -12,6 +12,9 @@ var route = require('./app/routes')
 
 var app = express();
 
+// enable compression
+app.use(compression());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -26,9 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // setup routes
 app.use('/', route);
-
-// enable compression
-app.use(compression());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
