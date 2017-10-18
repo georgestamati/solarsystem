@@ -7,9 +7,7 @@ var bodyParser = require('body-parser');
 // var mysql = require('mysql');
 // var db = require('./app/db');
 var compression = require('compression');
-
 var route = require('./app/routes')
-
 var app = express();
 
 // enable compression

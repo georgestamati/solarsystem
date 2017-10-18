@@ -202,11 +202,11 @@ body
 		@include axialInclination($saturnAxisInclination)
 		background-image: url(../img/saturn.jpg)
 		animation-duration: $saturnAnimationDuration
-		.rings
-			@include elementPosition(2em, 2em, -0.5em, -0.5em)
-			transform: rotateX(90deg)
-			border-radius: 50%
-			background: radial-gradient(ellipse at center, rgba(24,19,25,0) 0%,rgba(53,52,51,0) 34%,rgba(55,54,52,1) 36%,rgba(56,55,53,1) 37%,rgba(68,67,66,1) 38%,rgba(56,55,53,1) 39%,rgba(68,67,66,1) 40%,rgba(56,55,53,1) 41%,rgba(87,77,76,1) 42%,rgba(87,77,76,1) 44%,rgba(113,110,103,1) 46%,rgba(113,110,103,1) 48%,rgba(113,98,93,1) 49%,rgba(113,98,93,1) 51%,rgba(122,115,105,1) 52%,rgba(113,98,93,1) 53%,rgba(113,98,93,1) 54%,rgba(122,115,105,1) 55%,rgba(106,99,89,1) 56%,rgba(106,99,89,1) 58%,rgba(79,76,76,0) 60%,rgba(65,64,70,1) 61%,rgba(65,64,70,1) 62%,rgba(90,85,89,1) 63%,rgba(78,74,73,1) 65%,rgba(78,73,74,1) 67%,rgba(78,73,74,0) 68%,rgba(78,73,75,1) 69%,rgba(78,73,75,1) 70%,rgba(78,73,76,0) 71%,rgba(77,72,76,0) 72%,rgba(24,19,25,0) 100%)
+	.rings
+		@include elementPosition(2em, 2em, -0.5em, -0.5em)
+		border-radius: 50%
+		transform: rotateX(90deg)
+		background: radial-gradient(ellipse at center, rgba(24,19,25,0) 0%,rgba(53,52,51,0) 34%,rgba(55,54,52,1) 36%,rgba(56,55,53,1) 37%,rgba(68,67,66,1) 38%,rgba(56,55,53,1) 39%,rgba(68,67,66,1) 40%,rgba(56,55,53,1) 41%,rgba(87,77,76,1) 42%,rgba(87,77,76,1) 44%,rgba(113,110,103,1) 46%,rgba(113,110,103,1) 48%,rgba(113,98,93,1) 49%,rgba(113,98,93,1) 51%,rgba(122,115,105,1) 52%,rgba(113,98,93,1) 53%,rgba(113,98,93,1) 54%,rgba(122,115,105,1) 55%,rgba(106,99,89,1) 56%,rgba(106,99,89,1) 58%,rgba(79,76,76,0) 60%,rgba(65,64,70,1) 61%,rgba(65,64,70,1) 62%,rgba(90,85,89,1) 63%,rgba(78,74,73,1) 65%,rgba(78,73,74,1) 67%,rgba(78,73,74,0) 68%,rgba(78,73,75,1) 69%,rgba(78,73,75,1) 70%,rgba(78,73,76,0) 71%,rgba(77,72,76,0) 72%,rgba(24,19,25,0) 100%)
 
 #uranus
 	&.orbit 
@@ -218,17 +218,19 @@ body
 		@include axialInclination($uranusAxisInclination)
 		background-image: url(../img/uranus.jpg)
 		animation-duration: $uranusAnimationDuration
-		.rings
-			@include elementPosition(1.8em, 1.8em, -0.4em, -0.4em)
-			border: 0.1em solid rgba(132, 101, 66, 0.8)
-			transform: rotateX(60deg)
-			border-radius: 50%
-			&:after
-				content: ""
-				position: absolute
-				@include elementPosition(1.35em, 1.35em, 0.07em, 0.07em)
-				border: 0.05em solid rgba(132, 101, 66, 0.8)
-				border-radius: 50%
+	.rings
+		@include elementPosition(1.8em, 1.8em, -0.4em, -0.4em)
+		border-radius: 50%
+		background: radial-gradient(ellipse at center, rgba(24,19,25,0) 40%, rgba(113,97,95,0.1) 42%, rgba(113, 97, 95, 1) 52%, rgba(0,0,0,0.1) 55%, rgba(65, 64, 59, 1) 59%, rgba(78,73,74,0.1) 65%, rgba(78, 73, 75, 1) 66%)
+		transform: rotateX(60deg)
+
+		// border: 0.1em solid rgba(132, 101, 66, 0.8)
+		// &:after
+		// 	content: ""
+		// 	position: absolute
+		// 	@include elementPosition(1.35em, 1.35em, 0.07em, 0.07em)
+		// 	border: 0.05em solid rgba(132, 101, 66, 0.8)
+		// 	border-radius: 50%
 
 #neptune
 	&.orbit 
@@ -386,9 +388,11 @@ body
 			animation-iteration-count: infinite
 			box-shadow: inset -9px -2px 39px 15px #000
 	#uranus .rings
-		@include uranusRings()
+		@include elementPosition(24em, 12em, -6em, 0em)
+		background: $uranusRingsBackground
 	#saturn .rings
-		@include saturnRings()
+		@include elementPosition(28em, 13em, -8em, 5em)
+		background: $saturnRingsBackground
 	// .info-wrapper
 
 .animate
