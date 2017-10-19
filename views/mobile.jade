@@ -2,19 +2,18 @@ extends layout
 
 block content
 
-	#universe
-		#galaxy
-			div.menu.main-page-link
-				a(href='/') Back to main page
-			div.menu.mobile-menu
-				each item in items
-					.menu-item
-						a(href="/#{item.url}") #{item.name}
-						div(id="#{item.url}")
-							if item.url != 'sun'
-								.planet
-									if item.url == 'saturn' || item.url == 'uranus'
-										.rings
+	#galaxy
+		div.menu.main-page-link
+			a(href='/') Back to main page
+		div.menu.mobile-menu
+			each item in items
+				.menu-item
+					a(href="/#{item.url}") #{item.name}
+					div(id="#{item.url}")
+						if item.url != 'sun'
+							.planet
+								if item.url == 'saturn' || item.url == 'uranus'
+									.rings
 
 	script.
 		var socket = io.connect();

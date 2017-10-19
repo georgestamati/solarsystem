@@ -1,8 +1,8 @@
 extends layout
 
 block content
-	#universe
-		//- #galaxy
+
+	#galaxy
 		.wrapper
 			.planet-wrapper(id="#{title}")
 				.planet(style="background-image: url(../img/#{title}.jpg)")
@@ -10,10 +10,10 @@ block content
 						.rings
 			.info-wrapper
 
-		ul.menu
-			each item in items
-				li
-					a(href="/#{item.url}") #{item.name}
+	ul.menu
+		each item in items
+			li
+				a(href="/#{item.url}") #{item.name}
 
 
 	script.
