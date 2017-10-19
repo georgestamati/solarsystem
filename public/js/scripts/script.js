@@ -1,7 +1,42 @@
+// $(window).on('load',function(){
+
+// 	var universe = $('#universe');
+// 	var loader = $('.loader');
+// 	var loaderButton = $('<input type="button" class="loader__button" value="Go to app" />')
+
+// 	if( sessionStorage.getItem('loader') == null ) { // It doesn't exist any session
+// 		// loader.show();
+// 		sessionStorage.setItem('loader', 'true');
+
+// 		loader.append(loaderbutton);
+
+// 		loader.find('input').on('click', showPage);
+
+// 		console.log('not exist')
+// 	}
+// 	else{ // It does exist a session
+// 		setTimeout(showPage, 3000);
+// 		// loader.find('input').hide();
+
+// 		console.log('exist')
+// 	}
+
+// 	function showPage() {
+// 		loader.css({
+// 			'opacity': 0,
+// 			'visibility': 'hidden'
+// 		})
+// 		universe.css({
+// 			'opacity': 1,
+// 			'visibility': 'visible'
+// 		})
+// 	}
+// });
+
 $(document).ready(function(){
 
 	var loader = $('.loader');
-	var loaderButton = $('.loader__button')
+	var loaderButton = $('.loader__button');
 
 	if( sessionStorage.getItem('loader') == null ) { // It doesn't exist any session
 		// loader.show();
