@@ -105,6 +105,7 @@ body
 	background-size: cover
 	animation-iteration-count: infinite
 	animation-timing-function: linear
+	transform-style: preserve-3d
 
 .orbit 
 	position: absolute
@@ -365,11 +366,11 @@ body
 	display: flex
 	padding: 30px
 	.planet-wrapper
-		position: static !important
-		padding: 30px
-		margin: 0
-		background: none !important
-		font-size: inherit !important
+		// position: static !important
+		padding: 100px
+		// margin: 0
+		// background: none !important
+		// font-size: inherit !important
 		> div
 			display: block
 			width: 100%
@@ -377,8 +378,8 @@ body
 			margin: 30px
 		.planet
 			position: static
-			width: 300px
-			height: 300px
+			width: 250px
+			height: 250px
 			margin: 40px auto
 			background-size: cover
 			background-repeat: repeat-x
@@ -388,11 +389,13 @@ body
 			animation-iteration-count: infinite
 			box-shadow: inset -9px -2px 39px 15px #000
 	#uranus .rings
-		@include elementPosition(24em, 12em, -6em, 0em)
+		@include elementPosition(51em, 23em, -13em, 0em)
 		background: $uranusRingsBackground
 	#saturn .rings
-		@include elementPosition(28em, 13em, -8em, 5em)
+		@include elementPosition(51em, 25em, -13em, 0em)
 		background: $saturnRingsBackground
+		transform: rotateX(40deg)
+
 	// .info-wrapper
 
 .animate
