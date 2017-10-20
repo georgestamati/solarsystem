@@ -1,72 +1,39 @@
-// $(window).on('load',function(){
-
-// 	var universe = $('#universe');
-// 	var loader = $('.loader');
-// 	var loaderButton = $('<input type="button" class="loader__button" value="Go to app" />')
-
-// 	if( sessionStorage.getItem('loader') == null ) { // It doesn't exist any session
-// 		// loader.show();
-// 		sessionStorage.setItem('loader', 'true');
-
-// 		loader.append(loaderbutton);
-
-// 		loader.find('input').on('click', showPage);
-
-// 		console.log('not exist')
-// 	}
-// 	else{ // It does exist a session
-// 		setTimeout(showPage, 3000);
-// 		// loader.find('input').hide();
-
-// 		console.log('exist')
-// 	}
-
-// 	function showPage() {
-// 		loader.css({
-// 			'opacity': 0,
-// 			'visibility': 'hidden'
-// 		})
-// 		universe.css({
-// 			'opacity': 1,
-// 			'visibility': 'visible'
-// 		})
-// 	}
-// });
-
-$(document).ready(function(){
-
-	var loader = $('.loader');
-	var loaderButton = $('.loader__button');
+$(window).on('load',function() {
+	var universe = $('#universe'),
+		loader = $('.loader'),
+		loaderButton = $('.loader__button'),
+		cssHidden = {'opacity': 0, 'visibility': 'hidden'},
+		cssVisible = {'opacity': 1, 'visibility': 'visible'};
 
 	if( sessionStorage.getItem('loader') == null ) { // It doesn't exist any session
-		// loader.show();
 		sessionStorage.setItem('loader', 'true');
-
+		loaderButton.removeClass('hidden').addClass('visible');
 		loaderButton.on('click', showPage);
+		// Add class if storage is null for showing the button
 	}
 	else{ // It does exist a session
-		setTimeout(showPage, 3000);
-		loader.find('.loader__button').hide();
+		loader.addClass('loader__new-session');
 	}
-
+	
 	function showPage() {
-		$('.loader').css({
-			'opacity': 0,
-			'visibility': 'hidden'
-		})
-		$('#universe').css({
-			'opacity': 1,
-			'visibility': 'visible'
-		})
+		loader.css({
+			// 'opacity': 0, 
+			// 'visibility': 'hidden', 
+			'transform': 'scale(0,0)'});
+		universe.css({
+			// 'opacity': 1, 
+			// 'visibility': 'visible', 
+			'transform': 'scale(1,1)'});
 	}
+});
 
+$(document).ready(function(){
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
 	// $('#galaxy').addClass('galaxy-view--3D');
 
 	if (annyang) {
-	  	// Let's define our first command. First the text we expect, and then the function it should call
 		var commands = {
 			'back (to) (main) (first) (page)': function(){
             	window.location = '/';

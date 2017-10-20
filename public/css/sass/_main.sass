@@ -23,8 +23,8 @@ body
 .loader
 	position: absolute
 	z-index: 1
-	opacity: 1
-	visibility: visible
+	// opacity: 1
+	// visibility: visible
 	display: flex
 	align-items: center
 	justify-content: center
@@ -32,7 +32,18 @@ body
 	height: 100%
 	width: 100%
 	overflow: hidden
-	transition: all 1s ease
+	// transform: scale(0, 0)
+	&.loader__new-session
+		animation: scaleLoader 5s
+		animation-fill-mode: forwards
+
+@keyframes scaleLoader
+	0%, 100%
+		opacity: 0
+		transform: scale(0,0)
+	80%
+		opacity: 1
+		transform: scale(1,1)
 
 .loader__planet
 	position: relative
@@ -42,7 +53,7 @@ body
 	background: url('../img/earth.jpg') repeat-x
 	background-size: cover
 	background-position-x: -450px 
-	animation: animatedBackground 10s infinite linear
+	animation: animatedBackground 8s infinite linear
 	&:after
 		content: ""
 		position: absolute
@@ -52,7 +63,7 @@ body
 		right: 0
 		border-radius: 50%
 		box-shadow: 0px 0px 30px #8ff, 0px 0px 100px #000 inset, 0px 0px 50px #5ff inset, -20px -10px 100px #000 inset
-		animation: loaderAnimation 3s infinite linear
+		animation: loaderAnimation 2s infinite linear
 
 .loader__button
 	bottom: -50%
@@ -69,12 +80,23 @@ body
 #universe 
 	position: absolute
 	z-index: 0
-	opacity: 0
-	visibility: hidden
+	// opacity: 0
+	// visibility: hidden
 	overflow: hidden
 	width: 100%
 	height: 100%
-	transition: all 1s ease
+	transform: scale(0)
+	// transition: all 1s ease
+	animation: scaleUniverse 1s 5s
+	animation-fill-mode: forwards
+
+@keyframes scaleUniverse
+	0%
+		opacity: 0
+		transform: scale(0,0)
+	100%
+		opacity: 1
+		transform: scale(1,1)
 
 #galaxy 
 	position: relative
@@ -405,3 +427,32 @@ body
 .hidden
 	opacity: 0
 	visibility: hidden
+
+
+// .spinner-wrapper
+// 	position: fixed
+// 	top: 0
+// 	left: 0
+// 	right: 0
+// 	bottom: 0
+// 	background-color: #ff6347
+// 	z-index: 999999
+
+// .spinner 
+// 	width: 40px
+// 	height: 40px
+// 	background-color: #333
+// 	position: absolute
+// 	top: 48%
+// 	left: 48%
+// 	animation: sk-rotateplane 1.2s infinite ease-in-out
+
+
+// @keyframes sk-rotateplane 
+// 	0%  
+// 		transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+// 	50%  
+// 		transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+// 	100%  
+// 		transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
+
