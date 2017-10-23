@@ -5,25 +5,23 @@ $(window).on('load',function() {
 		cssHidden = {'opacity': 0, 'visibility': 'hidden'},
 		cssVisible = {'opacity': 1, 'visibility': 'visible'};
 
+	loader.removeClass('hidden');
+
 	if( sessionStorage.getItem('loader') == null ) { // It doesn't exist any session
+		loader.addClass('loader__new-session');
+		universe.addClass('universe__new-session');
 		sessionStorage.setItem('loader', 'true');
-		loaderButton.removeClass('hidden').addClass('visible');
+		loaderButton.removeClass('hidden');
 		loaderButton.on('click', showPage);
-		// Add class if storage is null for showing the button
 	}
 	else{ // It does exist a session
-		loader.addClass('loader__new-session');
+		loader.addClass('loader__same-session');
+		universe.addClass('universe__same-session');
 	}
 	
 	function showPage() {
-		loader.css({
-			// 'opacity': 0, 
-			// 'visibility': 'hidden', 
-			'transform': 'scale(0,0)'});
-		universe.css({
-			// 'opacity': 1, 
-			// 'visibility': 'visible', 
-			'transform': 'scale(1,1)'});
+		loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
+		universe.addClass('universe__new-session--clicked');
 	}
 });
 

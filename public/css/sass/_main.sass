@@ -23,8 +23,6 @@ body
 .loader
 	position: absolute
 	z-index: 1
-	// opacity: 1
-	// visibility: visible
 	display: flex
 	align-items: center
 	justify-content: center
@@ -32,18 +30,13 @@ body
 	height: 100%
 	width: 100%
 	overflow: hidden
-	// transform: scale(0, 0)
+	&.loader__same-session
+		@include animationMixin(scaleLoader, 5s, 0s)
 	&.loader__new-session
-		animation: scaleLoader 5s
-		animation-fill-mode: forwards
-
-@keyframes scaleLoader
-	0%, 100%
-		opacity: 0
-		transform: scale(0,0)
-	80%
-		opacity: 1
-		transform: scale(1,1)
+		@include scaleElement(0, scale(0,0))
+		@include animationMixin(scaleUpOnClick, 5s, 0s)
+	&.loader__new-session--clicked
+		@include animationMixin(scaleDownOnClick, 2s, 0s)
 
 .loader__planet
 	position: relative
@@ -80,29 +73,19 @@ body
 #universe 
 	position: absolute
 	z-index: 0
-	// opacity: 0
-	// visibility: hidden
 	overflow: hidden
 	width: 100%
 	height: 100%
-	transform: scale(0)
-	// transition: all 1s ease
-	animation: scaleUniverse 1s 5s
-	animation-fill-mode: forwards
-
-@keyframes scaleUniverse
-	0%
-		opacity: 0
-		transform: scale(0,0)
-	100%
-		opacity: 1
-		transform: scale(1,1)
+	@include scaleElement(0, scale(0,0))
+	&.universe__same-session
+		@include animationMixin(scaleUniverse, 1s, 4s)
+	&.universe__new-session--clicked
+		@include animationMixin(scaleUpOnClick, 2s, 0s)
 
 #galaxy 
 	position: relative
 	width: 100%
 	height: 100%
-	// margin-top: 1000px
 
 #sun, .planet 
 	position: absolute
@@ -427,32 +410,3 @@ body
 .hidden
 	opacity: 0
 	visibility: hidden
-
-
-// .spinner-wrapper
-// 	position: fixed
-// 	top: 0
-// 	left: 0
-// 	right: 0
-// 	bottom: 0
-// 	background-color: #ff6347
-// 	z-index: 999999
-
-// .spinner 
-// 	width: 40px
-// 	height: 40px
-// 	background-color: #333
-// 	position: absolute
-// 	top: 48%
-// 	left: 48%
-// 	animation: sk-rotateplane 1.2s infinite ease-in-out
-
-
-// @keyframes sk-rotateplane 
-// 	0%  
-// 		transform: perspective(120px) rotateX(0deg) rotateY(0deg)
-// 	50%  
-// 		transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
-// 	100%  
-// 		transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg)
-

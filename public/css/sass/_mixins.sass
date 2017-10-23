@@ -10,3 +10,11 @@
 @mixin planetPosition($top, $left)
 	top: $top
 	left: $left
+
+@mixin scaleElement($opacity, $transform)
+	opacity: $opacity
+	transform: $transform
+
+@mixin animationMixin($name, $duration, $delay)
+	animation: $name $duration $delay
+	animation-fill-mode: forwards
