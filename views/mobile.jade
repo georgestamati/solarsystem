@@ -8,11 +8,11 @@ block content
 		div.menu.mobile-menu
 			each item in items
 				.menu-item
-					a(href="/#{item.url}") #{item.name}
-					div(id="#{item.url}")
-						if item.url != 'sun'
+					a(href="/#{item.name}") #{item.name}
+					div(id="#{item.name}")
+						if item.name != 'sun'
 							.planet
-								if item.url == 'saturn' || item.url == 'uranus'
+								if item.name == 'saturn' || item.name == 'uranus'
 									.rings
 
 	script.
