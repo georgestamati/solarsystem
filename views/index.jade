@@ -3,41 +3,21 @@ extends layout
 block content
 
 	#galaxy.galaxy-view--3D
-		#sun
-		#mercury.orbit
-			.planet-wrap
-				.planet
-		#venus.orbit
-			.planet-wrap
-				.planet
-		#earth.orbit
-			.planet-wrap
-				.planet
-				#moon.orbit
+		each item in items
+			if item.name == 'sun'
+				#sun
+			else
+				.orbit(id="#{item.name}")
 					.planet-wrap
 						.planet
-		#mars.orbit
-			.planet-wrap
-				.planet
-		#jupiter.orbit
-			.planet-wrap
-				.planet
-		#saturn.orbit
-			.planet-wrap
-				.planet
-					.rings
-		#uranus.orbit
-			.planet-wrap
-				.planet
-					.rings
-		#neptune.orbit
-			.planet-wrap
-				.planet
+							if item.name == 'saturn' || item.name == 'uranus'
+								.rings
+						if item.name == 'earth'
+							#moon.orbit
+								.planet-wrap
+									.planet
 
-	ul.menu.menu__index
-		each item in items
-			li
-				a(href="/#{item.name}") #{item.name}
+	include menu
 
 	script.
 		//- var socket = io.connect('localhost:3000')

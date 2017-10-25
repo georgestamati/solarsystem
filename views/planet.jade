@@ -15,11 +15,7 @@ block content
 								.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')")
 			.info-wrapper
 
-	ul.menu
-		each item in items
-			li
-				a(href="/#{item.name}") #{item.name}
-
+	include menu
 
 	script.
 		var socket = io.connect();
