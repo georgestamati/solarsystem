@@ -5,11 +5,11 @@ block content
 	#galaxy.galaxy-view--3D
 		each item in items
 			if item.name == 'sun'
-				#sun
+				#sun(style="background-image: url('../img/#{item.name}.jpg')")
 			else
 				.orbit(id="#{item.name}")
 					.planet-wrap
-						.planet
+						.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
 							if item.name == 'saturn' || item.name == 'uranus'
 								.rings
 						if item.name == 'earth'

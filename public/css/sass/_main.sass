@@ -99,7 +99,7 @@ a
 	border-radius: 50%
 
 #sun 
-	background-image: url('../img/sun.jpg')
+	// background-image: url('../img/sun.jpg')
 	background-repeat: no-repeat
 	background-size: cover
 
@@ -142,7 +142,6 @@ a
 		animation-duration: $mercuryAnimationDuration
 	.planet 
 		@include axialInclination($mercuryAxisInclination)
-		background-image: url(../img/planets/mercury.jpg)
 		animation-duration: $mercuryAnimationDuration
 
 #venus
@@ -153,7 +152,6 @@ a
 		animation-duration: $venusAnimationDuration
 	.planet 
 		@include axialInclination($venusAxisInclination)
-		background-image: url(../img/planets/venus.jpg)
 		animation-duration: $venusAnimationDuration
 
 #earth
@@ -164,7 +162,6 @@ a
 		animation-duration: $earthAnimationDuration
 	.planet 
 		@include axialInclination($earthAxisInclination)
-		background-image: url(../img/planets/earth.jpg)
 		animation-duration: $earthAnimationDuration
 	#moon
 		@include elementPosition(1.8em, 1.8em, -0.9em, -0.9em)
@@ -188,7 +185,6 @@ a
 		animation-duration: $marsAnimationDuration
 	.planet 
 		@include axialInclination($marsAxisInclination)
-		background-image: url(../img/planets/mars.jpg)
 		animation-duration: $marsAnimationDuration
 
 #jupiter
@@ -199,7 +195,6 @@ a
 		animation-duration: $jupiterAnimationDuration
 	.planet 
 		@include axialInclination($jupiterAxisInclination)
-		background-image: url(../img/planets/jupiter.jpg)
 		animation-duration: $jupiterAnimationDuration
 
 #saturn
@@ -210,7 +205,6 @@ a
 		animation-duration: $saturnAnimationDuration
 	.planet 
 		@include axialInclination($saturnAxisInclination)
-		background-image: url(../img/planets/saturn.jpg)
 		animation-duration: $saturnAnimationDuration
 	.rings
 		@include elementPosition(2em, 2em, -0.5em, -0.5em)
@@ -226,7 +220,6 @@ a
 		animation-duration: $uranusAnimationDuration
 	.planet 
 		@include axialInclination($uranusAxisInclination)
-		background-image: url(../img/planets/uranus.jpg)
 		animation-duration: $uranusAnimationDuration
 	.rings
 		@include elementPosition(1.8em, 1.8em, -0.4em, -0.4em)
@@ -250,7 +243,6 @@ a
 		animation-duration: $neptuneAnimationDuration
 	.planet 
 		@include axialInclination($neptuneAxisInclination)
-		background-image: url(../img/planets/neptune.jpg)
 		animation-duration: $neptuneAnimationDuration
 
 .galaxy-view--3D, .galaxy-view--2D
@@ -375,11 +367,7 @@ a
 	// display: flex
 	padding: 30px
 	.planet-wrapper
-		// position: static !important
 		padding: 100px
-		// margin: 0
-		// background: none !important
-		// font-size: inherit !important
 		.planet
 			position: static
 			position: fixed
@@ -392,7 +380,6 @@ a
 			height: 1000px
 			padding: 14px
 			margin: 40px auto
-			background-size: cover
 			background-repeat: repeat-x
 			// animation-name: animatedBackground
 			// animation-duration: 30s !important
