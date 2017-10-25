@@ -10,9 +10,9 @@ block content
 						.rings
 				.moons-wrapper
 					each item in items
-						if item.name == title
+						if item.name == title && item.moons
 							each moon in item.moons
-								.moon(id="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')")
+								.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')")
 			.info-wrapper
 
 	ul.menu

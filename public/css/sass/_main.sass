@@ -161,7 +161,7 @@ body
 		animation-duration: $earthAnimationDuration
 	.planet 
 		@include axialInclination($earthAxisInclination)
-		background-image: url(../img/planets/earth_with_clouds.jpg)
+		background-image: url(../img/planets/earth.jpg)
 		animation-duration: $earthAnimationDuration
 	#moon
 		@include elementPosition(1.8em, 1.8em, -0.9em, -0.9em)
@@ -371,7 +371,7 @@ body
 			transition: color ease .5s
 
 .wrapper
-	display: flex
+	// display: flex
 	padding: 30px
 	.planet-wrapper
 		// position: static !important
@@ -379,28 +379,31 @@ body
 		// margin: 0
 		// background: none !important
 		// font-size: inherit !important
-		> div
-			display: block
-			width: 100%
-			padding: 14px
-			margin: 30px
 		.planet
 			position: static
-			width: 250px
-			height: 250px
+			position: fixed
+			top: -250px
+			// left: -750px
+			left: -500px
+			// width: 250px
+			// height: 250px
+			width: 1000px
+			height: 1000px
+			padding: 14px
 			margin: 40px auto
 			background-size: cover
 			background-repeat: repeat-x
-			animation-name: animatedBackground
-			animation-duration: 30s !important
-			animation-timing-function: linear
-			animation-iteration-count: infinite
+			// animation-name: animatedBackground
+			// animation-duration: 30s !important
+			// animation-timing-function: linear
+			// animation-iteration-count: infinite
 			box-shadow: inset -9px -2px 39px 15px #000
 	#uranus .rings
-		@include elementPosition(51em, 23em, -13em, 0em)
+		@include elementPosition(1700px, 700px, -370px, 100px)
 		background: $uranusRingsBackground
 	#saturn .rings
-		@include elementPosition(51em, 25em, -13em, 0em)
+		// @include elementPosition(51em, 25em, -13em, 0em)
+		@include elementPosition(2000px, 520px, -500px, 300px)
 		background: $saturnRingsBackground
 		transform: rotateX(40deg)
 	#sun
@@ -411,13 +414,34 @@ body
 			background-image: url('../img/sun.jpg')
 			box-shadow: 0px 0px 30px 12px orange, 0px 0px 100px 20px orange inset
 
+.moons-wrapper
+	position: relative
+
 .moon
+	position: absolute
 	width: 150px
 	height: 150px
-	background-size: cover
+	// background-size: cover
+	margin: 0 auto
+	background-position: 350px 150px
 	border-radius: 50%
 	box-shadow: inset -9px -2px 39px 15px #000
 	// .info-wrapper
+	&:nth-child(1)
+		@include moonPosition(0, 0, 1)
+	&:nth-child(2)
+		@include moonPosition(200px, 200px, 0.5)
+	&:nth-child(3)
+		@include moonPosition(450px, 50px, 0.7)
+	&:nth-child(4)
+		@include moonPosition(-75px, 400px, 0.8)
+	&:nth-child(5)
+		@include moonPosition(-100px, 200px, 0.4)
+	&:nth-child(6)
+		@include moonPosition(200px, 350px, 0.2)
+	&:nth-child(7)
+		@include moonPosition(300px, 500px, 0.3)
+
 
 .visible
 	opacity: 1
