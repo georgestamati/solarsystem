@@ -12,8 +12,8 @@ block content
 					each item in items
 						if item.name == title && item.moons
 							each moon in item.moons
-								.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')")
-			.info-wrapper
+								a.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')" href="/#{title}/#{moon.name}")
+									.moon-tooltip #{moon.name}
 
 	include menu
 
