@@ -26,20 +26,22 @@ $(window).on('load',function() {
 });
 
 $(document).ready(function(){
-
-	// $('.menu li').on('mouseover', function(){
-	// 	$this = $(this);
-	// 	dataName = $this.data('name');
-	// 	$('#' + dataName).find('.planet').animate({
-	// 		'font-size': '300px'
-	// 	}, 1000);
-	// }).on('mouseout', function(){
-	// 	$this = $(this);
-	// 	dataName = $this.data('name');
-	// 	$('#' + dataName).find('.planet').animate({
-	// 		'font-size': 'inherit'
-	// 	}, 1000);
+	// $('body').mousemove(function(e){
+	//   	parallaxFunc(e, '#galaxy', -150);
 	// });
+
+	// function parallaxFunc(e, target, movement){
+	//   var $this = $('body');
+	//   var relX = e.pageX - $this.offset().left;
+	//   var relY = e.pageY - $this.offset().top;
+	  
+	//   TweenMax.to(target, 1, {
+	//     x: (relX - $this.width()/2) / $this.width() * movement,
+	//     y: (relY - $this.height()/2) / $this.height() * movement
+	//   })
+	// }
+
+	// $('body').parallax();
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
@@ -80,3 +82,7 @@ $(document).ready(function(){
 		console.log('Speech Recognition is not supported');
 	}
 })
+
+
+
+  
