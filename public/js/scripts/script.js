@@ -44,9 +44,12 @@ $(document).ready(function(){
 	// $('body').parallax();
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+	var ua = navigator.userAgent;
+	var socket = io.connect();
 
 	// $('#galaxy').addClass('galaxy-view--3D');
-
+	
+	console.log(socket);
 	if (annyang) {
 		var commands = {
 			'back (to) (main) (first) (page)': function(){
@@ -55,8 +58,13 @@ $(document).ready(function(){
             '(show) (me) (details) (about) (the) :word': function(word) {
 				$.each(stars, function(index, element){
 					if(word.toLowerCase() == element.toLowerCase()){
-						console.log(word, index, element);
-						window.location = word.toLowerCase();
+						if(/mobile/i.test(ua)){
+
+						}
+						else{
+							console.log(word, index, element);
+							window.location = word.toLowerCase();
+						}
 					}
 				})
             }
