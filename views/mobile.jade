@@ -10,10 +10,10 @@ block content
 				.menu-item
 					a(href="/#{item.name}") #{item.name}
 					div(id="#{item.name}")
-						if item.name != 'sun'
-							.planet
-								if item.name == 'saturn' || item.name == 'uranus'
-									.rings
+						//- if item.name != 'sun'
+						.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
+							if item.name == 'saturn' || item.name == 'uranus'
+								.rings
 
 	script.
 		var socket = io.connect();
