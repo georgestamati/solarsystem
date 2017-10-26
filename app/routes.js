@@ -15,4 +15,8 @@ router.get('/:planet', function(req, res, next) {
 	res.render('planet', { 'title': req.params.planet, 'url': req.params.planet, 'items': rows});
 });
 
+router.get('/:planet/:moon', function(req, res, next) {
+	res.render('moon', { 'moon': req.params.moon, 'planet': req.params.planet, 'items': rows});
+});
+
 module.exports = router;

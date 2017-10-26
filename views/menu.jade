@@ -1,4 +1,8 @@
 ul.menu
 	each item in items
-		li
+		li(data-name='#{item.name}')
 			a(href="/#{item.name}") #{item.name}
+			if item.moons
+				span.dropdown
+					each moon in item.moons
+						a(href="/#{item.name}/#{moon.name}") #{moon.name}

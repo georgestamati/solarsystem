@@ -5,7 +5,7 @@ block content
 	#galaxy
 		.wrapper
 			.planet-wrapper(id="#{title}")
-				.planet(style="background-image: url('../img/#{title}_hd.jpg')")
+				.planet(style="background-image: url('../img/planets/#{title}_hd.jpg')")
 					if title == 'saturn' || title == 'uranus'
 						.rings
 				.moons-wrapper
@@ -13,7 +13,7 @@ block content
 						if item.name == title && item.moons
 							each moon in item.moons
 								a.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')" href="/#{title}/#{moon.name}")
-									.moon-tooltip #{moon.name}
+									.tooltip.moon-tooltip #{moon.name}
 
 	include menu
 

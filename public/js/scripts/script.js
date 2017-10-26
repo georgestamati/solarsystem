@@ -27,6 +27,20 @@ $(window).on('load',function() {
 
 $(document).ready(function(){
 
+	// $('.menu li').on('mouseover', function(){
+	// 	$this = $(this);
+	// 	dataName = $this.data('name');
+	// 	$('#' + dataName).find('.planet').animate({
+	// 		'font-size': '300px'
+	// 	}, 1000);
+	// }).on('mouseout', function(){
+	// 	$this = $(this);
+	// 	dataName = $this.data('name');
+	// 	$('#' + dataName).find('.planet').animate({
+	// 		'font-size': 'inherit'
+	// 	}, 1000);
+	// });
+
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
 	// $('#galaxy').addClass('galaxy-view--3D');

@@ -74,6 +74,40 @@ a
 	border: 1px solid aqua
 	cursor: pointer
 
+.menu
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	padding: 15px 0
+	margin: 0
+	background-color: transparent
+	font-size: initial
+	text-align: center
+	li
+		position: relative
+		display: inline
+		margin: 0 10px
+		&:hover .dropdown
+			opacity: 1
+			transition: all .3s ease
+	a
+		color: aqua
+		transition: color ease .5s
+		&:hover
+			color: #fff
+			transition: color ease .5s
+			
+.dropdown
+	position: absolute
+	top: 100%
+	left: 0
+	opacity: 0
+	text-align: left
+	transition: all .3s ease
+	a
+		display: block
+
 #universe 
 	// position: absolute
 	// z-index: 0
@@ -99,7 +133,6 @@ a
 	border-radius: 50%
 
 #sun 
-	// background-image: url('../img/sun.jpg')
 	background-repeat: no-repeat
 	background-size: cover
 
@@ -227,14 +260,6 @@ a
 		background: radial-gradient(ellipse at center, rgba(24,19,25,0) 40%, rgba(113,97,95,0.1) 42%, rgba(113, 97, 95, 1) 52%, rgba(0,0,0,0.1) 55%, rgba(65, 64, 59, 1) 59%, rgba(78,73,74,0.1) 65%, rgba(78, 73, 75, 1) 66%)
 		transform: rotateX(60deg)
 
-		// border: 0.1em solid rgba(132, 101, 66, 0.8)
-		// &:after
-		// 	content: ""
-		// 	position: absolute
-		// 	@include elementPosition(1.35em, 1.35em, 0.07em, 0.07em)
-		// 	border: 0.05em solid rgba(132, 101, 66, 0.8)
-		// 	border-radius: 50%
-
 #neptune
 	&.orbit 
 		animation-duration: $neptuneAnimationDuration
@@ -341,28 +366,6 @@ a
 // 	position: relative
 // 	z-index: 2
 
-.menu
-	position: absolute
-	top: 0
-	left: 0
-	right: 0
-	padding: 15px 0
-	margin: 0
-	background-color: transparent
-	font-size: initial
-	text-align: center
-	&.menu__index
-		// margin-top: 1000px
-	li
-		display: inline
-		margin: 0 10px
-	a
-		color: aqua
-		transition: color ease .5s
-		&:hover
-			color: #fff
-			transition: color ease .5s
-
 .wrapper
 	// display: flex
 	padding: 30px
@@ -439,7 +442,7 @@ a
 			opacity: 1
 			transform: scale(1) translateX(-50%)
 			
-.moon-tooltip
+.tooltip
 	position: absolute
 	top: -40px
 	left: 50%
