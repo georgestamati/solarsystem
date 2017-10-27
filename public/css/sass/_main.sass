@@ -89,7 +89,7 @@ a
 		margin: 0 15px
 		&:hover .dropdown
 			opacity: 1
-			padding: 10px 0 0 10px
+			visibility: visible
 			transition: all .3s ease
 	a
 		color: aqua
@@ -104,6 +104,8 @@ a
 	top: 100%
 	left: 0
 	opacity: 0
+	visibility: hidden
+	padding: 10px 0 0 10px
 	text-align: left
 	transition: all .3s ease
 	a
@@ -148,7 +150,7 @@ a
 
 .planet 
 	background-color: #202020
-	background-repeat: no-repeat
+	background-repeat: repeat-x
 	background-size: cover
 	animation-iteration-count: infinite
 	animation-timing-function: linear
@@ -320,7 +322,8 @@ a
 	#sun
 		transform: rotateX(-70deg)
 		transform-style: preserve-3d
-		box-shadow: 0px 0px 30px 12px orange, 0px 0px 100px 20px orange inset
+		// box-shadow: 0px 0px 30px 12px orange, 0px 0px 100px 20px orange inset
+		animation: sunRays 5s infinite linear
 
 	.planet-wrap
 		transform-style: preserve-3d
@@ -328,7 +331,7 @@ a
 		animation-iteration-count: infinite
 		animation-timing-function: linear
 		.planet
-			animation-name: animateShadow
+			animation-name: animateShadow, animatedBackground
 			transform-style: preserve-3d
 
 .galaxy-view--2D
@@ -366,13 +369,7 @@ a
 	#neptune
 		font-size: 7.72em
 
-
-// .change-view
-// 	position: relative
-// 	z-index: 2
-
 .wrapper
-	// display: flex
 	padding: 30px
 	.planet-wrapper
 		padding: 100px
@@ -380,10 +377,7 @@ a
 			position: static
 			position: fixed
 			top: -250px
-			// left: -750px
 			left: -500px
-			// width: 250px
-			// height: 250px
 			width: 1000px
 			height: 1000px
 			padding: 14px
@@ -398,7 +392,6 @@ a
 		@include elementPosition(1700px, 700px, -370px, 100px)
 		background: $uranusRingsBackground
 	#saturn .rings
-		// @include elementPosition(51em, 25em, -13em, 0em)
 		@include elementPosition(2000px, 520px, -500px, 300px)
 		background: $saturnRingsBackground
 		transform: rotateX(40deg)

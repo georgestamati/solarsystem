@@ -41,7 +41,33 @@ $(document).ready(function(){
 	//   })
 	// }
 
-	// $('body').parallax();
+
+
+	// var $galaxy = $('[class^="galaxy-"]'),
+	// $body = $('body'),
+	// bodyWidth = $body.width(),
+	// bodyHeight = $body.height();
+
+	// $(window).on('mousemove', function(e) {
+	// 	var posX = e.pageX,
+	// 		posY = e.pageY,
+	// 		parallaxLeft = 0,
+	// 		parallaxTop = 0;
+
+	// 	parallaxLeft = bodyWidth / 4 - posX;
+	// 	parallaxTop  = bodyHeight / 4 - posY;
+
+	// 	TweenMax.to($galaxy, 0.1, { 
+	// 		css: {
+	// 			// transform: 'translateX(' + parallaxLeft / 4 + 'px) translateY(' + parallaxTop / 2 + 'px) rotateX(70deg) scale(1.5)' 
+	// 			left: parallaxLeft / 4 + 'px',
+	// 			top: parallaxTop / 4 + 'px',
+	// 			transform: 'rotateX(70deg) scale(1.5)'
+	// 		},
+	// 		// ease: Linear.easeNone,
+	// 		overwrite: 'all'
+	// 	});
+	// });
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 	var ua = navigator.userAgent;
