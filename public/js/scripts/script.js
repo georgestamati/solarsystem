@@ -26,48 +26,54 @@ $(window).on('load',function() {
 });
 
 $(document).ready(function(){
-	// $('body').mousemove(function(e){
-	//   	parallaxFunc(e, '#galaxy', -150);
-	// });
 
-	// function parallaxFunc(e, target, movement){
-	//   var $this = $('body');
-	//   var relX = e.pageX - $this.offset().left;
-	//   var relY = e.pageY - $this.offset().top;
-	  
-	//   TweenMax.to(target, 1, {
-	//     x: (relX - $this.width()/2) / $this.width() * movement,
-	//     y: (relY - $this.height()/2) / $this.height() * movement
-	//   })
-	// }
+	var $body = $('body'),
+		bodyWidth = $body.width(),
+		bodyHeight = $body.height(),
+		universe = $('#universe'),
+		container = $('[class^="galaxy-"]'),
+		firefoxUserAgent = (/Firefox/i.test(navigator.userAgent));
+
+		console.log(container.css('transform'));
+
+	// Zoom effect
+	var zoomEvent = firefoxUserAgent ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
+	var incr = 1;
+	
+	if (document.attachEvent) //if IE (and Opera depending on user setting)
+		document.attachEvent("on" + zoomEvent, zoomGalaxy)
+	else if (document.addEventListener) //WC3 browsers
+		document.addEventListener(zoomEvent, zoomGalaxy, false)
+
+	// Parallax effect
+	universe.on('mousemove', function(e) {
+		// parallaxIt(e, '#galaxy', -1000);
+	});
 
 
+	function zoomGalaxy(e){
+		var ev = window.event || e; //equalize event object
+		var delta = ev.detail ? ev.detail : ev.wheelDelta; //check for detail first so Opera uses that instead of wheelDelta
+		delta = delta / 120;
+		delta = firefoxUserAgent ? delta / 3 : delta;
+		incr += delta / 5;
+		if(incr > 0){
+			container.css({'transform': 'rotateX(70deg) scale3d(' + incr + ',' + incr + ',' + incr + ')'});
+		}
+		else{
+			incr = 0;
+		}
+	}
+	function parallaxIt(e, target, movement){
+		var relX = e.pageX - universe.offset().left;
+		var relY = e.pageY - universe.offset().top;
 
-	// var $galaxy = $('[class^="galaxy-"]'),
-	// $body = $('body'),
-	// bodyWidth = $body.width(),
-	// bodyHeight = $body.height();
+		TweenMax.to(target, 1, {
+			x: (relX - universe.width()/2) / universe.width() * movement,
+			y: (relY - universe.height()/2) / universe.height() * movement
+		})
+	}
 
-	// $(window).on('mousemove', function(e) {
-	// 	var posX = e.pageX,
-	// 		posY = e.pageY,
-	// 		parallaxLeft = 0,
-	// 		parallaxTop = 0;
-
-	// 	parallaxLeft = bodyWidth / 4 - posX;
-	// 	parallaxTop  = bodyHeight / 4 - posY;
-
-	// 	TweenMax.to($galaxy, 0.1, { 
-	// 		css: {
-	// 			// transform: 'translateX(' + parallaxLeft / 4 + 'px) translateY(' + parallaxTop / 2 + 'px) rotateX(70deg) scale(1.5)' 
-	// 			left: parallaxLeft / 4 + 'px',
-	// 			top: parallaxTop / 4 + 'px',
-	// 			transform: 'rotateX(70deg) scale(1.5)'
-	// 		},
-	// 		// ease: Linear.easeNone,
-	// 		overwrite: 'all'
-	// 	});
-	// });
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 	var ua = navigator.userAgent;
@@ -75,7 +81,6 @@ $(document).ready(function(){
 
 	// $('#galaxy').addClass('galaxy-view--3D');
 	
-	console.log(socket);
 	if (annyang) {
 		var commands = {
 			'back (to) (main) (first) (page)': function(){
@@ -88,7 +93,7 @@ $(document).ready(function(){
 
 						}
 						else{
-							console.log(word, index, element);
+							// console.log(word, index, element);
 							window.location = word.toLowerCase();
 						}
 					}
