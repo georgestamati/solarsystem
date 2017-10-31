@@ -34,8 +34,6 @@ $(document).ready(function(){
 		container = $('[class^="galaxy-"]'),
 		firefoxUserAgent = (/Firefox/i.test(navigator.userAgent));
 
-		console.log(container.css('transform'));
-
 	// Zoom effect
 	var zoomEvent = firefoxUserAgent ? "DOMMouseScroll" : "mousewheel" //FF doesn't recognize mousewheel as of FF3.x
 	var incr = 1;
@@ -80,6 +78,42 @@ $(document).ready(function(){
 	var socket = io.connect();
 
 	// $('#galaxy').addClass('galaxy-view--3D');
+
+	// $("button").on("click", handleButtonClick);
+
+	// function jsonFlickrFeed(json) {
+	//   console.log(json);
+	  
+	//   $.each(json.items, function(i, item) {
+	//     $("<img />").attr("src", item.media.m).appendTo("#images");
+	//   });
+	// };
+
+	// function handleButtonClick() {
+	//   $("button").remove();
+	  
+	//   $.ajax({
+	//     url: 'https://api.flickr.com/services/feeds/photos_public.gne',
+	//     dataType: 'jsonp',
+	//     data: { "tags": "kitten", "format": "json" }
+	//   });
+	// }
+
+	function showFlickrImages(word, no){
+		var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6a970fbb976a06193676f88ef2722cc8&text="+ word +"&sort=relevance&privacy_filter=1&safe_search=1&per_page="+ no +"&page=1&format=json&nojsoncallback=1";
+		
+		$.ajax({
+			url: url,
+			success: function(res){
+				$.each(res.photos.photo, function(i, item){
+					$('<img src="https://farm'+item.farm+'.staticflickr.com/'+item.server+'/'+item.id+'_'+item.secret+'_n.jpg" />').appendTo('#gallery');  
+				})
+			}
+		});
+	}
+
+	showFlickrImages('jupiter planet', 10);
+
 	
 	if (annyang) {
 		var commands = {
@@ -98,8 +132,22 @@ $(document).ready(function(){
 						}
 					}
 				})
-            }
+            },
+            'images about :tag': function(tag){
+				// var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6a970fbb976a06193676f88ef2722cc8&text="+ word +"&sort=relevance&privacy_filter=1&safe_search=1&per_page="+ no +"&page=1&format=json&nojsoncallback=1";
+				var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6a970fbb976a06193676f88ef2722cc8&text="+ word +"&sort=relevance&privacy_filter=1&safe_search=1&per_page=10&page=1&format=json&nojsoncallback=1";
+		
+				$.ajax({
+					url: url,
+					success: function(res){
+						$.each(res.photos.photo, function(i, item){
+							$('<img src="https://farm'+item.farm+'.staticflickr.com/'+item.server+'/'+item.id+'_'+item.secret+'_n.jpg" />').appendTo('#gallery');  
+						})
+					}
+				});
+			}
         };
+
 
 		// Add our commands to annyang
 		annyang.addCommands(commands);
