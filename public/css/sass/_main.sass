@@ -115,10 +115,7 @@ a
 		&:last-child
 			padding-bottom: 0
 
-#universe 
-	// position: absolute
-	// z-index: 0
-	// overflow: hidden
+#universe
 	width: 100%
 	height: 100%
 	@include scaleElement(0, scale(0,0))
@@ -213,7 +210,7 @@ a
 			animation-duration: $moonAnimationDuration
 		.planet
 			@include elementPosition(0.3em, 0.3em, -0.15em, -0.15em)
-			background-image: url(../img/moons/earth/moon.jpg)
+			background-image: url('../img/moons/earth/moon.jpg')
 			border-radius: 50%
 			animation-duration: $moonAnimationDuration
 
@@ -376,7 +373,6 @@ a
 	.planet-wrapper
 		padding: 100px
 		.planet
-			position: static
 			position: fixed
 			top: -250px
 			left: -500px

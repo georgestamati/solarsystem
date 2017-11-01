@@ -1,25 +1,22 @@
 $(window).on('load',function() {
 	var universe = $('#universe'),
 		loader = $('.loader'),
-		loaderButton = $('.loader__button'),
-		cssHidden = {'opacity': 0, 'visibility': 'hidden'},
-		cssVisible = {'opacity': 1, 'visibility': 'visible'};
+		loaderButton = $('.loader__button');
 
 	loader.removeClass('hidden');
 
-	if( sessionStorage.getItem('loader') == null ) { // It doesn't exist any session
-		sessionStorage.setItem('loader', 'true');
+    if (sessionStorage.getItem('loader') === null) { // It doesn't exist any session
+        sessionStorage.setItem('loader', 'true');
 
-		loader.addClass('loader__new-session');
-		loaderButton.removeClass('hidden');
-		universe.addClass('universe__new-session');
+        loader.addClass('loader__new-session');
+        loaderButton.removeClass('hidden');
+        universe.addClass('universe__new-session');
 
-		loaderButton.on('click', showPage);
-	}
-	else{ // It does exist a session
-		loader.addClass('loader__same-session');
-		universe.addClass('universe__same-session');
-	}
+        loaderButton.on('click', showPage);
+    } else { // It does exist a session
+        loader.addClass('loader__same-session');
+        universe.addClass('universe__same-session');
+    }
 	
 	function showPage() {
 		loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
@@ -30,8 +27,6 @@ $(window).on('load',function() {
 $(document).ready(function(){
 
 	var $body = $('body'),
-		bodyWidth = $body.width(),
-		bodyHeight = $body.height(),
 		universe = $('#universe'),
 		container = $('[class^="galaxy-"]'),
 		firefoxUserAgent = (/Firefox/i.test(navigator.userAgent));
@@ -82,8 +77,7 @@ $(document).ready(function(){
 
 	// NASA API images
 	function showNasaImages(query, media_type){
-		var api_key = '98oJMJodoPGnat7vL3xwzjDmN110U4jCwiKVzSJM',
-			url = 'https://images-api.nasa.gov/search?q='+query+'&media_type='+media_type;
+		var url = 'https://images-api.nasa.gov/search?q='+query+'&media_type='+media_type;
 		
 		$.ajax({
 			url: url,
@@ -127,7 +121,7 @@ $(document).ready(function(){
             },
             '(show) (me) (details) (about) (the) :word': function(word) {
 				$.each(stars, function(index, element){
-					if(word.toLowerCase() == element.toLowerCase()){
+					if(word.toLowerCase() === element.toLowerCase()){
 						if(/mobile/i.test(ua)){
 
 						}
@@ -181,8 +175,4 @@ $(document).ready(function(){
 	else {
 		console.log('Speech Recognition is not supported');
 	}
-})
-
-
-
-  
+});
