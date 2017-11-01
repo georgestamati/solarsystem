@@ -1,14 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-// var mysql = require('mysql');
-// var db = require('./app/db');
-var compression = require('compression');
-var route = require('./app/routes')
-var app = express();
+var express = require('express'),
+	path = require('path'),
+	favicon = require('serve-favicon'),
+	logger = require('morgan'),
+	cookieParser = require('cookie-parser'),
+	bodyParser = require('body-parser'),
+// 	mysql = require('mysql'),
+// 	db = require('./app/db'),
+	compression = require('compression'),
+	route = require('./app/routes'),
+	app = express();
 
 // enable compression
 app.use(compression());

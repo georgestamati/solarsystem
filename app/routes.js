@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var rows = require('./db');
+var express = require('express'),
+	router = express.Router(),
+	rows = require('./db');
 
 router.get('/', function(req, res, next) {
 	var ua = req.headers['user-agent'];
