@@ -60,8 +60,13 @@ $(document).ready(function(){
 
 	// Parallax effect
 	universe.on('mousemove', function(e) {
-		// parallaxIt(e, '#galaxy', -1000);
-	});
+		parallaxIt(e, '#galaxy .planet-wrapper .planet', -20);
+        // parallaxIt(e, '#galaxy .moons-wrapper', -100);
+        $('.moons-wrapper .moon').each(function(i, item){
+        	parallaxIt(e, item, -50-(i*50))
+		})
+
+    });
 
 	function parallaxIt(e, target, movement){
 		var relX = e.pageX - universe.offset().left,
