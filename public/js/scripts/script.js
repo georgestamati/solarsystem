@@ -26,15 +26,14 @@ $(window).on('load',function() {
 
 $(document).ready(function(){
 
-	var $body = $('body'),
-		universe = $('#universe'),
+	var universe = $('#universe'),
 		container = $('[class^="galaxy-"]'),
 		firefoxUserAgent = (/Firefox/i.test(navigator.userAgent));
 
-	// Zoom effect
-	var zoomEvent = firefoxUserAgent ? "DOMMouseScroll" : "mousewheel", //FF doesn't recognize mousewheel as of FF3.x
-		incr = 1;
-	
+    // Zoom effect
+    var zoomEvent = firefoxUserAgent ? "DOMMouseScroll" : "mousewheel",
+    	incr = 1;
+
 	if (document.attachEvent){ //if IE (and Opera depending on user setting)
 		document.attachEvent("on" + zoomEvent, zoomGalaxy);
 	}
@@ -78,7 +77,7 @@ $(document).ready(function(){
 	// NASA API images
 	function showNasaImages(query, media_type){
 		var url = 'https://images-api.nasa.gov/search?q='+query+'&media_type='+media_type;
-		
+
 		$.ajax({
 			url: url,
 			success: function(results){
@@ -96,24 +95,10 @@ $(document).ready(function(){
 	}
 	showNasaImages('galaxy', 'image');
 
-	//Flickr API images
-	function showFlickrImages(word, no){
-		var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6a970fbb976a06193676f88ef2722cc8&text="+ word +"&privacy_filter=1&safe_search=1&per_page="+ no +"&format=json&nojsoncallback=1&content_type=1&media=photos";
-		
-		$.ajax({
-			url: url,
-			success: function(res){
-				$.each(res.photos.photo, function(i, item){
-					$('<img src="https://farm'+item.farm+'.staticflickr.com/'+item.server+'/'+item.id+'_'+item.secret+'_n.jpg" />').appendTo('.info-gallery');  
-				})
-			}
-		});
-	}
-	// showFlickrImages('jupiter planet', 10);
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
 		ua = navigator.userAgent;
-	
+
 	if (annyang) {
 		var commands = {
 			'back (to) (main) (first) (page)': function(){
@@ -133,11 +118,8 @@ $(document).ready(function(){
 				})
             },
             'image about *search': function(search){
-				var api_key = '98oJMJodoPGnat7vL3xwzjDmN110U4jCwiKVzSJM',
-					// media_type = 'image',
-					// url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type='+media_type+'&year_start=1900';
-					url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
-				
+				var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
+
 				$.ajax({
 					url: url,
 					success: function(results){
@@ -168,7 +150,7 @@ $(document).ready(function(){
 		// });
 
 		// Start listening. You can call this here, or attach this call to an event, button, etc.
-		annyang.start({ 
+		annyang.start({
 			autoRestart: true
 		});
 	}

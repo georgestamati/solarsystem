@@ -6,11 +6,11 @@ block content
 		.wrapper
 			.planet-wrapper(id="#{title}")
 				.planet(style="background-image: url('../img/planets/#{title}_hd.jpg')")
-					if title == 'saturn' || title == 'uranus'
+					if title === 'saturn' || title === 'uranus'
 						.rings
 				.moons-wrapper
 					each item in items
-						if item.name == title && item.moons
+						if item.name === title && item.moons
 							each moon in item.moons
 								a.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')" href="/#{title}/#{moon.name}")
 									.tooltip.moon-tooltip #{moon.name}

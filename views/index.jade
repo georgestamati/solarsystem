@@ -4,16 +4,16 @@ block content
 
 	#galaxy.galaxy-view--3D
 		each item in items
-			if item.name == 'sun'
+			if item.name === 'sun'
 				#sun(style="background-image: url('../img/planets/#{item.name}.jpg')")
 			else
 				.orbit(id="#{item.name}")
 					.planet-wrap
 						.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-							if item.name == 'saturn' || item.name == 'uranus'
+							if item.name === 'saturn' || item.name === 'uranus'
 								.rings
 							.tooltip.planet-tooltip #{item.name}
-						if item.name == 'earth'
+						if item.name === 'earth'
 							#moon.orbit
 								.planet-wrap
 									.planet

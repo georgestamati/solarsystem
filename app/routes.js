@@ -2,7 +2,7 @@ var express = require('express'),
 	router = express.Router(),
 	rows = require('./db');
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	var ua = req.headers['user-agent'];
 	if (/mobile/i.test(ua)) {
 		res.render('mobile', { 'title': 'Solar System', 'items': rows });
@@ -11,11 +11,11 @@ router.get('/', function(req, res, next) {
 	}
 });
 
-router.get('/:planet', function(req, res, next) {
+router.get('/:planet', function(req, res) {
 	res.render('planet', { 'title': req.params.planet, 'url': req.params.planet, 'items': rows});
 });
 
-router.get('/:planet/:moon', function(req, res, next) {
+router.get('/:planet/:moon', function(req, res) {
 	res.render('moon', { 'moon': req.params.moon, 'planet': req.params.planet, 'items': rows});
 });
 

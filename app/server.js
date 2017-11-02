@@ -1,5 +1,5 @@
 var app = require('../app'),
-    debug = require('debug')('solarsyste:server'),
+    debug = require('debug')('solarsystem:server'),
     http = require('http');
 
 // Get port from environment and store in Express.

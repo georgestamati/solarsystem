@@ -12,7 +12,7 @@ block content
 					div(id="#{item.name}")
 						//- if item.name != 'sun'
 						.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-							if item.name == 'saturn' || item.name == 'uranus'
+							if item.name === 'saturn' || item.name === 'uranus'
 								.rings
 
 	script.
