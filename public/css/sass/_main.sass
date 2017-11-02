@@ -21,7 +21,7 @@ body
 		background: url('../img/clip-stars.png') repeat top center
 		animation: clippingStars 50s linear infinite
 a
-	font-family: 'gravediggerregular'
+	font-family: 'gravediggerregular', sans-serif
 	text-decoration: none
 
 .loader
@@ -68,7 +68,7 @@ a
 	padding: 10px 30px
 	margin-top: 1.5em
 	font-size: 4em
-	font-family: 'gravediggerregular'
+	font-family: 'gravediggerregular', sans-serif
 	color: aqua
 	background: transparent
 	border: 1px solid aqua
@@ -161,14 +161,15 @@ a
 	height: 12em
 	margin-top: -6em
 	margin-left: -6em
-	// border: 1px solid rgba(255, 255, 255, 0.4)
 	border-radius: 50%
 	animation-name: orbit
 	animation-iteration-count: infinite
-	animation-timing-function: linear 
+	animation-timing-function: linear
 	transform-style: preserve-3d
+	&.orbit-border
+		border: 1px solid rgba(255, 255, 255, 0.4)
 
-#sun 
+#sun
 	font-size: 24em
 
 #mercury
@@ -437,7 +438,7 @@ a
 		.moon-tooltip
 			opacity: 1
 			transform: scale(1) translateX(-50%)
-			
+
 .tooltip
 	position: absolute
 	top: -40px
@@ -448,7 +449,7 @@ a
 	background: rgba(48,46,41,0.9)
 	transition: all 1s ease
 	transform: scale(0)
-	font-family: 'gravediggerregular'
+	font-family: 'gravediggerregular', sans-serif
 	color: #fff
 	&:after
 		content: ''

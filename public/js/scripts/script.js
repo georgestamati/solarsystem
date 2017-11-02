@@ -57,7 +57,6 @@ $(document).ready(function(){
 		}
 	}
 
-
 	// Parallax effect
 	universe.on('mousemove', function(e) {
 		parallaxIt(e, '#galaxy .planet-wrapper .planet', -20);
@@ -78,7 +77,6 @@ $(document).ready(function(){
 		})
 	}
 
-
 	// NASA API images
 	function showNasaImages(query, media_type){
 		var url = 'https://images-api.nasa.gov/search?q='+query+'&media_type='+media_type;
@@ -98,7 +96,7 @@ $(document).ready(function(){
 			}
 		})
 	}
-	showNasaImages('galaxy', 'image');
+	// showNasaImages('galaxy', 'image');
 
 
 	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
