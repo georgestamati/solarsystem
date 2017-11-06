@@ -1,19 +1,19 @@
 extends layout
 
 block content
-
-	#galaxy
-		div.menu.main-page-link
-			a(href='/') Back to main page
-		div.menu.mobile-menu
-			each item in items
-				.menu-item
-					a(href="/#{item.name}") #{item.name}
-					div(id="#{item.name}")
-						//- if item.name != 'sun'
-						.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-							if item.name === 'saturn' || item.name === 'uranus'
-								.rings
+	#universe
+		#galaxy
+			div.menu.main-page-link
+				a(href='/') Back to main page
+			div.menu.mobile-menu
+				each item in items
+					.menu-item
+						a(href="/#{item.name}") #{item.name}
+						div(id="#{item.name}")
+							//- if item.name != 'sun'
+							.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
+								if item.name === 'saturn' || item.name === 'uranus'
+									.rings
 
 	script.
 		var socket = io.connect();

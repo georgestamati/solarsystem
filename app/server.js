@@ -10,10 +10,20 @@ app.set('port', port);
 var server = http.createServer(app);
 
 // Socket IO
+var key = '0000';
+
 var io = require('socket.io')(server);
+
 io.on('connection', function (socket) {
     // Create a room
     socket.join('room');
+
+    socket.on('load', function(data){
+        socket.emit('access', {
+            access: (data.key === key ? "granted" : "denied")
+        });
+    });
+
     socket.on('eventchange', function (data) {
         // Broadcast changes to all clients in room
         socket.to('room').emit('urlcontrol', { url : data.url });

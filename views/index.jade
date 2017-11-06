@@ -1,29 +1,30 @@
 extends layout
 
 block content
+    #universe
 
-	#galaxy.galaxy-view--3D
-		each item in items
-			if item.name === 'sun'
-				#sun(style="background-image: url('../img/planets/#{item.name}.jpg')")
-			else
-				.orbit(id="#{item.name}")
-					.planet-wrap
-						.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-							if item.name === 'saturn' || item.name === 'uranus'
-								.rings
-							.tooltip.planet-tooltip #{item.name}
-						if item.name === 'earth'
-							#moon.orbit
-								.planet-wrap
-									.planet
+        #galaxy.galaxy-view--3D
+            each item in items
+                if item.name === 'sun'
+                    #sun(style="background-image: url('../img/planets/#{item.name}.jpg')")
+                else
+                    .orbit(id="#{item.name}")
+                        .planet-wrap
+                            .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
+                                if item.name === 'saturn' || item.name === 'uranus'
+                                    .rings
+                                .tooltip.planet-tooltip #{item.name}
+                            if item.name === 'earth'
+                                #moon.orbit
+                                    .planet-wrap
+                                        .planet
 
-	include menu
+        include menu
 
-	script.
-		//- var socket = io.connect('localhost:3000')
-		var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
-		
-		socket.on('urlcontrol', function (data) {
-			window.location.href = data.url
-		})
+    script.
+        var socket = io.connect('localhost:3000')
+        //var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
+
+        socket.on('urlcontrol', function (data) {
+            window.location.href = data.url
+        })

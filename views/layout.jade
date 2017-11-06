@@ -11,18 +11,19 @@ html
 		link(rel="icon", href="favicon.ico")
 		//link(rel='stylesheet', href='/css/style.css')
 		link(rel='stylesheet', href='/css/style.css', media="none", onload="if(media!='all') media='all'")
+		script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
 
 	body
 		script(type="text/javascript", src="/socket.io/socket.io.js")
 
 		.loader.hidden
-			.loader__planet
-			input.loader__button.hidden(type="button", value="Go to app")
+			.loader__wrapper
+				.loader__planet
+				input.loader__button.hidden(type="button", value="Go to app")
 
-		#universe
-			block content
 
-		script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
+		block content
+
 		script(type="text/javascript", src="/js/libs/annyang.min.js")
 		script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js")
 		script(type="text/javascript", src="/js/min.js")

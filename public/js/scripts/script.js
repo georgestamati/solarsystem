@@ -1,7 +1,20 @@
 $(window).on('load',function() {
 	var universe = $('#universe'),
 		loader = $('.loader'),
-		loaderButton = $('.loader__button');
+		loaderButton = $('.loader__button'),
+        loaderText = '',
+		key = '';
+
+	if(/mobile/i.test(navigator.userAgent)){
+        $('<input class="loader__text" type="text" placeholder=".  .  .  ." maxlength="4" />').insertBefore(loaderButton);
+    }
+    else{
+        loaderText = $('<div></div>');
+    }
+
+    if($('.loader__text').length){
+        loaderText = $('.loader__text');
+    }
 
 	loader.removeClass('hidden');
 
@@ -10,17 +23,63 @@ $(window).on('load',function() {
 
         loader.addClass('loader__new-session');
         loaderButton.removeClass('hidden');
+        loaderText.removeClass('hidden');
+
         universe.addClass('universe__new-session');
 
         loaderButton.on('click', showPage);
+
+
     } else { // It does exist a session
         loader.addClass('loader__same-session');
         universe.addClass('universe__same-session');
+        loaderText.addClass('hidden');
     }
 	
 	function showPage() {
-		loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
-		universe.addClass('universe__new-session--clicked');
+
+        key = loaderText.val().trim();
+
+        // If there is a key, send it to the server-side
+        // through the socket.io channel with a 'load' event.
+        if (key.length) {
+            socket.emit('load', {
+                key: key
+            });
+        }
+
+        if(/mobile/i.test(navigator.userAgent)){
+			socket.on('access', function (data) {
+
+				// Check if we have "granted" access.
+				// If we do, we can continue with the presentation.
+
+				if (data.access === "granted" && data.access !== "") {
+					loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
+					universe.addClass('universe__new-session--clicked');
+					loaderText.removeClass('loader__text--error loader__text--animation');
+				}
+				else {
+					// Wrong secret key
+					// clearTimeout(animationTimeout);
+
+					loaderText.addClass('loader__text--error loader__text--animation');
+
+					$('.loader__text').on('focus', function () {
+						loaderText.removeClass('loader__text--error');
+					});
+
+					var animationTimeout = setTimeout(function(){
+						loaderText.removeClass('loader__text--animation');
+					}, 1000);
+				}
+			});
+		}
+		else{
+            loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
+            universe.addClass('universe__new-session--clicked');
+		}
+
 	}
 });
 
@@ -88,7 +147,7 @@ $(document).ready(function(){
 					if(i >= 10){
 						return false;
 					}
-					$('<img />').attr('src', item.links[0].href).appendTo('.info-gallery')
+					$('<img src="'+item.links[0].href+'"/>').appendTo('.info-gallery')
 				})
 			},
 			error: function(){

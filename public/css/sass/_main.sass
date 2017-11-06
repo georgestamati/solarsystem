@@ -42,6 +42,41 @@ a
 	&.loader__new-session--clicked
 		@include animationMixin(scaleDownOnClick, 2s, 0s)
 
+.loader__wrapper
+	display: flex
+	flex-direction: column
+	align-items: center
+	max-width: 400px
+	input
+		position: relative
+		width: 100%
+		padding: 10px 30px
+		margin-top: 1.5em
+		font-size: 4em
+		font-family: 'gravediggerregular', sans-serif
+		color: aqua
+		background: transparent
+		border: 1px solid aqua
+		box-sizing: border-box
+::-webkit-input-placeholder
+	color: aqua
+::-moz-placeholder
+	color: aqua
+
+.loader__text
+	text-align: center
+	&.loader__text--error
+		border: 1px solid red
+		outline: none
+	&.loader__text--animation
+		animation-name: shakeLoaderText
+		animation-duration: 0.5s
+
+.loader__button
+	bottom: -50%
+	//left: 50%
+	cursor: pointer
+
 .loader__planet
 	position: relative
 	width: 200px
@@ -49,7 +84,7 @@ a
 	border-radius: 50%
 	background: url('../img/planets/earth.jpg') repeat-x
 	background-size: cover
-	background-position-x: -450px 
+	background-position-x: -450px
 	animation: animatedBackground 8s infinite linear
 	&:after
 		content: ""
@@ -61,18 +96,6 @@ a
 		border-radius: 50%
 		box-shadow: 0 0 30px #8ff, 0 0 100px #000 inset, 0 0 50px #5ff inset, -20px -10px 100px #000 inset
 		animation: loaderAnimation 2s infinite linear
-
-.loader__button
-	bottom: -50%
-	left: 50%
-	padding: 10px 30px
-	margin-top: 1.5em
-	font-size: 4em
-	font-family: 'gravediggerregular', sans-serif
-	color: aqua
-	background: transparent
-	border: 1px solid aqua
-	cursor: pointer
 
 .menu
 	position: absolute
@@ -469,5 +492,6 @@ a
 	visibility: visible
 
 .hidden
+	display: none
 	opacity: 0
 	visibility: hidden
