@@ -43,25 +43,64 @@ a
 		@include animationMixin(scaleDownOnClick, 2s, 0s)
 
 .loader__wrapper
-	display: flex
-	flex-direction: column
-	align-items: center
-	max-width: 400px
+	//display: flex
+	//flex-direction: column
+	//align-items: center
+	width: 100%
+	text-align: center
+	//max-width: 600px
 	input
 		position: relative
-		width: 100%
+		//width: 100%
 		padding: 10px 30px
-		margin-top: 1.5em
-		font-size: 4em
+		margin: 0.5em 0 1em
+		font-size: 1em
 		font-family: 'gravediggerregular', sans-serif
 		color: aqua
 		background: transparent
 		border: 1px solid aqua
 		box-sizing: border-box
+		cursor: pointer
 ::-webkit-input-placeholder
 	color: aqua
 ::-moz-placeholder
 	color: aqua
+
+.loader__welcome
+	//position: absolute
+	width: 100%
+	background: transparent
+	//white-space: nowrap
+	//overflow: hidden
+	@include scaleElement(0, scale(0,0))
+	font-size: 3em
+	font-family: 'gravediggerregular', sans-serif
+	line-height: 1.4
+	color: aqua
+	&.welcome__message
+		top: 25%
+		@include animationMixin(scaleUniverse, 2s, 1s)
+	&.control__message
+		bottom: 25%
+		@include animationMixin(scaleUniverse, 2s, 4s)
+
+.loader__redirect
+	position: absolute
+	top: 100%
+	left: 0
+	right: 0
+	margin: 0 auto
+	@include scaleElement(0, scale(0,0))
+	@include animationMixin(scaleUniverse, 2s, 1s)
+
+.loader__control-buttons
+	display: flex
+	justify-content: center
+	//@include scaleElement(0, scale(0,0))
+	//@include animationMixin(scaleUniverse, 2s, 1s)
+
+.loader__control-button
+	cursor: pointer
 
 .loader__text
 	text-align: center
@@ -81,6 +120,7 @@ a
 	position: relative
 	width: 200px
 	height: 200px
+	margin: 5% auto
 	border-radius: 50%
 	background: url('../img/planets/earth.jpg') repeat-x
 	background-size: cover
@@ -495,3 +535,8 @@ a
 	display: none
 	opacity: 0
 	visibility: hidden
+
+.row-flex
+	display: flex
+	flex-direction: column
+	align-items: center

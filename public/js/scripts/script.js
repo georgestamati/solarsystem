@@ -1,12 +1,16 @@
 $(window).on('load',function() {
 	var universe = $('#universe'),
 		loader = $('.loader'),
-		loaderButton = $('.loader__button'),
-        loaderText = '',
+        loaderWrapper = $('.loader__wrapper'),
+		loaderButton = $('.loader__local-button'),
+        loaderRedirect = $('.loader__redirect'),
+        loaderControlButton = $('.loader__control-button'),
+		loaderText = '',
 		key = '';
 
 	if(/mobile/i.test(navigator.userAgent)){
         $('<input class="loader__text" type="text" placeholder=".  .  .  ." maxlength="4" />').insertBefore(loaderButton);
+        loaderButton.parent().addClass('row-flex');
     }
     else{
         loaderText = $('<div></div>');
@@ -14,6 +18,9 @@ $(window).on('load',function() {
 
     if($('.loader__text').length){
         loaderText = $('.loader__text');
+        setTimeout(function(){
+        	loaderText.width(loaderButton.width());
+        }, 0);
     }
 
 	loader.removeClass('hidden');
@@ -22,18 +29,23 @@ $(window).on('load',function() {
         sessionStorage.setItem('loader', 'true');
 
         loader.addClass('loader__new-session');
-        loaderButton.removeClass('hidden');
-        loaderText.removeClass('hidden');
+
+        loaderWrapper.children().not('.loader__planet').removeClass('hidden');
+        // loaderButton.removeClass('hidden');
+        // loaderText.removeClass('hidden');
 
         universe.addClass('universe__new-session');
 
         loaderButton.on('click', showPage);
-
+        loaderControlButton.on('click', chooseControl);
 
     } else { // It does exist a session
         loader.addClass('loader__same-session');
         universe.addClass('universe__same-session');
-        loaderText.addClass('hidden');
+        // loaderText.addClass('hidden');
+        loaderWrapper.children().not('.loader__planet').addClass('hidden');
+
+
     }
 	
 	function showPage() {
@@ -80,6 +92,20 @@ $(window).on('load',function() {
             universe.addClass('universe__new-session--clicked');
 		}
 
+	}
+
+	function chooseControl(){
+    	var $this = $(this),
+			attr = $this.data('attr');
+
+        loaderRedirect.addClass('hidden');
+
+    	$('.'+attr).removeClass('hidden');
+
+    	if(attr === 'redirect__remote'){
+    		var rand = Math.floor(1000 + Math.random() * 9000);
+    		$('.loader__remote-button').val(rand);
+		}
 	}
 });
 
