@@ -1,32 +1,36 @@
 extends layout
 
 block content
-	#universe
-		#galaxy
-			div.menu.main-page-link
-				a(href='/') Back to main page
-			div.menu.mobile-menu
-				each item in items
-					.menu-item
-						a(href="/#{item.name}") #{item.name}
-						div(id="#{item.name}")
-							//- if item.name != 'sun'
-							.planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-								if item.name === 'saturn' || item.name === 'uranus'
-									.rings
+    #universe
+        #galaxy
+            div.menu.main-page-link
+                a(href='/') Back to main page
+            div.menu.mobile-menu
+                each item in items
+                    .menu-item
+                        a(href="/#{item.name}") #{item.name}
+                        div(id="#{item.name}")
+                            //- if item.name != 'sun'
+                            .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
+                                if item.name === 'saturn' || item.name === 'uranus'
+                                    .rings
 
-	script.
-		var socket = io.connect();
+    script.
+        //var socket = io.connect('localhost:3000')
+        var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
 
-		//- Get anchors from menu
-		var menuLinks = document.getElementsByTagName('a');
 
-		// Transform from NodeList to Array
-		menuLinks = Array.prototype.slice.call(menuLinks);
+        //- Get anchors from menu
+        var menuLinks = document.getElementsByTagName('a');
 
-		menuLinks.forEach(function(link) {
-			link.addEventListener('click', function (ev) {
-				ev.preventDefault();
-				socket.emit('eventchange', { url : ev.target.href });
-			}, false );
-		});
+        // Transform from NodeList to Array
+        menuLinks = Array.prototype.slice.call(menuLinks);
+
+        menuLinks.forEach(function (link) {
+            link.addEventListener('click', function (ev) {
+                ev.preventDefault();
+                socket.emit('eventchange', {
+                    url: ev.target.href
+                });
+            }, false);
+        });

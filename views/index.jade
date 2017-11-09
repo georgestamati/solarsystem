@@ -22,8 +22,8 @@ block content
         include menu
 
     script.
-        var socket = io.connect('localhost:3000')
-        //var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
+        //var socket = io.connect('localhost:3000')
+        var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
 
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url

@@ -4,34 +4,39 @@ var express = require('express'),
 
 var desktopLoader, mobileLoader;
 
-desktopLoader = '<div class="loader__wrapper">'+
-					'<div class="loader__welcome welcome__message">Welcome to SolSys 3D</div>'+
-					'<div class="loader__planet"></div>'+
-					'<div class="loader__welcome control__message">Control the app'+
-						'<div class="loader__control-buttons">'+
-							'<input type="button" value="Local" data-attr="redirect__local" class="loader__control-button loader__local-control">'+
-							'<input type="button" value="Remote" data-attr="redirect__remote" class="loader__control-button loader__remote-control">'+
-						'</div>'+
-						'<div class="loader__redirect redirect__local hidden">'+
+desktopLoader =	'<div class="loader hidden">'+
+					'<div class="loader__wrapper">'+
+						'<div class="loader__welcome welcome__message">Welcome to SolSys 3D</div>'+
+						'<div class="loader__planet"></div>'+
+						'<div class="loader__welcome control__message">Control the app'+
 							'<div class="loader__control-buttons">'+
-								'<input type="button" value="Go to app" class="loader__local-button">'+
+								'<input type="button" value="Local" data-attr="redirect__local" class="loader__control-button loader__local-control">'+
+								'<input type="button" value="Remote" data-attr="redirect__remote" class="loader__control-button loader__remote-control">'+
 							'</div>'+
-						'</div>'+
-						'<div class="loader__redirect redirect__remote hidden">Insert the code in mobile browser'+
-							'<div class="loader__control-buttons">'+
-								'<input type="button" value="" class="loader__remote-button">'+
+							'<div class="loader__redirect redirect__local hidden">'+
+								'<div class="loader__control-buttons">'+
+									'<input type="button" value="Go to app" class="loader__local-button">'+
+								'</div>'+
+							'</div>'+
+							'<div class="loader__redirect redirect__remote hidden">Insert the code in mobile browser'+
+								'<div class="loader__control-buttons">'+
+									'<input type="button" value="" class="loader__remote-button">'+
+								'</div>'+
 							'</div>'+
 						'</div>'+
 					'</div>'+
 				'</div>';
 
-mobileLoader = 	'<div class="loader__wrapper">'+
-					'<div class="loader__welcome welcome__message">Welcome to SolSys 3D</div>'+
-					'<div class="loader__planet"></div>'+
-    				'<div class="loader__welcome control__message">'+
-						'<div class="loader__redirect redirect__remote">Insert the code'+
-							'<div class="loader__control-buttons">'+
-    							'<input type="button" value="Go to app" class="loader__local-button">'+
+mobileLoader =	'<div class="loader hidden">'+
+					'<div class="loader__wrapper">'+
+						'<div class="loader__welcome welcome__message">Welcome to SolSys 3D</div>'+
+							'<div class="loader__planet"></div>'+
+							'<div class="loader__welcome control__message">'+
+								'<div class="loader__redirect redirect__remote">Insert the code'+
+									'<div class="loader__control-buttons">'+
+										'<input type="button" value="Go to app" class="loader__local-button">'+
+									'</div>'+
+								'</div>'+
 							'</div>'+
 						'</div>'+
     				'</div>'+
@@ -47,11 +52,11 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:planet', function(req, res) {
-	res.render('planet', { 'title': req.params.planet, 'url': req.params.planet, 'items': rows});
+	res.render('planet', { 'title': req.params.planet, 'url': req.params.planet, 'items': rows, 'loader': desktopLoader});
 });
 
 router.get('/:planet/:moon', function(req, res) {
-	res.render('moon', { 'moon': req.params.moon, 'planet': req.params.planet, 'items': rows});
+	res.render('moon', { 'moon': req.params.moon, 'planet': req.params.planet, 'items': rows, 'loader': desktopLoader});
 });
 
 module.exports = router;

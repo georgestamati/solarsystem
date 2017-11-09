@@ -5,16 +5,19 @@ $(window).on('load',function() {
 		loaderButton = $('.loader__local-button'),
         loaderRedirect = $('.loader__redirect'),
         loaderControlButton = $('.loader__control-button'),
-		loaderText = '',
-		key = '';
+		loaderText = '';
+		// key = '';
+
+	socket.on('access', function (data) {
+        $('.loader__remote-button').val(data.key);
+        console.log(socket, data.key);
+    });
 
 	if(/mobile/i.test(navigator.userAgent)){
         $('<input class="loader__text" type="text" placeholder=".  .  .  ." maxlength="4" />').insertBefore(loaderButton);
         loaderButton.parent().addClass('row-flex');
     }
-    else{
-        loaderText = $('<div></div>');
-    }
+
 
     if($('.loader__text').length){
         loaderText = $('.loader__text');
@@ -36,8 +39,11 @@ $(window).on('load',function() {
 
         universe.addClass('universe__new-session');
 
-        loaderButton.on('click', showPage);
         loaderControlButton.on('click', chooseControl);
+
+    	// if(loaderRedirect.length){
+        	loaderButton.on('click', showPage);
+		// }
 
     } else { // It does exist a session
         loader.addClass('loader__same-session');
@@ -47,29 +53,25 @@ $(window).on('load',function() {
 
 
     }
-	
+
 	function showPage() {
 
-        key = loaderText.val().trim();
-
-        // If there is a key, send it to the server-side
-        // through the socket.io channel with a 'load' event.
-        if (key.length) {
-            socket.emit('load', {
-                key: key
-            });
-        }
-
         if(/mobile/i.test(navigator.userAgent)){
+
+            // If there is a key, send it to the server-side
+            // through the socket.io channel with a 'load' event.
+            socket.emit('load', {
+               key: $('.loader__text').val()
+            });
+
 			socket.on('access', function (data) {
 
 				// Check if we have "granted" access.
 				// If we do, we can continue with the presentation.
-
 				if (data.access === "granted" && data.access !== "") {
 					loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
 					universe.addClass('universe__new-session--clicked');
-					loaderText.removeClass('loader__text--error loader__text--animation');
+					// loaderText.removeClass('loader__text--error loader__text--animation');
 				}
 				else {
 					// Wrong secret key
@@ -97,14 +99,18 @@ $(window).on('load',function() {
 	function chooseControl(){
     	var $this = $(this),
 			attr = $this.data('attr');
+			// key = "";
 
         loaderRedirect.addClass('hidden');
 
     	$('.'+attr).removeClass('hidden');
 
     	if(attr === 'redirect__remote'){
-    		var rand = Math.floor(1000 + Math.random() * 9000);
-    		$('.loader__remote-button').val(rand);
+
+            socket.on('emitKey', function (data) {
+				$('.loader__remote-button').val(data.key);
+				console.log(data.key);
+            });
 		}
 	}
 });

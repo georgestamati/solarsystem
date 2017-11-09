@@ -1,27 +1,29 @@
 extends layout
 
 block content
-	#universe
-		#galaxy
-			.wrapper
-				.planet-wrapper(id="#{title}")
-					.planet(style="background-image: url('../img/planets/#{title}_hd.jpg')")
-						if title === 'saturn' || title === 'uranus'
-							.rings
-					.moons-wrapper
-						each item in items
-							if item.name === title && item.moons
-								each moon in item.moons
-									a.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')" href="/#{title}/#{moon.name}")
-										.tooltip.moon-tooltip #{moon.name}
+    #universe
+        #galaxy
+            .wrapper
+                .planet-wrapper(id="#{title}")
+                    .planet(style="background-image: url('../img/planets/#{title}_hd.jpg')")
+                        if title === 'saturn' || title === 'uranus'
+                            .rings
+                    .moons-wrapper
+                        each item in items
+                            if item.name === title && item.moons
+                                each moon in item.moons
+                                    a.moon(class="#{moon.name}", style="background-image: url('../img/moons/#{item.name}/#{moon.name}.jpg')" href="/#{title}/#{moon.name}")
+                                        .tooltip.moon-tooltip #{moon.name}
 
-				.info-wrapper
-					.info-gallery
+                .info-wrapper
+                    .info-gallery
 
-		include menu
+        include menu
 
-	script.
-		var socket = io.connect();
-		socket.on('urlcontrol', function (data) {
-			window.location.href = data.url;
-		});
+    script.
+        //var socket = io.connect('localhost:3000')
+        var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
+
+        socket.on('urlcontrol', function (data) {
+            window.location.href = data.url;
+        });
