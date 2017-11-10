@@ -43,15 +43,10 @@ a
 		@include animationMixin(scaleDownOnClick, 2s, 0s)
 
 .loader__wrapper
-	//display: flex
-	//flex-direction: column
-	//align-items: center
 	width: 100%
 	text-align: center
-	//max-width: 600px
 	input
 		position: relative
-		//width: 100%
 		padding: 10px 30px
 		margin: 0.5em 0 1em
 		font-size: 1em
@@ -67,11 +62,8 @@ a
 	color: aqua
 
 .loader__welcome
-	//position: absolute
 	width: 100%
 	background: transparent
-	//white-space: nowrap
-	//overflow: hidden
 	@include scaleElement(0, scale(0,0))
 	font-size: 3em
 	font-family: 'gravediggerregular', sans-serif
@@ -96,8 +88,6 @@ a
 .loader__control-buttons
 	display: flex
 	justify-content: center
-	//@include scaleElement(0, scale(0,0))
-	//@include animationMixin(scaleUniverse, 2s, 1s)
 
 .loader__control-button
 	cursor: pointer
@@ -113,7 +103,6 @@ a
 
 .loader__button
 	bottom: -50%
-	//left: 50%
 	cursor: pointer
 
 .loader__planet
@@ -383,7 +372,6 @@ a
 	#sun
 		transform: rotateX(-70deg)
 		transform-style: preserve-3d
-		// box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset
 		animation: sunRays 5s infinite linear
 
 	.planet-wrap

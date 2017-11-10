@@ -10,7 +10,6 @@ app.set('port', port);
 var server = http.createServer(app);
 
 var key = Math.floor(1000 + Math.random() * 9000);
-console.log(key);
 
 // Socket IO
 var io = require('socket.io')(server);
@@ -19,15 +18,12 @@ io.on('connection', function (socket) {
     // Create a room
     socket.join('room');
 
+    socket.emit('key', {
+        code: key
+    });
+
     socket.on('load', function(data){
-        console.log('data.key: '+data.key, 'key: '+key);
-
-        socket.emit('emitKey', {
-            key: key
-        });
-
         socket.emit('access', {
-            key: key,
             access: (parseInt(data.key) === parseInt(key) ? "granted" : "denied")
         });
     });
@@ -42,8 +38,8 @@ io.on('connection', function (socket) {
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
-// server.on('error', onError);
-// server.on('listening', onListening);
+server.on('error', onError);
+server.on('listening', onListening);
 
 // Event listener for HTTP server "error" event.
 function onError(error) {

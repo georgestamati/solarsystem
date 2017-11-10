@@ -5,19 +5,13 @@ $(window).on('load',function() {
 		loaderButton = $('.loader__local-button'),
         loaderRedirect = $('.loader__redirect'),
         loaderControlButton = $('.loader__control-button'),
-		loaderText = '';
-		// key = '';
+		loaderText = '',
+		mobileTest = /mobile/i.test(navigator.userAgent);
 
-	socket.on('access', function (data) {
-        $('.loader__remote-button').val(data.key);
-        console.log(socket, data.key);
-    });
-
-	if(/mobile/i.test(navigator.userAgent)){
+	if(mobileTest){
         $('<input class="loader__text" type="text" placeholder=".  .  .  ." maxlength="4" />').insertBefore(loaderButton);
         loaderButton.parent().addClass('row-flex');
     }
-
 
     if($('.loader__text').length){
         loaderText = $('.loader__text');
@@ -28,36 +22,29 @@ $(window).on('load',function() {
 
 	loader.removeClass('hidden');
 
+	// sessionStorage will be changed to localStorage
     if (sessionStorage.getItem('loader') === null) { // It doesn't exist any session
         sessionStorage.setItem('loader', 'true');
 
         loader.addClass('loader__new-session');
-
         loaderWrapper.children().not('.loader__planet').removeClass('hidden');
-        // loaderButton.removeClass('hidden');
-        // loaderText.removeClass('hidden');
-
         universe.addClass('universe__new-session');
 
         loaderControlButton.on('click', chooseControl);
+		loaderButton.on('click', showPage);
 
-    	// if(loaderRedirect.length){
-        	loaderButton.on('click', showPage);
-		// }
+		socket.on('key', function (data) {
+			$('.loader__remote-button').val(data.code);
+		});
 
     } else { // It does exist a session
         loader.addClass('loader__same-session');
         universe.addClass('universe__same-session');
-        // loaderText.addClass('hidden');
         loaderWrapper.children().not('.loader__planet').addClass('hidden');
-
-
     }
 
 	function showPage() {
-
-        if(/mobile/i.test(navigator.userAgent)){
-
+        if(mobileTest){
             // If there is a key, send it to the server-side
             // through the socket.io channel with a 'load' event.
             socket.emit('load', {
@@ -65,18 +52,15 @@ $(window).on('load',function() {
             });
 
 			socket.on('access', function (data) {
-
 				// Check if we have "granted" access.
 				// If we do, we can continue with the presentation.
 				if (data.access === "granted" && data.access !== "") {
 					loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
 					universe.addClass('universe__new-session--clicked');
-					// loaderText.removeClass('loader__text--error loader__text--animation');
 				}
 				else {
 					// Wrong secret key
 					// clearTimeout(animationTimeout);
-
 					loaderText.addClass('loader__text--error loader__text--animation');
 
 					$('.loader__text').on('focus', function () {
@@ -93,25 +77,14 @@ $(window).on('load',function() {
             loader.removeClass('loader__new-session').addClass('loader__new-session--clicked');
             universe.addClass('universe__new-session--clicked');
 		}
-
 	}
 
 	function chooseControl(){
     	var $this = $(this),
 			attr = $this.data('attr');
-			// key = "";
 
         loaderRedirect.addClass('hidden');
-
     	$('.'+attr).removeClass('hidden');
-
-    	if(attr === 'redirect__remote'){
-
-            socket.on('emitKey', function (data) {
-				$('.loader__remote-button').val(data.key);
-				console.log(data.key);
-            });
-		}
 	}
 });
 
@@ -119,10 +92,13 @@ $(document).ready(function(){
 
 	var universe = $('#universe'),
 		container = $('[class^="galaxy-"]'),
-		firefoxUserAgent = (/Firefox/i.test(navigator.userAgent));
+		mobileTest = /mobile/i.test(navigator.userAgent),
+		firefoxTest = (/Firefox/i.test(navigator.userAgent)),
+		stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+
 
     // Zoom effect
-    var zoomEvent = firefoxUserAgent ? "DOMMouseScroll" : "mousewheel",
+    var zoomEvent = firefoxTest ? "DOMMouseScroll" : "mousewheel",
     	incr = 1;
 
 	if (document.attachEvent){ //if IE (and Opera depending on user setting)
@@ -138,7 +114,7 @@ $(document).ready(function(){
 		var ev = window.event || e, //equalize event object
 			delta = ev.detail ? ev.detail : ev.wheelDelta; //check for detail first so Opera uses that instead of wheelDelta
 		delta = delta / 120;
-		delta = firefoxUserAgent ? delta / 3 : delta;
+		delta = firefoxTest ? delta / 3 : delta;
 		incr += delta / 5;
 		if(incr > 0){
 			container.css({'transform': 'rotateX(70deg) scale3d(' + incr + ',' + incr + ',' + incr + ')'});
@@ -155,7 +131,6 @@ $(document).ready(function(){
         $('.moons-wrapper .moon').each(function(i, item){
         	parallaxIt(e, item, -50-(i*50))
 		})
-
     });
 
 	function parallaxIt(e, target, movement){
@@ -189,10 +164,6 @@ $(document).ready(function(){
 	}
 	// showNasaImages('galaxy', 'image');
 
-
-	var stars = ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
-		ua = navigator.userAgent;
-
 	if (annyang) {
 		var commands = {
 			'back (to) (main) (first) (page)': function(){
@@ -201,7 +172,7 @@ $(document).ready(function(){
             '(show) (me) (details) (about) (the) :word': function(word) {
 				$.each(stars, function(index, element){
 					if(word.toLowerCase() === element.toLowerCase()){
-						if(/mobile/i.test(ua)){
+						if(mobileTest){
 
 						}
 						else{
