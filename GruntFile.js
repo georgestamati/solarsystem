@@ -20,8 +20,9 @@ module.exports = function(grunt) {
         },
         concat: {
 		    dist: {
-		      	src: ['public/js/scripts/*.js'],
-		      	dest: 'public/js/min.js',
+		      	files: {
+		      		'public/js/min.js': ['public/js/scripts/*.js']
+		      	}
 		    }
 		},
 		uglify: {
@@ -29,8 +30,6 @@ module.exports = function(grunt) {
 				files: {
 					'public/js/min.js': ['public/js/min.js']
 				}
-				// src: 'public/js/min.js',
-    //     		dest: 'public/js/min.js'
 			}
 		},
 		watch: {
