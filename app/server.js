@@ -22,6 +22,12 @@ io.on('connection', function (socket) {
         code: key
     });
 
+    // socket.on('mobileConnected', function (data) {
+    //     socket.emit('openDesktopApp', {
+    //         access: 'openApp'
+    //     })
+    // });
+
     socket.on('load', function(data){
         socket.emit('access', {
             access: (parseInt(data.key) === parseInt(key) ? "granted" : "denied")
