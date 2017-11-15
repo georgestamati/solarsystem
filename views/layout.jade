@@ -1,26 +1,29 @@
 doctype html
 html
-	head
-		title= title
+    head
+        title= title
 
-		meta(charset="utf-8")
-		meta(http-equiv="x-ua-compatible", content="ie=edge")
-		meta(name="description", content="Solar system")
-		meta(name="viewport", content="width=device-width, initial-scale=1")
+        meta(charset="utf-8")
+        meta(http-equiv="x-ua-compatible", content="ie=edge")
+        meta(name="description", content="Solar system")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
 
-		link(rel="icon", href="favicon.ico")
-		//link(rel='stylesheet', href='/css/style.css')
-		link(rel='stylesheet', href='/css/style.css', media="none", onload="if(media!='all') media='all'")
-		script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
+        link(rel="icon", href="favicon.ico")
+        //link(rel='stylesheet', href='/css/style.css')
+        link(rel='stylesheet', href='/css/style.css', media="none", onload="if(media!='all') media='all'")
+        script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
 
-	body
-		script(type="text/javascript", src="/socket.io/socket.io.js")
+    body
+        script(type="text/javascript", src="/socket.io/socket.io.js")
+        script.
+            var socket = io.connect()
 
-		!{loader}
+        !{loader}
 
-		block content
+        block content
 
-		script(type="text/javascript", src="/js/libs/annyang.min.js")
-		script(type="text/javascript", src="/js/libs/require.js")
-		script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js")
-		script(type="text/javascript", src="/js/min.js")
+        script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
+        script(type="text/javascript", src="/js/libs/annyang.min.js")
+        //script(type="text/javascript", src="/js/libs/require.js")
+        script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js")
+        script(type="text/javascript", src="/js/min.js")

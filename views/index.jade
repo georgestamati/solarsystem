@@ -22,12 +22,13 @@ block content
         include menu
 
     script.
-        var socket = io.connect()
-        //var	socket = io.connect('https://limitless-earth-91513.herokuapp.com/')
-
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url
         })
+
+        socket.on('key', function (data) {
+            $('.loader__remote-button').val(data.code);
+        });
 
         socket.on('openDesktopApp', function (data) {
             $(data.loader).click();
