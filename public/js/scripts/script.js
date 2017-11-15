@@ -144,9 +144,9 @@ $(function() {
                 if (data.access === "granted" && data.access !== "") {
                     loaderDone();
 
-                    // socket.emit('mobileConnected', {
-                    //     conn: 'connected'
-                    // })
+                    socket.emit('mobileConnected', {
+                        clickButton: '.loader__local-button'
+                    })
                 }
                 else {
                     // Wrong secret key

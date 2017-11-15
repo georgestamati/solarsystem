@@ -29,6 +29,6 @@ block content
             window.location.href = data.url
         })
 
-//        socket.on('openDesktopApp', function () {
-//            $('.loader__local-button').click();
-//        });
+        socket.on('openDesktopApp', function (data) {
+            $(data.loader).click();
+        });

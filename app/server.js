@@ -22,11 +22,11 @@ io.on('connection', function (socket) {
         code: key
     });
 
-    // socket.on('mobileConnected', function (data) {
-    //     socket.emit('openDesktopApp', {
-    //         access: 'openApp'
-    //     })
-    // });
+    socket.on('mobileConnected', function (data) {
+        socket.to('room').emit('openDesktopApp', {
+            loader: data.clickButton
+        })
+    });
 
     socket.on('load', function(data){
         socket.emit('access', {
