@@ -8,14 +8,16 @@ var app = {
         loaderButton: $('.loader__local-button'),
         loaderRedirect: $('.loader__redirect'),
         loaderControlButton: $('.loader__control-button'),
+        moon: $('.moons-wrapper .moon'),
         loaderText: '',
         mobileTest: /mobile/i.test(navigator.userAgent),
         firefoxTest: /Firefox/i.test(navigator.userAgent),
         stars: ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
     },
     bindEvents: function () {
-        view.voiceControl();
         view.bindActions();
+        view.bindEffects();
+        view.voiceControl();
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -58,10 +60,10 @@ var app = {
         }
 
         view.loadAddClass(state);
-
-
-        // Parallax effect
-
+    },
+    bindEffects: function () {
+        view.zoomEffect();
+        view.parallaxEffect();
     },
     zoomEffect: function () {
         var zoomEvent = s.firefoxTest ? "DOMMouseScroll" : "mousewheel";
@@ -78,7 +80,7 @@ var app = {
     parallaxEffect: function () {
         s.universe.on('mousemove', function(e) {
             view.parallaxGalaxy(e, '#galaxy .planet-wrapper .planet', -20);
-            $('.moons-wrapper .moon').each(function(i, item){
+            $.each(s.moon, function(i, item){
                 view.parallaxGalaxy(e, item, -50-(i*50))
             })
         });
@@ -86,9 +88,11 @@ var app = {
     zoomGalaxy: function(e){
         var ev = window.event || e, //equalize event object
             delta = ev.detail ? ev.detail : ev.wheelDelta; //check for detail first so Opera uses that instead of wheelDelta
+
         delta = delta / 120;
         delta = s.firefoxTest ? delta / 3 : delta;
         incr += delta / 5;
+
         if(incr > 0){
             s.container.css({'transform': 'rotateX(70deg) scale3d(' + incr + ',' + incr + ',' + incr + ')'});
         }
@@ -98,11 +102,13 @@ var app = {
     },
     parallaxGalaxy: function(e, target, movement){
         var relX = e.pageX - s.universe.offset().left,
-            relY = e.pageY - s.universe.offset().top;
+            relY = e.pageY - s.universe.offset().top,
+            width = s.universe.width(),
+            height = s.universe.height();
 
         TweenMax.to(target, 1, {
-            x: (relX - s.universe.width()/2) / s.universe.width() * movement,
-            y: (relY - s.universe.height()/2) / s.universe.height() * movement
+            x: (relX - width/2) / width * movement,
+            y: (relY - height/2) / height * movement
         })
     },
     loaderDone: function () {
@@ -129,15 +135,14 @@ var app = {
                 }
                 else {
                     // Wrong secret key
-                    // clearTimeout(animationTimeout);
                     s.loaderText.addClass('loader__text--error loader__text--animation');
 
                     s.loaderText.on('focus', function () {
                         $(this).removeClass('loader__text--error');
                     });
 
-                    var animationTimeout = setTimeout(function(){
-                        loaderText.removeClass('loader__text--animation');
+                    setTimeout(function(){
+                        s.loaderText.removeClass('loader__text--animation');
                     }, 1000);
                 }
             });
@@ -175,7 +180,7 @@ var app = {
         $.ajax({
             url: url,
             success: function(results){
-                results.collection.items.each(function(i, item){
+                $.each(results.collection.items, function(i, item){
                     if(i >= 10){
                         return false;
                     }
