@@ -15,11 +15,12 @@ block content
 									- var isTrue = "background-image: url('../img/planets/" + moon.name + ".jpg')"
 									- var isFalse = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg')"
 									a.moon(
-										class="#{moon.name}",
+										id="#{moon.name}",
 										href="/#{moon.name}",
 										style= item.name === 'sun' ? isTrue : isFalse)
 										.tooltip.moon-tooltip #{moon.name}
-
+										if moon.rings
+											.rings
 				.info-wrapper
 					.info-gallery
 

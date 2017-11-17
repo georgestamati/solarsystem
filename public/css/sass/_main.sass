@@ -179,23 +179,17 @@ a
 	width: 100%
 	height: 100%
 
-#sun, .planet 
-	position: absolute
-	top: 50%
-	left: 50%
-	@include elementPosition(1em, 1em, -0.5em, -0.5em)
-	border-radius: 50%
-
-#sun 
-	background-repeat: no-repeat
-	background-size: cover
-
-.planet-wrap 
+.planet-wrap
 	position: absolute
 	top: -1px
 	left: 50%
 
 .planet
+	position: absolute
+	top: 50%
+	left: 50%
+	@include elementPosition(1em, 1em, -0.5em, -0.5em)
+	border-radius: 50%
 	background: #202020 repeat-x
 	background-size: cover
 	animation-iteration-count: infinite
@@ -219,80 +213,87 @@ a
 		border: 1px solid rgba(255, 255, 255, 0.4)
 
 #sun
-	font-size: 24em
+	&.orbit
+		animation-duration: $sunOrbitalRotation
+	.planet-wrap
+		@include planetPosition(50%, 50%)
+		animation-duration: $sunOrbitalRotation
+	.planet
+		@include axialInclination($sunAxisInclination)
+		animation-duration: $sunOrbitalRotation
 
 #mercury
 	&.orbit 
-		animation-duration: $mercuryAnimationDuration
+		animation-duration: $mercuryOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 0)
-		animation-duration: $mercuryAnimationDuration
-	.planet 
+		animation-duration: $mercuryOrbitalRotation
+	.planet
 		@include axialInclination($mercuryAxisInclination)
-		animation-duration: $mercuryAnimationDuration
+		animation-duration: $mercuryOrbitalRotation
 
 #venus
 	&.orbit 
-		animation-duration: $venusAnimationDuration
+		animation-duration: $venusOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
-		animation-duration: $venusAnimationDuration
+		animation-duration: $venusOrbitalRotation
 	.planet 
 		@include axialInclination($venusAxisInclination)
-		animation-duration: $venusAnimationDuration
+		animation-duration: $venusOrbitalRotation
 
 #earth
 	&.orbit 
-		animation-duration: $earthAnimationDuration
+		animation-duration: $earthOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(100%, 50%)
-		animation-duration: $earthAnimationDuration
+		animation-duration: $earthOrbitalRotation
 	.planet 
 		@include axialInclination($earthAxisInclination)
-		animation-duration: $earthAnimationDuration
+		animation-duration: $earthOrbitalRotation
 	#moon
 		@include elementPosition(1.8em, 1.8em, -0.9em, -0.9em)
 		animation-name: suborbit
-		animation-duration: $moonAnimationDuration
+		animation-duration: $moonOrbitalRotation
 		.planet-wrap
 			left: 50%
 			top: -1px 
-			animation-duration: $moonAnimationDuration
+			animation-duration: $moonOrbitalRotation
 		.planet
 			@include elementPosition(0.3em, 0.3em, -0.15em, -0.15em)
 			background-image: url('../img/moons/earth/moon.jpg')
 			border-radius: 50%
-			animation-duration: $moonAnimationDuration
+			animation-duration: $moonOrbitalRotation
 
 #mars
 	&.orbit 
-		animation-duration: $marsAnimationDuration
+		animation-duration: $marsOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
-		animation-duration: $marsAnimationDuration
+		animation-duration: $marsOrbitalRotation
 	.planet 
 		@include axialInclination($marsAxisInclination)
-		animation-duration: $marsAnimationDuration
+		animation-duration: $marsOrbitalRotation
 
 #jupiter
 	&.orbit 
-		animation-duration: $jupiterAnimationDuration
+		animation-duration: $jupiterOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 0)
-		animation-duration: $jupiterAnimationDuration
+		animation-duration: $jupiterOrbitalRotation
 	.planet 
 		@include axialInclination($jupiterAxisInclination)
-		animation-duration: $jupiterAnimationDuration
+		animation-duration: $jupiterOrbitalRotation
 
 #saturn
 	&.orbit 
-		animation-duration: $saturnAnimationDuration
+		animation-duration: $saturnOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(0, 50%)
-		animation-duration: $saturnAnimationDuration
+		animation-duration: $saturnOrbitalRotation
 	.planet 
 		@include axialInclination($saturnAxisInclination)
-		animation-duration: $saturnAnimationDuration
+		animation-duration: $saturnOrbitalRotation
 	.rings
 		@include elementPosition(2em, 2em, -0.5em, -0.5em)
 		border-radius: 50%
@@ -301,13 +302,13 @@ a
 
 #uranus
 	&.orbit 
-		animation-duration: $uranusAnimationDuration
+		animation-duration: $uranusOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
-		animation-duration: $uranusAnimationDuration
+		animation-duration: $uranusOrbitalRotation
 	.planet 
 		@include axialInclination($uranusAxisInclination)
-		animation-duration: $uranusAnimationDuration
+		animation-duration: $uranusOrbitalRotation
 	.rings
 		@include elementPosition(1.8em, 1.8em, -0.4em, -0.4em)
 		border-radius: 50%
@@ -316,17 +317,22 @@ a
 
 #neptune
 	&.orbit 
-		animation-duration: $neptuneAnimationDuration
+		animation-duration: $neptuneOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(100%, 50%)
-		animation-duration: $neptuneAnimationDuration
+		animation-duration: $neptuneOrbitalRotation
 	.planet 
 		@include axialInclination($neptuneAxisInclination)
-		animation-duration: $neptuneAnimationDuration
+		animation-duration: $neptuneOrbitalRotation
 
-.galaxy-view--3D, .galaxy-view--2D
-	#sun 
-		font-size: $sun3dViewSize
+.galaxy-view--3D
+	#sun
+		font-size: $sunOrbitSize
+		.planet
+			font-size: $sun3dViewSize
+			transform: rotateX(90deg)
+			box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset
+			animation: sunRays 5s infinite linear
 	#mercury
 		font-size: $mercuryOrbitSize
 		.planet
@@ -361,14 +367,10 @@ a
 			font-size: $neptune3dViewSize
 
 .galaxy-view--3D
-	font-size: 85%
+	//font-size: 85%
 	transform: rotateX(70deg) scale3d(1,1,1)
 	transform-style: preserve-3d
 	transition: all 1s ease
-	#sun
-		transform: rotateX(-70deg)
-		transform-style: preserve-3d
-		animation: sunRays 5s infinite linear
 
 	.planet-wrap
 		transform-style: preserve-3d
@@ -377,42 +379,42 @@ a
 		animation-timing-function: linear
 		.planet
 			animation-name: animateShadow, animatedBackground
-			transform-style: preserve-3d
+			//transform-style: preserve-3d
 
-.galaxy-view--2D
-	font-size: 75%
-	transform: rotateX(0)
-	transform-style: flat
-	transition: all 1s ease
-	#sun
-		transform: rotateX(0)
-	#saturn .rings
-		transform: rotateX(70deg)
-	.planet-wrap
-		transform-style: flat
-		animation-name: none
-		animation-iteration-count: infinite
-		animation-timing-function: linear
-
-.galaxy-view--distance
-	#sun 
-		font-size: 545em
-	#mercury
-		font-size: 0.7742em
-	#venus
-		font-size: 1.8998em
-	#earth
-		font-size: 2em
-	#mars
-		font-size: 1.064em
-	#jupiter
-		font-size: 22em
-	#saturn
-		font-size: 18.4em
-	#uranus
-		font-size: 8em
-	#neptune
-		font-size: 7.72em
+//.galaxy-view--2D
+//	font-size: 75%
+//	transform: rotateX(0)
+//	transform-style: flat
+//	transition: all 1s ease
+//	#sun
+//		transform: rotateX(0)
+//	#saturn .rings
+//		transform: rotateX(70deg)
+//	.planet-wrap
+//		transform-style: flat
+//		animation-name: none
+//		animation-iteration-count: infinite
+//		animation-timing-function: linear
+//
+//.galaxy-view--distance
+//	#sun
+//		font-size: 545em
+//	#mercury
+//		font-size: 0.7742em
+//	#venus
+//		font-size: 1.8998em
+//	#earth
+//		font-size: 2em
+//	#mars
+//		font-size: 1.064em
+//	#jupiter
+//		font-size: 22em
+//	#saturn
+//		font-size: 18.4em
+//	#uranus
+//		font-size: 8em
+//	#neptune
+//		font-size: 7.72em
 
 .wrapper
 	display: flex
@@ -441,13 +443,13 @@ a
 		@include elementPosition(2000px, 520px, -500px, 300px)
 		background: $saturnRingsBackground
 		transform: rotateX(40deg)
-	#sun
-		position: static
-		font-size: initial
-		background-image: none
-		> .planet
-			background-image: url('../img/sun.jpg')
-			box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset
+	//#sun
+	//	position: static
+	//	font-size: initial
+	//	background-image: none
+	//	> .planet
+	//		background-image: url('../img/sun.jpg')
+	//		box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset
 
 .moons-wrapper
 	position: relative
@@ -462,6 +464,7 @@ a
 	background-position: 350px 150px
 	border-radius: 50%
 	box-shadow: inset -9px -2px 39px 15px #000
+	transform-style: preserve-3d
 	transition: all 1s ease
 	cursor: pointer
 	&:nth-child(1)
@@ -480,7 +483,12 @@ a
 		@include moonPosition(300px, 500px, 0.3)
 	&:nth-child(8)
 		@include moonPosition(250px, 250px, 0.6)
-
+	&#saturn .rings
+		@include elementPosition(320px, 100%, -80px, 0)
+		transform: rotateX(40deg)
+	&#uranus .rings
+		@include elementPosition(100%, 320px, 0, -80px)
+		transform: rotateY(130deg)
 	&:hover
 		opacity: 1
 		transform: scale(1.2) !important

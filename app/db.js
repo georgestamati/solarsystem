@@ -18,10 +18,12 @@ var rows = [
                 name: 'jupiter'
             },
             {
-                name: 'saturn'
+                name: 'saturn',
+				rings: '.rings'
             },
             {
-                name: 'uranus'
+                name: 'uranus',
+				rings: '.rings'
             },
             {
                 name: 'neptune'

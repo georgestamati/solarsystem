@@ -87,7 +87,8 @@ var app = {
     },
     zoomGalaxy: function(e){
         var ev = window.event || e, //equalize event object
-            delta = ev.detail ? ev.detail : ev.wheelDelta; //check for detail first so Opera uses that instead of wheelDelta
+            delta = ev.detail ? ev.detail : ev.wheelDelta,
+            incr = 0; //check for detail first so Opera uses that instead of wheelDelta
 
         delta = delta / 120;
         delta = s.firefoxTest ? delta / 3 : delta;
