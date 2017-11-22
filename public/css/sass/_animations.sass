@@ -26,18 +26,53 @@
 	/* RIGHT */ 
 	100% 
 		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5)
-	/* TOP */	
+	/* TOP */
 
-@keyframes orbit 
-	0%	
-		transform: rotateZ(0deg) 
-	100%  
-		transform: rotateZ(-360deg)  
+
+@keyframes mercuryOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($mercuryOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($mercuryOrbitalInclination)
+@keyframes venusOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($venusOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($venusOrbitalInclination)
+@keyframes earthOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($earthOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($earthOrbitalInclination)
+@keyframes marsOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($marsOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($marsOrbitalInclination)
+@keyframes jupiterOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($jupiterOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($jupiterOrbitalInclination)
+@keyframes saturnOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($saturnOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($saturnOrbitalInclination)
+@keyframes uranusOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($uranusOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($uranusOrbitalInclination)
+@keyframes neptuneOrbit
+	0%
+		transform: rotateZ(0deg) rotateY($neptuneOrbitalInclination)
+	100%
+		transform: rotateZ(-360deg) rotateY($neptuneOrbitalInclination)
 
 @keyframes suborbit
 	0%
 		transform: rotateX(90deg) rotateZ(0deg)
-
 	100%
 		transform: rotateX(90deg) rotateZ(-360deg)
 

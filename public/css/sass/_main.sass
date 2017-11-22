@@ -200,12 +200,8 @@ a
 	position: absolute
 	top: 50%
 	left: 50%
-	width: 12em
-	height: 12em
-	margin-top: -6em
-	margin-left: -6em
+	@include elementPosition(12em, 12em, -6em, -6em)
 	border-radius: 50%
-	animation-name: orbit
 	animation-iteration-count: infinite
 	animation-timing-function: linear
 	transform-style: preserve-3d
@@ -223,7 +219,8 @@ a
 		animation-duration: $sunOrbitalRotation
 
 #mercury
-	&.orbit 
+	&.orbit
+		animation-name: mercuryOrbit
 		animation-duration: $mercuryOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 0)
@@ -233,7 +230,8 @@ a
 		animation-duration: $mercuryOrbitalRotation
 
 #venus
-	&.orbit 
+	&.orbit
+		animation-name: venusOrbit
 		animation-duration: $venusOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
@@ -243,7 +241,8 @@ a
 		animation-duration: $venusOrbitalRotation
 
 #earth
-	&.orbit 
+	&.orbit
+		animation-name: earthOrbit
 		animation-duration: $earthOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(100%, 50%)
@@ -266,7 +265,8 @@ a
 			animation-duration: $moonOrbitalRotation
 
 #mars
-	&.orbit 
+	&.orbit
+		animation-name: marsOrbit
 		animation-duration: $marsOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
@@ -276,7 +276,8 @@ a
 		animation-duration: $marsOrbitalRotation
 
 #jupiter
-	&.orbit 
+	&.orbit
+		animation-name: jupiterOrbit
 		animation-duration: $jupiterOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 0)
@@ -286,7 +287,8 @@ a
 		animation-duration: $jupiterOrbitalRotation
 
 #saturn
-	&.orbit 
+	&.orbit
+		animation-name: saturnOrbit
 		animation-duration: $saturnOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(0, 50%)
@@ -301,7 +303,8 @@ a
 		background: radial-gradient(ellipse at center, rgba(24,19,25,0) 0%,rgba(53,52,51,0) 34%,rgba(55,54,52,1) 36%,rgba(56,55,53,1) 37%,rgba(68,67,66,1) 38%,rgba(56,55,53,1) 39%,rgba(68,67,66,1) 40%,rgba(56,55,53,1) 41%,rgba(87,77,76,1) 42%,rgba(87,77,76,1) 44%,rgba(113,110,103,1) 46%,rgba(113,110,103,1) 48%,rgba(113,98,93,1) 49%,rgba(113,98,93,1) 51%,rgba(122,115,105,1) 52%,rgba(113,98,93,1) 53%,rgba(113,98,93,1) 54%,rgba(122,115,105,1) 55%,rgba(106,99,89,1) 56%,rgba(106,99,89,1) 58%,rgba(79,76,76,0) 60%,rgba(65,64,70,1) 61%,rgba(65,64,70,1) 62%,rgba(90,85,89,1) 63%,rgba(78,74,73,1) 65%,rgba(78,73,74,1) 67%,rgba(78,73,74,0) 68%,rgba(78,73,75,1) 69%,rgba(78,73,75,1) 70%,rgba(78,73,76,0) 71%,rgba(77,72,76,0) 72%,rgba(24,19,25,0) 100%)
 
 #uranus
-	&.orbit 
+	&.orbit
+		animation-name: uranusOrbit
 		animation-duration: $uranusOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
@@ -316,7 +319,8 @@ a
 		transform: rotateX(60deg)
 
 #neptune
-	&.orbit 
+	&.orbit
+		animation-name: neptuneOrbit
 		animation-duration: $neptuneOrbitalRotation
 	.planet-wrap 
 		@include planetPosition(100%, 50%)
@@ -438,10 +442,10 @@ a
 			box-shadow: inset -9px -2px 39px 15px #000
 	#uranus .rings
 		@include elementPosition(1700px, 700px, -370px, 100px)
-		background: $uranusRingsBackground
+		//background: $uranusRingsBackground
 	#saturn .rings
 		@include elementPosition(2000px, 520px, -500px, 300px)
-		background: $saturnRingsBackground
+		//background: $saturnRingsBackground
 		transform: rotateX(40deg)
 	//#sun
 	//	position: static
@@ -495,29 +499,33 @@ a
 		transition: all 1s ease
 		.moon-tooltip
 			opacity: 1
-			transform: scale(1) translateX(-50%)
+			transform: scale(1) translateY(-50%)
 
 .tooltip
 	position: absolute
-	top: -40px
-	left: 50%
+	top: 50%
+	left: 110%
 	opacity: 0
 	padding: 8px 20px
+	//background: rgba(48,46,41,0.9)
 	border-radius: 5px
-	background: rgba(48,46,41,0.9)
+	background: rgba(30,25,97,0.7)
 	transition: all 1s ease
 	transform: scale(0)
-	font-family: 'gravediggerregular', sans-serif
 	color: #fff
 	&:after
 		content: ''
 		position: absolute
-		bottom: -9px
-		left: 50%
+		bottom: 50%
+		left: -4px
 		transform: translateX(-50%)
-		border-left: 10px solid transparent
-		border-right: 10px solid transparent
-		border-top: 10px solid rgba(48,46,41,0.9)
+		border-bottom: 10px solid transparent
+		border-top: 10px solid transparent
+		border-right: 10px solid rgba(30,25,97,0.7)
+
+.tooltip__name
+	text-align: center
+	padding-bottom: 8px
 
 .info-wrapper
 	width: 50%
