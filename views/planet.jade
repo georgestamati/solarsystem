@@ -12,8 +12,11 @@ block content
                         each item in items
                             if item.name === title && item.moons
                                 each moon in item.moons
-                                    - var isTrue = "background-image: url('../img/planets/" + moon.name + ".jpg')"
-                                    - var isFalse = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg')"
+                                    - var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ");"
+
+                                    - var isTrue = "background-image: url('../img/planets/" + moon.name + ".jpg'); " + moonPos
+                                    - var isFalse = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); " + moonPos
+
                                     a.moon(
                                         id="#{moon.name}",
                                         href="/#{moon.name}",
