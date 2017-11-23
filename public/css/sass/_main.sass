@@ -442,18 +442,9 @@ a
 			box-shadow: inset -9px -2px 39px 15px #000
 	#uranus .rings
 		@include elementPosition(1700px, 700px, -370px, 100px)
-		//background: $uranusRingsBackground
 	#saturn .rings
-		@include elementPosition(2000px, 520px, -500px, 300px)
-		//background: $saturnRingsBackground
+		@include elementPosition(2300px, 520px, -650px, 300px)
 		transform: rotateX(40deg)
-	//#sun
-	//	position: static
-	//	font-size: initial
-	//	background-image: none
-	//	> .planet
-	//		background-image: url('../img/sun.jpg')
-	//		box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset
 
 .moons-wrapper
 	position: relative
@@ -522,6 +513,9 @@ a
 		border-bottom: 10px solid transparent
 		border-top: 10px solid transparent
 		border-right: 10px solid rgba(30,25,97,0.7)
+	td
+		padding: 0 10px 5px 0
+		line-height: 1.5
 
 .tooltip__name
 	text-align: center
