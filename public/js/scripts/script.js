@@ -18,6 +18,7 @@ var app = {
         view.bindActions();
         view.bindEffects();
         view.voiceControl();
+        view.showMoonsMobile();
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -78,12 +79,14 @@ var app = {
         }
     },
     parallaxEffect: function () {
-        s.universe.on('mousemove', function(e) {
-            view.parallaxGalaxy(e, '#galaxy .planet-wrapper .planet', -20);
-            $.each(s.moon, function(i, item){
-                view.parallaxGalaxy(e, item, -50-(i*50))
-            })
-        });
+        if(!s.mobileTest){
+            s.universe.on('mousemove', function(e) {
+                view.parallaxGalaxy(e, '#galaxy .planet-wrapper .planet', -20);
+                $.each(s.moon, function(i, item){
+                    view.parallaxGalaxy(e, item, -50-(i*50))
+                })
+            });
+        }
     },
     zoomGalaxy: function(e){
         var ev = window.event || e, //equalize event object
@@ -158,6 +161,11 @@ var app = {
 
         s.loaderRedirect.addClass('hidden');
         $('.'+attr).removeClass('hidden');
+    },
+    showMoonsMobile: function () {
+        $('.menu-item a').on('click', function () {
+            $('.moons-wrapper').removeClass('hidden');
+        })
     },
     toMainPage: function(){
         window.location = '/';

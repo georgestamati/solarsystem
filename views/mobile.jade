@@ -14,7 +14,18 @@ block content
                             .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
                                 if item.name === 'saturn' || item.name === 'uranus'
                                     .rings
-
+                            .moons-wrapper.hidden
+                                if item.moons
+                                    each moon in item.moons
+                                        - var isTrue = "background-image: url('../img/planets/" + moon.name + ".jpg'); " + moonPos
+                                        - var isFalse = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); " + moonPos
+                                        - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
+                                        div
+                                            a(href= href) #{moon.name}
+                                            .moon(id="#{moon.name}",
+                                                style= item.name === 'sun' ? isTrue : isFalse)
+                                                if moon.rings
+                                                    .rings
     script.
         // Get anchors from menu
         var menuLinks = document.getElementsByTagName('a');

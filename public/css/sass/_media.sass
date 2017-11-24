@@ -35,7 +35,6 @@
 				height: 200px
 				margin: 80px auto
 				font-size: inherit
-				//box-shadow: inset 0 0 25px 5px #000
 				background-repeat: repeat-x
 				background-size: 400px
 				animation-name: animatedBackground
@@ -52,6 +51,11 @@
 				@include elementPosition(38em, 20em, -9em, 0em)
 				background: $saturnRingsBackground
 				transform: rotateX(40deg)
-
+		.moons-wrapper
+			position: absolute
+			width: 100%
+			.moon
+				position: relative
+				margin: 40px auto 80px
 	.loader__welcome
 		font-size: 2em
