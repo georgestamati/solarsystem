@@ -109,44 +109,45 @@ var rows = [
                         'left': '400',
                         'scale': '0.85'
                 },
-                'rings': '.rings'
+                'rings': '.rings',
+
+            },
+            {
+                'name': 'uranus',
+                'description': {
+                'diameter': '51,118 km',
+                    'rotation period': '17.3 hours',
+                    'distance from sun': '2,870,990,000 km',
+                    'orbit period': '84.01 years',
+                    'number of moons': '27',
+                    'axis inclination': '97.86°',
+                    'orbit inclination': '0.774°'
                 },
-        {
-            'name': 'uranus',
-            'description': {
-            'diameter': '51,118 km',
-                'rotation period': '17.3 hours',
-                'distance from sun': '2,870,990,000 km',
-                'orbit period': '84.01 years',
-                'number of moons': '27',
-                'axis inclination': '97.86°',
-                'orbit inclination': '0.774°'
-            },
-            'pos':{
-                'top': '300',
-                    'left': '350',
-                    'scale': '0.6'
-            },
+                'pos':{
+                    'top': '300',
+                        'left': '350',
+                        'scale': '0.6'
+                },
                 'rings': '.rings'
             },
-    {
-        'name': 'neptune',
-        'description': {
-        'diameter': '49,492 km',
-            'rotation period': '15.8 hours',
-            'distance from sun': '4,504,300,000 km',
-            'orbit period': '165 years',
-            'number of moons': '14',
-            'axis inclination': '29.31°',
-            'orbit inclination': '1.774°'
-        },
-        'pos':{
-            'top': '425',
-                'left': '450',
-                'scale': '0.55'
-        }
-    }
-]
+            {
+                'name': 'neptune',
+                'description': {
+                'diameter': '49,492 km',
+                    'rotation period': '15.8 hours',
+                    'distance from sun': '4,504,300,000 km',
+                    'orbit period': '165 years',
+                    'number of moons': '14',
+                    'axis inclination': '29.31°',
+                    'orbit inclination': '1.774°'
+                },
+                'pos':{
+                    'top': '425',
+                        'left': '450',
+                        'scale': '0.55'
+                }
+            }
+        ]
     },
     {
         'name': 'mercury'
@@ -209,9 +210,9 @@ var rows = [
             }
         ]
     },
-{
-    'name': 'jupiter',
-    'moons': [
+    {
+        'name': 'jupiter',
+        'moons': [
             {
                 'name': 'io',
                 'description': {
@@ -276,6 +277,7 @@ var rows = [
     },
     {
         'name': 'saturn',
+        'rings': '.rings',
         'moons': [
             {
                 'name': 'dione',
@@ -386,6 +388,7 @@ var rows = [
     },
     {
         'name': 'uranus',
+        'rings': '.rings',
         'moons': [
             {
                 'name': 'ariel',

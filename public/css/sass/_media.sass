@@ -11,51 +11,8 @@
 @media all and (max-width: 1200px)
 	#galaxy.galaxy-view--3D
 		font-size: 50%
+	//#asteroids
 
 @media all and (max-width: 992px)
-	.menu
-		&.main-page-link
-			z-index: 1
-		&.mobile-menu
-			display: -webkit-box
-			align-items: center
-			height: 100%
-			overflow: auto
-			white-space: nowrap
-			.menu-item
-				display: block
-				width: 100%
-				a
-					font-size: 32px
-					text-align: center
-					text-decoration: none
-			.planet
-				position: static
-				width: 200px
-				height: 200px
-				margin: 80px auto
-				font-size: inherit
-				background-repeat: repeat-x
-				background-size: 400px
-				animation-name: animatedBackground
-				animation-duration: 10s !important
-				animation-timing-function: linear
-				animation-iteration-count: infinite
-				transform-style: preserve-3d
-				box-shadow: inset -9px -2px 39px 15px #000
-			#uranus .rings
-				@include elementPosition(38em, 20em, -9em, 0em)
-				background: $uranusRingsBackground
-			#saturn .rings
-				position: absolute
-				@include elementPosition(38em, 20em, -9em, 0em)
-				background: $saturnRingsBackground
-				transform: rotateX(40deg)
-		.moons-wrapper
-			position: absolute
-			width: 100%
-			.moon
-				position: relative
-				margin: 40px auto 80px
 	.loader__welcome
 		font-size: 2em

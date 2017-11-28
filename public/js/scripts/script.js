@@ -52,9 +52,6 @@ var app = {
             s.loaderControlButton.on('click', view.chooseControl);
             s.loaderButton.on('click', view.showPage);
 
-            // socket.on('key', function (data) {
-            // 	$('.loader__remote-button').val(data.code);
-            // });
         } else { // It does exist a session
             state = 'same';
             loaderWrapperButPlanet.addClass('hidden');
@@ -164,7 +161,7 @@ var app = {
     },
     showMoonsMobile: function () {
         $('.menu-item a').on('click', function () {
-            $('.moons-wrapper').removeClass('hidden');
+            $(this).siblings().find('.moons-wrapper').removeClass('hidden');
         })
     },
     toMainPage: function(){

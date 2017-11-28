@@ -8,13 +8,18 @@ block content
                 .orbit(id="#{item.name}")
                     .planet-wrap
                         .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-                            if item.name === 'saturn' || item.name === 'uranus'
+                            if item.rings
                                 .rings
                             .tooltip.planet-tooltip #{item.name}
                             if item.name === 'earth'
                                 #moon.orbit
                                     .planet-wrap
                                         .planet
+            .orbit(id="asteroids")
+                //- var i = 0
+                //while (i < 100)
+                //    .planet-wrap(style="left: " + (i++)*Math.floor(Math.random() * 10) + "%; top: " + (i++)*Math.floor(Math.random() * 10) + "%;")
+                //        .planet(style="left: " + (i++)*Math.floor(Math.random() * 10) + "%; top: " + (i++)*Math.floor(Math.random() * 10) + "%;")
 
         include menu
 

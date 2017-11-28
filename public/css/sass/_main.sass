@@ -275,6 +275,22 @@ a
 		@include axialInclination($marsAxisInclination)
 		animation-duration: $marsOrbitalRotation
 
+#asteroids
+	border-color: transparent !important
+	@include elementPosition(300px, 300px, -300px / 2, -300px / 2)
+	overflow: hidden
+	&.orbit
+		animation-name: asteroidOrbit
+		animation-duration: $asteroidOrbitalRotation
+	&:before
+		content: ""
+		position: absolute
+		@include planetPosition(50%, 50%)
+		@include elementPosition(210px, 210px, -210px / 2, -210px / 2)
+		background: transparent
+		border-radius: 140px !important
+		box-shadow: stars(200, 500, -500/2, -104)
+
 #jupiter
 	&.orbit
 		animation-name: jupiterOrbit
@@ -353,6 +369,8 @@ a
 		font-size: $marsOrbitSize
 		.planet
 			font-size: $mars3dViewSize
+	#asteroids
+		font-size: $asteroidOrbitSize
 	#jupiter
 		font-size: $jupiterOrbitSize
 		.planet
@@ -442,10 +460,10 @@ a
 			box-shadow: inset -9px -2px 39px 15px #000
 	#uranus
 		.rings
-			@include elementPosition(1700px, 700px, -370px, 100px)
+			@include elementPosition(1700px, 700px, 100px, -370px)
 	#saturn
 		.rings
-			@include elementPosition(2300px, 520px, -650px, 300px)
+			@include elementPosition(2300px, 520px, 300px, -650px)
 			transform: rotateX(40deg)
 
 .moons-wrapper
@@ -464,10 +482,10 @@ a
 	transition: all 1s ease
 	cursor: pointer
 	&#saturn .rings
-		@include elementPosition(320px, 100%, -80px, 0)
+		@include elementPosition(320px, 100%, 0, -80px)
 		transform: rotateX(40deg)
 	&#uranus .rings
-		@include elementPosition(100%, 320px, 0, -80px)
+		@include elementPosition(100%, 320px, -80px, 0)
 		transform: rotateY(130deg)
 	&:hover
 		opacity: 1
@@ -476,7 +494,7 @@ a
 		.moon-tooltip
 			opacity: 1
 			transform: scale(1) translateY(-50%)
-			
+
 #uranus .moon, #neptune .moon
 	background-size: initial
 	background-position: 350px 150px
@@ -526,3 +544,54 @@ a
 	display: flex
 	flex-direction: column
 	align-items: center
+
+.menu
+	&.main-page-link
+		z-index: 1
+		background-color: #000
+	&.mobile-menu
+		display: -webkit-box
+		align-items: center
+		height: 100%
+		overflow: auto
+		white-space: nowrap
+		.menu-item
+			display: block
+			width: 100%
+			a
+				font-size: 32px
+				text-align: center
+				text-decoration: none
+		.planet
+			position: static
+			width: 200px
+			height: 200px
+			margin: 100px auto 50px
+			font-size: inherit
+			background-repeat: repeat-x
+			background-size: 400px
+			animation-name: animatedBackground
+			animation-duration: 10s !important
+			animation-timing-function: linear
+			animation-iteration-count: infinite
+			transform-style: preserve-3d
+			box-shadow: inset -9px -2px 39px 15px #000
+		#uranus .rings
+			@include elementPosition(38em, 20em, 0em, -9em)
+			background: $uranusRingsBackground
+		#saturn .rings
+			position: absolute
+			@include elementPosition(38em, 20em, 0em, -9em)
+			background: $saturnRingsBackground
+			transform: rotateX(40deg)
+		.moons-wrapper
+			div
+				transform: scale(0.75)
+				.planet
+					animation: none
+	.moons-wrapper
+		position: absolute
+		width: 100%
+		.moon
+			position: relative
+			margin: 40px auto 80px

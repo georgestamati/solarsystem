@@ -1,8 +1,8 @@
 @mixin elementPosition($width, $height, $marginTop, $marginLeft)
 	width: $width
 	height: $height
-	margin-left: $marginTop
-	margin-top: $marginLeft
+	margin-top: $marginTop
+	margin-left: $marginLeft
 
 @mixin axialInclination($deg)
 	transform: rotateZ($deg)
@@ -23,3 +23,9 @@
 @mixin animationMixin($name, $duration, $delay)
 	animation: $name $duration $delay
 	animation-fill-mode: forwards
+
+@function stars($s, $max-area, $min-area : 0, $star-size : 0)
+	$stars : #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(255,255,255, random(100)*.01)
+	@for $i from 1 to $s
+		$stars: '#{$stars} , #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(255,255,255, #{random(100)*.01})'
+	@return unquote($stars)
