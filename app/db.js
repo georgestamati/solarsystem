@@ -65,7 +65,7 @@ var rows = [
                     'diameter': '6,794 km',
                     'rotation period': '24.62 days',
                     'distance from sun': '227,940,000 km',
-                    'orbit period': '686.98 days',
+                    'orbit period': '1.88 years',
                     'number of moons': '2',
                     'axis inclination': '23.98°',
                     'orbit inclination': '1.85°'
@@ -82,7 +82,7 @@ var rows = [
                     'diameter': '139,822 km',
                     'rotation period': '9.84 hours',
                     'distance from sun': '778,330,000 km',
-                    'orbit period': '11.8623 years',
+                    'orbit period': '11.86 years',
                     'number of moons': '67',
                     'axis inclination': '3.12°',
                     'orbit inclination': '1.31°'
@@ -99,7 +99,7 @@ var rows = [
                     'diameter': '120,536 km',
                     'rotation period': '10.23 days',
                     'distance from sun': '1,429,400,000 km',
-                    'orbit period': '29.458 years',
+                    'orbit period': '29.46 years',
                     'number of moons': '62',
                     'axis inclination': '26.73°',
                     'orbit inclination': '2.49°'
