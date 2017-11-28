@@ -17,12 +17,13 @@ block content
                             if item.moons
                                 .moons-wrapper.hidden
                                     each moon in item.moons
-                                        - var isTrue = "background-image: url('../img/planets/" + moon.name + ".jpg'); "
-                                        - var isFalse = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); "
+                                        - var isPlanet = "background-image: url('../img/planets/" + moon.name + ".jpg');"
+                                        - var isMoon = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); "
+                                        - var disableMoonRotate = "transform: rotateZ(0deg);"
                                         - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
                                         div(id="#{moon.name}")
                                             a(href= href) #{moon.name}
-                                            .planet(style= item.name === 'sun' ? isTrue : isFalse)
+                                            .planet(style= item.name === 'sun' ? isPlanet : (isMoon + disableMoonRotate ))
                                                 if moon.rings
                                                     .rings
     script.

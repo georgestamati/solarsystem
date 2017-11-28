@@ -12,34 +12,37 @@ block content
                         each item in items
                             if item.name === title && item.moons
                                 each moon in item.moons
-                                    - var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ");"
+                                    - var axisInclination = moon.description['axis inclination']
+                                    - var enableMoonRotate = axisInclination ? deleteLastChar(axisInclination) : ""
+                                    //- var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ") rotateZ("+ enableMoonRotate +"deg);"
+                                    - var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ") "
 
-                                    - var isTrue = "background-image: url('../img/planets/" + moon.name + ".jpg'); " + moonPos
-                                    - var isFalse = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); " + moonPos
+                                    - var isPlanet = "background-image: url('../img/planets/" + moon.name + ".jpg'); " + moonPos
+                                    - var isMoon = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); " + moonPos
+                                    - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
 
-                                    a.moon(
-                                        id="#{moon.name}",
-                                        href="/#{item.name}/#{moon.name}",
-                                        style= item.name === 'sun' ? isTrue : isFalse)
-
+                                    .moon(id="#{moon.name}",
+                                        style= item.name === 'sun' ? isPlanet : isMoon)
                                         if moon.rings
                                             .rings
+                                        a(href= href)
 
-                                        table.tooltip.moon-tooltip
-                                            thead
-                                                tr
-                                                    td.tooltip__name(colspan='2') #{moon.name}
-                                            tbody.tooltip__description--wrapper
-                                                each item, key in moon.description
-                                                    tr.tooltip__description--content
-                                                        td(class='tooltip__description--key') #{key}
-                                                        td(class='tooltip__description--item tooltip__#{key}') #{item}
+                                            table.tooltip.moon-tooltip
+                                                thead
+                                                    tr
+                                                        td.tooltip__name(colspan='2') #{moon.name}
+                                                tbody.tooltip__description--wrapper
+                                                    each item, key in moon.description
+                                                        tr.tooltip__description--content
+                                                            td(class='tooltip__description--key') #{key}
+                                                            td(class='tooltip__description--item tooltip__#{key}') #{item}
 
                 .info-wrapper
                     .info-gallery
 
         include menu
 
+    - function deleteLastChar(x){ lc = x.slice(0, -1); return parseFloat(lc);}
     script.
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url;

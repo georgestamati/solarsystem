@@ -236,7 +236,7 @@ a
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
 		animation-duration: $venusOrbitalRotation
-	.planet 
+	.planet
 		@include axialInclination($venusAxisInclination)
 		animation-duration: $venusOrbitalRotation
 
@@ -247,7 +247,7 @@ a
 	.planet-wrap 
 		@include planetPosition(100%, 50%)
 		animation-duration: $earthOrbitalRotation
-	.planet 
+	.planet
 		@include axialInclination($earthAxisInclination)
 		animation-duration: $earthOrbitalRotation
 		#moon
@@ -271,7 +271,7 @@ a
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
 		animation-duration: $marsOrbitalRotation
-	.planet 
+	.planet
 		@include axialInclination($marsAxisInclination)
 		animation-duration: $marsOrbitalRotation
 
@@ -298,7 +298,7 @@ a
 	.planet-wrap 
 		@include planetPosition(50%, 0)
 		animation-duration: $jupiterOrbitalRotation
-	.planet 
+	.planet
 		@include axialInclination($jupiterAxisInclination)
 		animation-duration: $jupiterOrbitalRotation
 
@@ -309,7 +309,7 @@ a
 	.planet-wrap 
 		@include planetPosition(0, 50%)
 		animation-duration: $saturnOrbitalRotation
-	.planet 
+	.planet
 		@include axialInclination($saturnAxisInclination)
 		animation-duration: $saturnOrbitalRotation
 	.rings
@@ -325,7 +325,7 @@ a
 	.planet-wrap 
 		@include planetPosition(50%, 100%)
 		animation-duration: $uranusOrbitalRotation
-	.planet 
+	.planet
 		@include axialInclination($uranusAxisInclination)
 		animation-duration: $uranusOrbitalRotation
 	.rings
@@ -341,7 +341,7 @@ a
 	.planet-wrap 
 		@include planetPosition(100%, 50%)
 		animation-duration: $neptuneOrbitalRotation
-	.planet 
+	.planet
 		@include axialInclination($neptuneAxisInclination)
 		animation-duration: $neptuneOrbitalRotation
 
@@ -487,11 +487,15 @@ a
 	&#uranus .rings
 		@include elementPosition(100%, 320px, -80px, 0)
 		transform: rotateY(130deg)
+	a
+		display: block
+		height: 100%
 	&:hover
 		opacity: 1
 		transform: scale(1.2) !important
 		transition: all 1s ease
 		.moon-tooltip
+			//@extend a
 			opacity: 1
 			transform: scale(1) translateY(-50%)
 
@@ -589,6 +593,9 @@ a
 				transform: scale(0.75)
 				.planet
 					animation: none
+		#uranus .moons-wrapper .planet, #neptune .moons-wrapper .planet
+			background-size: 1000px
+			background-position: 450px -300px
 	.moons-wrapper
 		position: absolute
 		width: 100%

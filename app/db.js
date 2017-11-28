@@ -109,8 +109,7 @@ var rows = [
                         'left': '400',
                         'scale': '0.85'
                 },
-                'rings': '.rings',
-
+                'rings': '.rings'
             },
             {
                 'name': 'uranus',
