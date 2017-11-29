@@ -124,22 +124,69 @@ a
 		box-shadow: 0 0 30px #8ff, 0 0 100px #000 inset, 0 0 50px #5ff inset, -20px -10px 100px #000 inset
 		animation: loaderAnimation 2s infinite linear
 
-.menu
+.menu__button
+	position: fixed
+	top: 15px
+	right: 15px
+	z-index: 99
+	width: 30px
+	height: 30px
+	cursor: pointer
+	&--line
+		position: absolute
+		opacity: 1
+		width: 100%
+		height: 3px
+		background: aqua
+		transition: all 0.2s ease
+		&.span1
+			top: 0
+		&.span2
+			top: 10px
+		&.span3
+			top: 20px
+	&.active
+		transition: all 0.2s ease
+		.span1
+			transform: translateY(10px) translateX(0) rotate(45deg)
+		.span2
+			opacity: 0
+		.span3
+			transform: translateY(-10px) translateX(0) rotate(-45deg)
+
+.menu__overlay
 	position: absolute
 	top: 0
 	left: 0
 	right: 0
-	padding: 15px 0
+	bottom: 0
+	opacity: 0
+	visibility: hidden
+	transition: opacity .35s, visibility .35s, width .35s
+	text-align: center
+	background-color: rgba(0, 0, 0, 0.8)
+	&.open
+		opacity: .9
+		visibility: visible
+		height: 100%
+
+.menu
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%, -50%)
+	height: 80%
+	padding: 0
 	margin: 0
-	background-color: transparent
 	text-align: center
 	li
 		position: relative
-		display: inline
-		margin: 0 15px
+		list-style: none
+		height: calc(100% / 9)
+		//display: inline
+		//margin: 0 15px
 		&:hover .dropdown
-			opacity: 1
-			visibility: visible
+			display: block
 			transition: all .3s ease
 	a
 		color: aqua
@@ -151,17 +198,16 @@ a
 			
 .dropdown
 	position: absolute
-	top: 100%
-	left: 0
-	opacity: 0
-	visibility: hidden
-	padding: 10px 0 0 10px
+	top: 0
+	left: 100%
+	display: none
+	padding-left: 30px
 	text-align: left
 	transition: all .3s ease
 	a
 		display: block
 		font-size: 16px
-		padding-bottom: 5px
+		margin-bottom: 25px
 		&:last-child
 			padding-bottom: 0
 
@@ -286,10 +332,10 @@ a
 		content: ""
 		position: absolute
 		@include planetPosition(50%, 50%)
-		@include elementPosition(210px, 210px, -210px / 2, -210px / 2)
+		@include elementPosition(250px, 250px, -250px / 2, -250px / 2)
 		background: transparent
 		border-radius: 140px !important
-		box-shadow: stars(200, 500, -500/2, -104)
+		box-shadow: stars(300, 400, -400/2, -200)
 
 #jupiter
 	&.orbit
@@ -483,7 +529,6 @@ a
 	cursor: pointer
 	&#saturn .rings
 		@include elementPosition(320px, 100%, 0, -80px)
-		transform: rotateX(40deg)
 	&#uranus .rings
 		@include elementPosition(100%, 320px, -80px, 0)
 		transform: rotateY(130deg)
@@ -491,6 +536,7 @@ a
 		display: block
 		height: 100%
 	&:hover
+		z-index: 99
 		opacity: 1
 		transform: scale(1.2) !important
 		transition: all 1s ease
@@ -536,11 +582,12 @@ a
 	width: 50%
 
 .visible
+	//display: block
 	opacity: 1
 	visibility: visible
 
 .hidden
-	display: none
+	//display: none
 	opacity: 0
 	visibility: hidden
 

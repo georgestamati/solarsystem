@@ -1,8 +1,14 @@
-ul.menu
-	each item in items
-		li
-			a(href="/#{item.name}") #{item.name}
-			if item.moons
-				span.dropdown
-					each moon in item.moons
-						a(href="/#{item.name}/#{moon.name}") #{moon.name}
+.menu__button
+	.menu__button--line.span1
+	.menu__button--line.span2
+	.menu__button--line.span3
+
+.menu__overlay
+	ul.menu
+		each item in items
+			li
+				a(href="/#{item.name}") #{item.name}
+				if item.moons
+					.dropdown
+						each moon in item.moons
+							a(href="/#{item.name}/#{moon.name}") #{moon.name}

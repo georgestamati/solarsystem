@@ -58,6 +58,11 @@ var app = {
         }
 
         view.loadAddClass(state);
+
+        $('.menu__button').on('click', function () {
+            $(this).toggleClass('active');
+            $('.menu__overlay').toggleClass('open');
+        })
     },
     bindEffects: function () {
         view.zoomEffect();
