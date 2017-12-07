@@ -9,8 +9,8 @@ html(lang='en')
         meta(name="viewport", content="width=device-width, initial-scale=1")
 
         link(rel="icon", href="favicon.ico")
-        //link(rel='stylesheet', href='/css/style.css')
-        link(rel='stylesheet', href='/css/style.css', media="none", onload="if(media!='all') media='all'")
+        link(rel='stylesheet', href='/css/style.css')
+        //link(rel='stylesheet', href='/css/style.css', media="none", onload="if(media!='all') media='all'")
         script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
 
     body
@@ -18,9 +18,10 @@ html(lang='en')
         script.
             var socket = io.connect()
 
-        !{loader}
+        .container
+            !{loader}
 
-        block content
+            block content
 
         script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
         script(type="text/javascript", src="/js/libs/annyang.min.js")

@@ -11,4 +11,5 @@
 				if item.moons
 					.dropdown
 						each moon in item.moons
-							a(href="/#{item.name}/#{moon.name}") #{moon.name}
+							- var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
+							a(href= href) #{moon.name}

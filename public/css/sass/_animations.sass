@@ -119,6 +119,12 @@
 	100%
 		@include scaleElement(0, scale(0))
 
+@keyframes scaleDownOnMenuClick
+	0%
+		@include scaleElement(1, scale(1))
+	100%
+		@include scaleElement(0, scale(0))
+
 @keyframes sunRays
 	0%, 100%
 		box-shadow: 0 0 30px 10px orange, 0 0 100px 20px orange inset

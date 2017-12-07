@@ -43,7 +43,7 @@ var app = {
             state = '';
 
         // sessionStorage will be changed to localStorage
-        if (sessionStorage.getItem('loader') === null) { // It doesn't exist any session
+        if (sessionStorage.getItem('loader') === null) { // If session doesn't exist
             sessionStorage.setItem('loader', 'true');
 
             state = 'new';
@@ -62,6 +62,18 @@ var app = {
         $('.menu__button').on('click', function () {
             $(this).toggleClass('active');
             $('.menu__overlay').toggleClass('open');
+        });
+
+        $('body').on('click', 'a', function (ev) {
+            ev.preventDefault();
+            s.universe.css({
+                'animation': 'scaleDownOnMenuClick 1s ease'
+            });
+            $(this).parents('.menu__overlay').removeClass('open');
+            setTimeout(function () {
+                window.location = ev.target.pathname;
+            }, 1000)
+
         })
     },
     bindEffects: function () {
@@ -238,6 +250,13 @@ var app = {
     }
 };
 
-$(function() {
-    app.init();
+// $(function() {
+//     app.init();
+// });
+
+$(window).on('load', function () {
+    // setTimeout(function() {
+    //     $('body').addClass('page-loaded');
+        app.init();
+    // }, 1500);
 });
