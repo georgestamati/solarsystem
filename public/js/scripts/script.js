@@ -64,12 +64,12 @@ var app = {
             $('.menu__overlay').toggleClass('open');
         });
 
-        $('body').on('click', 'a', function (ev) {
+        $('.desktop-menu a').on('click', function (ev) {
             ev.preventDefault();
+            $(this).parents('.menu__overlay').removeClass('open');
             s.universe.css({
                 'animation': 'scaleDownOnMenuClick 1s ease'
             });
-            $(this).parents('.menu__overlay').removeClass('open');
             setTimeout(function () {
                 window.location = ev.target.pathname;
             }, 1000)
@@ -177,7 +177,8 @@ var app = {
         $('.'+attr).removeClass('hidden');
     },
     showMoonsMobile: function () {
-        $('.menu-item a').on('click', function () {
+        $('.menu-item > a').on('click', function () {
+            $('.moons-wrapper').addClass('hidden');
             $(this).siblings().find('.moons-wrapper').removeClass('hidden');
         })
     },

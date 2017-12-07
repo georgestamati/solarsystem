@@ -45,18 +45,36 @@ mobileLoader =	'<div class="loader hidden">'+
 router.get('/', function(req, res) {
 	var ua = req.headers['user-agent'];
 	if (/mobile/i.test(ua)) {
-		res.render('mobile', { 'title': 'Solar System', 'items': rows, 'loader': mobileLoader });
+		res.render('mobile', {
+			'title': 'Solar System',
+			'items': rows,
+			'loader': mobileLoader
+		});
 	} else {
-		res.render('index', { 'title': 'Solar System', 'items': rows, 'loader': desktopLoader });
+		res.render('index', {
+			'title': 'Solar System',
+			'items': rows,
+			'loader': desktopLoader
+		});
 	}
 });
 
 router.get('/:planet', function(req, res) {
-	res.render('planet', { 'title': req.params.planet, 'url': req.params.planet, 'items': rows, 'loader': desktopLoader});
+	res.render('planet', {
+		'title': req.params.planet,
+		'url': req.params.planet,
+		'items': rows,
+		'loader': desktopLoader
+	});
 });
 
 router.get('/:planet/:moon', function(req, res) {
-	res.render('moon', { 'moon': req.params.moon, 'planet': req.params.planet, 'items': rows, 'loader': desktopLoader});
+	res.render('moon', { 
+		'title': req.params.moon,
+		'moon': req.params.moon,
+		'planet': req.params.planet,
+		'items': rows,
+		'loader': desktopLoader});
 });
 
 module.exports = router;

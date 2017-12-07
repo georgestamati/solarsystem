@@ -6,9 +6,7 @@ a
 	font-family: 'gravediggerregular', sans-serif
 	text-decoration: none
 
-.container
-	width: 100%
-	height: 100%
+body
 	overflow: hidden
 	background: #000 url('../img/stars.png') no-repeat
 	background-size: cover
@@ -174,29 +172,9 @@ a
 		height: 100%
 
 .menu
-	position: absolute
-	top: 50%
-	left: 50%
-	transform: translate(-50%, -50%)
-	height: 80%
 	padding: 0
 	margin: 0
 	text-align: center
-	li
-		position: relative
-		list-style: none
-		height: calc(100% / 9)
-		//display: inline
-		//margin: 0 15px
-		&:hover .dropdown
-			opacity: 1
-			visibility: visible
-			transition: all .1s ease
-			a
-				opacity: 1
-				visibility: visible
-				margin-left: 0
-				@include menuItems()
 	a
 		color: aqua
 		font-size: 18px
@@ -204,6 +182,29 @@ a
 		&:hover
 			color: #fff
 			font-size: 22px
+			@include menuItems()
+	&.desktop-menu
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		height: 80%
+		li
+			position: relative
+			list-style: none
+			height: 10%
+			//display: inline
+			//margin: 0 15px
+			&:hover .dropdown
+				opacity: 1
+				visibility: visible
+				transition: all .1s ease
+				a
+					opacity: 1
+					visibility: visible
+					margin-left: 0
+					@include menuItems()
+		a:hover
 			@include menuItems()
 
 
@@ -614,15 +615,21 @@ a
 
 .menu
 	&.main-page-link
+		position: fixed
+		left: 0
+		right: 0
+		padding: 20px 0
 		z-index: 1
 		background-color: #000
 	&.mobile-menu
 		display: -webkit-box
 		align-items: center
+		width: 100%
 		height: 100%
 		overflow: auto
 		white-space: nowrap
 		.menu-item
+			position: relative
 			display: block
 			width: 100%
 			a

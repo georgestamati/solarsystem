@@ -1,15 +1,17 @@
 .menu__button
-	.menu__button--line.span1
-	.menu__button--line.span2
-	.menu__button--line.span3
+    .menu__button--line.span1
+    .menu__button--line.span2
+    .menu__button--line.span3
 
 .menu__overlay
-	ul.menu
-		each item in items
-			li
-				a(href="/#{item.name}") #{item.name}
-				if item.moons
-					.dropdown
-						each moon in item.moons
-							- var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
-							a(href= href) #{moon.name}
+    ul.menu.desktop-menu
+        li
+            a(href='/') Home
+        each item in items
+            li
+                a(href="/#{item.name}") #{item.name}
+                if item.moons
+                    .dropdown
+                        each moon in item.moons
+                            - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
+                            a(href= href) #{moon.name}
