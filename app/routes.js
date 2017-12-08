@@ -4,6 +4,10 @@ var express = require('express'),
 
 var desktopLoader, mobileLoader;
 
+var capTitle = function (value) {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+};
+
 desktopLoader =	'<div class="loader hidden">'+
 					'<div class="loader__wrapper">'+
 						'<div class="loader__welcome welcome__message">Welcome to SolSys 3D</div>'+
@@ -61,7 +65,7 @@ router.get('/', function(req, res) {
 
 router.get('/:planet', function(req, res) {
 	res.render('planet', {
-		'title': req.params.planet,
+		'title': capTitle(req.params.planet),
 		'url': req.params.planet,
 		'items': rows,
 		'loader': desktopLoader
@@ -69,8 +73,8 @@ router.get('/:planet', function(req, res) {
 });
 
 router.get('/:planet/:moon', function(req, res) {
-	res.render('moon', { 
-		'title': req.params.moon,
+	res.render('moon', {
+		'title': capTitle(req.params.moon),
 		'moon': req.params.moon,
 		'planet': req.params.planet,
 		'items': rows,
