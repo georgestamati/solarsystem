@@ -43,8 +43,8 @@ var app = {
             state = '';
 
         // sessionStorage will be changed to localStorage
-        if (sessionStorage.getItem('loader') === null) { // If session doesn't exist
-            sessionStorage.setItem('loader', 'true');
+        if (localStorage.getItem('loader') === null) { // If session doesn't exist
+            localStorage.setItem('loader', 'true');
 
             state = 'new';
             loaderWrapperButPlanet.removeClass('hidden');
