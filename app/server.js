@@ -11,6 +11,8 @@ var server = http.createServer(app);
 
 var key = Math.floor(1000 + Math.random() * 9000);
 
+console.log(key);
+
 // Socket IO
 var io = require('socket.io')(server);
 
