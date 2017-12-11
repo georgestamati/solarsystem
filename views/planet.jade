@@ -4,13 +4,13 @@ block content
     #universe
         #galaxy
             .wrapper
-                .planet-wrapper(id="#{title}")
-                    .planet(style="background-image: url('../img/planets/#{title}_hd.jpg')")
-                        if title === 'saturn' || title === 'uranus'
+                .planet-wrapper(id="#{planet}")
+                    .planet(style="background-image: url('../img/planets/#{planet}_hd.jpg')")
+                        if planet === 'saturn' || planet === 'uranus'
                             .rings
                     .moons-wrapper
                         each item in items
-                            if item.name === title && item.moons
+                            if item.name === planet && item.moons
                                 each moon in item.moons
                                     - var axisInclination = moon.description['axis inclination']
                                     - var enableMoonRotate = axisInclination ? deleteLastChar(axisInclination) : ""

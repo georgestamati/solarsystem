@@ -66,7 +66,7 @@ router.get('/', function(req, res) {
 router.get('/:planet', function(req, res) {
 	res.render('planet', {
 		'title': capTitle(req.params.planet),
-		'url': req.params.planet,
+		'planet': req.params.planet,
 		'items': rows,
 		'loader': desktopLoader
 	});
