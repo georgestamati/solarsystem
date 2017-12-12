@@ -694,3 +694,32 @@ body
 		.moon
 			position: relative
 			margin: 40px auto 80px
+
+
+.error
+	position: absolute
+	left: 50%
+	top: 50%
+	transform: translate(-50%, -50%)
+	width: 100%
+	text-align: center
+	&__status
+		padding: 0 20px
+		&--digit
+			display: inline-block
+			margin: 0 10px
+			.loader__planet
+				width: 150px
+				height: 150px
+				margin: auto
+			&.number
+				@extend a
+				color: #000
+				font-size: 150px
+				text-shadow: 0 0 30px #8ff, 0 0 100px #000, 0 0 50px #5ff, -20px -10px 100px #000
+	&__message
+		@extend a
+		padding: 50px 20px
+		font-size: 24px
+		line-height: 1.5
+		letter-spacing: 2px
