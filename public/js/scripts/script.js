@@ -2,7 +2,8 @@ var s, view;
 var app = {
     _config: {
         universe: $('#universe'),
-        container: $('[class^="galaxy-"]'),
+        container: $('.container'),
+        galaxy: $('[class^="galaxy-"]'),
         loader: $('.loader'),
         loaderWrapper: $('.loader__wrapper'),
         loaderButton: $('.loader__local-button'),
@@ -22,7 +23,7 @@ var app = {
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
-        s.universe.addClass('universe__'+state+'-session');
+        s.universe.appendTo('.container').addClass('universe__'+state+'-session');
     },
     bindActions: function () {
         if(s.mobileTest){
@@ -112,7 +113,7 @@ var app = {
         incr += delta / 5;
 
         if(incr > 0){
-            s.container.css({'transform': 'rotateX(70deg) scale3d(' + incr + ',' + incr + ',' + incr + ')'});
+            s.galaxy.css({'transform': 'rotateX(70deg) scale3d(' + incr + ',' + incr + ',' + incr + ')'});
         }
         else{
             incr = 0;

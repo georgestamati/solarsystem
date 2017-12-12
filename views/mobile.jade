@@ -2,6 +2,7 @@ extends layout
 
 block content
     #universe
+
         #galaxy
             div.menu.main-page-link
                 a(href='/') Back to main page
@@ -10,7 +11,6 @@ block content
                     .menu-item
                         a(href="/#{item.name}") #{item.name}
                         div(id="#{item.name}")
-                            //- if item.name != 'sun'
                             .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
                                 if item.rings
                                     .rings

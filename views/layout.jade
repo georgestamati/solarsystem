@@ -18,9 +18,10 @@ html(lang='en')
         script.
             var socket = io.connect()
 
-        !{loader}
+        .container
+            !{loader}
 
-        block content
+            block content
 
         script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
         script(type="text/javascript", src="/js/libs/annyang.min.js")

@@ -2,7 +2,7 @@ var express = require('express'),
 	router = express.Router(),
 	rows = require('./db');
 
-var desktopLoader, mobileLoader;
+var desktopLoader, mobileLoader, planetArr = [];
 
 var capTitle = function (value) {
     return value.charAt(0).toUpperCase() + value.slice(1);
@@ -64,12 +64,20 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:planet', function(req, res) {
-	res.render('planet', {
-		'title': capTitle(req.params.planet),
-		'planet': req.params.planet,
-		'items': rows,
-		'loader': desktopLoader
-	});
+	for (var row in rows){
+		planetArr[row] = rows[row].name;
+	}
+	if(planetArr.indexOf(req.params.planet) > -1){
+		res.render('planet', {
+			'title': capTitle(req.params.planet),
+			'planet': req.params.planet,
+			'items': rows,
+			'loader': desktopLoader
+		});
+	}
+	else{
+		res.render('error');
+	}
 });
 
 router.get('/:planet/:moon', function(req, res) {

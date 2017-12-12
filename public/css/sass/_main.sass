@@ -8,11 +8,27 @@ a
 
 body
 	overflow: hidden
-	background: #000 url('../img/stars.png') no-repeat
-	background-size: cover
+	//background: #000 url('../img/stars.png') no-repeat
+	//background-size: cover
 	color: #fff
 	font-size: 10px
 	font-weight: 300
+	//&:before
+	//	content: ''
+	//	position: absolute
+	//	top: 0
+	//	left: 0
+	//	right: 0
+	//	bottom: 0
+	//	background: url('../img/clip-stars.png') repeat top center
+	//	animation: clippingStars 50s linear infinite
+
+.container
+	width: 100%
+	height: 100%
+	overflow: hidden
+	background: #000 url('../img/stars.png') no-repeat
+	background-size: cover
 	&:before
 		content: ''
 		position: absolute
@@ -610,7 +626,7 @@ body
 	visibility: visible
 
 .hidden
-	//display: none
+	display: none
 	opacity: 0
 	visibility: hidden
 
