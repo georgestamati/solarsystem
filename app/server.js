@@ -30,6 +30,13 @@ io.on('connection', function (socket) {
         })
     });
 
+    socket.on('showTooltipFromMobile', function (data) {
+       socket.to('room').emit('showTooltipOnDesktop', {
+           id: data.id,
+           click: data.click
+       })
+    });
+
     socket.on('load', function(data){
         socket.emit('access', {
             access: (parseInt(data.key) === parseInt(key) ? "granted" : "denied")

@@ -20,6 +20,7 @@ var app = {
         view.bindEffects();
         view.voiceControl();
         view.showMoonsMobile();
+        view.showTooltipFromMobile();
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -181,6 +182,34 @@ var app = {
         $('.menu-item > a').on('click', function () {
             $('.moons-wrapper').addClass('hidden');
             $(this).siblings().find('.moons-wrapper').removeClass('hidden');
+        })
+    },
+    showTooltipFromMobile: function () {
+        $('.menu-item .moons-wrapper .planet').on('click', function () {
+            moonWrapper = $(this).parents('.moons-wrapper');
+            console.log(moonWrapper.data('lastClick'));
+            socket.emit('showTooltipFromMobile', {
+                id: $(this).parent().attr('id'),
+                click: moonWrapper.data('lastClick')
+            });
+            if(moonWrapper.data('lastClick')){
+                dataClick = moonWrapper.data('lastClick')
+            }
+            moonWrapper.data('lastClick', $(this).parent().attr('id'));
+        });
+
+        socket.on('showTooltipOnDesktop', function (data) {
+            console.log(data.id, data.click);
+            $('.moon.hovered').removeClass('hovered');
+
+            if(data.id === data.click){
+                $('#' + data.id).removeClass('hovered');
+            }
+            else{
+                $('#' + data.id).addClass('hovered');
+            }
+
+            // $('#' + data.id).addClass('hovered');
         })
     },
     toMainPage: function(){
