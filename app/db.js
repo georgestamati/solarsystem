@@ -146,13 +146,76 @@ var rows = [
                         'scale': '0.55'
                 }
             }
-        ]
+        ],
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'The Sun (or Sol), is the star at the centre of our solar system and is responsible for the Earth’s climate and weather. The Sun is an almost perfect sphere with a difference of just 10km in diameter between the poles and the equator. The average radius of the Sun is 695,508 km (109.2 x that of the Earth) of which 20–25% is the core.'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content':
+                    'At its centre the Sun reaches temperatures of 15 million °C.\n' +
+                    'The Sun is mostly composed of hydrogen (70%) and Helium (28%).\n' +
+                    'The Sun is 4.6 billion years old.\n' +
+                    'The Sun is 109 times wider than the Earth and 330,000 times as massive.\n' +
+                    'One million Earths could fit inside the Sun.\n' +
+                    'The Sun contains 99.86% of the mass in the Solar System. \n' +
+                    'The distance from the Sun to Earth changes throughout the year. \n'
+            }
+        }
     },
     {
-        'name': 'mercury'
+        'name': 'mercury',
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'Mercury is the closest planet to the Sun and due to its proximity it is not easily seen except during twilight. For every two orbits of the Sun, Mercury completes three rotations about its axis and up until 1965 it was thought that the same side of Mercury constantly faced the Sun. Thirteen times a century Mercury can be observed from the Earth passing across the face of the Sun in an event called a transit, the next will occur on the 9th May 2016.\n' +
+                '\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'Mercury does not have any moons or rings.\n' +
+                    'Your weight on Mercury would be 38% of your weight on Earth.\n' +
+                    'A day on the surface of Mercury lasts 176 Earth days.\n' +
+                    'A year on Mercury is just 88 days long.\n' +
+                    'A year on Mercury takes 88 Earth days.\n' +
+                    'Mercury has a diameter of 4,879 km, making it the smallest planet.\n' +
+                    'It’s not known who discovered Mercury.'
+            }
+        }
     },
     {
-        'name': 'venus'
+        'name': 'venus',
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'Venus is the second planet from the Sun and is the second brightest object in the night sky after the Moon. Named after the Roman goddess of love and beauty, Venus is the second largest terrestrial planet and is sometimes referred to as the Earth’s sister planet due the their similar size and mass. The surface of the planet is obscured by an opaque layer of clouds made up of sulphuric acid.\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'Venus does not have any moons or rings.\n' +
+                    'Venus is nearly as big as the Earth with a diameter of 12,104 km.\n' +
+                    'Venus is thought to be made up of a central iron core, rocky mantle and silicate crust.\n' +
+                    'A day on the surface of Venus (solar day) would appear to take 117 Earth days.\n' +
+                    'A year on Venus takes 225 Earth days.\n' +
+                    'The surface temperature on Venus can reach 471 °C.' +
+                    'Venus is the second brightest object in the night sky. \n' +
+                    'Atmospheric pressure on Venus is 92 times greater than the Earth’s. \n'
+            }
+        }
     },
     {
         'name': 'earth',
@@ -172,7 +235,26 @@ var rows = [
                     'scale': '0.6'
                 }
             }
-        ]
+        ],
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'Earth is the third planet from the Sun and is the largest of the terrestrial planets. The Earth is the only planet in our solar system not to be named after a Greek or Roman deity. The Earth was formed approximately 4.54 billion years ago and is the only known planet to support life.\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'The Earth’s rotation is gradually slowing.\n' +
+                    'The Earth was once believed to be the centre of the universe.\n' +
+                    'Earth has a powerful magnetic field.\n' +
+                    'There is only one natural satellite of the planet Earth.\n' +
+                    'Earth is the only planet not named after a god.\n' +
+                    'The Earth is the densest planet in the Solar System.\n'
+            }
+        }
     },
     {
         'name': 'mars',
@@ -207,7 +289,29 @@ var rows = [
                     'scale': '0.3'
                 }
             }
-        ]
+        ],
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'Mars is the fourth planet from the Sun and is the second smallest planet in the solar system. Named after the Roman god of war, Mars is also often described as the “Red Planet” due to its reddish appearance. Mars is a terrestrial planet with a thin atmosphere composed primarily of carbon dioxide.\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'Mars and Earth have approximately the same landmass.\n' +
+                    'Mars is home to the tallest mountain in the solar system.\n' +
+                    'Only 18 missions to Mars have been successful.\n' +
+                    'Mars has the largest dust storms in the solar system.\n' +
+                    'On Mars the Sun appears about half the size as it does on Earth.\n' +
+                    'Pieces of Mars have fallen to Earth.\n' +
+                    'Mars takes its name from the Roman god of war.\n' +
+                    'There are signs of liquid water on Mars.\n' +
+                    'One day Mars will have a ring.\n'
+            }
+        }
     },
     {
         'name': 'jupiter',
@@ -272,7 +376,28 @@ var rows = [
                     'scale': '0.6'
                 }
             }
-        ]
+        ],
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'The planet Jupiter is the fifth planet out from the Sun, and is two and a half times more massive than all the other planets in the solar system combined. It is made primarily of gases and is therefore known as a “gas giant”.\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'Jupiter is the fourth brightest object in the solar system.\n' +
+                    'Jupiter has the shortest day of all the planets.\n' +
+                    'Jupiter orbits the Sun once every 11.8 Earth years.\n' +
+                    'Jupiter has unique cloud features.\n' +
+                    'The Great Red Spot is a huge storm on Jupiter.\n' +
+                    'Jupiter’s interior is made of rock, metal, and hydrogen compounds.\n' +
+                    'Jupiter’s moon Ganymede is the largest moon in the solar system.\n' +
+                    'Jupiter has a thin ring system.'
+            }
+        }
     },
     {
         'name': 'saturn',
@@ -383,7 +508,31 @@ var rows = [
                     'scale': '0.8'
                 }
             }
-        ]
+        ],
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'Saturn is the sixth planet from the Sun and the most distant that can be seen with the naked eye. Saturn is the second largest planet and is best known for its fabulous ring system that was first observed in 1610 by the astronomer Galileo Galilei. Like Jupiter, Saturn is a gas giant and is composed of similar gasses including hydrogen, helium and methane.\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'Saturn can be seen with the naked eye.\n' +
+                    'It is named for the Roman god Saturnus, and was known to the Greeks as Cronus.\n' +
+                    'Saturn is the flattest planet.\n' +
+                    'Saturn orbits the Sun once every 29.4 Earth years.\n' +
+                    'Saturn has oval-shaped storms similar to Jupiter’s.\n' +
+                    'The region around its north pole has a hexagonal-shaped pattern of clouds.\n' +
+                    'Saturn is made mostly of hydrogen.\n' +
+                    'Saturn has the most extensive rings in the solar system.\n' +
+                    'Saturn has 150 moons and smaller moonlets.\n' +
+                    'All are frozen worlds. The largest moons are Titan and Rhea. Enceladus appears to have an ocean below its frozen surface.\n' +
+                    'Titan is a moon with complex and dense nitrogen-rich atmosphere.'
+            }
+        }
     },
     {
         'name': 'uranus',
@@ -464,7 +613,28 @@ var rows = [
                     'scale': '0.55'
                 }
             }
-        ]
+        ],
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'Uranus is the seventh planet from the Sun. While being visible to the naked eye, it was not recognised as a planet due to its dimness and slow orbit. Uranus became the first planet discovered with the use of a telescope. Uranus is tipped over on its side with an axial tilt of 98 degrees. It is often described as “rolling around the Sun on its side.”\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'Uranus was officially discovered by Sir William Herschel in 1781.\n' +
+                    'Uranus turns on its axis once every 17 hours, 14 minutes.\n' +
+                    'The planet rotates in a retrograde direction, opposite to the way Earth and most other planets turn.\n' +
+                    'Uranus makes one trip around the Sun every 84 Earth years.\n' +
+                    'Uranus is often referred to as an “ice giant” planet.\n' +
+                    'Uranus hits the coldest temperatures of any planet (-224°C).\n' +
+                    'Uranus has two sets of very thin dark coloured rings.\n' +
+                    'Uranus’ moons are named after characters created by William Shakespeare and Alexander Pope.'
+            }
+        }
     },
     {
         'name': 'neptune',
@@ -499,7 +669,28 @@ var rows = [
                     'scale': '0.3'
                 }
             }
-        ]
+        ],
+        'contents': {
+            'introduction': {
+                'title': 'Introduction',
+                'content': 'Neptune is the eighth planet from the Sun making it the most distant in the solar system. This gas giant planet may have formed much closer to the Sun in early solar system history before migrating to its present position.\n'
+            },
+            'description': {
+                'title': 'Description',
+                'content': ''
+            },
+            'facts': {
+                'title': 'Facts',
+                'content': 'It is not visible to the naked eye and was first observed in 1846.' +
+                    'It was named after the Roman god of the sea.\n' +
+                    'Neptune spins on its axis very rapidly (18 hours).\n' +
+                    'Neptune is the smallest of the ice giants.\n' +
+                    'The atmosphere of Neptune is made of hydrogen and helium, with some methane.\n' +
+                    'Neptune has a very active climate with large storms and high-speed winds.\n' +
+                    'Neptune has a very thin collection of rings.\n' +
+                    'Neptune has 14 moons.'
+            }
+        }
     }
 ];
 

@@ -36,9 +36,20 @@ block content
                                                         tr.tooltip__description--content
                                                             td(class='tooltip__description--key') #{key}
                                                             td(class='tooltip__description--item tooltip__#{key}') #{item}
-
-                .info-wrapper
-                    .info-gallery
+                each item in items
+                    if item.name === planet
+                        .info-wrapper
+                            .info__contents
+                                .info__contents--introduction
+                                    .info__contents--title #{item.contents.introduction.title}
+                                    .info__contents--content #{item.contents.introduction.content}
+                                .info__contents--description
+                                    .info__contents--title #{item.contents.description.title}
+                                    .info__contents--content #{item.contents.description.content}
+                                .info__contents--facts
+                                    .info__contents--title #{item.contents.facts.title}
+                                    .info__contents--content #{item.contents.facts.content}
+                            .info__gallery
 
         include menu
 

@@ -187,7 +187,6 @@ var app = {
     showTooltipFromMobile: function () {
         $('.menu-item .moons-wrapper .planet').on('click', function () {
             moonWrapper = $(this).parents('.moons-wrapper');
-            console.log(moonWrapper.data('lastClick'));
             socket.emit('showTooltipFromMobile', {
                 id: $(this).parent().attr('id'),
                 click: moonWrapper.data('lastClick')
@@ -199,7 +198,6 @@ var app = {
         });
 
         socket.on('showTooltipOnDesktop', function (data) {
-            console.log(data.id, data.click);
             $('.moon.hovered').removeClass('hovered');
 
             if(data.id === data.click){
@@ -209,7 +207,6 @@ var app = {
                 $('#' + data.id).addClass('hovered');
             }
 
-            // $('#' + data.id).addClass('hovered');
         })
     },
     toMainPage: function(){

@@ -521,6 +521,8 @@ body
 	display: flex
 	justify-content: space-between
 	padding: 30px
+	> div
+		width: 50%
 	.planet-wrapper
 		padding: 100px
 		> .planet
@@ -545,6 +547,9 @@ body
 			@include elementPosition(2300px, 520px, 300px, -650px)
 			transform: rotateX(40deg)
 
+.info__contents
+	&--title
+		@extend .error__message
 .moons-wrapper
 	position: relative
 
