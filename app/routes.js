@@ -14,17 +14,17 @@ desktopLoader =	'<div class="loader hidden">'+
 						'<div class="loader__planet"></div>'+
 						'<div class="loader__welcome control__message">Control the app'+
 							'<div class="loader__control-buttons">'+
-								'<input type="button" value="Local" data-attr="redirect__local" class="loader__control-button loader__local-control">'+
-								'<input type="button" value="Remote" data-attr="redirect__remote" class="loader__control-button loader__remote-control">'+
+								'<input type="button" value="Local" data-attr="redirect__local" class="loader__control-button loader__local-control loader__wrapper--input">'+
+								'<input type="button" value="Remote" data-attr="redirect__remote" class="loader__control-button loader__remote-control loader__wrapper--input">'+
 							'</div>'+
 							'<div class="loader__redirect redirect__local hidden">'+
 								'<div class="loader__control-buttons">'+
-									'<input type="button" value="Go to app" class="loader__local-button">'+
+									'<input type="button" value="Go to app" class="loader__local-button loader__wrapper--input">'+
 								'</div>'+
 							'</div>'+
 							'<div class="loader__redirect redirect__remote hidden">Insert the code in mobile browser'+
 								'<div class="loader__control-buttons">'+
-									'<input type="button" value="" class="loader__remote-button">'+
+									'<input type="button" value="" class="loader__remote-button loader__wrapper--input">'+
 								'</div>'+
 							'</div>'+
 						'</div>'+

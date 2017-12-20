@@ -37,6 +37,12 @@ io.on('connection', function (socket) {
        })
     });
 
+    socket.on('showMobileInfo', function (data) {
+        socket.to('room').emit('showMobileInfoOnDesktop', {
+            value: data.value
+        })
+    });
+
     socket.on('load', function(data){
         socket.emit('access', {
             access: (parseInt(data.key) === parseInt(key) ? "granted" : "denied")

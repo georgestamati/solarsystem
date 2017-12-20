@@ -21,6 +21,8 @@ var app = {
         view.voiceControl();
         view.showMoonsMobile();
         view.showTooltipFromMobile();
+        view.showInfo();
+        view.showMobileInfo();
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -171,6 +173,36 @@ var app = {
             view.loaderDone();
         }
     },
+    showInfo: function () {
+        $('.wrapper .info__controls--button').on('click', function () {
+            var $this = $(this),
+                inputVal = $this.val();
+
+            console.log(inputVal);
+
+            $('.info__contents > div').not('.info__contents--' + inputVal).removeClass('slide__left');
+
+            if($('.info__contents--' + inputVal).hasClass('slide__left')){
+                $('.info__contents--' + inputVal).removeClass('slide__left');
+            }
+            else{
+                $('.info__contents--' + inputVal).addClass('slide__left');
+            }
+        })
+    },
+    showMobileInfo: function () {
+        $('.mobile-menu .info__controls--button').on('click', function () {
+            var $this = $(this);
+            console.log($this.val());
+            socket.emit('showMobileInfo', {
+                value: $this.val()
+            });
+        });
+
+        socket.on('showMobileInfoOnDesktop', function (data) {
+            $('.info__controls--button[value="' + data.value + '"]').click();
+        })
+    },
     chooseControl: function() {
         var $this = $(this),
             attr = $this.data('attr');
@@ -179,9 +211,13 @@ var app = {
         $('.'+attr).removeClass('hidden');
     },
     showMoonsMobile: function () {
+        $('.mobile-menu').find('.moons-wrapper').hide();
+
         $('.menu-item > a').on('click', function () {
-            $('.moons-wrapper').addClass('hidden');
-            $(this).siblings().find('.moons-wrapper').removeClass('hidden');
+            var siblings = $(this).siblings();
+            $('.moons-wrapper, .info__controls').addClass('hidden');
+            siblings.find('.moons-wrapper').removeClass('hidden').show();
+            siblings.find('.info__controls').removeClass('hidden');
         })
     },
     showTooltipFromMobile: function () {

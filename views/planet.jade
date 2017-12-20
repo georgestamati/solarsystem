@@ -14,7 +14,6 @@ block content
                                 each moon in item.moons
                                     - var axisInclination = moon.description['axis inclination']
                                     - var enableMoonRotate = axisInclination ? deleteLastChar(axisInclination) : ""
-                                    //- var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ") rotateZ("+ enableMoonRotate +"deg);"
                                     - var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ") "
 
                                     - var isPlanet = "background-image: url('../img/planets/" + moon.name + ".jpg'); " + moonPos
@@ -39,17 +38,26 @@ block content
                 each item in items
                     if item.name === planet
                         .info-wrapper
+                            .info__controls
+                                input.info__controls--button(type='button', value='intro')
+                                input.info__controls--button(type='button', value='description')
+                                input.info__controls--button(type='button', value='facts')
                             .info__contents
-                                .info__contents--introduction
+                                .info__contents--intro
                                     .info__contents--title #{item.contents.introduction.title}
                                     .info__contents--content #{item.contents.introduction.content}
+                                    .info__contents--gallery
                                 .info__contents--description
                                     .info__contents--title #{item.contents.description.title}
                                     .info__contents--content #{item.contents.description.content}
+                                    .info__contents--gallery
                                 .info__contents--facts
                                     .info__contents--title #{item.contents.facts.title}
-                                    .info__contents--content #{item.contents.facts.content}
-                            .info__gallery
+                                    .info__contents--content
+                                        each fact in item.contents.facts.content
+                                            span= fact
+                                            br
+                                    .info__contents--gallery
 
         include menu
 

@@ -60,7 +60,7 @@ body
 .loader__wrapper
 	width: 100%
 	text-align: center
-	input
+	&--input
 		position: relative
 		padding: 10px 30px
 		margin: 0.5em 0 1em
@@ -181,9 +181,9 @@ body
 	visibility: hidden
 	transition: opacity .35s, visibility .35s, width .35s
 	text-align: center
-	background-color: rgba(0, 0, 0, 0.8)
+	background-color: #000
 	&.open
-		opacity: .9
+		opacity: .8
 		visibility: visible
 		height: 100%
 
@@ -520,9 +520,11 @@ body
 .wrapper
 	display: flex
 	justify-content: space-between
+	height: 100%
 	padding: 30px
 	> div
-		width: 50%
+		//width: 50%
+		position: relative
 	.planet-wrapper
 		padding: 100px
 		> .planet
@@ -548,8 +550,32 @@ body
 			transform: rotateX(40deg)
 
 .info__contents
+	height: 100%
+	> div
+		position: absolute
+		top: 0
+		//left: 1000px
+		transform: translateX(1000px)
+		transition: all 0.5s ease
+		&.slide__left
+			transform: translateX(0px)
+			transition: all 0.5s ease
 	&--title
 		@extend .error__message
+	&--content
+		font-family: Arial, serif
+		font-size: 17px
+
+.info__controls
+	display: inline-block
+	position: fixed
+	top: 50%
+	right: -168px
+	transform: translateY(-50%) rotateZ(90deg)
+	z-index: 1
+	&--button
+		@extend .loader__wrapper--input
+
 .moons-wrapper
 	position: relative
 
@@ -631,7 +657,7 @@ body
 	visibility: visible
 
 .hidden
-	display: none
+	//display: none
 	opacity: 0
 	visibility: hidden
 
@@ -686,6 +712,7 @@ body
 			background: $saturnRingsBackground
 			transform: rotateX(40deg)
 		.moons-wrapper
+			display: none
 			div
 				transform: scale(0.75)
 				.planet
@@ -693,6 +720,10 @@ body
 		#uranus .moons-wrapper .planet, #neptune .moons-wrapper .planet
 			background-size: 1000px
 			background-position: 450px -300px
+		.info__controls
+			position: static
+			transform: initial
+
 	.moons-wrapper
 		position: absolute
 		width: 100%
