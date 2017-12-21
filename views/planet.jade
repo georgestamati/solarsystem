@@ -8,6 +8,7 @@ block content
                     .planet(style="background-image: url('../img/planets/#{planet}_hd.jpg')")
                         if planet === 'saturn' || planet === 'uranus'
                             .rings
+
                     .moons-wrapper
                         each item in items
                             if item.name === planet && item.moons
@@ -38,11 +39,28 @@ block content
                 each item in items
                     if item.name === planet
                         .info-wrapper
+
                             .info__controls
+                                input.info__controls--button(type='button', value='profile')
                                 input.info__controls--button(type='button', value='intro')
                                 input.info__controls--button(type='button', value='description')
                                 input.info__controls--button(type='button', value='facts')
                             .info__contents
+                                .info__contents--profile
+                                    .info__contents--title #{item.contents.profile.title}
+                                    .info__contents--content
+                                        a(href="")
+                                            each planetItem in items
+                                                if planetItem.name === planet
+                                                    table.tooltip.planet-tooltip.hovered
+                                                        thead
+                                                            tr
+                                                                td.tooltip__name(colspan='2') #{planetItem.name}
+                                                        tbody.tooltip__description--wrapper
+                                                            each item, key in planetItem.description
+                                                                tr.tooltip__description--content
+                                                                    td(class='tooltip__description--key') #{key}
+                                                                    td(class='tooltip__description--item tooltip__#{key}') #{item}
                                 .info__contents--intro
                                     .info__contents--title #{item.contents.introduction.title}
                                     .info__contents--content #{item.contents.introduction.content}

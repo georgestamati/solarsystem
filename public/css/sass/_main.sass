@@ -523,8 +523,8 @@ body
 	height: 100%
 	padding: 30px
 	> div
-		//width: 50%
 		position: relative
+		height: 0
 	.planet-wrapper
 		padding: 100px
 		> .planet
@@ -536,11 +536,8 @@ body
 			padding: 14px
 			margin: 40px auto
 			background-repeat: repeat-x
-			// animation-name: animatedBackground
-			// animation-duration: 30s !important
-			// animation-timing-function: linear
-			// animation-iteration-count: infinite
 			box-shadow: inset -9px -2px 39px 15px #000
+			transition: all 1s ease
 	#uranus
 		.rings
 			@include elementPosition(1700px, 700px, 100px, -370px)
@@ -557,20 +554,25 @@ body
 		//left: 1000px
 		transform: translateX(1000px)
 		transition: all 0.5s ease
-		&.slide__left
-			transform: translateX(0px)
-			transition: all 0.5s ease
+	.slide__left
+		transform: translateX(0px)
+		transition: all 0.5s ease
 	&--title
 		@extend .error__message
 	&--content
 		font-family: Arial, serif
 		font-size: 17px
+		.planet-tooltip
+			position: static
+			opacity: 1
+			transform: scale(1)
 
 .info__controls
 	display: inline-block
 	position: fixed
 	top: 50%
-	right: -168px
+	//right: -168px
+	right: -230px
 	transform: translateY(-50%) rotateZ(90deg)
 	z-index: 1
 	&--button
@@ -723,6 +725,9 @@ body
 		.info__controls
 			position: static
 			transform: initial
+			display: flex
+			flex-wrap: wrap
+			justify-content: center
 
 	.moons-wrapper
 		position: absolute

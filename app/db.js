@@ -148,6 +148,9 @@ var rows = [
             }
         ],
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'The Sun is the star at the centre of our solar system.'
@@ -173,6 +176,9 @@ var rows = [
     {
         'name': 'mercury',
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'Mercury is the first and the closest planet to the Sun.'
@@ -198,6 +204,9 @@ var rows = [
     {
         'name': 'venus',
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'Venus is the second planet from the Sun.'
@@ -241,6 +250,9 @@ var rows = [
             }
         ],
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'Earth is the third planet from the Sun.'
@@ -297,6 +309,9 @@ var rows = [
             }
         ],
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'Mars is the fourth planet from the Sun.'
@@ -386,6 +401,9 @@ var rows = [
             }
         ],
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'The planet Jupiter is the fifth planet out from the Sun.'
@@ -520,6 +538,9 @@ var rows = [
             }
         ],
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'Saturn is the sixth planet from the Sun.'
@@ -627,6 +648,9 @@ var rows = [
             }
         ],
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'Uranus is the seventh planet from the Sun.'
@@ -685,6 +709,9 @@ var rows = [
             }
         ],
         'contents': {
+            'profile': {
+                'title': 'Profile'
+            },
             'introduction': {
                 'title': 'Introduction',
                 'content': 'Neptune is the eighth planet from the Sun.'

@@ -78,6 +78,10 @@ var app = {
                 window.location = ev.target.pathname;
             }, 1000)
 
+        });
+
+        $('.info__contents a').on('click', function (e) {
+            e.preventDefault();
         })
     },
     bindEffects: function () {
@@ -178,15 +182,13 @@ var app = {
             var $this = $(this),
                 inputVal = $this.val();
 
-            console.log(inputVal);
-
             $('.info__contents > div').not('.info__contents--' + inputVal).removeClass('slide__left');
 
             if($('.info__contents--' + inputVal).hasClass('slide__left')){
-                $('.info__contents--' + inputVal).removeClass('slide__left');
+                $('.info__contents, .info__contents--' + inputVal).removeClass('slide__left');
             }
             else{
-                $('.info__contents--' + inputVal).addClass('slide__left');
+                $('.info__contents, .info__contents--' + inputVal).addClass('slide__left');
             }
         })
     },
