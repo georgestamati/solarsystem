@@ -38,7 +38,7 @@ mobileLoader =	'<div class="loader hidden">'+
 							'<div class="loader__welcome control__message">'+
 								'<div class="loader__redirect redirect__remote">Insert the code'+
 									'<div class="loader__control-buttons">'+
-										'<input type="button" value="Go to app" class="loader__local-button">'+
+										'<input type="button" value="Go to app" class="loader__local-button loader__wrapper--input">'+
 									'</div>'+
 								'</div>'+
 							'</div>'+

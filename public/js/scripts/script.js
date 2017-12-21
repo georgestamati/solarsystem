@@ -30,7 +30,7 @@ var app = {
     },
     bindActions: function () {
         if(s.mobileTest){
-            s.loaderButton.before('<input class="loader__text" type="text" placeholder=".  .  .  ." maxlength="4" />');
+            s.loaderButton.before('<input class="loader__text loader__wrapper--input" type="text" placeholder=".  .  .  ." maxlength="4" />');
             s.loaderButton.parent().addClass('row-flex');
         }
 
@@ -246,7 +246,16 @@ var app = {
         })
     },
     toMainPage: function(){
-        window.location = '/';
+        // if(!mobileTest){
+            window.location = '/';
+        // }
+        // else {
+        //     socket.emit('urlControl');
+        // }
+        //
+        // socket.on('urlControl', function () {
+        //     window.location = '/';
+        // });
     },
     showDetails: function(word) {
         $.each(s.stars, function(index, element){
