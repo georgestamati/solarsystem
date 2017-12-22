@@ -18,11 +18,57 @@ var app = {
     bindEvents: function () {
         view.bindActions();
         view.bindEffects();
+        view.scaleResponsive();
         view.voiceControl();
         view.showMoonsMobile();
         view.showTooltipFromMobile();
         view.showInfo();
         view.showMobileInfo();
+    },
+    scaleResponsive: function () {
+        var pageWidth, pageHeight;
+
+        var basePage = {
+            width: 1366,
+            height: 768,
+            scale: 1,
+            scaleX: 1,
+            scaleY: 1
+        };
+
+        $(function(){
+            var $page = $('.page-planet #galaxy');
+
+            if(!s.mobileTest){
+                getPageSize();
+                scalePages($page, pageWidth, pageHeight);
+
+                $(window).resize(function () {
+                    console.log('resize');
+                    getPageSize();
+                    scalePages($page, pageWidth, pageHeight);
+                });
+            }
+
+            function getPageSize() {
+                pageHeight = $('.container').height();
+                pageWidth = $('.container').width();
+            }
+
+            function scalePages(page, maxWidth, maxHeight) {
+                var scaleX, scaleY;
+                scaleX = maxWidth / basePage.width;
+                scaleY = maxHeight / basePage.height;
+                basePage.scaleX = scaleX;
+                basePage.scaleY = scaleY;
+                basePage.scale = (scaleX > scaleY) ? scaleY : scaleX;
+
+                var newLeftPos = Math.abs(Math.floor(((basePage.width * basePage.scale) - maxWidth)/2));
+                var newTopPos = Math.abs(Math.floor(((basePage.height * basePage.scale) - maxHeight)/2));
+
+                page.attr('style', '-webkit-transform:scale(' + basePage.scale + ');left: 0; right: 0; top:' + newTopPos + 'px;');
+            }
+        });
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -185,17 +231,16 @@ var app = {
             $('.info__contents > div').not('.info__contents--' + inputVal).removeClass('slide__left');
 
             if($('.info__contents--' + inputVal).hasClass('slide__left')){
-                $('.info__contents, .info__contents--' + inputVal).removeClass('slide__left');
+                $('.info__contents--' + inputVal).removeClass('slide__left');
             }
             else{
-                $('.info__contents, .info__contents--' + inputVal).addClass('slide__left');
+                $('.info__contents--' + inputVal).addClass('slide__left');
             }
         })
     },
     showMobileInfo: function () {
         $('.mobile-menu .info__controls--button').on('click', function () {
             var $this = $(this);
-            console.log($this.val());
             socket.emit('showMobileInfo', {
                 value: $this.val()
             });

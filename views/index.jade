@@ -20,6 +20,8 @@ block content
         include menu
 
     script.
+        document.body.classList.add('page-index');
+
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url
         })

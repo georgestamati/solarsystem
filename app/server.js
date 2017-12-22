@@ -20,6 +20,13 @@ io.on('connection', function (socket) {
     // Create a room
     socket.join('room');
 
+//     var clients = io.sockets.adapter.rooms['room'].sockets;
+//
+// //to get the number of clients
+//     var numClients = (typeof clients !== 'undefined') ? Object.keys(clients).length : 0;
+//
+//     console.log(numClients);
+
     socket.emit('key', {
         code: key
     });

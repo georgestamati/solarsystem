@@ -8,20 +8,9 @@ a
 
 body
 	overflow: hidden
-	//background: #000 url('../img/stars.png') no-repeat
-	//background-size: cover
 	color: #fff
 	font-size: 10px
 	font-weight: 300
-	//&:before
-	//	content: ''
-	//	position: absolute
-	//	top: 0
-	//	left: 0
-	//	right: 0
-	//	bottom: 0
-	//	background: url('../img/clip-stars.png') repeat top center
-	//	animation: clippingStars 50s linear infinite
 
 .container
 	width: 100%
@@ -67,6 +56,7 @@ body
 		font-size: 1em
 		font-family: 'gravediggerregular', sans-serif
 		color: aqua
+		line-height: 1
 		background: transparent
 		border: 1px solid aqua
 		box-sizing: border-box
@@ -85,10 +75,9 @@ body
 	line-height: 1.4
 	color: aqua
 	&.welcome__message
-		top: 25%
 		@include animationMixin(scaleUniverse, 2s, 1s)
+		margin-top: -100px
 	&.control__message
-		bottom: 25%
 		@include animationMixin(scaleUniverse, 2s, 4s)
 
 .loader__redirect
@@ -124,7 +113,7 @@ body
 	position: relative
 	width: 200px
 	height: 200px
-	margin: 5% auto
+	margin: 30px auto
 	border-radius: 50%
 	background: url('../img/planets/earth.jpg') repeat-x
 	background-size: cover
@@ -209,8 +198,6 @@ body
 			position: relative
 			list-style: none
 			height: 10%
-			//display: inline
-			//margin: 0 15px
 			&:hover .dropdown
 				opacity: 1
 				visibility: visible
@@ -253,10 +240,17 @@ body
 	&.universe__new-session--clicked
 		@include animationMixin(scaleUpOnClick, 2s, 0s)
 
-#galaxy 
+
+#galaxy
 	position: relative
 	width: 100%
 	height: 100%
+	.page-planet &
+		position: absolute
+		width: 1366px
+		height: 768px
+		transform-origin: top left
+		transition: all 500ms ease-in-out !important
 
 .planet-wrap
 	position: absolute
@@ -425,6 +419,7 @@ body
 		animation-duration: $neptuneOrbitalRotation
 
 .galaxy-view--3D
+	height: 100%
 	#sun
 		font-size: $sunOrbitSize
 		.planet
@@ -552,9 +547,13 @@ body
 		position: absolute
 		top: 0
 		//left: 1000px
+		opacity: 0
+		visibility: hidden
 		transform: translateX(1000px)
 		transition: all 0.5s ease
 	.slide__left
+		opacity: 1
+		visibility: visible
 		transform: translateX(0px)
 		transition: all 0.5s ease
 	&--title
@@ -571,12 +570,13 @@ body
 	display: inline-block
 	position: fixed
 	top: 50%
-	//right: -168px
-	right: -230px
+	right: -17%
+	//right: -230px
 	transform: translateY(-50%) rotateZ(90deg)
 	z-index: 1
 	&--button
 		@extend .loader__wrapper--input
+		margin: 0
 
 .moons-wrapper
 	position: relative
@@ -629,7 +629,7 @@ body
 	padding: 8px 20px
 	//background: rgba(48,46,41,0.9)
 	border-radius: 5px
-	background: rgba(30,25,97,0.7)
+	background: rgba(30,25,97,0.9)
 	transition: all 1s ease
 	transform: scale(0)
 	color: #fff
@@ -641,7 +641,7 @@ body
 		transform: translateX(-50%)
 		border-bottom: 10px solid transparent
 		border-top: 10px solid transparent
-		border-right: 10px solid rgba(30,25,97,0.7)
+		border-right: 10px solid rgba(30,25,97,0.9)
 	td
 		padding: 0 10px 5px 0
 		line-height: 1.5
@@ -673,7 +673,7 @@ body
 		position: fixed
 		left: 0
 		right: 0
-		padding: 20px 0
+		padding: 10px 0
 		z-index: 1
 		background-color: #000
 	&.mobile-menu
@@ -681,6 +681,7 @@ body
 		align-items: center
 		width: 100%
 		height: 100%
+		padding-top: 40px
 		overflow: auto
 		white-space: nowrap
 		.menu-item
