@@ -153,11 +153,17 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'The Sun is the star at the centre of our solar system.'
+                'content': [
+                    'The Sun is the star at the centre of our solar system.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'It is responsible for the Earth’s climate and weather. The Sun is an almost perfect sphere with a difference of just 10km in diameter between the poles and the equator. The average radius of the Sun is 695,508 km (109.2 x that of the Earth) of which 20–25% is the core.'
+                'content': [
+                    'It is responsible for the Earth’s climate and weather.',
+                    'The Sun is an almost perfect sphere with a difference of just 10km in diameter between the poles and the equator.',
+                    'The average radius of the Sun is 695,508 km (109.2 x that of the Earth) of which 20–25% is the core.'
+                ]
             },
             'facts': {
                 'title': 'Facts',
@@ -181,11 +187,16 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'Mercury is the first and the closest planet to the Sun.'
+                'content': [
+                    'Mercury is the first and the closest planet to the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'Due to its proximity it is not easily seen except during twilight. For every two orbits of the Sun, Mercury completes three rotations about its axis and up until 1965 it was thought that the same side of Mercury constantly faced the Sun. Thirteen times a century Mercury can be observed from the Earth passing across the face of the Sun in an event called a transit, the next will occur on the 9th May 2016.'
+                'content': [
+                    'Due to its proximity it is not easily seen except during twilight.',
+                    'For every two orbits of the Sun, Mercury completes three rotations about its axis.'
+                ]
             },
             'facts': {
                 'title': 'Facts',
@@ -209,11 +220,18 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'Venus is the second planet from the Sun.'
+                'content': [
+                    'Venus is the second planet from the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'It is the second brightest object in the night sky after the Moon. Named after the Roman goddess of love and beauty, Venus is the second largest terrestrial planet and is sometimes referred to as the Earth’s sister planet due the their similar size and mass. The surface of the planet is obscured by an opaque layer of clouds made up of sulphuric acid.\n'
+                'content': [
+                    'It is the second brightest object in the night sky after the Moon.',
+                    'It is named after the Roman goddess of love and beauty.',
+                    'Venus is the second largest terrestrial planet and is sometimes referred to as the Earth’s sister planet due the their similar size and mass.',
+                    'The surface of the planet is obscured by an opaque layer of clouds made up of sulphuric acid.'
+                ]
             },
             'facts': {
                 'title': 'Facts',
@@ -255,11 +273,17 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'Earth is the third planet from the Sun.'
+                'content': [
+                    'Earth is the third planet from the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'It is the largest of the terrestrial planets. The Earth is the only planet in our solar system not to be named after a Greek or Roman deity. The Earth was formed approximately 4.54 billion years ago and is the only known planet to support life.\n'
+                'content': [
+                    'It is the largest of the terrestrial planets.',
+                    'The Earth is the only planet in our solar system not to be named after a Greek or Roman deity.',
+                    'The Earth was formed approximately 4.54 billion years ago and is the only known planet to support life.'
+                ]
             },
             'facts': {
                 'title': 'Facts',
@@ -314,11 +338,17 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'Mars is the fourth planet from the Sun.'
+                'content': [
+                    'Mars is the fourth planet from the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'It is the second smallest planet in the solar system. Named after the Roman god of war, Mars is also often described as the “Red Planet” due to its reddish appearance. Mars is a terrestrial planet with a thin atmosphere composed primarily of carbon dioxide.\n'
+                'content': [
+                    'It is the second smallest planet in the solar system.',
+                    'Named after the Roman god of war, Mars is also often described as the “Red Planet” due to its reddish appearance.',
+                    'Mars is a terrestrial planet with a thin atmosphere composed primarily of carbon dioxide.'
+                ]
             },
             'facts': {
                 'title': 'Facts',
@@ -406,11 +436,16 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'The planet Jupiter is the fifth planet out from the Sun.'
+                'content': [
+                    'The planet Jupiter is the fifth planet out from the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'It is two and a half times more massive than all the other planets in the solar system combined. It is made primarily of gases and is therefore known as a “gas giant”.\n'
+                'content': [
+                    'It is two and a half times more massive than all the other planets in the solar system combined.',
+                    'It is made primarily of gases and is therefore known as a “gas giant”.'
+                ]
             },
             'facts': {
                 'title': 'Facts',
@@ -543,11 +578,17 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'Saturn is the sixth planet from the Sun.'
+                'content': [
+                    'Saturn is the sixth planet from the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'It is the most distant that can be seen with the naked eye. Saturn is the second largest planet and is best known for its fabulous ring system that was first observed in 1610 by the astronomer Galileo Galilei. Like Jupiter, Saturn is a gas giant and is composed of similar gasses including hydrogen, helium and methane.\n'
+                'content': [
+                    'It is the most distant that can be seen with the naked eye.',
+                    'Saturn is the second largest planet and is best known for its fabulous ring system.',
+                    'Like Jupiter, Saturn is a gas giant and is composed of similar gasses including hydrogen, helium and methane.'
+                ]
             },
             'facts': {
                 'title': 'Facts',
@@ -653,11 +694,17 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'Uranus is the seventh planet from the Sun.'
+                'content': [
+                    'Uranus is the seventh planet from the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'While being visible to the naked eye, it was not recognised as a planet due to its dimness and slow orbit. Uranus became the first planet discovered with the use of a telescope. Uranus is tipped over on its side with an axial tilt of 98 degrees. It is often described as “rolling around the Sun on its side.”\n'
+                'content': [
+                    'While being visible to the naked eye, it was not recognised as a planet due to its dimness and slow orbit.',
+                    'Uranus became the first planet discovered with the use of a telescope.',
+                    'Uranus is tipped over on its side with an axial tilt of 98 degrees.',
+                    'It is often described as “rolling around the Sun on its side.”']
             },
             'facts': {
                 'title': 'Facts',
@@ -714,11 +761,16 @@ var rows = [
             },
             'introduction': {
                 'title': 'Introduction',
-                'content': 'Neptune is the eighth planet from the Sun.'
+                'content': [
+                    'Neptune is the eighth planet from the Sun.'
+                ]
             },
             'description': {
                 'title': 'Description',
-                'content': 'It is the most distant in the solar system. This gas giant planet may have formed much closer to the Sun in early solar system history before migrating to its present position.\n'
+                'content': [
+                    'It is the most distant in the solar system.',
+                    'This gas giant planet may have formed much closer to the Sun in early solar system history before migrating to its present position.'
+                ]
             },
             'facts': {
                 'title': 'Facts',

@@ -63,18 +63,24 @@ block content
                                                                     td(class='tooltip__description--item tooltip__#{key}') #{item}
                                 .info__contents--intro
                                     .info__contents--title #{item.contents.introduction.title}
-                                    .info__contents--content #{item.contents.introduction.content}
+                                    .info__contents--content
+                                        ul
+                                            each intro in item.contents.introduction.content
+                                                li= intro
                                     .info__contents--gallery
                                 .info__contents--description
                                     .info__contents--title #{item.contents.description.title}
-                                    .info__contents--content #{item.contents.description.content}
+                                    .info__contents--content
+                                        ul
+                                            each descr in item.contents.description.content
+                                                li= descr
                                     .info__contents--gallery
                                 .info__contents--facts
                                     .info__contents--title #{item.contents.facts.title}
                                     .info__contents--content
-                                        each fact in item.contents.facts.content
-                                            span= fact
-                                            br
+                                        ul
+                                            each fact in item.contents.facts.content
+                                                li= fact
                                     .info__contents--gallery
 
         include menu
