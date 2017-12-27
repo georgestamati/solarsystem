@@ -305,22 +305,22 @@ var app = {
         //     window.location = '/';
         // });
     },
-    showSidebarTab: function (word) {
-        $('[value="'+ word +'"]').click();
-    },
-    showDetails: function(word) {
-        $.each(s.stars, function(index, element){
-            if(word.toLowerCase() === element.toLowerCase()){
-                if(s.mobileTest){
-
-                }
-                else{
-                    // console.log(word, index, element);
-                    window.location = word.toLowerCase();
-                }
-            }
-        })
-    },
+    // showSidebarTab: function (word) {
+    //     $('[value="'+ word +'"]').click();
+    // },
+    // showDetails: function(word) {
+    //     $.each(s.stars, function(index, element){
+    //         if(word.toLowerCase() === element.toLowerCase()){
+    //             if(s.mobileTest){
+    //
+    //             }
+    //             else{
+    //                 // console.log(word, index, element);
+    //                 window.location = word.toLowerCase();
+    //             }
+    //         }
+    //     })
+    // },
     showImages: function(search){
         var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
 
@@ -340,33 +340,99 @@ var app = {
         })
     },
     voiceControl: function () {
-        if (annyang) {
-            var commands = {
-                'back (to) (main) (first) (page)': view.toMainPage,
-                '(show) (me) (details) (about) (the) :word': view.showDetails,
-                '(toggle) :word': view.showSidebarTab,
-                'image about *search': view.showImages
-            };
+        var commands = [
+            {
+                indexes: ['back to main page', 'back'],
+                action: view.toMainPage
+            },
+            {
+                indexes: ['go to *'],
+                smart: true,
+                action: function (i, word) {
+                    // Use indexOf instead array iteration
+                    $.each(s.stars, function(index, element){
+                        if(word.toLowerCase() === element.toLowerCase()){
+                            if(s.mobileTest){
 
-            // Add our commands to annyang
-            annyang.addCommands(commands);
+                            }
+                            else{
+                                window.location = word.toLowerCase();
+                            }
+                        }
+                    })
+                }
+            },
+            {
+                indexes: ['display *'],
+                smart: true,
+                action: function (i, word) {
+                    $('[value="'+ word +'"]').click();
+                }
+            },
+            {
+                indexes: ['images about *'],
+                smart: true,
+                action: function (i, search) {
+                    var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
 
-            annyang.addCallback('soundstart', function() {
-                console.log('sound detected');
-            });
+                    $('.slide__left .info__contents--gallery').children().remove();
 
-            annyang.addCallback('result', function() {
-                console.log('sound stopped');
-            });
+                    $.ajax({
+                        url: url,
+                        success: function(results){
+                            $.each(results.collection.items, function(i, item){
+                                if(i >= 10){
+                                    return false;
+                                }
+                                $('<img />').attr('src', item.links[0].href).appendTo('.slide__left .info__contents--gallery')
+                            })
+                        },
+                        error: function(){
+                            console.log('error')
+                        }
+                    })
+                }
+            },
+            {
+                indexes: ['view title', 'view content'],
+                action: function (i) {
+                    var textToRead = '';
 
-            // Start listening. You can call this here, or attach this call to an event, button, etc.
-            annyang.start({
-                autoRestart: true
-            });
-        }
-        else {
-            console.log('Speech Recognition is not supported');
-        }
+                    if (i === 0){
+                        textToRead = $('.slide__left .info__contents--title').text();
+                    }
+                    else{
+                        textToRead = $('.slide__left .info__contents--content').text();
+                    }
+
+                    artyom.say(textToRead);
+                }
+            },
+            {
+                indexes: ['shut down yourself'],
+                action: function (i) {
+                    artyom.fatality().then(function () {
+                        console.log("Artyom succesfully stopped");
+                    });
+                }
+            }
+        ];
+
+        var artyom = new Artyom();
+        artyom.addCommands(commands);
+
+        artyom.initialize({
+            lang: "en-US",
+            continuous: true,
+            soundex: true,
+            debug: true,
+            executionKeyword: "and do it now",
+            listen: true
+        }).then(function () {
+            console.log("Artyom has been succesfully initialized");
+        }).catch(function (err) {
+            console.error("Artyom couldn't be initialized: ", err);
+        });
     },
     init: function(){
         view = this;
