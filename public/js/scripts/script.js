@@ -13,7 +13,8 @@ var app = {
         loaderText: '',
         mobileTest: /mobile/i.test(navigator.userAgent),
         firefoxTest: /Firefox/i.test(navigator.userAgent),
-        stars: ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
+        stars: ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
+        sidebar: ['profile', 'intro', 'description', 'facts']
     },
     bindEvents: function () {
         view.bindActions();
@@ -304,6 +305,9 @@ var app = {
         //     window.location = '/';
         // });
     },
+    showSidebarTab: function (word) {
+        $('[value="'+ word +'"]').click();
+    },
     showDetails: function(word) {
         $.each(s.stars, function(index, element){
             if(word.toLowerCase() === element.toLowerCase()){
@@ -340,6 +344,7 @@ var app = {
             var commands = {
                 'back (to) (main) (first) (page)': view.toMainPage,
                 '(show) (me) (details) (about) (the) :word': view.showDetails,
+                '(toggle) :word': view.showSidebarTab,
                 'image about *search': view.showImages
             };
 
