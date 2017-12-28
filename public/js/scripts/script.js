@@ -93,8 +93,7 @@ var app = {
 
     },
     sidebarPosition: function () {
-        $('.info__controls').css('right', - $('.info-wrapper').width() / 2 - $('.info__controls').height() / 2)
-
+        $('.info__controls').css('right', -$('.info-wrapper').width() / 2 - $('.info__controls').height() / 2)
     },
     bindEffects: function () {
         view.zoomEffect();
@@ -114,7 +113,7 @@ var app = {
     },
     parallaxEffect: function () {
         if(!s.mobileTest){
-            s.universe.on('mousemove', function(e) {
+            s.universe.find('#galaxy').on('mousemove', function(e) {
                 view.parallaxGalaxy(e, '#galaxy .planet-wrapper .planet', -20);
                 $.each(s.moon, function(i, item){
                     view.parallaxGalaxy(e, item, -50-(i*50))
@@ -138,7 +137,7 @@ var app = {
             incr = 0;
         }
     },
-    parallaxGalaxy: function(e, target, movement){
+    parallaxGalaxy: function(e, target, movement){ // to be changed
         var relX = e.pageX - s.universe.offset().left,
             relY = e.pageY - s.universe.offset().top,
             width = s.universe.width(),

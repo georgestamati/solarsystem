@@ -172,9 +172,9 @@ body
 	text-align: center
 	background-color: #000
 	&.open
-		opacity: .8
+		opacity: 0.9
 		visibility: visible
-		height: 100%
+		z-index: 98
 
 .menu
 	padding: 0
@@ -518,7 +518,7 @@ body
 	> div
 		position: relative
 		width: 50%
-		height: 100%
+		//height: 100%
 	.planet-wrapper
 		//padding: 100px
 		box-sizing: border-box
@@ -542,11 +542,16 @@ body
 			transform: rotateX(40deg)
 
 .info__contents
-	height: 100%
+	//height: 100%
+	//opacity: 0
+	//visibility: hidden
+	//&:has(> .slide__left)
+	//	opacity: 1
+	//	visibility: visible
 	> div
 		position: absolute
 		top: 0
-		//left: 1000px
+		z-index: 9
 		opacity: 0
 		visibility: hidden
 		transform: translateX(1000px)
@@ -556,6 +561,8 @@ body
 		visibility: visible
 		transform: translateX(0px)
 		transition: all 0.5s ease
+		background: rgba(0, 0, 0, 0.6)
+		border-radius: 5px
 	&--title
 		@extend .error__message
 		padding: 20px
@@ -584,6 +591,7 @@ body
 	position: relative
 	.planet-wrapper &
 		margin: 100px
+		z-index: 2
 
 .moon
 	position: absolute
@@ -651,7 +659,7 @@ body
 		border-bottom: 10px solid transparent
 		border-top: 10px solid transparent
 		border-right: 10px solid rgba(30,25,97,0.9)
-	td
+	th, td
 		padding: 0 10px 5px 0
 		line-height: 1.5
 
