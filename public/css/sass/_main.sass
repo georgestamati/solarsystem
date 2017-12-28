@@ -247,10 +247,7 @@ body
 	height: 100%
 	.page-planet &
 		position: absolute
-		width: 1366px
-		height: 768px
-		transform-origin: top left
-		transition: all 500ms ease-in-out !important
+		transition: all 0.5s ease
 
 .planet-wrap
 	position: absolute
@@ -517,11 +514,14 @@ body
 	justify-content: space-between
 	height: 100%
 	padding: 30px
+	box-sizing: border-box
 	> div
 		position: relative
-		height: 0
+		width: 50%
+		height: 100%
 	.planet-wrapper
-		padding: 100px
+		//padding: 100px
+		box-sizing: border-box
 		> .planet
 			position: fixed
 			top: -250px
@@ -568,19 +568,22 @@ body
 			transform: scale(1)
 
 .info__controls
-	display: inline-block
-	position: fixed
+	display: flex
+	justify-content: center
+	width: 100%
+	position: absolute
 	top: 50%
-	right: -17%
-	//right: -230px
-	transform: translateY(-50%) rotateZ(90deg)
+	right: 0
 	z-index: 1
+	transform: translateY(-50%) rotateZ(90deg)
 	&--button
 		@extend .loader__wrapper--input
 		margin: 0
 
 .moons-wrapper
 	position: relative
+	.planet-wrapper &
+		margin: 100px
 
 .moon
 	position: absolute
