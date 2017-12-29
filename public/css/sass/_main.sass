@@ -29,6 +29,9 @@ body
 		animation: clippingStars 50s linear infinite
 
 .loader
+	//
+	//display: none !important
+	//
 	position: absolute
 	z-index: 1
 	display: flex
@@ -210,7 +213,6 @@ body
 		a:hover
 			@include menuItems()
 
-
 .dropdown
 	position: absolute
 	top: 0
@@ -239,7 +241,6 @@ body
 		@include animationMixin(scaleUniverse, 1s, 4s)
 	&.universe__new-session--clicked
 		@include animationMixin(scaleUpOnClick, 2s, 0s)
-
 
 #galaxy
 	position: relative
@@ -393,7 +394,7 @@ body
 		animation-name: uranusOrbit
 		animation-duration: $uranusOrbitalRotation
 	.planet-wrap 
-		@include planetPosition(50%, 100%)
+		@include planetPosition(0%, 100%)
 		animation-duration: $uranusOrbitalRotation
 	.planet
 		@include axialInclination($uranusAxisInclination)
@@ -464,7 +465,6 @@ body
 	transform: rotateX(70deg) scale3d(1,1,1)
 	transform-style: preserve-3d
 	transition: all 1s ease
-
 	.planet-wrap
 		transform-style: preserve-3d
 		animation-name: invert
@@ -472,42 +472,6 @@ body
 		animation-timing-function: linear
 		.planet
 			animation-name: animateShadow, animatedBackground
-			//transform-style: preserve-3d
-
-//.galaxy-view--2D
-//	font-size: 75%
-//	transform: rotateX(0)
-//	transform-style: flat
-//	transition: all 1s ease
-//	#sun
-//		transform: rotateX(0)
-//	#saturn .rings
-//		transform: rotateX(70deg)
-//	.planet-wrap
-//		transform-style: flat
-//		animation-name: none
-//		animation-iteration-count: infinite
-//		animation-timing-function: linear
-//
-//.galaxy-view--distance
-//	#sun
-//		font-size: 545em
-//	#mercury
-//		font-size: 0.7742em
-//	#venus
-//		font-size: 1.8998em
-//	#earth
-//		font-size: 2em
-//	#mars
-//		font-size: 1.064em
-//	#jupiter
-//		font-size: 22em
-//	#saturn
-//		font-size: 18.4em
-//	#uranus
-//		font-size: 8em
-//	#neptune
-//		font-size: 7.72em
 
 .wrapper
 	display: flex
@@ -518,9 +482,7 @@ body
 	> div
 		position: relative
 		width: 50%
-		//height: 100%
 	.planet-wrapper
-		//padding: 100px
 		box-sizing: border-box
 		> .planet
 			position: fixed
@@ -542,12 +504,6 @@ body
 			transform: rotateX(40deg)
 
 .info__contents
-	//height: 100%
-	//opacity: 0
-	//visibility: hidden
-	//&:has(> .slide__left)
-	//	opacity: 1
-	//	visibility: visible
 	> div
 		position: absolute
 		top: 0
@@ -557,6 +513,7 @@ body
 		transform: translateX(1000px)
 		transition: all 0.5s ease
 	.slide__left
+		width: 100%
 		opacity: 1
 		visibility: visible
 		transform: translateX(0px)
@@ -573,6 +530,98 @@ body
 			position: static
 			opacity: 1
 			transform: scale(1)
+		li
+			margin-bottom: 10px
+	&--gallery
+		&__row
+			display: flex
+			flex-wrap: wrap
+			&:after
+				content: ""
+				display: table
+				clear: both
+		&__column
+			margin: 5px
+			img
+				width: 100%
+.column
+	display: flex
+	align-items: center
+	width: calc( 25% - 10px )
+	height: 100px
+	margin: 5px
+	overflow: hidden
+
+.info__modal
+	display: none
+	position: absolute !important
+	z-index: 9999
+	padding: 50px 0
+	left: 0
+	top: 0
+	width: 100%
+	height: 100%
+	overflow: auto
+	background-color: black
+	&--content
+		position: relative
+		margin: auto
+		padding: 0
+		width: 90%
+		max-width: 1200px
+		&__column
+			img
+				width: 100%
+		&__hero
+			display: none
+			height: 500px
+			overflow: hidden
+			text-align: center
+			img
+				height: 100%
+		&__row
+			display: flex
+			flex-wrap: wrap
+
+	a
+		cursor: pointer
+		position: absolute
+		top: 50%
+		width: auto
+		padding: 16px
+		margin-top: -50px
+		color: white
+		font-weight: bold
+		font-size: 20px
+		transition: 0.6s ease
+		border-radius: 0 3px 3px 0
+		user-select: none
+		&.prev
+			left: 0
+		&.next
+			right: 0
+
+.close
+	color: white
+	position: absolute
+	top: 10px
+	right: 25px
+	font-size: 35px
+	font-weight: bold
+	z-index: 1
+	&:hover, &:focus
+		color: #999
+		text-decoration: none
+		cursor: pointer
+
+.cursor
+	cursor: pointer
+
+.demo
+	opacity: 0.8
+
+.active, .demo:hover
+	opacity: 1
 
 .info__controls
 	display: flex
@@ -618,13 +667,13 @@ body
 		bottom: 0
 		left: 0
 		right: 0
+		pointer-events: none
 	&:hover, &.hovered
 		z-index: 99
 		opacity: 1
 		transform: scale(1.2) !important
 		transition: all 1s ease
 		.moon-tooltip
-			//@extend a
 			opacity: 1
 			transform: scale(1) translateY(-50%)
 
@@ -644,7 +693,6 @@ body
 	left: 110%
 	opacity: 0
 	padding: 8px 20px
-	//background: rgba(48,46,41,0.9)
 	border-radius: 5px
 	background: rgba(30,25,97,0.9)
 	transition: all 1s ease
@@ -671,12 +719,10 @@ body
 	width: 50%
 
 .visible
-	//display: block
 	opacity: 1
 	visibility: visible
 
 .hidden
-	//display: none
 	opacity: 0
 	visibility: hidden
 
@@ -753,7 +799,6 @@ body
 		.moon
 			position: relative
 			margin: 40px auto 80px
-
 
 .error
 	position: absolute

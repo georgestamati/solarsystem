@@ -25,13 +25,13 @@ module.exports = function(grunt) {
 		      	}
 		    }
 		},
-		uglify: {
-			dist: {
-				files: {
-					'public/js/min.js': ['public/js/min.js']
-				}
-			}
-		},
+		// uglify: {
+		// 	dist: {
+		// 		files: {
+		// 			'public/js/min.js': ['public/js/min.js']
+		// 		}
+		// 	}
+		// },
 		watch: {
 			css: {
 				files: '**/**/*.sass',
@@ -39,8 +39,10 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: 'public/js/scripts/*.js',
-				tasks: ['concat', 'uglify']
-			}
+				// tasks: ['concat', 'uglify']
+                tasks: ['concat']
+
+            }
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-sass');

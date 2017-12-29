@@ -67,7 +67,7 @@ block content
                                         ul
                                             each intro in item.contents.introduction.content
                                                 li= intro
-                                    .info__contents--gallery
+
                                 .info__contents--description
                                     .info__contents--title #{item.contents.description.title}
                                     .info__contents--content
@@ -75,13 +75,21 @@ block content
                                             each descr in item.contents.description.content
                                                 li= descr
                                     .info__contents--gallery
+                                        .info__contents--gallery__row
+
                                 .info__contents--facts
                                     .info__contents--title #{item.contents.facts.title}
                                     .info__contents--content
                                         ul
                                             each fact in item.contents.facts.content
                                                 li= fact
-                                    .info__contents--gallery
+
+                        #myModal.info__modal
+                            span.close.cursor ×
+                            a.prev ❮
+                            a.next ❯
+                            .info__modal--content
+                                .info__modal--content__row
 
         include menu
 

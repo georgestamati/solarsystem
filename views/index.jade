@@ -2,7 +2,6 @@ extends layout
 
 block content
     #universe
-
         #galaxy.galaxy-view--3D
             each item in items
                 .orbit(id="#{item.name}")
@@ -15,7 +14,6 @@ block content
                                 #moon.orbit
                                     .planet-wrap
                                         .planet
-            //.orbit(id="asteroids")
 
         include menu
 

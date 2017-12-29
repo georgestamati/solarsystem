@@ -1,6 +1,7 @@
 var s, view;
 var app = {
     _config: {
+        body: $('body'),
         universe: $('#universe'),
         container: $('.container'),
         galaxy: $('[class^="galaxy-"]'),
@@ -14,7 +15,9 @@ var app = {
         mobileTest: /mobile/i.test(navigator.userAgent),
         firefoxTest: /Firefox/i.test(navigator.userAgent),
         stars: ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
-        sidebar: ['profile', 'intro', 'description', 'facts']
+        sidebar: ['profile', 'intro', 'description', 'facts'],
+        slideIndex: 1,
+        artyom: new Artyom()
     },
     bindEvents: function () {
         view.bindActions();
@@ -22,8 +25,8 @@ var app = {
         view.voiceControl();
         view.showMoonsMobile();
         view.showTooltipFromMobile();
-        view.showInfo();
-        view.showMobileInfo();
+        view.showSidebarInfo();
+        view.showMobileSidebarInfo();
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -85,18 +88,43 @@ var app = {
             e.preventDefault();
         });
 
+        view.modalPosition();
         view.sidebarPosition();
 
         $(window).on('resize', function () {
+            view.modalPosition();
             view.sidebarPosition();
-        })
+        });
+
+
+        $('#myModal span.close').on('click', function () {
+            view.closeModal();
+        });
+
+        $('#myModal a.prev').on('click', function () {
+            view.plusSlides(-1);
+        });
+
+        $('#myModal a.next').on('click', function () {
+            view.plusSlides(1);
+        });
+
+        s.body.on('click', '.column img', function () {
+            view.openModal();
+            view.currentSlide($(this).data('index'));
+        });
 
     },
     sidebarPosition: function () {
         $('.info__controls').css('right', -$('.info-wrapper').width() / 2 - $('.info__controls').height() / 2)
     },
+    modalPosition: function () {
+        $('#myModal').width($(window).width())
+            .height($(window).height())
+            // .css();
+    },
     bindEffects: function () {
-        view.zoomEffect();
+        // view.zoomEffect();
         view.parallaxEffect();
     },
     zoomEffect: function () {
@@ -188,7 +216,7 @@ var app = {
             view.loaderDone();
         }
     },
-    showInfo: function () {
+    showSidebarInfo: function () {
         $('.wrapper .info__controls--button').on('click', function () {
             var $this = $(this),
                 inputVal = $this.val();
@@ -200,10 +228,12 @@ var app = {
             }
             else{
                 $('.info__contents--' + inputVal).addClass('slide__left');
+
+                // s.artyom.simulateInstruction('images about sun'); // delete this on production mode
             }
         })
     },
-    showMobileInfo: function () {
+    showMobileSidebarInfo: function () {
         $('.mobile-menu .info__controls--button').on('click', function () {
             var $this = $(this);
             socket.emit('showMobileInfo', {
@@ -257,57 +287,60 @@ var app = {
 
         })
     },
-    toMainPage: function(){
-        // if(!mobileTest){
-            window.location = '/';
-        // }
-        // else {
-        //     socket.emit('urlControl');
-        // }
-        //
-        // socket.on('urlControl', function () {
-        //     window.location = '/';
-        // });
+    openModal: function() {
+        $('#myModal').show();
     },
-    // showSidebarTab: function (word) {
-    //     $('[value="'+ word +'"]').click();
-    // },
-    // showDetails: function(word) {
-    //     $.each(s.stars, function(index, element){
-    //         if(word.toLowerCase() === element.toLowerCase()){
-    //             if(s.mobileTest){
-    //
-    //             }
-    //             else{
-    //                 // console.log(word, index, element);
-    //                 window.location = word.toLowerCase();
-    //             }
-    //         }
-    //     })
-    // },
-    showImages: function(search){
-        var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
+    closeModal: function() {
+        $('#myModal').hide();
+    },
+    plusSlides: function(n) {
+        s.slideIndex += n;
+        view.showSlides(s.slideIndex);
+    },
+    currentSlide: function(n) {
+        s.slideIndex = n;
+        view.showSlides(s.slideIndex);
+    },
+    showSlides: function(n) {
+        var i,
+            slides,
+            dots = $('.demo');
 
-        $.ajax({
-            url: url,
-            success: function(results){
-                $.each(results.collection.items, function(i, item){
-                    if(i >= 10){
-                        return false;
-                    }
-                    $('<img />').attr('src', item.links[0].href).appendTo('.info-gallery')
-                })
-            },
-            error: function(){
-                console.log('error')
+        if($('.info__modal--content__hero').length > 0){
+            slides = $('.info__modal--content__hero');
+
+            if (n > slides.length) {
+                s.slideIndex = 1;
             }
-        })
+            if (n < 1) {
+                s.slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides.eq(i).hide();
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots.eq(i).attr('class').replace("active", "");
+            }
+            slides.eq(slides.length - s.slideIndex - 1).show();
+            dots.eq(slides.length - s.slideIndex - 1).addClass('active');
+        }
     },
     voiceControl: function () {
         var commands = [
             {
                 indexes: ['back to main page', 'back'],
-                action: view.toMainPage
+                action: function(){
+                    // if(!mobileTest){
+                        window.location = '/';
+                    // }
+                    // else {
+                    //     socket.emit('urlControl');
+                    // }
+                    //
+                    // socket.on('urlControl', function () {
+                    //     window.location = '/';
+                    // });
+                }
             },
             {
                 indexes: ['go to *'],
@@ -338,8 +371,9 @@ var app = {
                 smart: true,
                 action: function (i, search) {
                     var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
+                    var html = '';
 
-                    $('.slide__left .info__contents--gallery').children().remove();
+                    $('.info__contents--gallery__column, .info__modal--content__hero, .info__modal--content__column').remove();
 
                     $.ajax({
                         url: url,
@@ -348,13 +382,31 @@ var app = {
                                 if(i >= 10){
                                     return false;
                                 }
-                                $('<img />').attr('src', item.links[0].href).appendTo('.slide__left .info__contents--gallery')
-                            })
+
+                                html =  '<div class="info__contents--gallery__column column">' +
+                                            '<img class="cursor" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
+                                        '</div>';
+                                $(html).hide()
+                                    .appendTo('.slide__left .info__contents--gallery__row')
+                                    .fadeIn(i*250);
+
+                                html =  '<div class="info__modal--content__hero">' +
+                                            '<img src="'+ item.links[0].href +'">' +
+                                        '</div>';
+                                $(html).prependTo('.info__modal--content');
+
+                                html =  '<div class="info__modal--content__column column">' +
+                                            '<img class="demo cursor" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
+                                        '</div>';
+                                $(html).appendTo('.info__modal--content__row');
+
+                            });
+                            view.showSlides(s.slideIndex);
                         },
                         error: function(){
                             console.log('error')
                         }
-                    })
+                    });
                 }
             },
             {
@@ -369,23 +421,22 @@ var app = {
                         textToRead = $('.slide__left .info__contents--content').text();
                     }
 
-                    artyom.say(textToRead);
+                    s.artyom.say(textToRead);
                 }
             },
             {
                 indexes: ['shut down yourself'],
                 action: function (i) {
-                    artyom.fatality().then(function () {
+                    s.artyom.fatality().then(function () {
                         console.log("Artyom succesfully stopped");
                     });
                 }
             }
         ];
 
-        var artyom = new Artyom();
-        artyom.addCommands(commands);
+        s.artyom.addCommands(commands);
 
-        artyom.initialize({
+        s.artyom.initialize({
             lang: "en-US",
             continuous: true,
             soundex: true,
@@ -413,5 +464,6 @@ $(window).on('load', function () {
     // setTimeout(function() {
     //     $('body').addClass('page-loaded');
         app.init();
+
     // }, 1500);
 });
