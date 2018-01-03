@@ -16,34 +16,52 @@ var app = {
         firefoxTest: /Firefox/i.test(navigator.userAgent),
         stars: ['Sun', 'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'],
         sidebar: ['profile', 'intro', 'description', 'facts'],
-        slideIndex: 1,
+        desktopMenu: $('.desktop-menu'),
+        mobileMenu: $('.mobile-menu'),
+        mobileMenuItem: $('.menu-item'),
+        infoControls: $('.info__controls'),
+        infoContent: $('.info__contents'),
+        myModal: $('.info__modal'),
+        slidePageNumber: 1,
         artyom: new Artyom()
     },
     bindEvents: function () {
-        view.bindActions();
-        view.bindEffects();
-        view.voiceControl();
-        view.showMoonsMobile();
-        view.showTooltipFromMobile();
-        view.showSidebarInfo();
-        view.showMobileSidebarInfo();
+        view.showContentBySession();
+
+        if(s.mobileTest){
+            view.showMoonsMobile();
+            view.setMobileLoaderInputs();
+            view.showTooltipFromMobile();
+            view.showMobileSidebarInfo();
+        }
+        else{
+            view.bindEffects();
+
+            view.showSidebarInfo();
+            view.disableSidebarAnchors();
+
+            view.desktopMenuControl();
+            view.desktopMenuRedirectAfterAnimation();
+            view.voiceControl();
+
+            view.galleryModal();
+
+            view.modalPosition();
+            view.sidebarPosition();
+
+            $(window).on('resize', function () {
+                view.modalPosition();
+                view.sidebarPosition();
+            });
+        }
+
+
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
         s.universe.appendTo('.container').addClass('universe__'+state+'-session');
     },
-    bindActions: function () {
-        if(s.mobileTest){
-            s.loaderButton.before('<input class="loader__text loader__wrapper--input" type="text" placeholder=".  .  .  ." maxlength="4" />');
-            s.loaderButton.parent().addClass('row-flex');
-        }
-
-        if($('.loader__text').length){
-            s.loaderText = $('.loader__text');
-            setTimeout(function(){
-                s.loaderText.width(s.loaderButton.width());
-            }, 0);
-        }
+    showContentBySession: function () {
 
         s.loader.removeClass('hidden');
 
@@ -67,12 +85,27 @@ var app = {
 
         view.loadAddClass(state);
 
-        $('.menu__button').on('click', function () {
-            $(this).toggleClass('active');
-            $('.menu__overlay').toggleClass('open');
-        });
+    },
+    setMobileLoaderInputs: function () {
+        if(s.mobileTest){
+            s.loaderButton.before('<input class="loader__text loader__wrapper--input" type="text" placeholder=".  .  .  ." maxlength="4" />');
+            s.loaderButton.parent().addClass('row-flex');
+        }
 
-        $('.desktop-menu a').on('click', function (ev) {
+        if($('.loader__text').length){
+            s.loaderText = $('.loader__text');
+            setTimeout(function(){
+                s.loaderText.width(s.loaderButton.width());
+            }, 0);
+        }
+    },
+    disableSidebarAnchors: function () {
+        s.infoContent.find('a').on('click', function (ev) {
+            ev.preventDefault();
+        });
+    },
+    desktopMenuRedirectAfterAnimation: function () {
+        s.desktopMenu.find('a').on('click', function (ev) {
             ev.preventDefault();
             $(this).parents('.menu__overlay').removeClass('open');
             s.universe.css({
@@ -81,47 +114,46 @@ var app = {
             setTimeout(function () {
                 window.location = ev.target.pathname;
             }, 1000)
-
         });
-
-        $('.info__contents a').on('click', function (e) {
-            e.preventDefault();
+    },
+    desktopMenuControl: function () {
+        $('.menu__button').on('click', function () {
+            $(this).toggleClass('active');
+            $('.menu__overlay').toggleClass('open');
         });
-
-        view.modalPosition();
-        view.sidebarPosition();
-
-        $(window).on('resize', function () {
-            view.modalPosition();
-            view.sidebarPosition();
+        s.desktopMenu.find('li').on('mouseover', function () {
+            listItemDropdown = $(this).find('.dropdown');
+            if(listItemDropdown.length > 0) {
+                if (listItemDropdown.offset().top + listItemDropdown.height() > $('.menu__overlay').height()) {
+                    listItemDropdown.addClass('dropdown__bottom');
+                }
+            }
         });
-
-
-        $('#myModal span.close').on('click', function () {
+    },
+    galleryModal: function () {
+        s.myModal.find('span.close').on('click', function () {
             view.closeModal();
         });
 
-        $('#myModal a.prev').on('click', function () {
-            view.plusSlides(-1);
+        s.myModal.find('a.prev').on('click', function () {
+            view.changeSlide(-1);
         });
 
-        $('#myModal a.next').on('click', function () {
-            view.plusSlides(1);
+        s.myModal.find('a.next').on('click', function () {
+            view.changeSlide(1);
         });
 
         s.body.on('click', '.column img', function () {
             view.openModal();
-            view.currentSlide($(this).data('index'));
+            view.thisSlide($(this).data('index'));
         });
-
     },
     sidebarPosition: function () {
-        $('.info__controls').css('right', -$('.info-wrapper').width() / 2 - $('.info__controls').height() / 2)
+        s.infoControls.css('right', -$('.info-wrapper').width() / 2 - s.infoControls.height() / 2)
     },
     modalPosition: function () {
-        $('#myModal').width($(window).width())
+        s.myModal.width($(window).width())
             .height($(window).height())
-            // .css();
     },
     bindEffects: function () {
         // view.zoomEffect();
@@ -182,15 +214,10 @@ var app = {
     },
     showPage: function () {
         if(s.mobileTest){
-            // If there is a key, send it to the server-side
-            // through the socket.io channel with a 'load' event.
-            socket.emit('load', {
+            socket.emit('loadKey', {
                 key: s.loaderText.val()
             });
-
-            socket.on('access', function (data) {
-                // Check if we have "granted" access.
-                // If we do, we can continue with the presentation.
+            socket.on('accessKey', function (data) {
                 if (data.access === "granted" && data.access !== "") {
                     view.loaderDone();
 
@@ -199,7 +226,6 @@ var app = {
                     })
                 }
                 else {
-                    // Wrong secret key
                     s.loaderText.addClass('loader__text--error loader__text--animation');
 
                     s.loaderText.on('focus', function () {
@@ -228,13 +254,15 @@ var app = {
             }
             else{
                 $('.info__contents--' + inputVal).addClass('slide__left');
+                if(inputVal === 'description'){
+                    s.artyom.simulateInstruction('images about sun'); // delete this on production mode
+                }
 
-                // s.artyom.simulateInstruction('images about sun'); // delete this on production mode
             }
         })
     },
     showMobileSidebarInfo: function () {
-        $('.mobile-menu .info__controls--button').on('click', function () {
+        s.mobileMenu.find('.info__controls--button').on('click', function () {
             var $this = $(this);
             socket.emit('showMobileInfo', {
                 value: $this.val()
@@ -253,9 +281,9 @@ var app = {
         $('.'+attr).removeClass('hidden');
     },
     showMoonsMobile: function () {
-        $('.mobile-menu').find('.moons-wrapper').hide();
+        s.mobileMenu.find('.moons-wrapper').hide();
 
-        $('.menu-item > a').on('click', function () {
+        s.mobileMenuItem.children('a').on('click', function () {
             var siblings = $(this).siblings();
             $('.moons-wrapper, .info__controls').addClass('hidden');
             siblings.find('.moons-wrapper').removeClass('hidden').show();
@@ -263,7 +291,7 @@ var app = {
         })
     },
     showTooltipFromMobile: function () {
-        $('.menu-item .moons-wrapper .planet').on('click', function () {
+        s.mobileMenuItem.find('.moons-wrapper .planet').on('click', function () {
             moonWrapper = $(this).parents('.moons-wrapper');
             socket.emit('showTooltipFromMobile', {
                 id: $(this).parent().attr('id'),
@@ -288,41 +316,40 @@ var app = {
         })
     },
     openModal: function() {
-        $('#myModal').show();
+        s.myModal.show();
     },
     closeModal: function() {
-        $('#myModal').hide();
+        s.myModal.hide();
     },
-    plusSlides: function(n) {
-        s.slideIndex += n;
-        view.showSlides(s.slideIndex);
+    changeSlide: function(n) {
+        s.slidePageNumber += n;
+        view.playSlides(s.slidePageNumber);
     },
-    currentSlide: function(n) {
-        s.slideIndex = n;
-        view.showSlides(s.slideIndex);
+    thisSlide: function(n) {
+        s.slidePageNumber = n;
+        view.playSlides(s.slidePageNumber);
     },
-    showSlides: function(n) {
-        var i,
-            slides,
-            dots = $('.demo');
+    playSlides: function(n) {
+        var heroImage,
+            thumb = $('.demo');
 
         if($('.info__modal--content__hero').length > 0){
-            slides = $('.info__modal--content__hero');
+            heroImage = $('.info__modal--content__hero');
 
-            if (n > slides.length) {
-                s.slideIndex = 1;
+            if (n > heroImage.length) {
+                s.slidePageNumber = 1;
             }
             if (n < 1) {
-                s.slideIndex = slides.length
+                s.slidePageNumber = heroImage.length
             }
-            for (i = 0; i < slides.length; i++) {
-                slides.eq(i).hide();
+            for (i = 0; i < heroImage.length; i++) {
+                heroImage.eq(i).hide();
             }
-            for (i = 0; i < dots.length; i++) {
-                dots.eq(i).attr('class').replace("active", "");
+            for (i = 0; i < thumb.length; i++) {
+                thumb.eq(i).attr('class').replace('active', '');
             }
-            slides.eq(slides.length - s.slideIndex - 1).show();
-            dots.eq(slides.length - s.slideIndex - 1).addClass('active');
+            heroImage.eq(heroImage.length - s.slidePageNumber - 1).show();
+            thumb.eq(heroImage.length - s.slidePageNumber - 1).addClass('active');
         }
     },
     voiceControl: function () {
@@ -370,7 +397,7 @@ var app = {
                 indexes: ['images about *'],
                 smart: true,
                 action: function (i, search) {
-                    var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
+                    var url = 'https://images-api.nasa.gov/search?q='+search+'&media_type=image&year_start=1900';
                     var html = '';
 
                     $('.info__contents--gallery__column, .info__modal--content__hero, .info__modal--content__column').remove();
@@ -384,7 +411,7 @@ var app = {
                                 }
 
                                 html =  '<div class="info__contents--gallery__column column">' +
-                                            '<img class="cursor" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
+                                            '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
                                         '</div>';
                                 $(html).hide()
                                     .appendTo('.slide__left .info__contents--gallery__row')
@@ -396,12 +423,12 @@ var app = {
                                 $(html).prependTo('.info__modal--content');
 
                                 html =  '<div class="info__modal--content__column column">' +
-                                            '<img class="demo cursor" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
+                                            '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
                                         '</div>';
                                 $(html).appendTo('.info__modal--content__row');
 
                             });
-                            view.showSlides(s.slideIndex);
+                            view.playSlides(s.slidePageNumber);
                         },
                         error: function(){
                             console.log('error')
@@ -428,7 +455,7 @@ var app = {
                 indexes: ['shut down yourself'],
                 action: function (i) {
                     s.artyom.fatality().then(function () {
-                        console.log("Artyom succesfully stopped");
+                        console.log("Artyom successfully stopped");
                     });
                 }
             }

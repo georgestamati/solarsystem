@@ -43,14 +43,13 @@ io.on('connection', function (socket) {
         })
     });
 
-    socket.on('load', function(data){
-        socket.emit('access', {
+    socket.on('loadKey', function(data){
+        socket.emit('accessKey', {
             access: (parseInt(data.key) === parseInt(key) ? "granted" : "denied")
         });
     });
 
     socket.on('eventchange', function (data) {
-        // Broadcast changes to all clients in room
         socket.to('room').emit('urlcontrol', {
             url: data.url
         });

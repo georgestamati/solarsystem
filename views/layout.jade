@@ -3,17 +3,17 @@ html(lang='en')
     head
         title= title
 
-        meta(charset="utf-8")
-        meta(http-equiv="x-ua-compatible", content="ie=edge")
-        meta(name="description", content="Solar system")
-        meta(name="viewport", content="width=device-width, initial-scale=1")
+        meta(charset='utf-8')
+        meta(http-equiv='x-ua-compatible', content='ie=edge')
+        meta(name='description', content='Solar system')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
 
-        link(rel="icon", href="favicon.ico")
+        link(rel='icon', href='favicon.ico')
 
         link(rel='stylesheet', href='/css/style.css')
 
     body
-        script(type="text/javascript", src="/socket.io/socket.io.js")
+        script(type='text/javascript', src='/socket.io/socket.io.js')
         script.
             var socket = io.connect()
 
@@ -22,7 +22,7 @@ html(lang='en')
 
             block content
 
-        script(type="text/javascript", src="/js/libs/jquery-3.2.1.min.js")
-        script(type="text/javascript", src="/js/libs/artyom.window.min.js")
-        script(type="text/javascript", src="/js/libs/TweenMax.min.js")
-        script(type="text/javascript", src="/js/min.js")
+        script(type='text/javascript', src='/js/libs/jquery-3.2.1.min.js')
+        script(type='text/javascript', src='/js/libs/artyom.window.min.js')
+        script(type='text/javascript', src='/js/libs/TweenMax.min.js')
+        script(type='text/javascript', src='/js/min.js')
