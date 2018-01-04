@@ -93,9 +93,11 @@ block content
 
         include menu
 
+    include scripts
+
     - function deleteLastChar(x){ lc = x.slice(0, -1); return parseFloat(lc);}
     script.
-        document.body.classList.add('page-planet');
+        $('body').addClass('page-planet');
 
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url;

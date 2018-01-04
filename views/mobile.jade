@@ -32,11 +32,13 @@ block content
                                             .planet(style= item.name === 'sun' ? isPlanet : (isMoon + disableMoonRotate ))
                                                 if moon.rings
                                                     .rings
+    include scripts
+
     script.
-        document.body.classList.add('page-mobile');
+        $('body').addClass('page-mobile');
 
         // Get anchors from menu
-        var menuLinks = document.getElementsByTagName('a');
+        var menuLinks = $('a');
 
         // Transform from NodeList to Array
         menuLinks = Array.prototype.slice.call(menuLinks);

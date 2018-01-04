@@ -86,7 +86,8 @@ router.get('/:planet/:moon', function(req, res) {
 		'moon': req.params.moon,
 		'planet': req.params.planet,
 		'items': rows,
-		'loader': desktopLoader});
+		'loader': desktopLoader
+	});
 });
 
 module.exports = router;

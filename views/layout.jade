@@ -13,16 +13,7 @@ html(lang='en')
         link(rel='stylesheet', href='/css/style.css')
 
     body
-        script(type='text/javascript', src='/socket.io/socket.io.js')
-        script.
-            var socket = io.connect()
-
         .container
             !{loader}
 
             block content
-
-        script(type='text/javascript', src='/js/libs/jquery-3.2.1.min.js')
-        script(type='text/javascript', src='/js/libs/artyom.window.min.js')
-        script(type='text/javascript', src='/js/libs/TweenMax.min.js')
-        script(type='text/javascript', src='/js/min.js')

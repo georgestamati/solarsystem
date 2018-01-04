@@ -9,16 +9,13 @@ block content
                         .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
                             if item.rings
                                 .rings
-                            .tooltip.planet-tooltip #{item.name}
-                            if item.name === 'earth'
-                                #moon.orbit
-                                    .planet-wrap
-                                        .planet
 
         include menu
 
+    include scripts
+
     script.
-        document.body.classList.add('page-index');
+        $('body').addClass('page-index');
 
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url

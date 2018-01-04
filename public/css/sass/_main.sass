@@ -184,7 +184,6 @@ body
 		bottom: 0
 
 .menu
-	padding: 0
 	margin: 0
 	text-align: center
 	a
@@ -218,6 +217,68 @@ body
 					@include menuItems()
 		a:hover
 			@include menuItems()
+	&.main-page-link
+		position: fixed
+		left: 0
+		right: 0
+		padding: 10px 0
+		z-index: 1
+		background-color: #000
+	&.mobile-menu
+		display: -webkit-box
+		align-items: center
+		width: 100%
+		height: 100%
+		padding: 40px 0 0 0
+		overflow: auto
+		white-space: nowrap
+	.menu-item
+		position: relative
+		display: block
+		width: 100%
+		a
+			font-size: 32px
+			text-align: center
+			text-decoration: none
+		> div > .planet
+			animation-name: animatedBackground
+			animation-duration: 10s !important
+			animation-timing-function: linear
+			animation-iteration-count: infinite
+	.planet
+		position: static
+		width: 200px
+		height: 200px
+		margin: 50px auto 50px
+		font-size: inherit
+		background-repeat: repeat-x
+		background-size: 400px
+		transform-style: preserve-3d
+		box-shadow: inset -9px -2px 39px 15px #000
+
+	#uranus .rings
+		@include elementPosition(38em, 20em, 0em, -9em)
+		background: $uranusRingsBackground
+	#saturn .rings
+		position: absolute
+		@include elementPosition(38em, 20em, 0em, -9em)
+		background: $saturnRingsBackground
+		transform: rotateX(40deg)
+	.moons-wrapper
+		display: none
+		div
+			transform: scale(0.75)
+	#uranus .moons-wrapper .planet, #neptune .moons-wrapper .planet
+		background-size: 1000px
+		background-position: 450px -300px
+	.info__controls
+		flex-wrap: wrap
+	.moons-wrapper
+		position: absolute
+		width: 100%
+		.moon
+			position: relative
+			margin: 40px auto 80px
 
 .dropdown
 	position: absolute
@@ -273,7 +334,7 @@ body
 	animation-timing-function: linear
 	transform-style: preserve-3d
 
-.orbit 
+.orbit
 	position: absolute
 	top: 50%
 	left: 50%
@@ -299,7 +360,7 @@ body
 	&.orbit
 		animation-name: mercuryOrbit
 		animation-duration: $mercuryOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(50%, 0)
 		animation-duration: $mercuryOrbitalRotation
 	.planet
@@ -310,7 +371,7 @@ body
 	&.orbit
 		animation-name: venusOrbit
 		animation-duration: $venusOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(50%, 100%)
 		animation-duration: $venusOrbitalRotation
 	.planet
@@ -321,7 +382,7 @@ body
 	&.orbit
 		animation-name: earthOrbit
 		animation-duration: $earthOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(100%, 50%)
 		animation-duration: $earthOrbitalRotation
 	.planet
@@ -345,34 +406,18 @@ body
 	&.orbit
 		animation-name: marsOrbit
 		animation-duration: $marsOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(50%, 100%)
 		animation-duration: $marsOrbitalRotation
 	.planet
 		@include axialInclination($marsAxisInclination)
 		animation-duration: $marsOrbitalRotation
 
-#asteroids
-	border-color: transparent !important
-	@include elementPosition(300px, 300px, -300px / 2, -300px / 2)
-	overflow: hidden
-	&.orbit
-		animation-name: asteroidOrbit
-		animation-duration: $asteroidOrbitalRotation
-	&:before
-		content: ""
-		position: absolute
-		@include planetPosition(50%, 50%)
-		@include elementPosition(250px, 250px, -250px / 2, -250px / 2)
-		background: transparent
-		border-radius: 140px !important
-		box-shadow: stars(300, 400, -400/2, -200)
-
 #jupiter
 	&.orbit
 		animation-name: jupiterOrbit
 		animation-duration: $jupiterOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(50%, 0)
 		animation-duration: $jupiterOrbitalRotation
 	.planet
@@ -383,7 +428,7 @@ body
 	&.orbit
 		animation-name: saturnOrbit
 		animation-duration: $saturnOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(0, 50%)
 		animation-duration: $saturnOrbitalRotation
 	.planet
@@ -399,7 +444,7 @@ body
 	&.orbit
 		animation-name: uranusOrbit
 		animation-duration: $uranusOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(0%, 100%)
 		animation-duration: $uranusOrbitalRotation
 	.planet
@@ -415,15 +460,14 @@ body
 	&.orbit
 		animation-name: neptuneOrbit
 		animation-duration: $neptuneOrbitalRotation
-	.planet-wrap 
+	.planet-wrap
 		@include planetPosition(100%, 50%)
 		animation-duration: $neptuneOrbitalRotation
 	.planet
 		@include axialInclination($neptuneAxisInclination)
 		animation-duration: $neptuneOrbitalRotation
 
-.galaxy-view--3D
-	height: 100%
+.page-index
 	#sun
 		font-size: $sunOrbitSize
 		.planet
@@ -523,12 +567,10 @@ body
 		opacity: 1
 		visibility: visible
 		transform: translateX(0px)
-		transition: all 0.5s ease
 		background: rgba(0, 0, 0, 0.6)
 		border-radius: 5px
 	&--title
 		@extend .error__message
-		padding: 20px
 	&--content
 		font-family: Arial, serif
 		font-size: 17px
@@ -542,17 +584,16 @@ body
 		&__row
 			display: flex
 			flex-wrap: wrap
-			&:after
-				content: ""
-				display: table
-				clear: both
-		&__column
-			margin: 5px
 
 .info__img
-	opacity: 1
+	opacity: 0.75
 	width: 100%
 	cursor: pointer
+	backface-visibility: hidden
+	transition: opacity 0.3s ease
+	&:hover
+		opacity: 1
+		transition: opacity 0.3s ease
 
 .column
 	display: flex
@@ -568,8 +609,8 @@ body
 	z-index: 9999
 	left: 0
 	top: 0
-	width: 100%
-	height: 100%
+	//width: 100%
+	//height: 100%
 	overflow: auto
 	background-color: black
 	&--content
@@ -579,7 +620,7 @@ body
 		max-width: 1200px
 		//width: 90%
 		width: 100%
-		padding: 50px 0
+		padding: 50px 0 0
 		margin: auto
 
 		&__hero
@@ -634,11 +675,12 @@ body
 	display: flex
 	justify-content: center
 	width: 100%
-	position: absolute
 	top: 50%
 	right: 0
 	z-index: 1
-	transform: translateY(-50%) rotateZ(90deg)
+	.info-wrapper &
+		position: absolute
+		transform: translateY(-50%) rotateZ(90deg)
 	&--button
 		@extend .loader__wrapper--input
 		margin: 0
@@ -683,27 +725,29 @@ body
 		.moon-tooltip
 			opacity: 1
 			transform: scale(1) translateY(-50%)
+	.tooltip
+		position: absolute
+		opacity: 0
+		transform: scale(0)
 
 #uranus .moon, #neptune .moon
 	background-size: initial
 	background-position: 350px 150px
 
-#sun > .planet
-	animation-name: sunRays
-	animation-duration: 5s
-	animation-timing-function: linear
-	animation-iteration-count: infinite
+.page-planet
+	#sun > .planet
+		animation-name: sunRays
+		animation-duration: 5s
+		animation-timing-function: linear
+		animation-iteration-count: infinite
 
 .tooltip
-	position: absolute
 	top: 50%
 	left: 110%
-	opacity: 0
 	padding: 8px 20px
 	border-radius: 5px
 	background: rgba(30,25,97,0.9)
 	transition: all 1s ease
-	transform: scale(0)
 	color: #fff
 	&:after
 		content: ''
@@ -720,7 +764,6 @@ body
 
 .tooltip__name
 	text-align: center
-	padding-bottom: 8px
 
 .info-wrapper
 	width: 50%
@@ -737,75 +780,6 @@ body
 	display: flex
 	flex-direction: column
 	align-items: center
-
-.menu
-	&.main-page-link
-		position: fixed
-		left: 0
-		right: 0
-		padding: 10px 0
-		z-index: 1
-		background-color: #000
-	&.mobile-menu
-		display: -webkit-box
-		align-items: center
-		width: 100%
-		height: 100%
-		padding-top: 40px
-		overflow: auto
-		white-space: nowrap
-		.menu-item
-			position: relative
-			display: block
-			width: 100%
-			a
-				font-size: 32px
-				text-align: center
-				text-decoration: none
-		.planet
-			position: static
-			width: 200px
-			height: 200px
-			margin: 100px auto 50px
-			font-size: inherit
-			background-repeat: repeat-x
-			background-size: 400px
-			animation-name: animatedBackground
-			animation-duration: 10s !important
-			animation-timing-function: linear
-			animation-iteration-count: infinite
-			transform-style: preserve-3d
-			box-shadow: inset -9px -2px 39px 15px #000
-		#uranus .rings
-			@include elementPosition(38em, 20em, 0em, -9em)
-			background: $uranusRingsBackground
-		#saturn .rings
-			position: absolute
-			@include elementPosition(38em, 20em, 0em, -9em)
-			background: $saturnRingsBackground
-			transform: rotateX(40deg)
-		.moons-wrapper
-			display: none
-			div
-				transform: scale(0.75)
-				.planet
-					animation: none
-		#uranus .moons-wrapper .planet, #neptune .moons-wrapper .planet
-			background-size: 1000px
-			background-position: 450px -300px
-		.info__controls
-			position: static
-			transform: initial
-			display: flex
-			flex-wrap: wrap
-			justify-content: center
-
-	.moons-wrapper
-		position: absolute
-		width: 100%
-		.moon
-			position: relative
-			margin: 40px auto 80px
 
 .error
 	position: absolute

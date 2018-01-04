@@ -1,5 +1,5 @@
 var s, view;
-var app = {
+var App = {
     _config: {
         body: $('body'),
         universe: $('#universe'),
@@ -25,26 +25,18 @@ var app = {
         slidePageNumber: 1,
         artyom: new Artyom()
     },
-    bindEvents: function () {
+    bindActions: function () {
         view.showContentBySession();
 
-        if(s.mobileTest){
-            view.showMoonsMobile();
+        view.showMoonsFromMobile();
+        // if(s.mobileTest){
             view.setMobileLoaderInputs();
             view.showTooltipFromMobile();
             view.showMobileSidebarInfo();
-        }
-        else{
-            view.bindEffects();
-
-            view.showSidebarInfo();
-            view.disableSidebarAnchors();
-
-            view.desktopMenuControl();
-            view.desktopMenuRedirectAfterAnimation();
+        // }
+        // else{
+            view.parallaxEffect();
             view.voiceControl();
-
-            view.galleryModal();
 
             view.modalPosition();
             view.sidebarPosition();
@@ -53,16 +45,24 @@ var app = {
                 view.modalPosition();
                 view.sidebarPosition();
             });
-        }
-
-
+        // }
+    },
+    bindUIEvents: function () {
+        s.infoContent.find('a').on('click', view.disableSidebarAnchors);
+        s.desktopMenu.find('a').on('click', view.desktopMenuRedirectAfterAnimation);
+        $('.menu__button').on('click', view.openOverlay);
+        s.desktopMenu.find('li').on('mouseover', view.desktopSubMenuControl);
+        s.myModal.find('span.close').on('click', view.closeModal);
+        s.myModal.find('a.prev').on('click', view.prevSlide);
+        s.myModal.find('a.next').on('click', view.nextSlide);
+        s.body.on('click', '.column img', view.galleryModal);
+        $('.wrapper .info__controls--button').on('click', view.showSidebarInfo);
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
         s.universe.appendTo('.container').addClass('universe__'+state+'-session');
     },
     showContentBySession: function () {
-
         s.loader.removeClass('hidden');
 
         var loaderWrapperButPlanet = s.loaderWrapper.children().not('.loader__planet'),
@@ -84,7 +84,6 @@ var app = {
         }
 
         view.loadAddClass(state);
-
     },
     setMobileLoaderInputs: function () {
         if(s.mobileTest){
@@ -99,113 +98,60 @@ var app = {
             }, 0);
         }
     },
-    disableSidebarAnchors: function () {
-        s.infoContent.find('a').on('click', function (ev) {
-            ev.preventDefault();
-        });
+    disableSidebarAnchors: function (ev) {
+        ev.preventDefault();
     },
-    desktopMenuRedirectAfterAnimation: function () {
-        s.desktopMenu.find('a').on('click', function (ev) {
-            ev.preventDefault();
-            $(this).parents('.menu__overlay').removeClass('open');
-            s.universe.css({
-                'animation': 'scaleDownOnMenuClick 1s ease'
-            });
-            setTimeout(function () {
-                window.location = ev.target.pathname;
-            }, 1000)
+    desktopMenuRedirectAfterAnimation: function (ev) {
+        ev.preventDefault();
+        $(this).parents('.menu__overlay').removeClass('open');
+        s.universe.css({
+            'animation': 'scaleDownOnMenuClick 1s ease'
         });
+        setTimeout(function () {
+            window.location = ev.target.pathname;
+        }, 1000)
     },
-    desktopMenuControl: function () {
-        $('.menu__button').on('click', function () {
-            $(this).toggleClass('active');
-            $('.menu__overlay').toggleClass('open');
-        });
-        s.desktopMenu.find('li').on('mouseover', function () {
-            listItemDropdown = $(this).find('.dropdown');
-            if(listItemDropdown.length > 0) {
-                if (listItemDropdown.offset().top + listItemDropdown.height() > $('.menu__overlay').height()) {
-                    listItemDropdown.addClass('dropdown__bottom');
-                }
+    openOverlay: function () {
+        $(this).toggleClass('active');
+        $('.menu__overlay').toggleClass('open');
+    },
+    desktopSubMenuControl: function () {
+        var listItemDropdown = $(this).find('.dropdown');
+        if(listItemDropdown.length > 0) {
+            if (listItemDropdown.offset().top + listItemDropdown.height() > $('.menu__overlay').height()) {
+                listItemDropdown.addClass('dropdown__bottom');
             }
-        });
+        }
     },
     galleryModal: function () {
-        s.myModal.find('span.close').on('click', function () {
-            view.closeModal();
-        });
-
-        s.myModal.find('a.prev').on('click', function () {
-            view.changeSlide(-1);
-        });
-
-        s.myModal.find('a.next').on('click', function () {
-            view.changeSlide(1);
-        });
-
-        s.body.on('click', '.column img', function () {
-            view.openModal();
-            view.thisSlide($(this).data('index'));
-        });
+        view.openModal();
+        view.thisSlide($(this).data('index'));
     },
     sidebarPosition: function () {
         s.infoControls.css('right', -$('.info-wrapper').width() / 2 - s.infoControls.height() / 2)
     },
     modalPosition: function () {
-        s.myModal.width($(window).width())
-            .height($(window).height())
-    },
-    bindEffects: function () {
-        // view.zoomEffect();
-        view.parallaxEffect();
-    },
-    zoomEffect: function () {
-        var zoomEvent = s.firefoxTest ? "DOMMouseScroll" : "mousewheel";
-
-        if (document.attachEvent){ //if IE (and Opera depending on user setting)
-            document.attachEvent("on" + zoomEvent, view.zoomGalaxy);
-        }
-        else {
-            if (document.addEventListener){ //WC3 browsers
-                document.addEventListener(zoomEvent, view.zoomGalaxy, false);
-            }
-        }
+        s.myModal.width($(window).width()).height($(window).height())
     },
     parallaxEffect: function () {
         if(!s.mobileTest){
-            s.universe.find('#galaxy').on('mousemove', function(e) {
+            s.universe.find('#galaxy').on('mousemove', function (e) {
                 view.parallaxGalaxy(e, '#galaxy .planet-wrapper .planet', -20);
                 $.each(s.moon, function(i, item){
-                    view.parallaxGalaxy(e, item, -50-(i*50))
+                    view.parallaxGalaxy(e, item, -50-(i*50));
                 })
-            });
+            })
         }
     },
-    zoomGalaxy: function(e){
-        var ev = window.event || e, //equalize event object
-            delta = ev.detail ? ev.detail : ev.wheelDelta,
-            incr = 0; //check for detail first so Opera uses that instead of wheelDelta
-
-        delta = delta / 120;
-        delta = s.firefoxTest ? delta / 3 : delta;
-        incr += delta / 5;
-
-        if(incr > 0){
-            s.galaxy.css({'transform': 'rotateX(70deg) scale3d(' + incr + ',' + incr + ',' + incr + ')'});
-        }
-        else{
-            incr = 0;
-        }
-    },
-    parallaxGalaxy: function(e, target, movement){ // to be changed
-        var relX = e.pageX - s.universe.offset().left,
-            relY = e.pageY - s.universe.offset().top,
+    parallaxGalaxy: function(e, target, move){
+        var x = e.pageX - s.universe.offset().left,
+            y = e.pageY - s.universe.offset().top,
             width = s.universe.width(),
             height = s.universe.height();
 
         TweenMax.to(target, 1, {
-            x: (relX - width/2) / width * movement,
-            y: (relY - height/2) / height * movement
+            x: (x - width/2) / width * move,
+            y: (y - height/2) / height * move
         })
     },
     loaderDone: function () {
@@ -243,23 +189,20 @@ var app = {
         }
     },
     showSidebarInfo: function () {
-        $('.wrapper .info__controls--button').on('click', function () {
-            var $this = $(this),
-                inputVal = $this.val();
+        var $this = $(this),
+            inputVal = $this.val();
 
-            $('.info__contents > div').not('.info__contents--' + inputVal).removeClass('slide__left');
+        $('.info__contents > div').not('.info__contents--' + inputVal).removeClass('slide__left');
 
-            if($('.info__contents--' + inputVal).hasClass('slide__left')){
-                $('.info__contents--' + inputVal).removeClass('slide__left');
+        if($('.info__contents--' + inputVal).hasClass('slide__left')){
+            $('.info__contents--' + inputVal).removeClass('slide__left');
+        }
+        else{
+            $('.info__contents--' + inputVal).addClass('slide__left');
+            if(inputVal === 'description'){
+                s.artyom.simulateInstruction('images about sun'); // delete this on production mode
             }
-            else{
-                $('.info__contents--' + inputVal).addClass('slide__left');
-                if(inputVal === 'description'){
-                    s.artyom.simulateInstruction('images about sun'); // delete this on production mode
-                }
-
-            }
-        })
+        }
     },
     showMobileSidebarInfo: function () {
         s.mobileMenu.find('.info__controls--button').on('click', function () {
@@ -280,7 +223,7 @@ var app = {
         s.loaderRedirect.addClass('hidden');
         $('.'+attr).removeClass('hidden');
     },
-    showMoonsMobile: function () {
+    showMoonsFromMobile: function () {
         s.mobileMenu.find('.moons-wrapper').hide();
 
         s.mobileMenuItem.children('a').on('click', function () {
@@ -312,7 +255,6 @@ var app = {
             else{
                 $('#' + data.id).addClass('hovered');
             }
-
         })
     },
     openModal: function() {
@@ -325,17 +267,21 @@ var app = {
         s.slidePageNumber += n;
         view.playSlides(s.slidePageNumber);
     },
+    nextSlide: function () {
+        view.changeSlide(1);
+    },
+    prevSlide: function () {
+        view.changeSlide(-1);
+    },
     thisSlide: function(n) {
         s.slidePageNumber = n;
         view.playSlides(s.slidePageNumber);
     },
     playSlides: function(n) {
-        var heroImage,
-            thumb = $('.demo');
+        var i,
+        heroImage = $('.info__modal--content__hero');
 
-        if($('.info__modal--content__hero').length > 0){
-            heroImage = $('.info__modal--content__hero');
-
+        if(heroImage.length > 0){
             if (n > heroImage.length) {
                 s.slidePageNumber = 1;
             }
@@ -345,11 +291,7 @@ var app = {
             for (i = 0; i < heroImage.length; i++) {
                 heroImage.eq(i).hide();
             }
-            for (i = 0; i < thumb.length; i++) {
-                thumb.eq(i).attr('class').replace('active', '');
-            }
             heroImage.eq(heroImage.length - s.slidePageNumber - 1).show();
-            thumb.eq(heroImage.length - s.slidePageNumber - 1).addClass('active');
         }
     },
     voiceControl: function () {
@@ -357,16 +299,7 @@ var app = {
             {
                 indexes: ['back to main page', 'back'],
                 action: function(){
-                    // if(!mobileTest){
-                        window.location = '/';
-                    // }
-                    // else {
-                    //     socket.emit('urlControl');
-                    // }
-                    //
-                    // socket.on('urlControl', function () {
-                    //     window.location = '/';
-                    // });
+                    window.location = '/';
                 }
             },
             {
@@ -479,7 +412,8 @@ var app = {
     init: function(){
         view = this;
         s = view._config;
-        view.bindEvents();
+        view.bindActions();
+        view.bindUIEvents();
     }
 };
 
@@ -490,7 +424,7 @@ var app = {
 $(window).on('load', function () {
     // setTimeout(function() {
     //     $('body').addClass('page-loaded');
-        app.init();
+        App.init();
 
     // }, 1500);
 });

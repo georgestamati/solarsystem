@@ -21,17 +21,17 @@ module.exports = function(grunt) {
         concat: {
 		    dist: {
 		      	files: {
-		      		'public/js/min.js': ['public/js/scripts/*.js']
+		      		'public/js/min.js': ['public/js/libs/*.js', 'public/js/scripts/*.js']
 		      	}
 		    }
 		},
-		// uglify: {
-		// 	dist: {
-		// 		files: {
-		// 			'public/js/min.js': ['public/js/min.js']
-		// 		}
-		// 	}
-		// },
+		uglify: {
+			dist: {
+				files: {
+					'public/js/min.js': ['public/js/min.js']
+				}
+			}
+		},
 		watch: {
 			css: {
 				files: '**/**/*.sass',
@@ -39,17 +39,15 @@ module.exports = function(grunt) {
 			},
 			scripts: {
 				files: 'public/js/scripts/*.js',
-				// tasks: ['concat', 'uglify']
-                tasks: ['concat']
-
+				tasks: ['concat', 'uglify']
             }
 		}
 	});
-	grunt.loadNpmTasks('grunt-contrib-sass');
-  	grunt.loadNpmTasks('grunt-contrib-watch');
   	grunt.loadNpmTasks('grunt-autoprefixer');
+	grunt.loadNpmTasks('grunt-contrib-sass');
   	grunt.loadNpmTasks('grunt-contrib-concat');
   	grunt.loadNpmTasks('grunt-contrib-uglify');
+  	grunt.loadNpmTasks('grunt-contrib-watch');
 
   	grunt.registerTask('default',['watch']);
 };
