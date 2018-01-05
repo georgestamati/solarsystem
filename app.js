@@ -5,6 +5,7 @@ var express = require('express'),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser'),
 	compression = require('compression'),
+    memoryCache = require('memory-cache'),
 	route = require('./app/routes'),
 	app = express();
 
@@ -23,8 +24,28 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// use memory cache
+var cache = function (duration) {
+    return function (req, res, next) {
+        var url = '__express__' + req.originalUrl || req.url,
+        	cachedBody = memoryCache.get(url);
+
+        if (cachedBody) {
+            res.send(cachedBody);
+        }
+        else {
+            res.sendResponse = res.send;
+            res.send = function (html) {
+                memoryCache.put(url, html, duration * 1000);
+                res.sendResponse(html);
+            };
+            next();
+        }
+    };
+};
+
 // setup routes
-app.use('/', route);
+app.use('/', cache(10), route);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -29,23 +29,23 @@ var App = {
         view.showContentBySession();
 
         view.showMoonsFromMobile();
-        // if(s.mobileTest){
-            view.setMobileLoaderInputs();
-            view.showTooltipFromMobile();
-            view.showMobileSidebarInfo();
-        // }
-        // else{
-            view.parallaxEffect();
-            view.voiceControl();
+        view.setMobileLoaderInputs();
+        view.showTooltipFromMobile();
+        view.showMobileSidebarInfo();
 
+        view.parallaxEffect();
+
+        if(!s.mobileTest){
+            view.voiceControl();
+        }
+
+        view.modalPosition();
+        view.sidebarPosition();
+
+        $(window).on('resize', function () {
             view.modalPosition();
             view.sidebarPosition();
-
-            $(window).on('resize', function () {
-                view.modalPosition();
-                view.sidebarPosition();
-            });
-        // }
+        });
     },
     bindUIEvents: function () {
         s.infoContent.find('a').on('click', view.disableSidebarAnchors);

@@ -9,11 +9,11 @@ app.set('port', port);
 //  Create HTTP server.
 var server = http.createServer(app);
 
-var key = Math.floor(1000 + Math.random() * 9000);
-
-console.log(key);
 
 // Socket IO
+var key = Math.floor(1000 + Math.random() * 9000);
+console.log(key);
+
 var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
