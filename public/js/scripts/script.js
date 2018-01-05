@@ -77,7 +77,6 @@ var App = {
 
             s.loaderControlButton.on('click', view.chooseControl);
             s.loaderButton.on('click', view.showPage);
-
         } else { // It does exist a session
             state = 'same';
             loaderWrapperButPlanet.addClass('hidden');

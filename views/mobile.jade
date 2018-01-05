@@ -2,7 +2,6 @@ extends layout
 
 block content
     #universe
-
         #galaxy
             div.menu.main-page-link
                 a(href='/') Back to main page
@@ -32,7 +31,6 @@ block content
                                             .planet(style= item.name === 'sun' ? isPlanet : (isMoon + disableMoonRotate ))
                                                 if moon.rings
                                                     .rings
-    include scripts
 
     script.
         $('body').addClass('page-mobile');

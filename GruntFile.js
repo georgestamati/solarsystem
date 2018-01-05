@@ -21,7 +21,8 @@ module.exports = function(grunt) {
         concat: {
 		    dist: {
 		      	files: {
-		      		'public/js/min.js': ['public/js/libs/*.js', 'public/js/scripts/*.js']
+                    'public/js/vendors.js': ['public/js/libs/*.js'],
+		      		'public/js/min.js': ['public/js/scripts/*.js']
 		      	}
 		    }
 		},

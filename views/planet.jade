@@ -8,7 +8,6 @@ block content
                     .planet(style="background-image: url('../img/planets/#{planet}_hd.jpg')")
                         if planet === 'saturn' || planet === 'uranus'
                             .rings
-
                     .moons-wrapper
                         each item in items
                             if item.name === planet && item.moons
@@ -94,8 +93,6 @@ block content
         include menu
 
     - function deleteLastChar(x){ lc = x.slice(0, -1); return parseFloat(lc);}
-
-    include scripts
 
     script.
         $('body').addClass('page-planet');

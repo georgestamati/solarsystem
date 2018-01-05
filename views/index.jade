@@ -12,8 +12,6 @@ block content
 
         include menu
 
-    include scripts
-
     script.
         $('body').addClass('page-index');
 
@@ -22,7 +20,7 @@ block content
         })
 
         socket.on('key', function (data) {
-            $('.loader__remote-button').val(data.code);
+            $('.loader__remote-button').text(data.code);
         });
 
         socket.on('openDesktopApp', function (data) {
