@@ -69,7 +69,7 @@ var App = {
             state = '';
 
         // sessionStorage will be changed to localStorage
-        if (sessionStorage.getItem('loader') === null) { // If session doesn't exist
+        if (sessionStorage.getItem('loader') === null) {  // If session doesn't exist
             sessionStorage.setItem('loader', 'true');
 
             state = 'new';
@@ -329,7 +329,7 @@ var App = {
                 indexes: ['images about *'],
                 smart: true,
                 action: function (i, search) {
-                    var url = 'https://images-api.nasa.gov/search?q='+search+'&media_type=image&year_start=1900';
+                    var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
                     var html = '';
 
                     $('.info__contents--gallery__column, .info__modal--content__hero, .info__modal--content__column').remove();
@@ -337,28 +337,39 @@ var App = {
                     $.ajax({
                         url: url,
                         success: function(results){
-                            $.each(results.collection.items, function(i, item){
-                                if(i >= 10){
+                            var arr = [],
+                                resultItemsLength = results.collection.items.length;
+
+                            while(arr.length < 10){
+                                var random = Math.round(Math.random() * resultItemsLength);
+                                if(arr.indexOf(random) > -1){
                                     return false;
                                 }
+                                arr[arr.length] = random;
+                            }
 
-                                html =  '<div class="info__contents--gallery__column column">' +
-                                            '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
-                                        '</div>';
-                                $(html).hide()
-                                    .appendTo('.slide__left .info__contents--gallery__row')
-                                    .fadeIn(i*250);
+                            var dataIndex = 0;
+                            $.each(resultItemsLength, function(i, item){
+                                if($.inArray(i, arr) > -1){
+                                    html =  '<div class="info__contents--gallery__column column">' +
+                                                '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ dataIndex +'" />' +
+                                            '</div>';
+                                    $(html).hide()
+                                        .appendTo('.slide__left .info__contents--gallery__row')
+                                        .fadeIn(i*250);
 
-                                html =  '<div class="info__modal--content__hero">' +
-                                            '<img src="'+ item.links[0].href +'">' +
-                                        '</div>';
-                                $(html).prependTo('.info__modal--content');
+                                    html =  '<div class="info__modal--content__hero">' +
+                                                '<img src="'+ item.links[0].href +'">' +
+                                            '</div>';
+                                    $(html).prependTo('.info__modal--content');
 
-                                html =  '<div class="info__modal--content__column column">' +
-                                            '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ i +'" />' +
-                                        '</div>';
-                                $(html).appendTo('.info__modal--content__row');
+                                    html =  '<div class="info__modal--content__column column">' +
+                                                '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ dataIndex +'" />' +
+                                            '</div>';
+                                    $(html).appendTo('.info__modal--content__row');
 
+                                    dataIndex++;
+                                }
                             });
                             view.playSlides(s.slidePageNumber);
                         },
@@ -421,9 +432,5 @@ var App = {
 // });
 
 $(window).on('load', function () {
-    // setTimeout(function() {
-    //     $('body').addClass('page-loaded');
-        App.init();
-
-    // }, 1500);
+    App.init();
 });

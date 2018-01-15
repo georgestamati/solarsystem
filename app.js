@@ -7,6 +7,7 @@ var express = require('express'),
 	compression = require('compression'),
     memoryCache = require('memory-cache'),
 	route = require('./app/routes'),
+    loader = require('./app/loader'),
 	app = express();
 
 // enable compression
@@ -64,7 +65,7 @@ app.use(function(err, req, res, next) {
   	res.status(err.status || 500);
   	res.render('error', {
   		'title': '404 - Page not found',
-  		'loader': desktopLoader
+  		'loader': loader.desktopLoader
 	});
 });
 

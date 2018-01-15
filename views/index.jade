@@ -1,19 +1,18 @@
 extends layout
 
 block content
-    #universe
-        #galaxy.galaxy-view--3D
-            each item in items
-                .orbit(id="#{item.name}")
-                    .planet-wrap
-                        .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-                            if item.rings
-                                .rings
-
-        include menu
+    #galaxy
+        each item in items
+            .orbit(id="#{item.name}")
+                .planet-wrap
+                    .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
+                        if item.rings
+                            .rings
+    include menu
 
     script.
         $('body').addClass('page-index');
+        $('#galaxy').addClass('galaxy-view--3D');
 
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url

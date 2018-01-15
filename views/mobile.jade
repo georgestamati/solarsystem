@@ -1,36 +1,35 @@
 extends layout
 
 block content
-    #universe
-        #galaxy
-            div.menu.main-page-link
-                a(href='/') Back to main page
-            div.menu.mobile-menu
-                each item in items
-                    .menu-item
-                        a(href="/#{item.name}") #{item.name}
-                        div(id="#{item.name}")
-                            .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-                                if item.rings
-                                    .rings
-                            .info__controls.hidden
-                                input.info__controls--button(type='button', value='profile')
-                                input.info__controls--button(type='button', value='intro')
-                                input.info__controls--button(type='button', value='description')
-                                input.info__controls--button(type='button', value='facts')
+    #galaxy
+        div.menu.main-page-link
+            a(href='/') Back to main page
+        div.menu.mobile-menu
+            each item in items
+                .menu-item
+                    a(href="/#{item.name}") #{item.name}
+                    div(id="#{item.name}")
+                        .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
+                            if item.rings
+                                .rings
+                        .info__controls.hidden
+                            input.info__controls--button(type='button', value='profile')
+                            input.info__controls--button(type='button', value='intro')
+                            input.info__controls--button(type='button', value='description')
+                            input.info__controls--button(type='button', value='facts')
 
-                            if item.moons
-                                .moons-wrapper
-                                    each moon in item.moons
-                                        - var isPlanet = "background-image: url('../img/planets/" + moon.name + ".jpg');"
-                                        - var isMoon = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); "
-                                        - var disableMoonRotate = "transform: rotateZ(0deg);"
-                                        - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
-                                        div(id="#{moon.name}")
-                                            a(href= href) #{moon.name}
-                                            .planet(style= item.name === 'sun' ? isPlanet : (isMoon + disableMoonRotate ))
-                                                if moon.rings
-                                                    .rings
+                        if item.moons
+                            .moons-wrapper
+                                each moon in item.moons
+                                    - var isPlanet = "background-image: url('../img/planets/" + moon.name + ".jpg');"
+                                    - var isMoon = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); "
+                                    - var disableMoonRotate = "transform: rotateZ(0deg);"
+                                    - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
+                                    div(id="#{moon.name}")
+                                        a(href= href) #{moon.name}
+                                        .planet(style= item.name === 'sun' ? isPlanet : (isMoon + disableMoonRotate))
+                                            if moon.rings
+                                                .rings
 
     script.
         $('body').addClass('page-mobile');

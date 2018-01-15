@@ -1,97 +1,92 @@
 extends layout
 
 block content
-    #universe
-        #galaxy
-            .wrapper
-                .planet-wrapper(id="#{planet}")
-                    .planet(style="background-image: url('../img/planets/#{planet}_hd.jpg')")
-                        if planet === 'saturn' || planet === 'uranus'
-                            .rings
-                    .moons-wrapper
-                        each item in items
-                            if item.name === planet && item.moons
-                                each moon in item.moons
-                                    - var axisInclination = moon.description['axis inclination']
-                                    - var enableMoonRotate = axisInclination ? deleteLastChar(axisInclination) : ""
-                                    - var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ") "
+    #galaxy
+        .wrapper
+            .planet-wrapper(id="#{planet}")
+                .planet(style="background-image: url('../img/planets/#{planet}_hd.jpg')")
+                    if planet === 'saturn' || planet === 'uranus'
+                        .rings
+                .moons-wrapper
+                    each item in items
+                        if item.name === planet && item.moons
+                            each moon in item.moons
+                                - var axisInclination = moon.description['axis inclination']
+                                - var enableMoonRotate = axisInclination ? deleteLastChar(axisInclination) : ""
+                                - var moonPos = "top: " + moon.pos.top + "px; left: " + moon.pos.left + "px; transform: scale(" + moon.pos.scale + ") "
 
-                                    - var isPlanet = "background-image: url('../img/planets/" + moon.name + ".jpg'); " + moonPos
-                                    - var isMoon = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); " + moonPos
-                                    - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
+                                - var isPlanet = "background-image: url('../img/planets/" + moon.name + ".jpg'); " + moonPos
+                                - var isMoon = "background-image: url('../img/moons/" + item.name + "/" + moon.name + ".jpg'); " + moonPos
+                                - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
 
-                                    .moon(id="#{moon.name}",
-                                        style= item.name === 'sun' ? isPlanet : isMoon)
-                                        if moon.rings
-                                            .rings
-                                        a(href= href)
+                                .moon(id="#{moon.name}",
+                                style= item.name === 'sun' ? isPlanet : isMoon)
+                                    if moon.rings
+                                        .rings
+                                    a(href= href)
+                                        table.tooltip.moon-tooltip
+                                            thead
+                                                tr
+                                                    th.tooltip__name(colspan='2') #{moon.name}
+                                            tbody.tooltip__description--wrapper
+                                                each item, key in moon.description
+                                                    tr.tooltip__description--content
+                                                        td(class='tooltip__description--key') #{key}
+                                                        td(class='tooltip__description--item tooltip__#{key}') #{item}
+            each item in items
+                if item.name === planet
+                    .info-wrapper
+                        .info__controls
+                            input.info__controls--button(type='button', value='profile')
+                            input.info__controls--button(type='button', value='intro')
+                            input.info__controls--button(type='button', value='description')
+                            input.info__controls--button(type='button', value='facts')
+                        .info__contents
+                            .info__contents--profile
+                                .info__contents--title #{item.contents.profile.title}
+                                .info__contents--content
+                                    a(href="")
+                                        each planetItem in items
+                                            if planetItem.name === planet
+                                                table.tooltip.planet-tooltip.hovered
+                                                    thead
+                                                        tr
+                                                            td.tooltip__name(colspan='2') #{planetItem.name}
+                                                    tbody.tooltip__description--wrapper
+                                                        each item, key in planetItem.description
+                                                            tr.tooltip__description--content
+                                                                td(class='tooltip__description--key') #{key}
+                                                                td(class='tooltip__description--item tooltip__#{key}') #{item}
+                            .info__contents--intro
+                                .info__contents--title #{item.contents.introduction.title}
+                                .info__contents--content
+                                    ul
+                                        each intro in item.contents.introduction.content
+                                            li= intro
 
-                                            table.tooltip.moon-tooltip
-                                                thead
-                                                    tr
-                                                        th.tooltip__name(colspan='2') #{moon.name}
-                                                tbody.tooltip__description--wrapper
-                                                    each item, key in moon.description
-                                                        tr.tooltip__description--content
-                                                            td(class='tooltip__description--key') #{key}
-                                                            td(class='tooltip__description--item tooltip__#{key}') #{item}
-                each item in items
-                    if item.name === planet
-                        .info-wrapper
+                            .info__contents--description
+                                .info__contents--title #{item.contents.description.title}
+                                .info__contents--content
+                                    ul
+                                        each descr in item.contents.description.content
+                                            li= descr
+                                .info__contents--gallery
+                                    .info__contents--gallery__row
 
-                            .info__controls
-                                input.info__controls--button(type='button', value='profile')
-                                input.info__controls--button(type='button', value='intro')
-                                input.info__controls--button(type='button', value='description')
-                                input.info__controls--button(type='button', value='facts')
-                            .info__contents
-                                .info__contents--profile
-                                    .info__contents--title #{item.contents.profile.title}
-                                    .info__contents--content
-                                        a(href="")
-                                            each planetItem in items
-                                                if planetItem.name === planet
-                                                    table.tooltip.planet-tooltip.hovered
-                                                        thead
-                                                            tr
-                                                                td.tooltip__name(colspan='2') #{planetItem.name}
-                                                        tbody.tooltip__description--wrapper
-                                                            each item, key in planetItem.description
-                                                                tr.tooltip__description--content
-                                                                    td(class='tooltip__description--key') #{key}
-                                                                    td(class='tooltip__description--item tooltip__#{key}') #{item}
-                                .info__contents--intro
-                                    .info__contents--title #{item.contents.introduction.title}
-                                    .info__contents--content
-                                        ul
-                                            each intro in item.contents.introduction.content
-                                                li= intro
+                            .info__contents--facts
+                                .info__contents--title #{item.contents.facts.title}
+                                .info__contents--content
+                                    ul
+                                        each fact in item.contents.facts.content
+                                            li= fact
 
-                                .info__contents--description
-                                    .info__contents--title #{item.contents.description.title}
-                                    .info__contents--content
-                                        ul
-                                            each descr in item.contents.description.content
-                                                li= descr
-                                    .info__contents--gallery
-                                        .info__contents--gallery__row
-
-                                .info__contents--facts
-                                    .info__contents--title #{item.contents.facts.title}
-                                    .info__contents--content
-                                        ul
-                                            each fact in item.contents.facts.content
-                                                li= fact
-
-                        .info__modal
-                            span.close ×
-                            a.prev ❮
-                            a.next ❯
-                            .info__modal--content
-                                .info__modal--content__row
-
-        include menu
-
+                    .info__modal
+                        span.close ×
+                        a.prev ❮
+                        a.next ❯
+                        .info__modal--content
+                            .info__modal--content__row
+    include menu
     - function deleteLastChar(x){ lc = x.slice(0, -1); return parseFloat(lc);}
 
     script.
