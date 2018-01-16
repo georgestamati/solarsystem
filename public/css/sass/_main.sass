@@ -273,6 +273,9 @@ body
 		background-position: 450px -300px
 	.info__controls
 		flex-wrap: wrap
+		&--read__text
+			flex: 0 1 100%
+			padding-top: 20px
 	.moons-wrapper
 		position: absolute
 		width: 100%
@@ -571,6 +574,13 @@ body
 		border-radius: 5px
 	&--title
 		@extend .error__message
+	&--read__text
+		display: flex
+		padding: 0 20px
+		a
+			@extend .loader__wrapper--input
+			color: #fff
+			border-color: #fff
 	&--content
 		font-family: Arial, serif
 		font-size: 17px

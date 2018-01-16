@@ -57,6 +57,7 @@ var App = {
         s.myModal.find('a.next').on('click', view.nextSlide);
         s.body.on('click', '.column img', view.galleryModal);
         $('.wrapper .info__controls--button').on('click', view.showSidebarInfo);
+        s.body.on('click', '.slide__left .info__contents--read__link', view.readTextFromSlideOnClick);
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -199,20 +200,27 @@ var App = {
         else{
             $('.info__contents--' + inputVal).addClass('slide__left');
             if(inputVal === 'description'){
-                s.artyom.simulateInstruction('images about sun'); // delete this on production mode
+                s.artyom.simulateInstruction('view title'); // delete this on production mode
             }
         }
     },
     showMobileSidebarInfo: function () {
+        $('.info__contents--read__text').hide();
         s.mobileMenu.find('.info__controls--button').on('click', function () {
             var $this = $(this);
+            $this.siblings('.info__contents--read__text').show();
             socket.emit('showMobileInfo', {
                 value: $this.val()
             });
         });
 
         socket.on('showMobileInfoOnDesktop', function (data) {
-            $('.info__controls--button[value="' + data.value + '"]').click();
+            if(data.value === 'read text'){
+                $('.slide__left .info__contents--read__link').click();
+            }
+            else{
+                $('.info__controls--button[value="' + data.value + '"]').click();
+            }
         })
     },
     chooseControl: function() {
@@ -293,114 +301,125 @@ var App = {
             heroImage.eq(heroImage.length - s.slidePageNumber - 1).show();
         }
     },
+    toMainPage: function () {
+        window.location = '/';
+    },
+    changePage: function (i, word) {
+        // Use indexOf instead array iteration
+        $.each(s.stars, function(index, element){
+            if(word.toLowerCase() === element.toLowerCase()){
+                if(s.mobileTest){
+
+                }
+                else{
+                    window.location = word.toLowerCase();
+                }
+            }
+        })
+    },
+    displaySidebarItem: function (i, word) {
+        $('[value="'+ word +'"]').click();
+    },
+    displayImages: function (i, search) {
+        var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
+        var html = '';
+
+        $('.info__contents--gallery__column, .info__modal--content__hero, .info__modal--content__column').remove();
+
+        $.ajax({
+            url: url,
+            success: function(results){
+                var arr = [],
+                    resultItems = results.collection.items,
+                    resultItemsLength = resultItems.length;
+
+                while(arr.length < 10){
+                    var random = Math.round(Math.random() * resultItemsLength);
+                    if(arr.indexOf(random) > -1){
+                        return false;
+                    }
+                    arr[arr.length] = random;
+                }
+
+                var dataIndex = 0;
+                $.each(resultItems, function(i, item){
+                    if($.inArray(i, arr) > -1){
+                        html =  '<div class="info__contents--gallery__column column">' +
+                            '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ dataIndex +'" />' +
+                            '</div>';
+                        $(html).hide()
+                            .appendTo('.slide__left .info__contents--gallery__row')
+                            .fadeIn(i*250);
+
+                        html =  '<div class="info__modal--content__hero">' +
+                            '<img src="'+ item.links[0].href +'">' +
+                            '</div>';
+                        $(html).prependTo('.info__modal--content');
+
+                        html =  '<div class="info__modal--content__column column">' +
+                            '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ dataIndex +'" />' +
+                            '</div>';
+                        $(html).appendTo('.info__modal--content__row');
+
+                        dataIndex++;
+                    }
+                });
+                view.playSlides(s.slidePageNumber);
+            },
+            error: function(){
+                console.log('error')
+            }
+        });
+    },
+    readTextFromSlideOnClick: function () {
+        var textToRead = $('.slide__left .info__contents--title').text() + ',' + $('.slide__left .info__contents--content').text();
+        s.artyom.say(textToRead);
+    },
+    readTextFromSlideOnVoice: function (i) {
+        var textToRead = '';
+
+        if (i === 0){
+            textToRead = $('.slide__left .info__contents--title').text();
+        }
+        else{
+            textToRead = $('.slide__left .info__contents--content').text();
+        }
+
+        s.artyom.say(textToRead);
+    },
+    shutDownVoiceControl: function (i) {
+        s.artyom.fatality().then(function () {
+            console.log("Artyom successfully stopped");
+        })
+    },
     voiceControl: function () {
         var commands = [
             {
                 indexes: ['back to main page', 'back'],
-                action: function(){
-                    window.location = '/';
-                }
+                action: view.toMainPage
             },
             {
                 indexes: ['go to *'],
                 smart: true,
-                action: function (i, word) {
-                    // Use indexOf instead array iteration
-                    $.each(s.stars, function(index, element){
-                        if(word.toLowerCase() === element.toLowerCase()){
-                            if(s.mobileTest){
-
-                            }
-                            else{
-                                window.location = word.toLowerCase();
-                            }
-                        }
-                    })
-                }
+                action: view.changePage
             },
             {
                 indexes: ['display *'],
                 smart: true,
-                action: function (i, word) {
-                    $('[value="'+ word +'"]').click();
-                }
+                action: view.displaySidebarItem
             },
             {
                 indexes: ['images about *'],
                 smart: true,
-                action: function (i, search) {
-                    var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
-                    var html = '';
-
-                    $('.info__contents--gallery__column, .info__modal--content__hero, .info__modal--content__column').remove();
-
-                    $.ajax({
-                        url: url,
-                        success: function(results){
-                            var arr = [],
-                                resultItemsLength = results.collection.items.length;
-
-                            while(arr.length < 10){
-                                var random = Math.round(Math.random() * resultItemsLength);
-                                if(arr.indexOf(random) > -1){
-                                    return false;
-                                }
-                                arr[arr.length] = random;
-                            }
-
-                            var dataIndex = 0;
-                            $.each(resultItemsLength, function(i, item){
-                                if($.inArray(i, arr) > -1){
-                                    html =  '<div class="info__contents--gallery__column column">' +
-                                                '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ dataIndex +'" />' +
-                                            '</div>';
-                                    $(html).hide()
-                                        .appendTo('.slide__left .info__contents--gallery__row')
-                                        .fadeIn(i*250);
-
-                                    html =  '<div class="info__modal--content__hero">' +
-                                                '<img src="'+ item.links[0].href +'">' +
-                                            '</div>';
-                                    $(html).prependTo('.info__modal--content');
-
-                                    html =  '<div class="info__modal--content__column column">' +
-                                                '<img class="info__img" src="'+ item.links[0].href +'" data-index="'+ dataIndex +'" />' +
-                                            '</div>';
-                                    $(html).appendTo('.info__modal--content__row');
-
-                                    dataIndex++;
-                                }
-                            });
-                            view.playSlides(s.slidePageNumber);
-                        },
-                        error: function(){
-                            console.log('error')
-                        }
-                    });
-                }
+                action: view.displayImages
             },
             {
                 indexes: ['view title', 'view content'],
-                action: function (i) {
-                    var textToRead = '';
-
-                    if (i === 0){
-                        textToRead = $('.slide__left .info__contents--title').text();
-                    }
-                    else{
-                        textToRead = $('.slide__left .info__contents--content').text();
-                    }
-
-                    s.artyom.say(textToRead);
-                }
+                action: view.readTextFromSlideOnVoice
             },
             {
                 indexes: ['shut down yourself'],
-                action: function (i) {
-                    s.artyom.fatality().then(function () {
-                        console.log("Artyom successfully stopped");
-                    });
-                }
+                action: view.shutDownVoiceControl
             }
         ];
 

@@ -1,8 +1,10 @@
-var commonStart = '<div class="loader hidden">' +
-    '<div class="loader__wrapper">' +
-    '<div class="loader__welcome welcome__message">Welcome to SolSys 3D</div>' +
-    '<div class="loader__planet"></div>',
-    commonEnd = '</div>' +
+var commonStart =
+        '<div class="loader hidden">' +
+        '<div class="loader__wrapper">' +
+        '<div class="loader__welcome welcome__message">Welcome to SolSys 3D</div>' +
+        '<div class="loader__planet"></div>',
+    commonEnd =
+        '</div>' +
         '</div>' +
         '</div>' +
         '</div>' +
