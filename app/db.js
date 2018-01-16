@@ -19,18 +19,18 @@ var rows = [
     {
         "name": "sun",
         "description": {
-            "diameter": "1,392,530 km",
+            "diameter": "1 392 530 km",
             "rotation period": "25-35 days",
-            "interior temperature": "15,000,000 °C",
-            "surface temperature": "6,000 °C"
+            "interior temperature": "15 000 000 °C",
+            "surface temperature": "6 000 °C"
         },
         "moons": [
             {
                 "name": "mercury",
                 "description": {
-                    "diameter": "4,879.4 km",
+                    "diameter": "4 879.4 km",
                     "rotation period": "58.65 days",
-                    "distance from sun": "57,910,000 km",
+                    "distance from sun": "57 910 000 km",
                     "orbit period": "87.97 days",
                     "number of moons": "0",
                     "axis inclination": "0.00°",
@@ -45,9 +45,9 @@ var rows = [
             {
                 "name": "venus",
                 "description": {
-                    "diameter": "12,103.6 km",
+                    "diameter": "12 103.6 km",
                     "rotation period": "243.02 days",
-                    "distance from sun": "108,200,000 km",
+                    "distance from sun": "108 200 000 km",
                     "orbit period": "224.7 days",
                     "number of moons": "0",
                     "axis inclination": "3°",
@@ -62,9 +62,9 @@ var rows = [
             {
                 "name": "earth",
                 "description": {
-                    "diameter": "12,756 km",
+                    "diameter": "12 756 km",
                     "rotation period": "0.9972 day",
-                    "distance from sun": "149,600,000 km",
+                    "distance from sun": "149 600 000 km",
                     "orbit period": "365.25 days",
                     "number of moons": "1",
                     "axis inclination": "23.45°",
@@ -79,9 +79,9 @@ var rows = [
             {
                 "name": "mars",
                 "description": {
-                    "diameter": "6,794 km",
+                    "diameter": "6 794 km",
                     "rotation period": "24.62 days",
-                    "distance from sun": "227,940,000 km",
+                    "distance from sun": "227 940 000 km",
                     "orbit period": "1.88 years",
                     "number of moons": "2",
                     "axis inclination": "23.98°",
@@ -96,9 +96,9 @@ var rows = [
             {
                 "name": "jupiter",
                 "description": {
-                    "diameter": "139,822 km",
+                    "diameter": "139 822 km",
                     "rotation period": "9.84 hours",
-                    "distance from sun": "778,330,000 km",
+                    "distance from sun": "778 330 000 km",
                     "orbit period": "11.86 years",
                     "number of moons": "67",
                     "axis inclination": "3.12°",
@@ -113,9 +113,9 @@ var rows = [
             {
                 "name": "saturn",
                 "description": {
-                    "diameter": "120,536 km",
+                    "diameter": "120 536 km",
                     "rotation period": "10.23 days",
-                    "distance from sun": "1,429,400,000 km",
+                    "distance from sun": "1 429 400 000 km",
                     "orbit period": "29.46 years",
                     "number of moons": "62",
                     "axis inclination": "26.73°",
@@ -131,9 +131,9 @@ var rows = [
             {
                 "name": "uranus",
                 "description": {
-                    "diameter": "51,118 km",
+                    "diameter": "51 118 km",
                     "rotation period": "17.3 hours",
-                    "distance from sun": "2,870,990,000 km",
+                    "distance from sun": "2 870 990 000 km",
                     "orbit period": "84.01 years",
                     "number of moons": "27",
                     "axis inclination": "97.86°",
@@ -149,9 +149,9 @@ var rows = [
             {
                 "name": "neptune",
                 "description": {
-                    "diameter": "49,492 km",
+                    "diameter": "49 492 km",
                     "rotation period": "15.8 hours",
-                    "distance from sun": "4,504,300,000 km",
+                    "distance from sun": "4 504 300 000 km",
                     "orbit period": "165 years",
                     "number of moons": "14",
                     "axis inclination": "29.31°",
@@ -179,7 +179,7 @@ var rows = [
                 "content": [
                     "It is responsible for the Earth’s climate and weather. ",
                     "The Sun is an almost perfect sphere with a difference of just 10km in diameter between the poles and the equator. ",
-                    "The average radius of the Sun is 695,508 km (109.2 times the radius of Earth) of which 20–25% is the core. "
+                    "The average radius of the Sun is 695 508 km (109.2 times the radius of Earth) of which 20–25% is the core. "
                 ]
             },
             "facts": {
@@ -188,7 +188,7 @@ var rows = [
                     "At its centre the Sun reaches temperatures of 15 million °C. ",
                     "The Sun is mostly composed of hydrogen (70%) and Helium (28%). ",
                     "The Sun is 4.6 billion years old. ",
-                    "The Sun is 109 times wider than the Earth and 330,000 times as massive. ",
+                    "The Sun is 109 times wider than the Earth and 330 000 times as massive. ",
                     "One million Earths could fit inside the Sun. ",
                     "The Sun contains 99.86% of the mass in the Solar System. ",
                     "The distance from the Sun to Earth changes throughout the year. "
@@ -223,7 +223,7 @@ var rows = [
                     "A day on the surface of Mercury lasts 176 Earth days. ",
                     "A year on Mercury is just 88 days long. ",
                     "A year on Mercury takes 88 Earth days. ",
-                    "Mercury has a diameter of 4,879 km, making it the smallest planet. ",
+                    "Mercury has a diameter of 4 879 km, making it the smallest planet. ",
                     "It’s not known who discovered Mercury. "
                 ]
             }
@@ -254,7 +254,7 @@ var rows = [
                 "title": "Facts",
                 "content": [
                     "Venus does not have any moons or rings. ",
-                    "Venus is nearly as big as the Earth with a diameter of 12,104 km. ",
+                    "Venus is nearly as big as the Earth with a diameter of 12 104 km. ",
                     "Venus is thought to be made up of a central iron core, rocky mantle and silicate crust. ",
                     "A day on the surface of Venus (solar day) would appear to take 117 Earth days. ",
                     "A year on Venus takes 225 Earth days. ",
@@ -271,9 +271,9 @@ var rows = [
             {
                 "name": "moon",
                 "description": {
-                    "diameter": "3,476 km",
+                    "diameter": "3 476 km",
                     "rotation period": "27.32 days",
-                    "distance from earth": "384,400 km",
+                    "distance from earth": "384 400 km",
                     "orbit period": "27.32 days",
                     "orbit inclination": "5.14°"
                 },
@@ -323,7 +323,7 @@ var rows = [
                 "description": {
                     "diameter": "27 x 21.6 x 18.8 km",
                     "rotation period": "7.66 hours",
-                    "distance from mars": "9,380 km",
+                    "distance from mars": "9 380 km",
                     "orbit period" : "7.66 hours",
                     "orbit inclination": "1.1°"
                 },
@@ -338,7 +338,7 @@ var rows = [
                 "description": {
                     "diameter": "15 x 12.2 x 11 km",
                     "rotation period": "30.35 hours",
-                    "distance from sun": "23,460 km",
+                    "distance from mars": "23 460 km",
                     "orbit period": "30.35 hours",
                     "orbit inclination": "1.8°"
                 },
@@ -389,9 +389,9 @@ var rows = [
             {
                 "name": "io",
                 "description": {
-                    "diameter": "3,643 km",
+                    "diameter": "3 643 km",
                     "rotation period": "1.76 days",
-                    "distance from jupiter": "421,700 km",
+                    "distance from jupiter": "421 700 km",
                     "orbit period": "1.76 days",
                     "orbit inclination": "0.04°"
                 },
@@ -404,9 +404,9 @@ var rows = [
             {
                 "name": "europa",
                 "description": {
-                    "diameter": "3,122 km",
+                    "diameter": "3 122 km",
                     "rotation period": "3.55 days",
-                    "distance from jupiter": "671,034 km",
+                    "distance from jupiter": "671 034 km",
                     "orbit period": "3.55 days",
                     "orbit inclination": "0.47°"
                 },
@@ -419,9 +419,9 @@ var rows = [
             {
                 "name": "ganymede",
                 "description": {
-                    "diameter": "5,262 km",
+                    "diameter": "5 262 km",
                     "rotation period": "7.16 days",
-                    "distance from jupiter": "1,070,412 km",
+                    "distance from jupiter": "1 070 412 km",
                     "orbit period": "7.16 days",
                     "orbit inclination": "0.195°"
                 },
@@ -434,9 +434,9 @@ var rows = [
             {
                 "name": "callisto",
                 "description": {
-                    "diameter": "4,821 km",
+                    "diameter": "4 821 km",
                     "rotation period": "16.689 days",
-                    "distance from jupiter": "1,882,709 km",
+                    "distance from jupiter": "1 882 709 km",
                     "orbit period": "16.689 days",
                     "orbit inclination": "0.281°"
                 },
@@ -486,9 +486,9 @@ var rows = [
             {
                 "name": "dione",
                 "description": {
-                    "diameter": "1,123 km",
+                    "diameter": "1 123 km",
                     "rotation period": "2.74 days",
-                    "distance from saturn": "377,396 km",
+                    "distance from saturn": "377 396 km",
                     "orbit period": "2.74 days",
                     "orbit inclination": "0.02°"
                 },
@@ -503,7 +503,7 @@ var rows = [
                 "description": {
                     "diameter": "504 km",
                     "rotation period": "1.37",
-                    "distance from saturn": "237,950 km",
+                    "distance from saturn": "237 950 km",
                     "orbit period": "1.37 days",
                     "orbit inclination": "0.02°"
                 },
@@ -516,9 +516,9 @@ var rows = [
             {
                 "name": "iapetus",
                 "description": {
-                    "diameter": "1,472 km",
+                    "diameter": "1 472 km",
                     "rotation period": "79.33",
-                    "distance from saturn": "3,560,820 km",
+                    "distance from saturn": "3 560 820 km",
                     "orbit period": "79.33 days",
                     "orbit inclination": "0.03°"
                 },
@@ -533,7 +533,7 @@ var rows = [
                 "description": {
                     "diameter": "397 km",
                     "rotation period": "22.55 hours",
-                    "distance from saturn": "185,404 km",
+                    "distance from saturn": "185 404 km",
                     "orbit period": "22.55 hours",
                     "orbit inclination": "1.5°"
                 },
@@ -546,9 +546,9 @@ var rows = [
             {
                 "name": "rhea",
                 "description": {
-                    "diameter": "1,529 km",
+                    "diameter": "1 529 km",
                     "rotation period": "4.53 days",
-                    "distance from saturn": "527,108 km",
+                    "distance from saturn": "527 108 km",
                     "orbit period": "4.53 days",
                     "orbit inclination": "0.35°"
                 },
@@ -561,9 +561,9 @@ var rows = [
             {
                 "name": "tethys",
                 "description": {
-                    "diameter": "1,066 km",
+                    "diameter": "1 066 km",
                     "rotation period": "1.89 days",
-                    "distance from saturn": "294,619 km",
+                    "distance from saturn": "294 619 km",
                     "orbit period": "1.89 days",
                     "orbit inclination": "1.09°"
                 },
@@ -576,9 +576,9 @@ var rows = [
             {
                 "name": "titan",
                 "description": {
-                    "diameter": "5,151 km",
+                    "diameter": "5 151 km",
                     "rotation period": "15.9 days",
-                    "distance from saturn": "1,221,930 km",
+                    "distance from saturn": "1 221 930 km",
                     "orbit period": "15.9 days",
                     "orbit inclination": "0.33°"
                 },
@@ -632,9 +632,9 @@ var rows = [
             {
                 "name": "ariel",
                 "description": {
-                    "diameter": "1,158 km",
+                    "diameter": "1 158 km",
                     "rotation period": "2.52 days",
-                    "distance from uranus": "191,020 km",
+                    "distance from uranus": "191 020 km",
                     "orbit period": "2.52 days",
                     "orbit inclination": "0.31°"
                 },
@@ -649,7 +649,7 @@ var rows = [
                 "description": {
                     "diameter": "472 km",
                     "rotation period": "1.41 days",
-                    "distance from uranus": "129,390 km",
+                    "distance from uranus": "129 390 km",
                     "orbit period": "1.41 days",
                     "orbit inclination": "4.22°"
                 },
@@ -662,9 +662,9 @@ var rows = [
             {
                 "name": "oberon",
                 "description": {
-                    "diameter": "1,523 km",
+                    "diameter": "1 523 km",
                     "rotation period": "13.46 days",
-                    "distance from uranus": "583,520 km",
+                    "distance from uranus": "583 520 km",
                     "orbit period": "13.46 days",
                     "orbit inclination": "0.1°"
                 },
@@ -677,9 +677,9 @@ var rows = [
             {
                 "name": "titania",
                 "description": {
-                    "diameter": "1,578 km",
+                    "diameter": "1 578 km",
                     "rotation period": "8.71 days",
-                    "distance from uranus": "435,910 km",
+                    "distance from uranus": "435 910 km",
                     "orbit period": "8.71 days",
                     "orbit inclination": "0.14°"
                 },
@@ -692,9 +692,9 @@ var rows = [
             {
                 "name": "umbriel",
                 "description": {
-                    "diameter": "1,170 km",
+                    "diameter": "1 170 km",
                     "rotation period": "4.14 days",
-                    "distance from uranus": "266,300 km",
+                    "distance from uranus": "266 300 km",
                     "orbit period": "4.14 days",
                     "orbit inclination": "0.36°"
                 },
@@ -744,9 +744,9 @@ var rows = [
             {
                 "name": "triton",
                 "description": {
-                    "diameter": "2,700 km",
+                    "diameter": "2 700 km",
                     "rotation period": "5.87 days",
-                    "distance from neptune": "354,759 km",
+                    "distance from neptune": "354 759 km",
                     "orbit period": "5.87 days",
                     "orbit inclination": "157.4°"
                 },
@@ -761,7 +761,7 @@ var rows = [
                 "description": {
                     "diameter": "400 km",
                     "rotation period": "1.12 days",
-                    "distance from neptune": "117,646 km",
+                    "distance from neptune": "117 646 km",
                     "orbit period": "1.12 days",
                     "orbit inclination": "0.04°"
                 },
