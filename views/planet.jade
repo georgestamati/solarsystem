@@ -8,7 +8,7 @@ block content
                     if planet === 'saturn' || planet === 'uranus'
                         .rings
                 .moons-wrapper
-                    each item in items
+                    each item in planetItems
                         if item.name === planet && item.moons
                             each moon in item.moons
                                 - var axisInclination = moon.description['axis inclination']
@@ -33,7 +33,7 @@ block content
                                                     tr.tooltip__description--content
                                                         td(class='tooltip__description--key') #{key}
                                                         td(class='tooltip__description--item tooltip__#{key}') #{item}
-            each item in items
+            each item in planetItems
                 if item.name === planet
                     .info-wrapper
                         .info__controls
@@ -46,7 +46,7 @@ block content
                                 .info__contents--title #{item.contents.profile.title}
                                 .info__contents--content
                                     a(href="")
-                                        each planetItem in items
+                                        each planetItem in planetItems
                                             if planetItem.name === planet
                                                 table.tooltip.planet-tooltip.hovered
                                                     thead

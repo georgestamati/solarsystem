@@ -64,10 +64,10 @@ var App = {
         s.universe.appendTo('.container').addClass('universe__'+state+'-session');
     },
     showContentBySession: function () {
-        s.loader.removeClass('hidden');
-
         var loaderWrapperButPlanet = s.loaderWrapper.children().not('.loader__planet'),
             state = '';
+
+        s.loader.removeClass('hidden');
 
         // sessionStorage will be changed to localStorage
         if (sessionStorage.getItem('loader') === null) {  // If session doesn't exist
@@ -199,9 +199,9 @@ var App = {
         }
         else{
             $('.info__contents--' + inputVal).addClass('slide__left');
-            if(inputVal === 'description'){
-                s.artyom.simulateInstruction('view title'); // delete this on production mode
-            }
+            // if(inputVal === 'description'){
+            //     s.artyom.simulateInstruction('view title'); // delete this on production mode
+            // }
         }
     },
     showMobileSidebarInfo: function () {
@@ -449,6 +449,7 @@ var App = {
 // $(function() {
 //     app.init();
 // });
+
 
 $(window).on('load', function () {
     App.init();

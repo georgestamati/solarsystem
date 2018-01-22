@@ -26,16 +26,23 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:planet', function(req, res) {
+	var planetPos,
+		planetsArr = [];
     //Iterate JSON and render only if name exists in JSON
     for (var row in rows){
 		planetArr[row] = rows[row].name;
 	}
-	if(planetArr.indexOf(req.params.planet) > -1){
+
+    planetPos = planetArr.indexOf(req.params.planet);
+	planetsArr[0] = rows[planetPos];
+
+	if(planetPos > -1){
 		res.render('planet', {
 			'title': capTitle(req.params.planet),
 			'planet': req.params.planet,
+            'planetItems': planetsArr,
 			'items': rows,
-			'loader': loader.desktopLoader
+            'loader': loader.desktopLoader
 		});
 	}
 	else{

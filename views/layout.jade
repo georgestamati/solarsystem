@@ -9,15 +9,18 @@ html(lang='en')
         meta(name='viewport', content='width=device-width, initial-scale=1')
 
         link(rel='icon', href='favicon.ico')
-
         link(rel='stylesheet', href='/css/style.css')
 
-
-    body
         script(type='text/javascript', src='/js/vendors.js')
         script(type='text/javascript', src='/socket.io/socket.io.js')
         script.
             var socket = io.connect()
+        script(type='text/javascript', src='/js/min.js')
+
+        noscript.
+            Your browser does not support JavaScript!
+
+    body
 
         .container
             !{loader}
@@ -26,7 +29,3 @@ html(lang='en')
                 block content
 
 
-        script(type='text/javascript', src='/js/min.js')
-
-        noscript.
-            Your browser does not support JavaScript!
