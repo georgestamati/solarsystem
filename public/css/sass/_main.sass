@@ -574,7 +574,7 @@ body
 		border-radius: 5px
 	&--title
 		@extend .error__message
-	&--read__text
+	&--read__text, &--display__gallery
 		display: flex
 		padding: 0 20px
 		a
@@ -651,6 +651,7 @@ body
 		cursor: pointer
 		position: absolute
 		top: 50%
+		z-index: 99
 		width: auto
 		padding: 16px
 		margin-top: -50px

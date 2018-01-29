@@ -58,6 +58,7 @@ var App = {
         s.body.on('click', '.column img', view.galleryModal);
         $('.wrapper .info__controls--button').on('click', view.showSidebarInfo);
         s.body.on('click', '.slide__left .info__contents--read__link', view.readTextFromSlideOnClick);
+        $('.info__contents--display__gallery--link').on('click', view.displayImagesOnClick);
     },
     loadAddClass: function (state) {
         s.loader.addClass('loader__'+state+'-session');
@@ -205,7 +206,7 @@ var App = {
         }
     },
     showMobileSidebarInfo: function () {
-        $('.info__contents--read__text').hide();
+        s.mobileMenu.find('.info__contents--read__text').hide();
         s.mobileMenu.find('.info__controls--button').on('click', function () {
             var $this = $(this);
             $this.siblings('.info__contents--read__text').show();
@@ -320,6 +321,10 @@ var App = {
     displaySidebarItem: function (i, word) {
         $('[value="'+ word +'"]').click();
     },
+    displayImagesOnClick: function () {
+        var path = window.location.pathname.slice(1);
+        view.displayImages(1, path);
+    },
     displayImages: function (i, search) {
         var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
         var html = '';
@@ -349,7 +354,7 @@ var App = {
                             '</div>';
                         $(html).hide()
                             .appendTo('.slide__left .info__contents--gallery__row')
-                            .fadeIn(i*250);
+                            .fadeIn(i*100);
 
                         html =  '<div class="info__modal--content__hero">' +
                             '<img src="'+ item.links[0].href +'">' +
