@@ -15,7 +15,6 @@ html(lang='en')
         script(type='text/javascript', src='/socket.io/socket.io.js')
         script.
             var socket = io.connect()
-        script(type='text/javascript', src='/js/min.js')
 
         noscript.
             Your browser does not support JavaScript!
@@ -23,9 +22,7 @@ html(lang='en')
     body
 
         .container
-            !{loader}
-
-            #universe
-                block content
+            block content
 
 
+        script(type='text/javascript', src='/js/min.js')

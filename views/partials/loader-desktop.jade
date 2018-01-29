@@ -1,0 +1,14 @@
+.loader.hidden
+    .loader__wrapper
+        .loader__welcome.welcome__message Welcome to SolSys 3D
+        .loader__planet
+        .loader__welcome.control__message Control the app
+            .loader__control-buttons
+                button.loader__control-button.loader__local-control.loader__wrapper--input(type="button" name="local" data-attr="redirect__local") Local
+                button.loader__control-button.loader__remote-control.loader__wrapper--input(type="button" name="remote" data-attr="redirect__remote") Remote
+            .loader__redirect.redirect__local.hidden
+                .loader__control-buttons
+                    button.loader__local-button.loader__wrapper--input(type="button" name="") Go to app
+            .loader__redirect.redirect__remote.hidden Insert the code in mobile browser
+                .loader__control-buttons
+                    button.loader__remote-button.loader__wrapper--input(type="button" name="code")

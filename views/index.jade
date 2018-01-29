@@ -1,14 +1,16 @@
 extends layout
 
 block content
-    #galaxy
-        each item in items
-            .orbit(id="#{item.name}")
-                .planet-wrap
-                    .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
-                        if item.rings
-                            .rings
-    include menu
+    include partials/loader-desktop
+    #universe
+        #galaxy
+            each item in items
+                .orbit(id="#{item.name}")
+                    .planet-wrap
+                        .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
+                            if item.rings
+                                .rings
+        include partials/menu
 
     script.
         $('body').addClass('page-index');

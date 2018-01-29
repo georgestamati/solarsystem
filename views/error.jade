@@ -1,12 +1,14 @@
 extends layout
 
 block content
-    #galaxy
-        .error
-            .error__status
-                .error__status--digit.number 4
-                .error__status--digit
-                    .loader__planet
-                .error__status--digit.number 4
+    include partials/loader-error
+    #universe
+        #galaxy
+            .error
+                .error__status
+                    .error__status--digit.number 4
+                    .error__status--digit
+                        .loader__planet
+                    .error__status--digit.number 4
 
-            .error__message The page you are looking for can't be found
+                .error__message The page you are looking for can't be found
