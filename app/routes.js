@@ -1,7 +1,7 @@
 var express = require('express'),
 	router = express.Router(),
-	loader = require('./loader'),
-	rows = require('./db');
+	rows = require('./db'),
+	records = rows.records;
 
 var planetArr = [],
 	capTitle = function (value) {
@@ -11,16 +11,14 @@ var planetArr = [],
 router.get('/', function(req, res) {
 	var ua = req.headers['user-agent'];
 	if (/mobile/i.test(ua)) {
-		res.render('mobile', {
-			'title': 'Solar System',
-			'items': rows,
-			'loader': loader.mobileLoader
+		res.render('../../views/mobile', {
+			'title': rows.title,
+			'items': records
 		});
 	} else {
-		res.render('index', {
-			'title': 'Solar System',
-			'items': rows,
-			'loader': loader.desktopLoader
+		res.render('../../views/index', {
+			'title': rows.title,
+			'items': records
 		});
 	}
 });
@@ -29,35 +27,24 @@ router.get('/:planet', function(req, res) {
 	var planetPos,
 		planetsArr = [];
     //Iterate JSON and render only if name exists in JSON
-    for (var row in rows){
-		planetArr[row] = rows[row].name;
+    for (var row in records){
+		planetArr[row] = records[row].name;
 	}
 
     planetPos = planetArr.indexOf(req.params.planet);
-	planetsArr[0] = rows[planetPos];
+	planetsArr[0] = records[planetPos];
 
 	if(planetPos > -1){
-		res.render('planet', {
+		res.render('../../views/planet', {
 			'title': capTitle(req.params.planet),
 			'planet': req.params.planet,
             'planetItems': planetsArr,
-			'items': rows,
-            'loader': loader.desktopLoader
+			'items': records
 		});
 	}
 	else{
 		res.render('error');
 	}
-});
-
-router.get('/:planet/:moon', function(req, res) {
-	res.render('moon', {
-		'title': capTitle(req.params.moon),
-		'moon': req.params.moon,
-		'planet': req.params.planet,
-		'items': rows,
-		'loader': loader.desktopLoader
-	});
 });
 
 module.exports = router;

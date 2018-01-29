@@ -1,6 +1,47 @@
-var app = require('../app'),
-    debug = require('debug')('solarsystem:server'),
-    http = require('http');
+var express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    compression = require('compression'),
+    route = require('./routes'),
+    http = require('http'),
+    cache = require('./cache'),
+    app = express();
+
+// enable compression
+app.use(compression());
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.set('view cache', true);
+
+app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, '../public')));
+
+// setup routes and use cache
+app.use('/', cache(10), route);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('../../views/error', {
+        'title': '404 - Page not found'
+    });
+});
 
 // Get port from environment and store in Express.
 var port = process.env.PORT || '3000';
@@ -58,21 +99,3 @@ io.on('connection', function (socket) {
 
 // Listen on provided port, on all network interfaces.
 server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-// Event listener for HTTP server "error" event.
-function onError(error) {
-  	if (error.syscall !== 'listen') {
-    	throw error;
-  	}
-}
-
-// Event listener for HTTP server "listening" event.
-function onListening() {
-  	var addr = server.address();
-  	var bind = typeof addr === 'string'
-    	? 'pipe ' + addr
-    	: 'port ' + addr.port;
-  	debug('Listening on ' + bind);
-}
