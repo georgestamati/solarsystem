@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    include partials/loader-desktop
-    #universe
+    include partials/loader
+    #universe.universe__same-session
         #galaxy
             each item in items
                 .orbit(id="#{item.name}")
@@ -20,10 +20,3 @@ block content
             window.location.href = data.url
         })
 
-        socket.on('key', function (data) {
-            $('.loader__remote-button').text(data.code);
-        });
-
-        socket.on('openDesktopApp', function (data) {
-            $(data.loader).click();
-        });

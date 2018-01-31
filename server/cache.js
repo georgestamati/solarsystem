@@ -1,3 +1,5 @@
+
+
 var memoryCache = require('memory-cache'),
     cacheRequest = function (time) {
         cache = function (req, res, next) {

@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    include partials/loader-desktop
-    #universe
+    include partials/loader
+    #universe.universe__same-session
         #galaxy
             .wrapper
                 .planet-wrapper(id="#{planet}")
@@ -79,15 +79,6 @@ block content
                                         a.info__contents--display__gallery--link(href="") Display images
                                     .info__contents--gallery
                                         .info__contents--gallery__row
-
-                                //.info__contents--facts
-                                //    .info__contents--title #{item.contents.facts.title}
-                                //    .info__contents--read__text
-                                //        a.info__contents--read__link(href="") Read text
-                                //    .info__contents--content
-                                //        ul
-                                //            each fact in item.contents.facts.content
-                                //                li= fact
 
                         .info__modal
                             span.close ×
