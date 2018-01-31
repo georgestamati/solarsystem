@@ -65,33 +65,32 @@ var App = {
         s.universe.appendTo('.container').addClass('universe__'+state+'-session');
     },
     showContentBySession: function () {
-        var loaderWrapperButPlanet = s.loaderWrapper.children().not('.loader__planet'),
-            state = '';
-
         s.loader.removeClass('hidden');
+        s.loaderControlButton.on('click', view.chooseControl);
+        s.loaderButton.on('click', view.showPage);
+        // view.loaderDone();
 
-        // sessionStorage will be changed to localStorage
-        if (sessionStorage.getItem('loader') === null) {  // If session doesn't exist
-            sessionStorage.setItem('loader', 'true');
-
-            state = 'new';
-            loaderWrapperButPlanet.removeClass('hidden');
-
-            s.loaderControlButton.on('click', view.chooseControl);
-            s.loaderButton.on('click', view.showPage);
-        } else { // It does exist a session
-            state = 'same';
-            loaderWrapperButPlanet.addClass('hidden');
+        //Check if exists cookie then stay to welcome screen else redirect to galaxy page
+        if(window.location.pathname === '/'){
+            if(s.mobileTest){
+                view.cookieHandler('mobile');
+            }
+            else{
+                view.cookieHandler('');
+            }
         }
-
-        view.loadAddClass(state);
+    },
+    cookieHandler: function (type) {
+        var cookieName = 'welcome' + type;
+        var readCookie = $.cookie(cookieName);
+        if (!readCookie) {
+            $.cookie(cookieName, 'welcome' + type, { path: '/', expires: 3 });
+        }
+        else {
+            window.location = type + '/galaxy';
+        }
     },
     setMobileLoaderInputs: function () {
-        if(s.mobileTest){
-            s.loaderButton.before('<input class="loader__text loader__wrapper--input" type="text" placeholder=".  .  .  ." maxlength="4" />');
-            s.loaderButton.parent().addClass('row-flex');
-        }
-
         if($('.loader__text').length){
             s.loaderText = $('.loader__text');
             setTimeout(function(){
@@ -166,11 +165,13 @@ var App = {
             });
             socket.on('accessKey', function (data) {
                 if (data.access === "granted" && data.access !== "") {
-                    view.loaderDone();
+                    // view.loaderDone();
 
                     socket.emit('mobileConnected', {
                         clickButton: '.loader__local-button'
-                    })
+                    });
+
+                    window.location = "/galaxy";
                 }
                 else {
                     s.loaderText.addClass('loader__text--error loader__text--animation');
@@ -187,6 +188,9 @@ var App = {
         }
         else{
             view.loaderDone();
+            setTimeout(function () {
+                window.location = '/galaxy';
+            }, 1000);
         }
     },
     showSidebarInfo: function () {
@@ -316,7 +320,7 @@ var App = {
                     window.location = word.toLowerCase();
                 }
             }
-        })
+        });
     },
     displaySidebarItem: function (i, word) {
         $('[value="'+ word +'"]').click();
@@ -452,7 +456,7 @@ var App = {
 };
 
 // $(function() {
-//     app.init();
+//     server.init();
 // });
 
 
