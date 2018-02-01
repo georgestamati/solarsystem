@@ -82,9 +82,9 @@ var App = {
     },
     cookieHandler: function (type) {
         var cookieName = 'welcome' + type;
-        var readCookie = $.cookie(cookieName);
+        var readCookie = Cookies.get(cookieName);
         if (!readCookie) {
-            $.cookie(cookieName, 'welcome' + type, { path: '/', expires: 3 });
+            Cookies.set(cookieName, 'welcome' + type, { path: '/', expires: 3 });
         }
         else {
             if(type = 'mobile'){
