@@ -10,24 +10,24 @@ var planetArr = [],
 	};
 
 router.get('/', checkForMobileIndex, function (req, res) {
-	res.render('../../views/welcome', {
+	res.render('../../views/desktop/welcome', {
 		'title': rows.title
 	});
 });
 router.get('/mobile', checkForDesktopIndex, function (req, res) {
-	res.render('../../views/welcome-mobile', {
+	res.render('../../views/mobile/welcome', {
 		'title': rows.title
 	});
 });
 
 router.get('/galaxy', checkForMobileGalaxy, function(req, res) {
-	res.render('../../views/index', {
+	res.render('../../views/desktop/index', {
 		'title': rows.title,
 		'items': records
 	});
 });
 router.get('/mobile/galaxy', checkForDesktopGalaxy, function (req, res) {
-	res.render('../../views/mobile', {
+	res.render('../../views/mobile/index', {
 		'title': rows.title,
 		'items': records
 	});
@@ -45,7 +45,7 @@ router.get('/:planet', function(req, res) {
 	planetsArr[0] = records[planetPos];
 
 	if(planetPos > -1){
-		res.render('../../views/planet', {
+		res.render('../../views/desktop/planet', {
 			'title': capTitle(req.params.planet),
 			'planet': req.params.planet,
             'planetItems': planetsArr,
@@ -57,7 +57,7 @@ router.get('/:planet', function(req, res) {
 	}
 });
 
-function isCallerMobile(req) {
+function isDeviceMobile(req) {
     var ua = req.headers['user-agent'];
     return /mobile/i.test(ua);
 }
@@ -65,14 +65,13 @@ function isCallerMobile(req) {
 // note: the next method param is passed as well
 function checkForMobileIndex(req, res, next) {
     // check to see if the caller is a mobile device
-    var isMobile = isCallerMobile(req);
+    var isMobile = isDeviceMobile(req);
     var ua = req.headers['user-agent'];
     console.log(/mobile/i.test(ua));
     if (isMobile) {
         res.redirect('/mobile');
     } else {
-        console.log(isCallerMobile(req));
-
+        console.log(isDeviceMobile(req));
         // if we didn't detect mobile, call the next method, which will eventually call the desktop route
         next();
     }
@@ -80,8 +79,8 @@ function checkForMobileIndex(req, res, next) {
 
 function checkForMobileGalaxy(req, res, next) {
     // check to see if the caller is a mobile device
-    var isMobile = isCallerMobile(req);
-    console.log(isCallerMobile(req));
+    var isMobile = isDeviceMobile(req);
+    console.log(isDeviceMobile(req));
     if (isMobile) {
         res.redirect('/mobile/galaxy');
     } else {
@@ -93,13 +92,11 @@ function checkForMobileGalaxy(req, res, next) {
 // note: the next method param is passed as well
 function checkForDesktopIndex(req, res, next) {
     // check to see if the caller is a mobile device
-    var isMobile = isCallerMobile(req);
-    console.log(isCallerMobile(req));
+    var isMobile = isDeviceMobile(req);
+    console.log(isDeviceMobile(req));
     if (!isMobile) {
         res.redirect('/');
     } else {
-        console.log(isCallerMobile(req));
-
         // if we didn't detect mobile, call the next method, which will eventually call the desktop route
         next();
     }
@@ -107,8 +104,8 @@ function checkForDesktopIndex(req, res, next) {
 
 function checkForDesktopGalaxy(req, res, next) {
     // check to see if the caller is a mobile device
-    var isMobile = isCallerMobile(req);
-    console.log(isCallerMobile(req));
+    var isMobile = isDeviceMobile(req);
+    console.log(isDeviceMobile(req));
     if (!isMobile) {
         res.redirect('/galaxy');
     } else {

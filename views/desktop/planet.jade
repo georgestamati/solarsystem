@@ -1,7 +1,7 @@
-extends layout
+extends ../layout
 
 block content
-    include partials/loader
+    include ../partials/loader
     #universe.universe__same-session
         #galaxy
             .wrapper
@@ -86,7 +86,7 @@ block content
                             a.next ❯
                             .info__modal--content
                                 .info__modal--content__row
-        include partials/menu
+        include ../partials/menu
     - function deleteLastChar(x){ lc = x.slice(0, -1); return parseFloat(lc);}
 
     script.

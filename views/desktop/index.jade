@@ -1,7 +1,7 @@
-extends layout
+extends ../layout
 
 block content
-    include partials/loader
+    include ../partials/loader
     #universe.universe__same-session
         #galaxy
             each item in items
@@ -10,7 +10,7 @@ block content
                         .planet(style="background-image: url('../img/planets/#{item.name}.jpg')")
                             if item.rings
                                 .rings
-        include partials/menu
+        include ../partials/menu
 
     script.
         $('body').addClass('page-index');
