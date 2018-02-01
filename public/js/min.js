@@ -87,7 +87,12 @@ var App = {
             $.cookie(cookieName, 'welcome' + type, { path: '/', expires: 3 });
         }
         else {
-            window.location = type + '/galaxy';
+            if(type = 'mobile'){
+                window.location = '/mobile/galaxy';
+            }
+            else{
+                window.location = '/galaxy';
+            }
         }
     },
     setMobileLoaderInputs: function () {
