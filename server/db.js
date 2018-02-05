@@ -156,20 +156,19 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "The Sun is the star at the centre of our solar system. "
+                        "The Sun is the star at the centre of our solar system. ",
+                        "It is responsible for the Earth’s climate and weather. ",
+                        "The Sun is 4.6 billion years old. ",
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
-                        "It is responsible for the Earth’s climate and weather. ",
                         "The Sun is an almost perfect sphere with a difference of just 10km in diameter between the poles and the equator. ",
                         "The average radius of the Sun is 695 508 km (109.2 times the radius of Earth) of which 20–25% is the core. ",
                         "At its centre the Sun reaches temperatures of 15 million °C. ",
                         "The Sun is mostly composed of hydrogen (70%) and Helium (28%). ",
-                        "The Sun is 4.6 billion years old. ",
-                        "The Sun is 109 times wider than the Earth and 330 000 times as massive. ",
-                        "One million Earths could fit inside the Sun. ",
+                        "The Sun is 109 times wider than the Earth and 330 000 times as massive. One million Earths could fit inside the Sun. ",
                         "The Sun contains 99.86% of the mass in the Solar System. ",
                         "The distance from the Sun to Earth changes throughout the year. "
                     ]
@@ -185,7 +184,9 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "Mercury is the first and the closest planet to the Sun. "
+                        "Mercury is the first and the closest planet to the Sun. ",
+                        "It does not have any moons or rings. ",
+                        "It has a diameter of 4 879 km, making it the smallest planet. ",
                     ]
                 },
                 "description": {
@@ -193,11 +194,9 @@ var solarSystem ={
                     "content": [
                         "Due to its proximity it is not easily seen except during twilight. ",
                         "For every two orbits of the Sun, Mercury completes three rotations about its axis. ",
-                        "Mercury does not have any moons or rings. ",
                         "Your weight on this planet would be 38% of your weight on Earth. ",
                         "A day on the surface lasts 176 Earth days. ",
                         "A year on Mercury takes 88 Earth days. ",
-                        "It has a diameter of 4 879 km, making it the smallest planet. ",
                         "It’s not known who discovered Mercury. "
                     ]
                 }
@@ -212,23 +211,22 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "Venus is the second planet from the Sun. "
+                        "Venus is the second planet from the Sun. ",
+                        "It is named after the Roman goddess of love and beauty. ",
+                        "It is the second brightest object in the night sky after the Moon. ",
+                        "Venus is the second largest terrestrial planet and is sometimes referred to as the Earth’s sister planet due the their similar size and mass. ",
+                        "Venus does not have any moons or rings. ",
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
-                        "It is the second brightest object in the night sky after the Moon. ",
-                        "It is named after the Roman goddess of love and beauty. ",
-                        "Venus is the second largest terrestrial planet and is sometimes referred to as the Earth’s sister planet due the their similar size and mass. ",
                         "It has a diameter of 12 104 km. ",
                         "The surface of the planet is obscured by an opaque layer of clouds made up of sulphuric acid. ",
-                        "Venus does not have any moons or rings. ",
                         "Venus is thought to be made up of a central iron core, rocky mantle and silicate crust. ",
                         "A day on the surface of Venus (solar day) would appear to take 117 Earth days. ",
                         "A year on Venus takes 225 Earth days. ",
                         "The surface temperature can reach 471 °C.",
-                        "Venus is the second brightest object in the night sky.",
                         "Atmospheric pressure on Venus is 92 times greater than the Earth’s. "
                     ]
                 }
@@ -260,19 +258,19 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "Earth is the third planet from the Sun. "
+                        "Earth is the third planet from the Sun. ",
+                        "It is the largest of the terrestrial planets. ",
+                        "It has only one natural satellite, the Moon.",
+                        "The Earth is the only planet in our solar system not to be named after a Greek or Roman deity. ",
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
-                        "It is the largest of the terrestrial planets. ",
-                        "The Earth is the only planet in our solar system not to be named after a Greek or Roman deity. ",
+                        "Our planet was once believed to be the centre of the universe. ",
                         "It was formed approximately 4.54 billion years ago and is the only known planet to support life. ",
                         "The Earth’s rotation is gradually slowing. ",
-                        "Our planet was once believed to be the centre of the universe. ",
                         "Earth has a powerful magnetic field. ",
-                        "It has only one natural satellite, the Moon.",
                         "The Earth has the biggest density in the Solar System. "
                     ]
                 }
@@ -319,22 +317,20 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "Mars is the fourth planet from the Sun. "
+                        "Mars is the fourth planet from the Sun. ",
+                        "It is the second smallest planet in the solar system. ",
+                        "Named after the Roman god of war, Mars is also often described as the “Red Planet” due to its reddish appearance. ",
+                        "Mars and Earth have approximately the same landmass. ",
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
-                        "It is the second smallest planet in the solar system. ",
-                        "Named after the Roman god of war, Mars is also often described as the “Red Planet” due to its reddish appearance. ",
                         "Mars is a terrestrial planet with a thin atmosphere composed primarily of carbon dioxide. ",
-                        "Mars and Earth have approximately the same landmass. ",
                         "It is home to the tallest mountain in the solar system. ",
                         "Only 18 missions to Mars have been successful. ",
                         "Mars has the largest dust storms in the solar system. ",
                         "On Mars the Sun appears about half the size as it does on Earth. ",
-                        "Pieces of Mars have fallen to Earth. ",
-                        "The planet takes its name from the Roman god of war. ",
                         "There are signs of liquid water on Mars. ",
                         "One day Mars will have a ring. "
                     ]
@@ -412,22 +408,22 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "The planet Jupiter is the fifth planet out from the Sun. "
+                        "The planet Jupiter is the fifth planet out from the Sun. ",
+                        "Jupiter is the fourth brightest object in the solar system. ",
+                        "It is two and a half times more massive than all the other planets in the solar system combined. ",
+                        "It has a thin ring system. "
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
-                        "It is two and a half times more massive than all the other planets in the solar system combined. ",
                         "It is made primarily of gases and is therefore known as a “gas giant”. ",
-                        "Jupiter is the fourth brightest object in the solar system. ",
                         "Jupiter has the shortest day of all the planets. ",
                         "The planet orbits the Sun once every 11.8 Earth years. ",
                         "Jupiter has unique cloud features. ",
                         "The Great Red Spot is a huge storm on Jupiter. ",
                         "Jupiter’s interior is made of rock, metal, and hydrogen compounds. ",
                         "Jupiter’s moon Ganymede is the largest moon in the solar system. ",
-                        "It has a thin ring system. "
                     ]
                 }
             }
@@ -549,17 +545,16 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "Saturn is the sixth planet from the Sun. "
+                        "Saturn is the sixth planet from the Sun. ",
+                        "It is the most distant that can be seen with the naked eye. ",
+                        "Saturn is the second largest planet and is best known for its fabulous ring system. ",
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
-                        "It is the most distant that can be seen with the naked eye. ",
-                        "Saturn is the second largest planet and is best known for its fabulous ring system. ",
                         "Like Jupiter, Saturn is a gas giant and is composed of similar gasses including hydrogen, helium and methane. ",
                         "It is named for the Roman god Saturnus, and was known to the Greeks as Cronos. ",
-                        "Saturn is the flattest planet. ",
                         "Saturn orbits the Sun once every 29.4 Earth years. ",
                         "Saturn has oval-shaped storms similar to Jupiter’s. ",
                         "The region around its north pole has a hexagonal-shaped pattern of clouds. ",
@@ -655,23 +650,21 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "Uranus is the seventh planet from the Sun. "
+                        "Uranus is the seventh planet from the Sun. ",
+                        "It is often referred to as an “ice giant” planet. ",
+                        "It is tipped over on its side with an axial tilt of 98 degrees. ",
+                        "Uranus became the first planet discovered with the use of a telescope. ",
+                        "It has two sets of very thin dark coloured rings. ",
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
                         "While being visible to the naked eye, it was not recognised as a planet due to its dimness and slow orbit. ",
-                        "Uranus became the first planet discovered with the use of a telescope. ",
-                        "Uranus is tipped over on its side with an axial tilt of 98 degrees. ",
-                        "It is often described as “rolling around the Sun on its side.”",
-                        "Uranus was officially discovered by Sir William Herschel in 1781. ",
                         "Uranus turns on its axis once every 17 hours, 14 minutes. ",
                         "The planet rotates in a retrograde direction, opposite to the way Earth and most other planets turn. ",
                         "Uranus makes one trip around the Sun every 84 Earth years. ",
-                        "It is often referred to as an “ice giant” planet. ",
                         "Uranus hits the coldest temperatures of any planet (-224°C). ",
-                        "It has two sets of very thin dark coloured rings. ",
                         "Uranus’ moons are named after characters created by William Shakespeare and Alexander Pope. "
                     ]
                 }
@@ -718,22 +711,22 @@ var solarSystem ={
                 "introduction": {
                     "title": "Introduction",
                     "content": [
-                        "Neptune is the eighth planet from the Sun. "
+                        "Neptune is the eighth planet from the Sun. ",
+                        "It was named after the Roman god of the sea. ",
+                        "It is the most distant in the solar system. ",
+                        "Neptune has a very thin collection of rings. ",
+                        "Its system contains 14 moons. "
                     ]
                 },
                 "description": {
                     "title": "Description",
                     "content": [
-                        "It is the most distant in the solar system. ",
                         "This gas giant planet may have formed much closer to the Sun in early solar system history before migrating to its present position. ",
                         "It is not visible to the naked eye and was first observed in 1846. ",
-                        "It was named after the Roman god of the sea. ",
                         "Neptune spins on its axis very rapidly (18 hours). ",
                         "Neptune is the smallest of the ice giants. ",
                         "The atmosphere of Neptune is made of hydrogen and helium, with some methane. ",
                         "Neptune has a very active climate with large storms and high-speed winds. ",
-                        "Neptune has a very thin collection of rings. ",
-                        "Its system contains 14 moons. "
                     ]
                 }
             }

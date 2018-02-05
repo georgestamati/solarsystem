@@ -204,6 +204,8 @@ var App = {
 
         $('.info__contents > div').not('.info__contents--' + inputVal).removeClass('slide__left');
 
+        s.artyom.shutUp();
+
         if($('.info__contents--' + inputVal).hasClass('slide__left')){
             $('.info__contents--' + inputVal).removeClass('slide__left');
         }
