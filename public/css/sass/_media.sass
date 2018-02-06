@@ -9,8 +9,11 @@
 @media all and (max-width: 1200px)
 	#galaxy.galaxy-view--3D
 		font-size: 75%
-	.wrapper .planet-wrapper
-		transform: scale(0.75, 0.75)
+	.wrapper
+		.planet-wrapper
+			transform: scale(0.75, 0.75)
+		.info-wrapper
+			width: 100%
 	.error
 		&__status--digit
 			&.number
@@ -26,5 +29,7 @@
 		position: relative
 		width: 100%
 		height: 100%
+		&.galaxy-view--3D
+			font-size: 50%
 	.loader__welcome
 		font-size: 2em

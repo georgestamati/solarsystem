@@ -574,6 +574,7 @@ body
 		border-radius: 5px
 	&--title
 		@extend .error__message
+		padding: 20px
 	&--read__text, &--display__gallery
 		display: flex
 		padding: 0 20px
@@ -584,27 +585,25 @@ body
 	&--content
 		font-family: Arial, serif
 		font-size: 17px
-		//height: 200px
-		//overflow-x: hidden
+		max-height: 200px
+		overflow-y: scroll
 		.planet-tooltip
 			position: static
 			opacity: 1
+			margin: 0 20px
 			transform: scale(1)
+			font-size: 14px
 		li
 			margin-bottom: 10px
-		////&::-webkit-scrollbar-thumb
-		////	border-radius: 10px
-		////	background: rgba(255,0,0,0.8)
-		////	box-shadow: inset 0 0 6px rgba(0,0,0,0.5)
-		//
-		//&::-webkit-scrollbar-track
-		//	box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
-		//	border-radius: 10px
-		//
-		//&::-webkit-scrollbar-thumb
-		//	background-color: #0ae
-		//	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255, .2)),color-stop(.5, transparent), to(transparent))
-
+		&::-webkit-scrollbar
+			width: 8px
+			background-color: transparent
+		&::-webkit-scrollbar-thumb
+			background: rgba(0, 255, 255, 0.4)
+			box-shadow: inset 0 0 6px rgba(0,0,0,0.5)
+		&::-webkit-scrollbar-track
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+			background-color: transparent
 	&--gallery
 		&__row
 			display: flex
@@ -704,6 +703,7 @@ body
 	top: 50%
 	right: 0
 	z-index: 1
+	visibility: visible
 	.info-wrapper &
 		position: absolute
 		transform: translateY(-50%) rotateZ(90deg)
@@ -794,6 +794,7 @@ body
 
 .info-wrapper
 	width: 50%
+	visibility: hidden
 
 .visible
 	opacity: 1
