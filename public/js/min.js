@@ -48,8 +48,10 @@ var App = {
         });
     },
     bindUIEvents: function () {
-        s.infoContent.find('a').on('click', view.disableSidebarAnchors);
-        s.desktopMenu.find('a').on('click', view.desktopMenuRedirectAfterAnimation);
+        s.infoContent.find('a').on('click', view.disableAnchors);
+        s.desktopMenu.find('li > a').on('click', view.desktopMenuRedirectAfterAnimation);
+        s.desktopMenu.find('.dropdown > a').on('click', view.disableAnchors);
+
         $('.menu__button').on('click', view.openOverlay);
         s.desktopMenu.find('li').on('mouseover', view.desktopSubMenuControl);
         s.myModal.find('span.close').on('click', view.closeModal);
@@ -60,15 +62,15 @@ var App = {
         s.body.on('click', '.slide__left .info__contents--read__link', view.readTextFromSlideOnClick);
         $('.info__contents--display__gallery--link').on('click', view.displayImagesOnClick);
     },
-    loadAddClass: function (state) {
-        s.loader.addClass('loader__'+state+'-session');
-        s.universe.appendTo('.container').addClass('universe__'+state+'-session');
+    loadAddClass: function () {
+        s.loader.addClass('loader__session');
+        s.universe.appendTo('.container').addClass('universe__session');
     },
     showContentBySession: function () {
         s.loader.removeClass('hidden');
         s.loaderControlButton.on('click', view.chooseControl);
         s.loaderButton.on('click', view.showPage);
-        // view.loaderDone();
+        view.loadAddClass();
 
         //Check if exists cookie then stay to welcome screen else redirect to galaxy page
         if(window.location.pathname === '/'){
@@ -103,7 +105,7 @@ var App = {
             }, 0);
         }
     },
-    disableSidebarAnchors: function (ev) {
+    disableAnchors: function (ev) {
         ev.preventDefault();
     },
     desktopMenuRedirectAfterAnimation: function (ev) {
@@ -211,9 +213,6 @@ var App = {
         }
         else{
             $('.info__contents--' + inputVal).addClass('slide__left');
-            // if(inputVal === 'description'){
-            //     s.artyom.simulateInstruction('view title'); // delete this on production mode
-            // }
         }
     },
     showMobileSidebarInfo: function () {
