@@ -35,6 +35,8 @@ var App = {
 
         view.parallaxEffect();
 
+        view.shutDownVoiceControl();
+
         if(!s.mobileTest){
             view.voiceControl();
         }
@@ -89,7 +91,7 @@ var App = {
             Cookies.set(cookieName, 'welcome' + type, { path: '/', expires: 3 });
         }
         else {
-            if(type = 'mobile'){
+            if(type === 'mobile'){
                 window.location = '/mobile/galaxy';
             }
             else{
@@ -172,13 +174,12 @@ var App = {
             });
             socket.on('accessKey', function (data) {
                 if (data.access === "granted" && data.access !== "") {
-                    // view.loaderDone();
 
                     socket.emit('mobileConnected', {
                         clickButton: '.loader__local-button'
                     });
 
-                    window.location = "/galaxy";
+                    window.location = "/mobile/galaxy";
                 }
                 else {
                     s.loaderText.addClass('loader__text--error loader__text--animation');
@@ -229,6 +230,9 @@ var App = {
             if(data.value === 'read text'){
                 $('.slide__left .info__contents--read__link').click();
             }
+            else if(data.value === 'display images'){
+                $('.slide__left .info__contents--display__gallery--link').click();
+            }
             else{
                 $('.info__controls--button[value="' + data.value + '"]').click();
             }
@@ -252,17 +256,8 @@ var App = {
         })
     },
     showTooltipFromMobile: function () {
-        s.mobileMenuItem.find('.moons-wrapper .planet').on('click', function () {
-            moonWrapper = $(this).parents('.moons-wrapper');
-            socket.emit('showTooltipFromMobile', {
-                id: $(this).parent().attr('id'),
-                click: moonWrapper.data('lastClick')
-            });
-            if(moonWrapper.data('lastClick')){
-                dataClick = moonWrapper.data('lastClick')
-            }
-            moonWrapper.data('lastClick', $(this).parent().attr('id'));
-        });
+        s.mobileMenuItem.find('.moons-wrapper .planet').on('click', showTooltip);
+        s.mobileMenuItem.find('.moons-wrapper a').on('click', showTooltip);
 
         socket.on('showTooltipOnDesktop', function (data) {
             $('.moon.hovered').removeClass('hovered');
@@ -273,7 +268,23 @@ var App = {
             else{
                 $('#' + data.id).addClass('hovered');
             }
-        })
+        });
+
+        function showTooltip(ev) {
+            ev.preventDefault();
+
+            console.log($(this));
+
+            moonWrapper = $(this).parents('.moons-wrapper');
+            socket.emit('showTooltipFromMobile', {
+                id: $(this).parent().attr('id'),
+                click: moonWrapper.data('lastClick')
+            });
+            if(moonWrapper.data('lastClick')){
+                dataClick = moonWrapper.data('lastClick')
+            }
+            moonWrapper.data('lastClick', $(this).parent().attr('id'));
+        }
     },
     openModal: function() {
         s.myModal.show();
@@ -336,7 +347,7 @@ var App = {
         view.displayImages(1, path);
     },
     displayImages: function (i, search) {
-        var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=1900';
+        var url = 'https://images-api.nasa.gov/search?q='+search+'&title='+search+'&media_type=image&year_start=2000';
         var html = '';
 
         $('.info__contents--gallery__column, .info__modal--content__hero, .info__modal--content__column').remove();
@@ -460,11 +471,6 @@ var App = {
         view.bindUIEvents();
     }
 };
-
-// $(function() {
-//     server.init();
-// });
-
 
 $(window).on('load', function () {
     App.init();

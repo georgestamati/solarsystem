@@ -20,6 +20,7 @@ block content
                                 input.info__controls--button(type='button', value='description')
                                 .info__controls--read__text
                                     input.info__controls--button(type='button', value='read text')
+                                    input.info__controls--button(type='button', value='display images')
 
                             if item.moons
                                 .moons-wrapper
@@ -29,7 +30,7 @@ block content
                                         - var disableMoonRotate = "transform: rotateZ(0deg);"
                                         - var href = item.name === 'sun' ? "/" + moon.name : "/" + item.name + "/" + moon.name
                                         div(id="#{moon.name}")
-                                            a(href= href) #{moon.name}
+                                            a(href='') #{moon.name}
                                             .planet(style= item.name === 'sun' ? isPlanet : (isMoon + disableMoonRotate))
                                                 if moon.rings
                                                     .rings
