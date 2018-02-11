@@ -62,54 +62,38 @@ function isDeviceMobile(req) {
     return /mobile/i.test(ua);
 }
 
-// note: the next method param is passed as well
 function checkForMobileIndex(req, res, next) {
-    // check to see if the caller is a mobile device
     var isMobile = isDeviceMobile(req);
-    var ua = req.headers['user-agent'];
-    console.log(/mobile/i.test(ua));
     if (isMobile) {
         res.redirect('/mobile');
     } else {
-        console.log(isDeviceMobile(req));
-        // if we didn't detect mobile, call the next method, which will eventually call the desktop route
         next();
     }
 }
 
 function checkForMobileGalaxy(req, res, next) {
-    // check to see if the caller is a mobile device
     var isMobile = isDeviceMobile(req);
-    console.log(isDeviceMobile(req));
     if (isMobile) {
         res.redirect('/mobile/galaxy');
     } else {
-        // if we didn't detect mobile, call the next method, which will eventually call the desktop route
         next();
     }
 }
 
-// note: the next method param is passed as well
 function checkForDesktopIndex(req, res, next) {
-    // check to see if the caller is a mobile device
     var isMobile = isDeviceMobile(req);
-    console.log(isDeviceMobile(req));
     if (!isMobile) {
         res.redirect('/');
     } else {
-        // if we didn't detect mobile, call the next method, which will eventually call the desktop route
         next();
     }
 }
 
 function checkForDesktopGalaxy(req, res, next) {
-    // check to see if the caller is a mobile device
     var isMobile = isDeviceMobile(req);
-    console.log(isDeviceMobile(req));
     if (!isMobile) {
         res.redirect('/galaxy');
     } else {
-        // if we didn't detect mobile, call the next method, which will eventually call the desktop route
         next();
     }
 }

@@ -16,6 +16,10 @@ block content
         $('body').addClass('page-index');
         $('#galaxy').addClass('galaxy-view--3D');
 
+        socket.on('key', function (data) {
+            $('.ask__code button').text(data.code);
+        });
+
         socket.on('urlcontrol', function (data) {
             window.location.href = data.url
         })

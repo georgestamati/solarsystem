@@ -29,9 +29,6 @@ body
 		animation: clippingStars 50s linear infinite
 
 .loader
-	//
-	//display: none !important
-	//
 	position: absolute
 	z-index: 1
 	display: flex
@@ -95,6 +92,13 @@ body
 .loader__control-buttons
 	display: flex
 	justify-content: center
+	&.ask__code
+		position: fixed
+		top: 11px
+		right: 75px
+		margin: 0
+		button
+			margin: 0
 
 .loader__control-button
 	cursor: pointer
