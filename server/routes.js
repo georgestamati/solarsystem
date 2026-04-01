@@ -3,99 +3,25 @@ var express = require('express'),
 	rows = require('./db'),
 	records = rows.records;
 
-
-var planetArr = [],
-	capTitle = function (value) {
-		return value.charAt(0).toUpperCase() + value.slice(1);
-	};
-
-router.get('/', checkForMobileIndex, function (req, res) {
-	res.render('../../views/desktop/welcome', {
-		'title': rows.title
-	});
-});
-router.get('/mobile', checkForDesktopIndex, function (req, res) {
-	res.render('../../views/mobile/welcome', {
-		'title': rows.title
+// GET /api/planets — returns all planet/sun records
+router.get('/api/planets', function (req, res) {
+	res.json({
+		title: rows.title,
+		records: records
 	});
 });
 
-router.get('/galaxy', checkForMobileGalaxy, function(req, res) {
-	res.render('../../views/desktop/index', {
-		'title': rows.title,
-		'items': records
+// GET /api/planets/:planet — returns a single planet record by name
+router.get('/api/planets/:planet', function (req, res) {
+	var planet = records.find(function (r) {
+		return r.name === req.params.planet;
 	});
-});
-router.get('/mobile/galaxy', checkForDesktopGalaxy, function (req, res) {
-	res.render('../../views/mobile/index', {
-		'title': rows.title,
-		'items': records
-	});
-});
 
-router.get('/:planet', function(req, res) {
-	var planetPos,
-		planetsArr = [];
-    //Iterate JSON and render only if name exists in JSON
-    for (var row in records){
-		planetArr[row] = records[row].name;
-	}
-
-    planetPos = planetArr.indexOf(req.params.planet);
-	planetsArr[0] = records[planetPos];
-
-	if(planetPos > -1){
-		res.render('../../views/desktop/planet', {
-			'title': capTitle(req.params.planet),
-			'planet': req.params.planet,
-            'planetItems': planetsArr,
-			'items': records
-		});
-	}
-	else{
-		res.render('error');
+	if (planet) {
+		res.json(planet);
+	} else {
+		res.status(404).json({ error: 'Planet not found: ' + req.params.planet });
 	}
 });
-
-function isDeviceMobile(req) {
-    var ua = req.headers['user-agent'];
-    return /mobile/i.test(ua);
-}
-
-function checkForMobileIndex(req, res, next) {
-    var isMobile = isDeviceMobile(req);
-    if (isMobile) {
-        res.redirect('/mobile');
-    } else {
-        next();
-    }
-}
-
-function checkForMobileGalaxy(req, res, next) {
-    var isMobile = isDeviceMobile(req);
-    if (isMobile) {
-        res.redirect('/mobile/galaxy');
-    } else {
-        next();
-    }
-}
-
-function checkForDesktopIndex(req, res, next) {
-    var isMobile = isDeviceMobile(req);
-    if (!isMobile) {
-        res.redirect('/');
-    } else {
-        next();
-    }
-}
-
-function checkForDesktopGalaxy(req, res, next) {
-    var isMobile = isDeviceMobile(req);
-    if (!isMobile) {
-        res.redirect('/galaxy');
-    } else {
-        next();
-    }
-}
 
 module.exports = router;
