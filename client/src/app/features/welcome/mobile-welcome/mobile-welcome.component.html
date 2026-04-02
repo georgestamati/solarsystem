@@ -1,0 +1,35 @@
+<div class="loader loader__new-session">
+  <div class="loader__wrapper">
+
+    <div class="loader__welcome welcome__message">
+      <span>Welcome to</span>
+      <br>
+      <span>Limitless Earth</span>
+    </div>
+
+    <div class="loader__planet"></div>
+
+    <div class="loader__welcome control__message">
+      <div class="loader__redirect redirect__remote">
+        Insert the code
+        <div class="loader__control-buttons row-flex">
+          <input
+            class="loader__text loader__wrapper--input"
+            [class.loader__text--error]="hasError"
+            type="text"
+            placeholder=".  .  .  ."
+            maxlength="4"
+            [(ngModel)]="pinInput"
+            (focus)="hasError = false" />
+          <button
+            class="loader__local-button loader__wrapper--input"
+            type="button"
+            (click)="submit()">
+            Go to app
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
