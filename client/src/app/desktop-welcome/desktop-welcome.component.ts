@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SocketService } from '../../../core/services/socket.service';
-import { SessionService } from '../../../core/services/session.service';
+import { SocketService } from '../services/socket.service';
+import { SessionService } from '../services/session.service';
 
 type ControlMode = 'local' | 'remote' | null;
 

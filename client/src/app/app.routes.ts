@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { desktopGuard } from './core/guards/desktop.guard';
-import { mobileGuard } from './core/guards/mobile.guard';
-import { DesktopWelcomeComponent } from './features/welcome/desktop-welcome/desktop-welcome.component';
-import { MobileWelcomeComponent } from './features/welcome/mobile-welcome/mobile-welcome.component';
-import { GalaxyComponent } from './features/galaxy/galaxy.component';
-import { MobileControllerComponent } from './features/mobile-controller/mobile-controller.component';
+import { desktopGuard } from './guards/desktop.guard';
+import { mobileGuard } from './guards/mobile.guard';
+import { DesktopWelcomeComponent } from './desktop-welcome/desktop-welcome.component';
+import { MobileWelcomeComponent } from './mobile-welcome/mobile-welcome.component';
+import { GalaxyComponent } from './galaxy/galaxy.component';
+import { MobileControllerComponent } from './mobile-controller/mobile-controller.component';
 
 export const routes: Routes = [
   {
