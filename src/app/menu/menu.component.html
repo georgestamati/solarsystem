@@ -1,0 +1,29 @@
+<button class="menu__button" [class.active]="isOpen" (click)="toggle()" aria-label="Menu">
+  <span class="menu__button--line span1"></span>
+  <span class="menu__button--line span2"></span>
+  <span class="menu__button--line span3"></span>
+</button>
+
+<nav class="menu__overlay" [class.open]="isOpen" (click)="close()">
+  <ul class="menu desktop-menu" (click)="$event.stopPropagation()">
+    <li><a routerLink="/galaxy" (click)="close()">Home</a></li>
+    @for (planet of planets; track planet.name) {
+      <li>
+        <a [routerLink]="'/' + planet.name" (click)="close()">
+          {{ planet.name | titlecase }}
+        </a>
+        @if (planet.moons?.length) {
+          <ul class="dropdown">
+            @for (moon of planet.moons!; track moon.name) {
+              <li>
+                <a [routerLink]="'/' + planet.name" [fragment]="moon.name" (click)="close()">
+                  {{ moon.name | titlecase }}
+                </a>
+              </li>
+            }
+          </ul>
+        }
+      </li>
+    }
+  </ul>
+</nav>

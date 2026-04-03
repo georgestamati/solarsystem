@@ -5,6 +5,7 @@ import { DesktopWelcomeComponent } from './desktop-welcome/desktop-welcome.compo
 import { MobileWelcomeComponent } from './mobile-welcome/mobile-welcome.component';
 import { GalaxyComponent } from './galaxy/galaxy.component';
 import { MobileControllerComponent } from './mobile-controller/mobile-controller.component';
+import { PlanetDetailComponent } from './planet-detail/planet-detail.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,10 @@ export const routes: Routes = [
     component: MobileControllerComponent,
     canActivate: [mobileGuard]
   },
-  // Wildcard — will be replaced with PlanetDetailComponent in Phase 3
+  {
+    path: ':planet',
+    component: PlanetDetailComponent,
+    canActivate: [desktopGuard]
+  },
   { path: '**', redirectTo: '' }
 ];

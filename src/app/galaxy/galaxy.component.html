@@ -1,0 +1,52 @@
+<app-menu [planets]="planets"></app-menu>
+
+<div id="universe" class="universe__session">
+  <div class="page-index">
+    <div id="galaxy" class="galaxy-view--3D" appParallax>
+
+      <!-- Sun (static centre, no orbit animation) -->
+      <div id="sun" class="orbit">
+        <div class="planet-wrap">
+          <div class="planet" (click)="navigate('sun')"></div>
+        </div>
+      </div>
+
+      <!-- Planets loaded from data -->
+      @for (planet of orbitPlanets; track planet.name) {
+        <!-- Earth gets its moon hardcoded inside -->
+        @if (planet.name === 'earth') {
+          <div id="earth" class="orbit orbit-border" (click)="navigate('earth')">
+            <div class="planet-wrap">
+              <div class="planet" style="background-image: url('img/planets/earth.jpg')">
+                <div id="moon" class="orbit">
+                  <div class="planet-wrap">
+                    <div class="planet" style="background-image: url('img/moons/earth/moon.jpg')"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        } @else {
+          <div [id]="planet.name" class="orbit orbit-border" (click)="navigate(planet.name)">
+            <div class="planet-wrap">
+              <div class="planet"
+                   [style.backgroundImage]="'url(img/planets/' + planet.name + '.jpg)'">
+              </div>
+              @if (planet.rings) {
+                <span class="rings"></span>
+              }
+            </div>
+          </div>
+        }
+      }
+
+      <!-- Asteroid belt (visual only, no data entry) -->
+      <div id="asteroids" class="orbit">
+        <div class="planet-wrap">
+          <div class="planet"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
