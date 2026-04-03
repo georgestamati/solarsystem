@@ -8,6 +8,8 @@ var express = require('express'),
     cache = require('./cache'),
     app = express();
 
+var DIST = path.join(__dirname, '../dist/browser');
+
 // enable compression
 app.use(compression());
 
@@ -22,19 +24,22 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(favicon(path.join(__dirname, '../public', 'favicon.ico')));
+app.use(favicon(path.join(DIST, 'favicon.ico')));
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, '../public')));
 
-// API routes (cached 10s)
+// Serve the Angular build output as static files
+app.use(express.static(DIST));
+
+// REST API routes (cached 10s)
 app.use('/', cache(10), route);
 
-// 404 handler
-app.use(function (req, res, next) {
-    res.status(404).json({ error: 'Not found' });
+// SPA fallback — any non-API GET that didn't match a static file gets index.html
+// so Angular's client-side router takes over
+app.get('*', function (req, res) {
+    res.sendFile(path.join(DIST, 'index.html'));
 });
 
-// error handler
+// JSON error handler
 app.use(function (err, req, res, next) {
     var status = err.status || 500;
     res.status(status).json({
@@ -42,25 +47,20 @@ app.use(function (err, req, res, next) {
     });
 });
 
-// Get port and store in Express.
 var port = process.env.PORT || '3000';
 app.set('port', port);
 
-// Create HTTP server.
 var server = http.createServer(app);
 
 var key = Math.floor(1000 + Math.random() * 9000);
 console.log('Socket pairing key:', key);
 
-// Socket IO — unchanged from original
 var io = require('socket.io')(server);
 
 io.on('connection', function (socket) {
     socket.join('room');
 
-    socket.emit('key', {
-        code: key
-    });
+    socket.emit('key', { code: key });
 
     socket.on('loadKey', function (data) {
         socket.emit('accessKey', {
@@ -69,32 +69,22 @@ io.on('connection', function (socket) {
     });
 
     socket.on('mobileConnected', function (data) {
-        socket.to('room').emit('openDesktopApp', {
-            loader: data.clickButton
-        });
+        socket.to('room').emit('openDesktopApp', { loader: data.clickButton });
     });
 
     socket.on('showTooltipFromMobile', function (data) {
-        socket.to('room').emit('showTooltipOnDesktop', {
-            id: data.id,
-            click: data.click
-        });
+        socket.to('room').emit('showTooltipOnDesktop', { id: data.id, click: data.click });
     });
 
     socket.on('showMobileInfo', function (data) {
-        socket.to('room').emit('showMobileInfoOnDesktop', {
-            value: data.value
-        });
+        socket.to('room').emit('showMobileInfoOnDesktop', { value: data.value });
     });
 
     socket.on('eventchange', function (data) {
-        socket.to('room').emit('urlcontrol', {
-            url: data.url
-        });
+        socket.to('room').emit('urlcontrol', { url: data.url });
     });
 });
 
-// Listen on provided port
 server.listen(port, function () {
-    console.log('API server listening on port ' + port);
+    console.log('Server listening on port ' + port);
 });

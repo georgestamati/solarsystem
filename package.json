@@ -1,33 +1,61 @@
 {
   "name": "solarsystem",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "supervisor ./server/server.js"
+    "start": "node server/server.js",
+    "start:dev": "nodemon server/server.js",
+    "build": "ng build",
+    "serve": "ng serve",
+    "dev": "concurrently \"npm run start:dev\" \"npm run serve\"",
+    "test": "ng test"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
   },
   "dependencies": {
-    "body-parser": "~1.17.1",
+    "@angular/common": "^20.3.0",
+    "@angular/compiler": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "@angular/platform-browser": "^20.3.0",
+    "@angular/router": "^20.3.0",
     "compression": "^1.7.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "^3.1.0",
     "express": "~4.15.2",
-    "grunt": "^1.0.1",
-    "grunt-autoprefixer": "^3.0.4",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "jade": "~1.11.0",
-    "jquery": "^3.3.1",
     "memory-cache": "^0.2.0",
     "morgan": "~1.8.1",
+    "ngx-cookie-service": "^21.3.1",
+    "rxjs": "~7.8.0",
     "serve-favicon": "~2.4.2",
     "socket.io": "^2.0.3",
-    "socket.io-auth": "^1.0.0",
-    "supervisor": "^0.12.0"
+    "socket.io-client": "^4.8.3",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.3.9",
+    "@angular/cli": "^20.3.9",
+    "@angular/compiler-cli": "^20.3.0",
+    "@types/jasmine": "~5.1.0",
+    "concurrently": "^9.0.0",
+    "jasmine-core": "~5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "nodemon": "^3.0.0",
+    "typescript": "~5.9.2"
   },
   "author": "George Stamati",
-  "license": "ISC",
-  "devDependencies": {
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^3.1.0"
-  }
+  "license": "ISC"
 }
