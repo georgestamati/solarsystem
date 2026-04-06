@@ -1,28 +1,28 @@
-<app-menu [planets]="allPlanets"></app-menu>
+<app-menu [planets]="allPlanets()"></app-menu>
 
-@if (planet) {
+@if (planet(); as p) {
   <div id="universe" class="universe__session">
     <div id="galaxy" class="page-planet">
       <div class="wrapper">
 
         <!-- Planet + moons -->
         <div class="planet-wrapper">
-          <div [id]="planet.name" class="planet"
-               [style.backgroundImage]="'url(img/planets/' + planet.name + '.jpg)'">
+          <div [id]="p.name" class="planet"
+               [style.backgroundImage]="'url(img/planets/' + p.name + '.jpg)'">
           </div>
 
-          @if (planet.moons?.length) {
+          @if (p.moons?.length) {
             <div class="moons-wrapper">
-              @for (moon of planet.moons!; track moon.name) {
+              @for (moon of p.moons!; track moon.name) {
                 <div class="moon"
                      [id]="moon.name"
-                     [style.backgroundImage]="'url(img/moons/' + planet.name + '/' + moon.name + '.jpg)'"
+                     [style.backgroundImage]="'url(img/moons/' + p.name + '/' + moon.name + '.jpg)'"
                      [style.top]="moon.pos.top + 'px'"
                      [style.left]="moon.pos.left + 'px'"
                      [style.transform]="'scale(' + moon.pos.scale + ')'"
                      (mouseenter)="hoverMoon(moon)"
                      (mouseleave)="hoverMoon(null)">
-                  @if (hoveredMoon === moon) {
+                  @if (hoveredMoon() === moon) {
                     <div class="tooltip">
                       <table>
                         <tr class="tooltip__name">
@@ -48,7 +48,7 @@
           <div class="info__controls">
             @for (tab of tabs; track tab) {
               <button class="info__controls--button"
-                      [class.active]="activeTab === tab"
+                      [class.active]="activeTab() === tab"
                       (click)="toggleTab(tab)">
                 {{ tab | titlecase }}
               </button>
@@ -57,8 +57,8 @@
 
           <div class="info__contents">
             <!-- Profile -->
-            <div class="info__contents--profile" [class.slide__left]="activeTab === 'profile'">
-              <div class="info__contents--title">{{ planet.name | titlecase }}</div>
+            <div class="info__contents--profile" [class.slide__left]="activeTab() === 'profile'">
+              <div class="info__contents--title">{{ p.name | titlecase }}</div>
               <div class="info__contents--content">
                 <table class="planet-tooltip">
                   @for (entry of descriptionEntries(); track entry.key) {
@@ -72,10 +72,10 @@
             </div>
 
             <!-- Introduction -->
-            <div class="info__contents--intro" [class.slide__left]="activeTab === 'intro'">
-              <div class="info__contents--title">{{ planet.contents?.introduction?.title }}</div>
+            <div class="info__contents--intro" [class.slide__left]="activeTab() === 'intro'">
+              <div class="info__contents--title">{{ p.contents?.introduction?.title }}</div>
               <div class="info__contents--content">
-                @for (line of planet.contents?.introduction?.content ?? []; track $index) {
+                @for (line of p.contents?.introduction?.content ?? []; track $index) {
                   <p>{{ line }}</p>
                 }
               </div>
@@ -85,10 +85,10 @@
             </div>
 
             <!-- Description -->
-            <div class="info__contents--description" [class.slide__left]="activeTab === 'description'">
-              <div class="info__contents--title">{{ planet.contents?.description?.title }}</div>
+            <div class="info__contents--description" [class.slide__left]="activeTab() === 'description'">
+              <div class="info__contents--title">{{ p.contents?.description?.title }}</div>
               <div class="info__contents--content">
-                @for (line of planet.contents?.description?.content ?? []; track $index) {
+                @for (line of p.contents?.description?.content ?? []; track $index) {
                   <p>{{ line }}</p>
                 }
               </div>
@@ -101,17 +101,18 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 
   <!-- Image gallery modal -->
-  @if (modalOpen) {
+  @if (modalOpen()) {
     <div class="info__modal" style="display:flex">
       <span class="close" (click)="closeModal()">&times;</span>
       <div class="info__modal--content">
         <div class="info__modal--content__hero" style="display:block">
-          <img [src]="galleryImages[modalIndex]" [alt]="planet.name" />
+          <img [src]="galleryImages()[modalIndex()]" [alt]="p.name" />
         </div>
         <a class="prev" (click)="prevSlide()">&#10094;</a>
         <a class="next" (click)="nextSlide()">&#10095;</a>

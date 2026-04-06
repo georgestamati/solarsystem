@@ -1,37 +1,24 @@
 import { Routes } from '@angular/router';
-import { desktopGuard } from './guards/desktop.guard';
-import { mobileGuard } from './guards/mobile.guard';
-import { DesktopWelcomeComponent } from './desktop-welcome/desktop-welcome.component';
-import { MobileWelcomeComponent } from './mobile-welcome/mobile-welcome.component';
-import { GalaxyComponent } from './galaxy/galaxy.component';
-import { MobileControllerComponent } from './mobile-controller/mobile-controller.component';
-import { PlanetDetailComponent } from './planet-detail/planet-detail.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: DesktopWelcomeComponent,
-    canActivate: [desktopGuard]
-  },
-  {
-    path: 'mobile',
-    component: MobileWelcomeComponent,
-    canActivate: [mobileGuard]
+    loadComponent: () =>
+      import('./desktop-welcome/desktop-welcome.component').then(
+        m => m.DesktopWelcomeComponent
+      ),
   },
   {
     path: 'galaxy',
-    component: GalaxyComponent,
-    canActivate: [desktopGuard]
-  },
-  {
-    path: 'mobile/galaxy',
-    component: MobileControllerComponent,
-    canActivate: [mobileGuard]
+    loadComponent: () =>
+      import('./galaxy/galaxy.component').then(m => m.GalaxyComponent),
   },
   {
     path: ':planet',
-    component: PlanetDetailComponent,
-    canActivate: [desktopGuard]
+    loadComponent: () =>
+      import('./planet-detail/planet-detail.component').then(
+        m => m.PlanetDetailComponent
+      ),
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];

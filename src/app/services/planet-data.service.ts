@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 
 export interface PlanetDescription {
   [key: string]: string;
@@ -40,15 +40,22 @@ export interface SolarSystem {
 
 @Injectable({ providedIn: 'root' })
 export class PlanetDataService {
-  constructor(private http: HttpClient) {}
+  private readonly http = inject(HttpClient);
 
-  /** Returns all solar system data from the static asset (no server round-trip). */
+  // Shared, cached observable — one HTTP request for the lifetime of the app.
+  // Data is served from the static asset (public/data/planets.json), so this
+  // works with just `ng serve` — no node server required.
+  private readonly solarSystem$ = this.http
+    .get<SolarSystem>('/data/planets.json')
+    .pipe(shareReplay(1));
+
   getAll(): Observable<SolarSystem> {
-    return this.http.get<SolarSystem>('/data/planets.json');
+    return this.solarSystem$;
   }
 
-  /** Returns a single planet from the REST API endpoint. */
-  getPlanet(name: string): Observable<Planet> {
-    return this.http.get<Planet>(`/api/planets/${name}`);
+  getPlanet(name: string): Observable<Planet | undefined> {
+    return this.solarSystem$.pipe(
+      map(sys => sys.records.find(p => p.name === name))
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy, DOCUMENT } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
@@ -7,25 +7,56 @@ export interface VoiceCommand {
   payload?: string;
 }
 
+// Web Speech API is not in TypeScript's default lib — declare minimally.
+interface SpeechRecognitionResultLike {
+  readonly length: number;
+  [i: number]: { transcript: string };
+}
+
+interface SpeechRecognitionResultListLike {
+  readonly length: number;
+  [i: number]: SpeechRecognitionResultLike;
+}
+
+interface SpeechRecognitionLike {
+  continuous: boolean;
+  lang: string;
+  onresult: ((event: { results: SpeechRecognitionResultListLike }) => void) | null;
+  start(): void;
+  stop(): void;
+}
+
 @Injectable({ providedIn: 'root' })
 export class VoiceService implements OnDestroy {
-  commands$ = new Subject<VoiceCommand>();
+  readonly commands$ = new Subject<VoiceCommand>();
   isListening = false;
 
-  private recognition: any;
-  private readonly planets = ['sun','mercury','venus','earth','mars','jupiter','saturn','uranus','neptune'];
+  private readonly router = inject(Router);
+  private readonly _doc = inject(DOCUMENT);
+  private recognition: SpeechRecognitionLike | null = null;
 
-  constructor(private zone: NgZone, private router: Router) {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) return;
+  private readonly planets = [
+    'sun', 'mercury', 'venus', 'earth', 'mars',
+    'jupiter', 'saturn', 'uranus', 'neptune',
+  ] as const;
 
-    this.recognition = new SpeechRecognition();
+  constructor() {
+    const win = this._doc.defaultView as Record<string, unknown> | null;
+    const SR = (win?.['SpeechRecognition'] ?? win?.['webkitSpeechRecognition']) as
+      | (new () => SpeechRecognitionLike)
+      | undefined;
+
+    if (!SR) return;
+
+    this.recognition = new SR();
     this.recognition.continuous = true;
     this.recognition.lang = 'en-US';
-
-    this.recognition.onresult = (event: any) => {
-      const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
-      this.zone.run(() => this.process(transcript));
+    this.recognition.onresult = event => {
+      const transcript =
+        (event.results[event.results.length - 1][0].transcript as string)
+          .trim()
+          .toLowerCase();
+      this.process(transcript);
     };
   }
 
@@ -42,7 +73,6 @@ export class VoiceService implements OnDestroy {
   }
 
   private process(text: string): void {
-    // "go to [planet]"
     for (const planet of this.planets) {
       if (text.includes(`go to ${planet}`) || text.includes(`show ${planet}`)) {
         this.router.navigateByUrl(`/${planet}`);
@@ -50,25 +80,21 @@ export class VoiceService implements OnDestroy {
         return;
       }
     }
-    // "back to main page"
     if (text.includes('back to main') || text.includes('main page') || text.includes('go back')) {
       this.router.navigateByUrl('/galaxy');
       this.commands$.next({ type: 'home' });
       return;
     }
-    // "display [section]"
-    for (const section of ['profile', 'intro', 'description', 'facts']) {
+    for (const section of ['profile', 'intro', 'description', 'facts'] as const) {
       if (text.includes(section)) {
         this.commands$.next({ type: 'sidebar', payload: section });
         return;
       }
     }
-    // "images about [planet]"
     if (text.includes('images') || text.includes('gallery')) {
       this.commands$.next({ type: 'gallery' });
       return;
     }
-    // "shut down" / "stop"
     if (text.includes('shut down') || text.includes('stop listening')) {
       this.stop();
       this.commands$.next({ type: 'stop' });

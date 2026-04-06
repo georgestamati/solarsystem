@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'sass:list';
 
 @mixin elementPosition($width, $height, $marginTop, $marginLeft) {
   width: $width;
@@ -33,7 +34,7 @@
 }
 
 @mixin menuItems() {
-  @for $i from 0 through length($moons) {
+  @for $i from 0 through list.length($moons) {
     &:nth-child(#{$i}) {
       transition: all .2s #{$i * .05}s ease;
     }

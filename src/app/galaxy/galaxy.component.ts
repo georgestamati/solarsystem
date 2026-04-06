@@ -1,58 +1,56 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { PlanetDataService, Planet } from '../services/planet-data.service';
-import { SocketService } from '../services/socket.service';
-import { SessionService } from '../services/session.service';
 import { VoiceService } from '../services/voice.service';
+import { SessionService } from '../services/session.service';
 import { MenuComponent } from '../menu/menu.component';
 import { ParallaxDirective } from '../directives/parallax.directive';
+
 @Component({
   selector: 'app-galaxy',
   standalone: true,
   imports: [MenuComponent, ParallaxDirective],
   templateUrl: './galaxy.component.html',
-  styleUrl: './galaxy.component.scss'
+  styleUrl: './galaxy.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalaxyComponent implements OnInit, OnDestroy {
-  planets: Planet[] = [];
-  // planets without sun (for the orbit loop)
-  orbitPlanets: Planet[] = [];
-  private subs = new Subscription();
+  private readonly data = inject(PlanetDataService);
+  private readonly voice = inject(VoiceService);
+  private readonly session = inject(SessionService);
+  private readonly router = inject(Router);
 
-  constructor(
-    private data: PlanetDataService,
-    private socket: SocketService,
-    private session: SessionService,
-    private voice: VoiceService,
-    private router: Router
-  ) {}
+  private readonly solarSystem$ = this.data.getAll();
+
+  readonly planets = toSignal(this.solarSystem$.pipe(map(s => s.records)), {
+    initialValue: [] as Planet[],
+  });
+
+  readonly orbitPlanets = toSignal(
+    this.solarSystem$.pipe(map(s => s.records.filter(p => p.name !== 'sun'))),
+    { initialValue: [] as Planet[] }
+  );
+
+  constructor() {
+    this.voice.commands$.pipe(takeUntilDestroyed()).subscribe(cmd => {
+      if (cmd.type === 'navigate' && cmd.payload) {
+        this.router.navigateByUrl('/' + cmd.payload);
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.session.checkWelcomeCookie();
-
-    this.data.getAll().subscribe(sys => {
-      this.planets = sys.records;
-      // exclude sun — it's hardcoded in the template at centre
-      this.orbitPlanets = sys.records.filter(p => p.name !== 'sun');
-    });
-
-    // Mobile remote navigation
-    this.subs.add(
-      this.socket.on<{ url: string }>('urlcontrol').subscribe(data => {
-        this.router.navigateByUrl(data.url);
-      })
-    );
-
-    // Voice — desktop only
     this.voice.start();
-    this.subs.add(
-      this.voice.commands$.subscribe(cmd => {
-        if (cmd.type === 'navigate' && cmd.payload) {
-          this.router.navigateByUrl('/' + cmd.payload);
-        }
-      })
-    );
   }
 
   navigate(name: string): void {
@@ -61,6 +59,5 @@ export class GalaxyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.voice.stop();
-    this.subs.unsubscribe();
   }
 }

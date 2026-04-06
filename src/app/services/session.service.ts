@@ -1,32 +1,28 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { DeviceService } from './device.service';
 
-/**
- * Replicates the original cookie-based welcome-screen logic.
- * First visit: sets cookie, shows welcome. Subsequent visits: skip to galaxy.
- */
 @Injectable({ providedIn: 'root' })
 export class SessionService {
-  constructor(
-    private cookies: CookieService,
-    private router: Router,
-    private device: DeviceService
-  ) {}
+  private readonly cookies = inject(CookieService);
+  private readonly router = inject(Router);
+
+  private static readonly COOKIE_KEY = 'welcome';
 
   /**
-   * Call on welcome component init.
-   * Returns true if the welcome screen should be shown (first visit).
-   * Returns false and navigates to galaxy when the cookie already exists.
+   * Call on the welcome component's ngOnInit.
+   * Returns true (first visit) — sets the cookie and stays on the page.
+   * Returns false (return visit) — navigates to /galaxy immediately.
    */
   checkWelcomeCookie(): boolean {
-    const key = this.device.isMobile() ? 'welcomemobile' : 'welcome';
-    if (!this.cookies.check(key)) {
-      this.cookies.set(key, key, { path: '/', expires: 3 });
+    if (!this.cookies.check(SessionService.COOKIE_KEY)) {
+      this.cookies.set(SessionService.COOKIE_KEY, SessionService.COOKIE_KEY, {
+        path: '/',
+        expires: 3,
+      });
       return true;
     }
-    this.router.navigateByUrl(this.device.isMobile() ? '/mobile/galaxy' : '/galaxy');
+    this.router.navigateByUrl('/galaxy');
     return false;
   }
 }

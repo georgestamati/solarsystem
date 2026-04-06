@@ -1,38 +1,36 @@
-import { Directive, ElementRef, HostListener, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, input } from '@angular/core';
 import { gsap } from 'gsap';
 
 @Directive({
   selector: '[appParallax]',
-  standalone: true
+  standalone: true,
 })
 export class ParallaxDirective {
-  @Input() appParallaxPlanets = '.planet-wrapper .planet';
-  @Input() appParallaxMoons: string[] = [];
+  readonly appParallaxPlanets = input('.planet-wrapper .planet');
+  readonly appParallaxMoons = input<string[]>([]);
 
-  constructor(private el: ElementRef, private zone: NgZone) {}
+  private readonly el = inject(ElementRef<HTMLElement>);
 
   @HostListener('mousemove', ['$event'])
   onMouseMove(e: MouseEvent): void {
-    this.zone.runOutsideAngular(() => {
-      const host = this.el.nativeElement as HTMLElement;
-      const rect = host.getBoundingClientRect();
-      const x = e.pageX - rect.left;
-      const y = e.pageY - rect.top;
-      const w = host.offsetWidth;
-      const h = host.offsetHeight;
+    const host = this.el.nativeElement;
+    const rect = host.getBoundingClientRect();
+    const x = e.pageX - rect.left;
+    const y = e.pageY - rect.top;
+    const w = host.offsetWidth;
+    const h = host.offsetHeight;
 
-      gsap.to(this.appParallaxPlanets, {
-        x: (x - w / 2) / w * -20,
-        y: (y - h / 2) / h * -20,
-        duration: 1
-      });
+    gsap.to(this.appParallaxPlanets(), {
+      x: ((x - w / 2) / w) * -20,
+      y: ((y - h / 2) / h) * -20,
+      duration: 1,
+    });
 
-      this.appParallaxMoons.forEach((sel, i) => {
-        gsap.to(sel, {
-          x: (x - w / 2) / w * (-50 - i * 50),
-          y: (y - h / 2) / h * (-50 - i * 50),
-          duration: 1
-        });
+    this.appParallaxMoons().forEach((sel, i) => {
+      gsap.to(sel, {
+        x: ((x - w / 2) / w) * (-50 - i * 50),
+        y: ((y - h / 2) / h) * (-50 - i * 50),
+        duration: 1,
       });
     });
   }

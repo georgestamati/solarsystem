@@ -1,4 +1,4 @@
-<app-menu [planets]="planets"></app-menu>
+<app-menu [planets]="planets()"></app-menu>
 
 <div id="universe" class="universe__session">
   <div class="page-index">
@@ -12,8 +12,7 @@
       </div>
 
       <!-- Planets loaded from data -->
-      @for (planet of orbitPlanets; track planet.name) {
-        <!-- Earth gets its moon hardcoded inside -->
+      @for (planet of orbitPlanets(); track planet.name) {
         @if (planet.name === 'earth') {
           <div id="earth" class="orbit orbit-border" (click)="navigate('earth')">
             <div class="planet-wrap">
@@ -40,7 +39,7 @@
         }
       }
 
-      <!-- Asteroid belt (visual only, no data entry) -->
+      <!-- Asteroid belt (visual only) -->
       <div id="asteroids" class="orbit">
         <div class="planet-wrap">
           <div class="planet"></div>
