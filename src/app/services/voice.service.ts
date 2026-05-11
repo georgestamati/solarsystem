@@ -1,6 +1,8 @@
-import { inject, Injectable, OnDestroy, DOCUMENT } from '@angular/core';
+import { computed, inject, Injectable, OnDestroy, signal, DOCUMENT } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { map, Subject } from 'rxjs';
+import { PlanetDataService } from './planet-data.service';
 
 export interface VoiceCommand {
   type: 'navigate' | 'sidebar' | 'gallery' | 'home' | 'stop';
@@ -29,16 +31,20 @@ interface SpeechRecognitionLike {
 @Injectable({ providedIn: 'root' })
 export class VoiceService implements OnDestroy {
   readonly commands$ = new Subject<VoiceCommand>();
-  isListening = false;
+  private readonly listening = signal(false);
+  readonly isListening = computed(() => this.listening());
 
   private readonly router = inject(Router);
   private readonly _doc = inject(DOCUMENT);
+  private readonly planetData = inject(PlanetDataService);
   private recognition: SpeechRecognitionLike | null = null;
-
-  private readonly planets = [
-    'sun', 'mercury', 'venus', 'earth', 'mars',
-    'jupiter', 'saturn', 'uranus', 'neptune',
-  ] as const;
+  private readonly fallbackPlanets = [
+    'sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune',
+  ];
+  private readonly planetNames = toSignal(
+    this.planetData.getAll().pipe(map((system) => system.records.map((planet) => planet.name))),
+    { initialValue: this.fallbackPlanets }
+  );
 
   constructor() {
     const win = this._doc.defaultView as Record<string, unknown> | null;
@@ -61,19 +67,19 @@ export class VoiceService implements OnDestroy {
   }
 
   start(): void {
-    if (!this.recognition || this.isListening) return;
-    this.isListening = true;
+    if (!this.recognition || this.isListening()) return;
+    this.listening.set(true);
     this.recognition.start();
   }
 
   stop(): void {
-    if (!this.recognition || !this.isListening) return;
-    this.isListening = false;
+    if (!this.recognition || !this.isListening()) return;
+    this.listening.set(false);
     this.recognition.stop();
   }
 
   private process(text: string): void {
-    for (const planet of this.planets) {
+    for (const planet of this.planetNames()) {
       if (text.includes(`go to ${planet}`) || text.includes(`show ${planet}`)) {
         this.router.navigateByUrl(`/${planet}`);
         this.commands$.next({ type: 'navigate', payload: planet });

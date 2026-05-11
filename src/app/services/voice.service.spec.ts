@@ -1,8 +1,13 @@
-import { TestBed, fakeAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { VoiceService, VoiceCommand } from './voice.service';
 import { DOCUMENT } from '@angular/common';
+import { PlanetDataService } from './planet-data.service';
+import { of } from 'rxjs';
+
+@Component({ standalone: true, template: '' })
+class DummyRouteComponent {}
 
 /** Minimal SpeechRecognition stub */
 function makeSpeechRecognitionStub() {
@@ -20,9 +25,19 @@ describe('VoiceService', () => {
   let router: Router;
   let recognitionStub: ReturnType<typeof makeSpeechRecognitionStub>;
   let mockWindow: Record<string, unknown>;
+  let planetDataSpy: Pick<PlanetDataService, 'getAll' | 'error'>;
 
   beforeEach(() => {
     recognitionStub = makeSpeechRecognitionStub();
+    planetDataSpy = {
+      getAll: jest.fn().mockReturnValue(
+        of({
+          title: 'Solar System',
+          records: [{ name: 'earth' }, { name: 'mars' }, { name: 'saturn' }],
+        })
+      ),
+      error: jest.fn().mockReturnValue(null),
+    };
     mockWindow = {
       SpeechRecognition: jest.fn(() => recognitionStub),
       location: { port: '4200' },
@@ -31,11 +46,16 @@ describe('VoiceService', () => {
     TestBed.configureTestingModule({
       providers: [
         provideZonelessChangeDetection(),
-        provideRouter([]),
+        provideRouter([
+          { path: 'galaxy', component: DummyRouteComponent },
+          { path: ':planet', component: DummyRouteComponent },
+          { path: '', component: DummyRouteComponent },
+        ]),
         {
           provide: DOCUMENT,
           useValue: { defaultView: mockWindow },
         },
+        { provide: PlanetDataService, useValue: planetDataSpy },
       ],
     });
 
@@ -55,7 +75,7 @@ describe('VoiceService', () => {
   it('start() activates recognition', () => {
     service.start();
     expect(recognitionStub.start).toHaveBeenCalledTimes(1);
-    expect(service.isListening).toBe(true);
+    expect(service.isListening()).toBe(true);
   });
 
   it('start() is a no-op when already listening', () => {
@@ -68,7 +88,7 @@ describe('VoiceService', () => {
     service.start();
     service.stop();
     expect(recognitionStub.stop).toHaveBeenCalledTimes(1);
-    expect(service.isListening).toBe(false);
+    expect(service.isListening()).toBe(false);
   });
 
   it('stop() is a no-op when not listening', () => {
@@ -82,7 +102,7 @@ describe('VoiceService', () => {
     });
   }
 
-  it('emits navigate command for "go to mars"', fakeAsync(() => {
+  it('emits navigate command for "go to mars"', () => {
     const commands: VoiceCommand[] = [];
     service.commands$.subscribe(c => commands.push(c));
     service.start();
@@ -91,9 +111,9 @@ describe('VoiceService', () => {
 
     expect(commands).toEqual([{ type: 'navigate', payload: 'mars' }]);
     expect(router.navigateByUrl).toHaveBeenCalledWith('/mars');
-  }));
+  });
 
-  it('emits navigate command for "show earth"', fakeAsync(() => {
+  it('emits navigate command for "show earth"', () => {
     const commands: VoiceCommand[] = [];
     service.commands$.subscribe(c => commands.push(c));
     service.start();
@@ -101,9 +121,9 @@ describe('VoiceService', () => {
     fireResult('show earth');
 
     expect(commands).toEqual([{ type: 'navigate', payload: 'earth' }]);
-  }));
+  });
 
-  it('emits home command for "back to main"', fakeAsync(() => {
+  it('emits home command for "back to main"', () => {
     const commands: VoiceCommand[] = [];
     service.commands$.subscribe(c => commands.push(c));
     service.start();
@@ -112,9 +132,9 @@ describe('VoiceService', () => {
 
     expect(commands).toEqual([{ type: 'home' }]);
     expect(router.navigateByUrl).toHaveBeenCalledWith('/galaxy');
-  }));
+  });
 
-  it('emits sidebar command for "profile"', fakeAsync(() => {
+  it('emits sidebar command for "profile"', () => {
     const commands: VoiceCommand[] = [];
     service.commands$.subscribe(c => commands.push(c));
     service.start();
@@ -122,9 +142,9 @@ describe('VoiceService', () => {
     fireResult('show profile');
 
     expect(commands).toEqual([{ type: 'sidebar', payload: 'profile' }]);
-  }));
+  });
 
-  it('emits gallery command for "images"', fakeAsync(() => {
+  it('emits gallery command for "images"', () => {
     const commands: VoiceCommand[] = [];
     service.commands$.subscribe(c => commands.push(c));
     service.start();
@@ -132,9 +152,9 @@ describe('VoiceService', () => {
     fireResult('show images please');
 
     expect(commands).toEqual([{ type: 'gallery' }]);
-  }));
+  });
 
-  it('emits stop command and stops recognition for "shut down"', fakeAsync(() => {
+  it('emits stop command and stops recognition for "shut down"', () => {
     const commands: VoiceCommand[] = [];
     service.commands$.subscribe(c => commands.push(c));
     service.start();
@@ -142,8 +162,8 @@ describe('VoiceService', () => {
     fireResult('shut down');
 
     expect(commands).toEqual([{ type: 'stop' }]);
-    expect(service.isListening).toBe(false);
-  }));
+    expect(service.isListening()).toBe(false);
+  });
 
   it('ngOnDestroy() calls stop()', () => {
     service.start();
@@ -158,10 +178,21 @@ describe('VoiceService — no Speech API', () => {
     TestBed.configureTestingModule({
       providers: [
         provideZonelessChangeDetection(),
-        provideRouter([]),
+        provideRouter([
+          { path: 'galaxy', component: DummyRouteComponent },
+          { path: ':planet', component: DummyRouteComponent },
+          { path: '', component: DummyRouteComponent },
+        ]),
         {
           provide: DOCUMENT,
           useValue: { defaultView: { location: { port: '4200' } } },
+        },
+        {
+          provide: PlanetDataService,
+          useValue: {
+            getAll: () => of({ title: 'Solar System', records: [] }),
+            error: () => null,
+          },
         },
       ],
     });

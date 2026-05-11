@@ -17,8 +17,15 @@ class HostComponent {}
 describe('ParallaxDirective', () => {
   let fixture: ComponentFixture<HostComponent>;
   let host: HTMLElement;
+  let originalRaf: typeof window.requestAnimationFrame;
 
   beforeEach(async () => {
+    originalRaf = window.requestAnimationFrame;
+    window.requestAnimationFrame = ((callback: FrameRequestCallback) => {
+      callback(0);
+      return 1;
+    }) as typeof window.requestAnimationFrame;
+
     await TestBed.configureTestingModule({
       imports: [HostComponent],
       providers: [provideZonelessChangeDetection()],
@@ -27,6 +34,10 @@ describe('ParallaxDirective', () => {
     fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
     host = fixture.nativeElement.querySelector('div')!;
+  });
+
+  afterEach(() => {
+    window.requestAnimationFrame = originalRaf;
   });
 
   it('should create the directive on the host', () => {

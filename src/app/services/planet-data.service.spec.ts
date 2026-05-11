@@ -85,4 +85,31 @@ describe('PlanetDataService', () => {
       expect(result).toBeUndefined();
     });
   });
+
+  describe('error handling', () => {
+    it('retries twice, exposes an error signal, and returns fallback data', () => {
+      let result: SolarSystem | undefined;
+      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+      service.getAll().subscribe((value) => (result = value));
+
+      httpCtrl.expectOne('/data/planets.json').flush('fail 1', {
+        status: 500,
+        statusText: 'Server Error',
+      });
+      httpCtrl.expectOne('/data/planets.json').flush('fail 2', {
+        status: 500,
+        statusText: 'Server Error',
+      });
+      httpCtrl.expectOne('/data/planets.json').flush('fail 3', {
+        status: 500,
+        statusText: 'Server Error',
+      });
+
+      expect(service.error()).toBe('Unable to load planet data.');
+      expect(result).toEqual({ title: '', records: [] });
+
+      consoleSpy.mockRestore();
+    });
+  });
 });

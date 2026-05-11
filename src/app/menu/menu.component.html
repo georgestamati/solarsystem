@@ -1,10 +1,24 @@
-<button class="menu__button" [class.active]="isOpen()" (click)="toggle()" aria-label="Menu">
-  <span class="menu__button--line span1"></span>
-  <span class="menu__button--line span2"></span>
-  <span class="menu__button--line span3"></span>
+<button
+  class="menu__button"
+  [class.active]="isOpen()"
+  (click)="toggle()"
+  aria-label="Menu"
+  [attr.aria-expanded]="isOpen()"
+  aria-controls="main-navigation"
+>
+  <span class="menu__button--line span1" aria-hidden="true"></span>
+  <span class="menu__button--line span2" aria-hidden="true"></span>
+  <span class="menu__button--line span3" aria-hidden="true"></span>
 </button>
 
-<nav class="menu__overlay" [class.open]="isOpen()" (click)="close()">
+<nav
+  id="main-navigation"
+  class="menu__overlay"
+  [class.open]="isOpen()"
+  (click)="close()"
+  aria-label="Solar system navigation"
+  [attr.aria-hidden]="!isOpen()"
+>
   <ul class="menu desktop-menu" (click)="$event.stopPropagation()">
     <li><a routerLink="/galaxy" (click)="close()">Home</a></li>
     @for (planet of planets(); track planet.name) {

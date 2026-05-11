@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { of } from 'rxjs';
 import { GalaxyComponent } from './galaxy.component';
 import { PlanetDataService, SolarSystem } from '../services/planet-data.service';
@@ -10,6 +10,9 @@ import { Subject } from 'rxjs';
 import { VoiceCommand } from '../services/voice.service';
 
 jest.mock('gsap', () => ({ gsap: { to: jest.fn() } }));
+
+@Component({ standalone: true, template: '' })
+class DummyRouteComponent {}
 
 const MOCK_SYSTEM: SolarSystem = {
   title: 'Solar System',
@@ -51,7 +54,11 @@ describe('GalaxyComponent', () => {
       imports: [GalaxyComponent],
       providers: [
         provideZonelessChangeDetection(),
-        provideRouter([]),
+        provideRouter([
+          { path: 'galaxy', component: DummyRouteComponent },
+          { path: ':planet', component: DummyRouteComponent },
+          { path: '', component: DummyRouteComponent },
+        ]),
         { provide: PlanetDataService, useValue: dataSpy },
         { provide: VoiceService, useValue: voiceSpy },
         { provide: SessionService, useValue: sessionSpy },

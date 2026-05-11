@@ -1,4 +1,8 @@
-$moons: (sun, mercury, menus, earth, mars, jupiter, saturn, uranus, neptune);
+$moons: (sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune);
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
 
 // Orbital duration
 $sunOrbitalRotation:        0s;

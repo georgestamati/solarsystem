@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, shareReplay } from 'rxjs';
+import { catchError, map, Observable, of, retry, shareReplay } from 'rxjs';
 
 export interface PlanetDescription {
   [key: string]: string;
@@ -41,21 +41,24 @@ export interface SolarSystem {
 @Injectable({ providedIn: 'root' })
 export class PlanetDataService {
   private readonly http = inject(HttpClient);
+  readonly error = signal<string | null>(null);
+  private readonly fallbackData: SolarSystem = { title: '', records: [] };
 
-  // Shared, cached observable — one HTTP request for the lifetime of the app.
-  // Data is served from the static asset (public/data/planets.json), so this
-  // works with just `ng serve` — no node server required.
-  private readonly solarSystem$ = this.http
-    .get<SolarSystem>('/data/planets.json')
-    .pipe(shareReplay(1));
+  private readonly solarSystem$ = this.http.get<SolarSystem>('/data/planets.json').pipe(
+    retry(2),
+    catchError((error) => {
+      this.error.set('Unable to load planet data.');
+      console.error('Planet data request failed.', error);
+      return of(this.fallbackData);
+    }),
+    shareReplay(1)
+  );
 
   getAll(): Observable<SolarSystem> {
     return this.solarSystem$;
   }
 
   getPlanet(name: string): Observable<Planet | undefined> {
-    return this.solarSystem$.pipe(
-      map(sys => sys.records.find(p => p.name === name))
-    );
+    return this.solarSystem$.pipe(map((sys) => sys.records.find((p) => p.name === name)));
   }
 }

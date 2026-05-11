@@ -52,7 +52,7 @@ describe('MenuComponent', () => {
 
   it('renders a link for each planet', () => {
     const links: NodeListOf<HTMLAnchorElement> =
-      fixture.nativeElement.querySelectorAll('.desktop-menu li a');
+      fixture.nativeElement.querySelectorAll('.desktop-menu > li > a');
     // +1 for Home link
     expect(links.length).toBe(PLANETS.length + 1);
   });

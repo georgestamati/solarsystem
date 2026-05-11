@@ -43,9 +43,7 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "options": {
-            "proxyConfig": "proxy.conf.json"
-          },
+          "options": {},
           "configurations": {
             "production": { "buildTarget": "solarsystem:build:production" },
             "development": { "buildTarget": "solarsystem:build:development" }

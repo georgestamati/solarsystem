@@ -1,8 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { SessionService } from './session.service';
+
+@Component({ standalone: true, template: '' })
+class DummyRouteComponent {}
 
 describe('SessionService', () => {
   let service: SessionService;
@@ -18,7 +21,10 @@ describe('SessionService', () => {
     TestBed.configureTestingModule({
       providers: [
         provideZonelessChangeDetection(),
-        provideRouter([]),
+        provideRouter([
+          { path: 'galaxy', component: DummyRouteComponent },
+          { path: '', component: DummyRouteComponent },
+        ]),
         { provide: CookieService, useValue: cookieSpy },
       ],
     });

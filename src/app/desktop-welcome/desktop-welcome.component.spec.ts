@@ -1,9 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { DesktopWelcomeComponent } from './desktop-welcome.component';
 import { SessionService } from '../services/session.service';
+
+@Component({ standalone: true, template: '' })
+class DummyRouteComponent {}
 
 describe('DesktopWelcomeComponent', () => {
   let fixture: ComponentFixture<DesktopWelcomeComponent>;
@@ -23,7 +26,10 @@ describe('DesktopWelcomeComponent', () => {
       imports: [DesktopWelcomeComponent],
       providers: [
         provideZonelessChangeDetection(),
-        provideRouter([]),
+        provideRouter([
+          { path: 'galaxy', component: DummyRouteComponent },
+          { path: '', component: DummyRouteComponent },
+        ]),
         { provide: SessionService, useValue: sessionSpy },
         { provide: CookieService, useValue: cookieSpy },
       ],

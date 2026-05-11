@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, provideRouter, Router } from '@angular/router';
-import { provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { ParamMap, convertToParamMap } from '@angular/router';
 import { PlanetDetailComponent } from './planet-detail.component';
@@ -8,6 +8,9 @@ import { PlanetDataService, SolarSystem, Planet } from '../services/planet-data.
 import { VoiceService, VoiceCommand } from '../services/voice.service';
 
 jest.mock('gsap', () => ({ gsap: { to: jest.fn() } }));
+
+@Component({ standalone: true, template: '' })
+class DummyRouteComponent {}
 
 const EARTH: Planet = {
   name: 'earth',
@@ -60,12 +63,22 @@ describe('PlanetDetailComponent', () => {
       value: { speak: jest.fn(), cancel: jest.fn() },
       configurable: true,
     });
+    Object.defineProperty(globalThis, 'SpeechSynthesisUtterance', {
+      value: class {
+        constructor(public text: string) {}
+      },
+      configurable: true,
+    });
 
     await TestBed.configureTestingModule({
       imports: [PlanetDetailComponent],
       providers: [
         provideZonelessChangeDetection(),
-        provideRouter([]),
+        provideRouter([
+          { path: 'galaxy', component: DummyRouteComponent },
+          { path: ':planet', component: DummyRouteComponent },
+          { path: '', component: DummyRouteComponent },
+        ]),
         { provide: ActivatedRoute, useValue: makeRoute('earth') },
         { provide: PlanetDataService, useValue: dataSpy },
         { provide: VoiceService, useValue: voiceSpy },
@@ -208,20 +221,26 @@ describe('PlanetDetailComponent', () => {
 
   describe('unknown planet', () => {
     it('redirects to /galaxy when planet is not found', async () => {
+      TestBed.resetTestingModule();
+
       await TestBed.configureTestingModule({
         imports: [PlanetDetailComponent],
         providers: [
           provideZonelessChangeDetection(),
-          provideRouter([]),
+          provideRouter([
+            { path: 'galaxy', component: DummyRouteComponent },
+            { path: ':planet', component: DummyRouteComponent },
+            { path: '', component: DummyRouteComponent },
+          ]),
           { provide: ActivatedRoute, useValue: makeRoute('pluto') },
           { provide: PlanetDataService, useValue: dataSpy },
           { provide: VoiceService, useValue: voiceSpy },
         ],
       }).compileComponents();
 
-      const f = TestBed.createComponent(PlanetDetailComponent);
       const r = TestBed.inject(Router);
       jest.spyOn(r, 'navigateByUrl').mockResolvedValue(true);
+      const f = TestBed.createComponent(PlanetDetailComponent);
       f.detectChanges();
 
       expect(r.navigateByUrl).toHaveBeenCalledWith('/galaxy');

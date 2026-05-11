@@ -7,14 +7,31 @@
       <!-- Sun (static centre, no orbit animation) -->
       <div id="sun" class="orbit">
         <div class="planet-wrap">
-          <div class="planet" (click)="navigate('sun')"></div>
+          <div
+            class="planet"
+            role="button"
+            tabindex="0"
+            aria-label="Open Sun details"
+            (click)="navigate('sun')"
+            (keydown.enter)="navigate('sun')"
+            (keydown.space)="navigate('sun'); $event.preventDefault()"
+          ></div>
         </div>
       </div>
 
       <!-- Planets loaded from data -->
       @for (planet of orbitPlanets(); track planet.name) {
         @if (planet.name === 'earth') {
-          <div id="earth" class="orbit orbit-border" (click)="navigate('earth')">
+          <div
+            id="earth"
+            class="orbit orbit-border"
+            role="button"
+            tabindex="0"
+            aria-label="Open Earth details"
+            (click)="navigate('earth')"
+            (keydown.enter)="navigate('earth')"
+            (keydown.space)="navigate('earth'); $event.preventDefault()"
+          >
             <div class="planet-wrap">
               <div class="planet" style="background-image: url('img/planets/earth.jpg')">
                 <div id="moon" class="orbit">
@@ -26,7 +43,16 @@
             </div>
           </div>
         } @else {
-          <div [id]="planet.name" class="orbit orbit-border" (click)="navigate(planet.name)">
+          <div
+            [id]="planet.name"
+            class="orbit orbit-border"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="'Open ' + planet.name + ' details'"
+            (click)="navigate(planet.name)"
+            (keydown.enter)="navigate(planet.name)"
+            (keydown.space)="navigate(planet.name); $event.preventDefault()"
+          >
             <div class="planet-wrap">
               <div class="planet"
                    [style.backgroundImage]="'url(img/planets/' + planet.name + '.jpg)'">
