@@ -1,5 +1,63 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
 :host {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+#universe {
+  width: 100%;
+  height: 100%;
+  @include scaleElement(0, scale(0, 0));
+
+  &.universe__session {
+    @include animationMixin(scaleUniverse, 1s, 0s);
+  }
+}
+
+#galaxy {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.page-index {
+  #sun      { font-size: $sunOrbitSize;      .planet { font-size: $sun3dViewSize;     transform: rotateX(110deg); box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset; animation: sunRays 5s infinite linear; } }
+  #mercury  { font-size: $mercuryOrbitSize;  .planet { font-size: $mercury3dViewSize; } }
+  #venus    { font-size: $venusOrbitSize;    .planet { font-size: $venus3dViewSize; } }
+  #earth    { font-size: $earthOrbitSize;    .planet { font-size: $earth3dViewSize; } }
+  #mars     { font-size: $marsOrbitSize;     .planet { font-size: $mars3dViewSize; } }
+  #asteroids { font-size: $asteroidOrbitSize; }
+  #jupiter  { font-size: $jupiterOrbitSize;  .planet { font-size: $jupiter3dViewSize; } }
+  #saturn   { font-size: $saturnOrbitSize;   .planet { font-size: $saturn3dViewSize; } }
+  #uranus   { font-size: $uranusOrbitSize;   .planet { font-size: $uranus3dViewSize; } }
+  #neptune  { font-size: $neptuneOrbitSize;  .planet { font-size: $neptune3dViewSize; } }
+}
+
+.galaxy-view--3D {
+  transform: rotateX(70deg) scale3d(1, 1, 1);
+  transform-style: preserve-3d;
+  transition: transform 1s ease, opacity 1s ease;
+
+  .planet-wrap {
+    transform-style: preserve-3d;
+    animation-name: invert;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    .planet {
+      animation-name: animatedBackground;
+      box-shadow: inset -10px 0px 20px -3px #000;
+      will-change: transform;
+    }
+  }
+}
+
+@media (max-width: $bp-md) {
+  .page-index {
+    transform: scale(0.78);
+    transform-origin: center center;
+  }
 }

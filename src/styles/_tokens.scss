@@ -1,0 +1,26 @@
+// CSS custom properties — defined on :root, consumed across all component styles.
+// Centralising these makes theming (e.g. dark/light toggle) a one-file change.
+
+:root {
+  // ── Colour palette ──────────────────────────────────────────────────────────
+  --color-accent:      aqua;          // primary interactive / highlight colour
+  --color-bg:          #000;          // page background
+  --color-text:        #fff;          // body text
+  --color-overlay:     rgba(0,0,0,0.9);  // menu overlay background
+
+  // ── Z-index scale ───────────────────────────────────────────────────────────
+  --z-loader:          1;
+  --z-info-controls:   1;
+  --z-info-contents:   9;
+  --z-moons-wrapper:   2;
+  --z-moon-hover:      99;
+  --z-menu-button:     99;
+  --z-menu-overlay:    98;
+  --z-modal-buttons:   99;
+  --z-modal:           9999;
+  --z-close-button:    1;
+
+  // ── Shared shadows ──────────────────────────────────────────────────────────
+  --shadow-planet-inset: inset -9px -2px 39px 15px #000;
+  --shadow-sun: 0 0 30px 12px orange, 0 0 100px 20px orange inset;
+}
