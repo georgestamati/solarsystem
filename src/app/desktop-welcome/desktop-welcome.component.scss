@@ -1,0 +1,96 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.loader {
+  position: absolute;
+  z-index: var(--z-loader);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  &.loader__new-session {
+    @include scaleElement(0, scale(0, 0));
+    @include animationMixin(scaleUpOnClick, 5s, 0s);
+  }
+
+  &.loader__new-session--clicked {
+    @include animationMixin(scaleDownOnClick, 2s, 0s);
+  }
+}
+
+.loader__wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.loader__welcome {
+  width: 100%;
+  background: transparent;
+  @include scaleElement(0, scale(0, 0));
+  font-size: 3em;
+  font-family: 'gravediggerregular', sans-serif;
+  line-height: 1.4;
+  color: var(--color-accent);
+
+  &.welcome__message {
+    @include animationMixin(scaleUniverse, 2s, 1s);
+    margin-top: -100px;
+  }
+
+  &.control__message {
+    @include animationMixin(scaleUniverse, 2s, 4s);
+  }
+}
+
+.loader__control-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.loader__planet {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 30px auto;
+  border-radius: 50%;
+  background: url('/img/planets/earth.jpg') repeat-x;
+  background-size: cover;
+  background-position-x: -450px;
+  animation: animatedBackground 8s infinite linear;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 30px #8ff, 0 0 100px #000 inset, 0 0 50px #5ff inset, -20px -10px 100px #000 inset;
+    animation: loaderAnimation 2s infinite linear;
+  }
+}
+
+.loader__local-button {
+  position: relative;
+  padding: 10px 30px;
+  margin: 0.5em 0 1em;
+  font-size: 1em;
+  font-family: 'gravediggerregular', sans-serif;
+  color: var(--color-accent);
+  line-height: 1;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  box-sizing: border-box;
+  cursor: pointer;
+}

@@ -1,0 +1,148 @@
+<app-menu [planets]="allPlanets()"></app-menu>
+
+@if (planet(); as p) {
+  <div id="universe" class="universe__same-session">
+    <div id="galaxy" class="page-planet">
+      <div class="wrapper">
+        <!-- Planet + moons -->
+        <div class="planet-wrapper">
+          <div
+            [id]="p.name"
+            class="planet"
+            [style.backgroundImage]="'url(img/planets/' + p.name + '.jpg)'"
+          ></div>
+
+          @if (p.moons?.length) {
+            <div class="moons-wrapper">
+              @for (moon of p.moons!; track moon.name) {
+                <div
+                  class="moon"
+                  [id]="moon.name"
+                  [style.backgroundImage]="moonImageUrl(p.name, moon.name)"
+                  [style.top]="moon.pos.top + 'px'"
+                  [style.left]="moon.pos.left + 'px'"
+                  [style.transform]="'scale(' + moon.pos.scale + ')'"
+                  (mouseenter)="hoverMoon(moon)"
+                  (mouseleave)="hoverMoon(null)"
+                  (focus)="hoverMoon(moon)"
+                  (blur)="hoverMoon(null)"
+                  tabindex="0"
+                  [attr.aria-describedby]="'moon-tooltip-' + moon.name"
+                >
+                    <div
+                      class="tooltip"
+                      [id]="'moon-tooltip-' + moon.name"
+                      role="tooltip"
+                      [class.visible]="hoveredMoon() === moon"
+                    >
+                      <table>
+                        <tr class="tooltip__name">
+                          <th colspan="2">{{ moon.name | titlecase }}</th>
+                        </tr>
+                        @for (entry of moon.description | keyvalue; track entry.key) {
+                          <tr>
+                            <td>{{ entry.key }}</td>
+                            <td>{{ entry.value }}</td>
+                          </tr>
+                        }
+                      </table>
+                    </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Info sidebar -->
+        <div class="info-wrapper visible">
+          <div class="info__controls">
+            @for (tab of tabs; track tab) {
+              <button
+                class="info__controls--button"
+                [class.active]="activeTab() === tab"
+                (click)="toggleTab(tab)"
+                [attr.aria-pressed]="activeTab() === tab"
+              >
+                {{ tab | titlecase }}
+              </button>
+            }
+          </div>
+
+          <div class="info__contents">
+            <!-- Profile -->
+            <div class="info__contents--profile" [class.slide__left]="activeTab() === 'profile'">
+              <div class="info__contents--title">{{ p.name | titlecase }}</div>
+              <div class="info__contents--content">
+                <table class="planet-tooltip">
+                  @for (entry of descriptionEntries(); track entry.key) {
+                    <tr>
+                      <td>{{ entry.key }}</td>
+                      <td>{{ entry.value }}</td>
+                    </tr>
+                  }
+                </table>
+              </div>
+            </div>
+
+            <!-- Introduction -->
+            <div class="info__contents--intro" [class.slide__left]="activeTab() === 'intro'">
+              <div class="info__contents--title">{{ p.contents?.introduction?.title }}</div>
+              <div class="info__contents--content">
+                @for (line of p.contents?.introduction?.content ?? []; track $index) {
+                  <p>{{ line }}</p>
+                }
+              </div>
+              <div class="info__contents--read__text">
+                <button type="button" class="info__contents--read__link" (click)="readActiveText()">Read text</button>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div
+              class="info__contents--description"
+              [class.slide__left]="activeTab() === 'description'"
+            >
+              <div class="info__contents--title">{{ p.contents?.description?.title }}</div>
+              <div class="info__contents--content">
+                @for (line of p.contents?.description?.content ?? []; track $index) {
+                  <p>{{ line }}</p>
+                }
+              </div>
+              <div class="info__contents--read__text">
+                <button type="button" class="info__contents--read__link" (click)="readActiveText()">Read text</button>
+              </div>
+              <div class="info__contents--display__gallery">
+                <button type="button" class="info__contents--display__gallery--link" (click)="openGallery()">
+                  View images
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image gallery modal -->
+  @if (modalOpen()) {
+    <div
+      #modalDialog
+      class="info__modal"
+      style="display: flex"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="(p.name | titlecase) + ' image gallery'"
+      tabindex="-1"
+      (keydown)="onModalKeydown($event)"
+    >
+      <button #closeButton type="button" class="close" (click)="closeModal()" aria-label="Close image gallery">&times;</button>
+      <div class="info__modal--content">
+        <div class="info__modal--content__hero" style="display: block">
+          <img [src]="galleryImages()[modalIndex()]" [alt]="p.name" />
+        </div>
+        <button type="button" class="prev" (click)="prevSlide()" aria-label="Previous image">&#10094;</button>
+        <button type="button" class="next" (click)="nextSlide()" aria-label="Next image">&#10095;</button>
+      </div>
+    </div>
+  }
+}

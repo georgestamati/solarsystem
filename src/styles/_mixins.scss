@@ -1,0 +1,76 @@
+@use 'variables' as *;
+@use 'sass:list';
+
+@mixin elementPosition($width, $height, $marginTop, $marginLeft) {
+  width: $width;
+  height: $height;
+  margin-top: $marginTop;
+  margin-left: $marginLeft;
+}
+
+@mixin axialInclination($deg) {
+  transform: rotateZ($deg);
+}
+
+@mixin planetPosition($top, $left) {
+  top: $top;
+  left: $left;
+}
+
+@mixin moonPosition($top, $left, $scale) {
+  top: $top;
+  left: $left;
+  transform: scale($scale);
+}
+
+@mixin scaleElement($opacity, $transform) {
+  opacity: $opacity;
+  transform: $transform;
+}
+
+@mixin animationMixin($name, $duration, $delay) {
+  animation: $name $duration $delay;
+  animation-fill-mode: forwards;
+}
+
+@mixin menuItems() {
+  @for $i from 0 through list.length($moons) {
+    &:nth-child(#{$i}) {
+      transition: all .2s #{$i * .05}s ease;
+    }
+  }
+}
+
+@function stars($s, $max-area, $min-area: 0, $star-size: 0) {
+  $stars: #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(127,127,127, random(100)*.01 + 0.3);
+  @for $i from 1 to $s {
+    $stars: '#{$stars} , #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(127,127,127, #{random(100)*.01 + 0.3})';
+  }
+  @return unquote($stars);
+}
+
+// Replaces: @extend .error__message
+// Used for sidebar panel titles and error page headings.
+@mixin section-title() {
+  font-family: 'gravediggerregular', sans-serif;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 1.5;
+  letter-spacing: 2px;
+}
+
+// Replaces: @extend .loader__wrapper--input
+// Used for CTA buttons (Enter, tab controls, read-text, gallery links).
+@mixin action-button() {
+  position: relative;
+  padding: 10px 30px;
+  margin: 0.5em 0 1em;
+  font-size: 1em;
+  font-family: 'gravediggerregular', sans-serif;
+  color: var(--color-accent);
+  line-height: 1;
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  box-sizing: border-box;
+  cursor: pointer;
+}

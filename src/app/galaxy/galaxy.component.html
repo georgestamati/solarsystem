@@ -1,0 +1,77 @@
+<app-menu [planets]="planets()"></app-menu>
+
+<div id="universe" class="universe__session">
+  <div class="page-index">
+    <div id="galaxy" class="galaxy-view--3D" appParallax>
+
+      <!-- Sun (static centre, no orbit animation) -->
+      <div id="sun" class="orbit">
+        <div class="planet-wrap">
+          <div
+            class="planet"
+            role="button"
+            tabindex="0"
+            aria-label="Open Sun details"
+            (click)="navigate('sun')"
+            (keydown.enter)="navigate('sun')"
+            (keydown.space)="navigate('sun'); $event.preventDefault()"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Planets loaded from data -->
+      @for (planet of orbitPlanets(); track planet.name) {
+        @if (planet.name === 'earth') {
+          <div
+            id="earth"
+            class="orbit orbit-border"
+            role="button"
+            tabindex="0"
+            aria-label="Open Earth details"
+            (click)="navigate('earth')"
+            (keydown.enter)="navigate('earth')"
+            (keydown.space)="navigate('earth'); $event.preventDefault()"
+          >
+            <div class="planet-wrap">
+              <div class="planet" style="background-image: url('img/planets/earth.jpg')">
+                <div id="moon" class="orbit">
+                  <div class="planet-wrap">
+                    <div class="planet" style="background-image: url('img/moons/earth/moon.jpg')"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        } @else {
+          <div
+            [id]="planet.name"
+            class="orbit orbit-border"
+            role="button"
+            tabindex="0"
+            [attr.aria-label]="'Open ' + planet.name + ' details'"
+            (click)="navigate(planet.name)"
+            (keydown.enter)="navigate(planet.name)"
+            (keydown.space)="navigate(planet.name); $event.preventDefault()"
+          >
+            <div class="planet-wrap">
+              <div class="planet"
+                   [style.backgroundImage]="'url(img/planets/' + planet.name + '.jpg)'">
+              </div>
+              @if (planet.rings) {
+                <span class="rings"></span>
+              }
+            </div>
+          </div>
+        }
+      }
+
+      <!-- Asteroid belt (visual only) -->
+      <div id="asteroids" class="orbit">
+        <div class="planet-wrap">
+          <div class="planet"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
