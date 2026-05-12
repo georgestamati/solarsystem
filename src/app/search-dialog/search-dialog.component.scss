@@ -1,0 +1,92 @@
+@use '../../styles/variables' as *;
+
+.search-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+}
+
+.search-dialog {
+  width: min(560px, 90vw);
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+
+  &__input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 20px;
+    font-size: 16px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    outline: none;
+    font-family: inherit;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  &__results {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+    max-height: 340px;
+    overflow-y: auto;
+  }
+
+  &__result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.1s ease;
+
+    &.active,
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &--name {
+      font-size: 14px;
+      color: #fff;
+    }
+
+    &--sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  &__empty {
+    padding: 16px 20px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+  }
+
+  &__hint {
+    padding: 8px 20px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    kbd {
+      display: inline-block;
+      padding: 1px 5px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      font-size: 10px;
+    }
+  }
+}
