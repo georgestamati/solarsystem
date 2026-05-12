@@ -45,6 +45,7 @@
       background-repeat: repeat-x;
       box-shadow: inset -9px -2px 39px 15px #000;
       transition: transform 1s ease, opacity 1s ease;
+      will-change: transform; // 3.5
     }
   }
 
@@ -74,6 +75,7 @@
   box-shadow: inset -9px -2px 39px 15px #000;
   transform-style: preserve-3d;
   transition: transform 1s ease, opacity 1s ease;
+  will-change: transform; // 3.5
   cursor: pointer;
 
   &#saturn .rings { @include elementPosition(320px, 100%, 0, -80px); }
@@ -117,11 +119,30 @@
   background-position: 350px 150px;
 }
 
+// 3.2 Sun glow: two static box-shadow layers on pseudo-elements, pulsed via
+// opacity (GPU-composited) instead of animating box-shadow every frame.
 .page-planet #sun > .planet {
-  animation-name: sunRays;
-  animation-duration: 5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  // Dim base glow — always visible
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 30px 10px orange, 0 0 100px 20px orange inset;
+    pointer-events: none;
+  }
+
+  // Bright glow overlay — fades in/out for the pulse effect
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 50px 20px orange, 0 0 120px 30px orange inset;
+    pointer-events: none;
+    animation: sunRaysFade 5s linear infinite;
+    will-change: opacity;
+  }
 }
 
 // ── Tooltip ───────────────────────────────────────────────────────────────────
@@ -197,6 +218,7 @@
     visibility: hidden;
     transform: translateX(1000px);
     transition: transform 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+    will-change: transform; // 3.5
   }
 
   .slide__left {
@@ -363,6 +385,41 @@
         height: clamp(220px, 62vw, 420px);
         margin: 0 auto;
       }
+    }
+  }
+
+  .info__controls {
+    position: static !important;
+    transform: none !important;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .info__controls--button { min-height: 44px; }
+
+  .info__contents > div {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    margin-bottom: 16px;
+  }
+
+  .moons-wrapper,
+  .planet-wrapper .moons-wrapper { margin: 24px 0 0; }
+
+  .moon { width: 96px; height: 96px; }
+
+  .info__modal--content { width: calc(100% - 24px); padding-top: 72px; }
+
+  .info__modal--content__hero {
+    height: auto !important;
+    margin-bottom: 24px;
+
+    img { width: 100%; height: auto !important; }
+  }
+}
     }
   }
 
