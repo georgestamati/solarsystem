@@ -20,6 +20,7 @@ import { VoiceService } from '../services/voice.service';
 import { SessionService } from '../services/session.service';
 import { FullscreenService } from '../services/fullscreen.service';
 import { AudioService } from '../services/audio.service';
+import { ThemeService } from '../services/theme.service';
 import { MenuComponent } from '../menu/menu.component';
 import { ParallaxDirective } from '../directives/parallax.directive';
 
@@ -58,6 +59,7 @@ export class GalaxyComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   readonly fullscreen = inject(FullscreenService);
   readonly audio = inject(AudioService);
+  readonly theme = inject(ThemeService);
 
   private readonly solarSystem$ = this.data.getAll();
 

@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 import { KeyboardHelpComponent } from './keyboard-help/keyboard-help.component';
 import { KeyboardService } from './services/keyboard.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,8 @@ import { KeyboardService } from './services/keyboard.service';
 })
 export class App {
   private readonly kb = inject(KeyboardService);
+  // ThemeService initialises itself via effect() in constructor
+  private readonly _theme = inject(ThemeService);
 
   @HostListener('document:keydown', ['$event'])
   onKeydown(e: KeyboardEvent): void {
