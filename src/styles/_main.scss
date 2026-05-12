@@ -1,7 +1,7 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
-// ── Base reset ────────────────────────────────────────────────────────────────
+// Base reset
 
 html, body {
   width: 100%;
@@ -25,7 +25,7 @@ body {
   font-weight: 300;
 }
 
-// ── App shell ─────────────────────────────────────────────────────────────────
+// App shell
 
 .container {
   width: 100%;
@@ -35,24 +35,27 @@ body {
   background: #000 url('/img/stars.png') no-repeat;
   background-size: cover;
 
+  // 3.1 GPU-composited star drift: oversized pseudo-element slides via transform
   &:before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: -1000px;
+    left: -1000px;
+    width: calc(100% + 2000px);
+    height: calc(100% + 2000px);
     background: url('/img/clip-stars.png') repeat top center;
     animation: clippingStars 50s linear infinite;
+    will-change: transform;
   }
 }
 
-// ── Shared orbit / planet primitives ─────────────────────────────────────────
+// Shared orbit / planet primitives
 
 .planet-wrap {
   position: absolute;
   top: -1px;
   left: 50%;
+  will-change: transform;
 }
 
 .planet {
@@ -85,7 +88,7 @@ body {
   }
 }
 
-// ── Per-planet orbit animations ───────────────────────────────────────────────
+// Per-planet orbit animations
 
 #sun {
   &.orbit { animation-duration: $sunOrbitalRotation; }
@@ -177,14 +180,46 @@ body {
   .planet { @include axialInclination($neptuneAxisInclination); animation-duration: $neptuneOrbitalRotation; }
 }
 
-// ── Shared state helpers ──────────────────────────────────────────────────────
+// Shared state helpers
 
 .active   { opacity: 1; }
 .visible  { opacity: 1; visibility: visible; }
 .hidden   { opacity: 0; visibility: hidden; }
 .row-flex { display: flex; flex-direction: column; align-items: center; }
 
-// ── Error page ────────────────────────────────────────────────────────────────
+// Feature 1: View Transitions - planet morph between galaxy and detail
+
+@keyframes vt-planet-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes vt-planet-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.4); }
+}
+
+::view-transition-old(root) {
+  animation: vt-planet-out 0.35s ease both;
+}
+
+::view-transition-new(root) {
+  animation: vt-planet-in 0.35s ease both;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+// Error page
 
 .error {
   position: absolute;

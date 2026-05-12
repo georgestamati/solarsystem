@@ -24,16 +24,37 @@
 }
 
 .page-index {
-  #sun      { font-size: $sunOrbitSize;      .planet { font-size: $sun3dViewSize;     transform: rotateX(110deg); box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset; animation: sunRays 5s infinite linear; } }
-  #mercury  { font-size: $mercuryOrbitSize;  .planet { font-size: $mercury3dViewSize; } }
-  #venus    { font-size: $venusOrbitSize;    .planet { font-size: $venus3dViewSize; } }
-  #earth    { font-size: $earthOrbitSize;    .planet { font-size: $earth3dViewSize; } }
-  #mars     { font-size: $marsOrbitSize;     .planet { font-size: $mars3dViewSize; } }
+  // 3.2 Sun glow: static base glow on .planet, brightness pulse via ::after opacity.
+  #sun {
+    font-size: $sunOrbitSize;
+
+    .planet {
+      font-size: $sun3dViewSize;
+      transform: rotateX(110deg);
+      box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 50px 20px orange, 0 0 120px 30px orange inset;
+        pointer-events: none;
+        animation: sunRaysFade 5s infinite linear;
+        will-change: opacity;
+      }
+    }
+  }
+
+  #mercury   { font-size: $mercuryOrbitSize;  .planet { font-size: $mercury3dViewSize; } }
+  #venus     { font-size: $venusOrbitSize;    .planet { font-size: $venus3dViewSize; } }
+  #earth     { font-size: $earthOrbitSize;    .planet { font-size: $earth3dViewSize; } }
+  #mars      { font-size: $marsOrbitSize;     .planet { font-size: $mars3dViewSize; } }
   #asteroids { font-size: $asteroidOrbitSize; }
-  #jupiter  { font-size: $jupiterOrbitSize;  .planet { font-size: $jupiter3dViewSize; } }
-  #saturn   { font-size: $saturnOrbitSize;   .planet { font-size: $saturn3dViewSize; } }
-  #uranus   { font-size: $uranusOrbitSize;   .planet { font-size: $uranus3dViewSize; } }
-  #neptune  { font-size: $neptuneOrbitSize;  .planet { font-size: $neptune3dViewSize; } }
+  #jupiter   { font-size: $jupiterOrbitSize;  .planet { font-size: $jupiter3dViewSize; } }
+  #saturn    { font-size: $saturnOrbitSize;   .planet { font-size: $saturn3dViewSize; } }
+  #uranus    { font-size: $uranusOrbitSize;   .planet { font-size: $uranus3dViewSize; } }
+  #neptune   { font-size: $neptuneOrbitSize;  .planet { font-size: $neptune3dViewSize; } }
 }
 
 .galaxy-view--3D {
@@ -46,12 +67,62 @@
     animation-name: invert;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    will-change: transform;
 
+    // 3.1 Planet texture scrolls via ::before translateX (GPU-composited).
     .planet {
-      animation-name: animatedBackground;
-      box-shadow: inset -10px 0px 20px -3px #000;
+      overflow: hidden;
       will-change: transform;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-repeat: repeat-x;
+        background-size: auto 100%;
+        animation: animatedBackground 8s infinite linear;
+        will-change: transform;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        box-shadow: inset -10px 0 20px -3px #000;
+        pointer-events: none;
+      }
     }
+  }
+}
+
+// Feature 7: Fullscreen toggle button
+
+.fullscreen-btn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: var(--z-menu-button);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
   }
 }
 

@@ -10,6 +10,7 @@
             [id]="p.name"
             class="planet"
             [style.backgroundImage]="'url(img/planets/' + p.name + '.jpg)'"
+            [style.viewTransitionName]="'planet-' + p.name"
           ></div>
 
           @if (p.moons?.length) {
@@ -141,8 +142,4 @@
           <img [src]="galleryImages()[modalIndex()]" [alt]="p.name" />
         </div>
         <button type="button" class="prev" (click)="prevSlide()" aria-label="Previous image">&#10094;</button>
-        <button type="button" class="next" (click)="nextSlide()" aria-label="Next image">&#10095;</button>
-      </div>
-    </div>
-  }
-}
+        <button type="button" class="next" (click)="nextSlide()" aria-label="

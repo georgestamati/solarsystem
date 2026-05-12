@@ -33,10 +33,14 @@
   animation-fill-mode: forwards;
 }
 
+// 3.4 Replaced transition: all with explicit properties — avoids triggering
+// layout/paint recalculation for every animatable property on each frame.
 @mixin menuItems() {
   @for $i from 0 through list.length($moons) {
     &:nth-child(#{$i}) {
-      transition: all .2s #{$i * .05}s ease;
+      transition: color .2s #{$i * .05}s ease,
+                  font-size .2s #{$i * .05}s ease,
+                  text-shadow .2s #{$i * .05}s ease;
     }
   }
 }

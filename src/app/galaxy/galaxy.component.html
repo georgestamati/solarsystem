@@ -1,5 +1,13 @@
 <app-menu [planets]="planets()"></app-menu>
 
+<button
+  class="fullscreen-btn"
+  type="button"
+  (click)="fullscreen.toggle()"
+  [attr.aria-label]="fullscreen.isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen'"
+  [attr.title]="fullscreen.isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen'"
+>{{ fullscreen.isFullscreen() ? '✕' : '⤢' }}</button>
+
 <div id="universe" class="universe__session">
   <div class="page-index">
     <div id="galaxy" class="galaxy-view--3D" appParallax>
@@ -12,6 +20,7 @@
             role="button"
             tabindex="0"
             aria-label="Open Sun details"
+            [style.viewTransitionName]="'planet-sun'"
             (click)="navigate('sun')"
             (keydown.enter)="navigate('sun')"
             (keydown.space)="navigate('sun'); $event.preventDefault()"
@@ -33,7 +42,9 @@
             (keydown.space)="navigate('earth'); $event.preventDefault()"
           >
             <div class="planet-wrap">
-              <div class="planet" style="background-image: url('img/planets/earth.jpg')">
+              <div class="planet"
+                   style="background-image: url('img/planets/earth.jpg')"
+                   [style.viewTransitionName]="'planet-earth'">
                 <div id="moon" class="orbit">
                   <div class="planet-wrap">
                     <div class="planet" style="background-image: url('img/moons/earth/moon.jpg')"></div>
@@ -55,23 +66,4 @@
           >
             <div class="planet-wrap">
               <div class="planet"
-                   [style.backgroundImage]="'url(img/planets/' + planet.name + '.jpg)'">
-              </div>
-              @if (planet.rings) {
-                <span class="rings"></span>
-              }
-            </div>
-          </div>
-        }
-      }
-
-      <!-- Asteroid belt (visual only) -->
-      <div id="asteroids" class="orbit">
-        <div class="planet-wrap">
-          <div class="planet"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
+                   [st
