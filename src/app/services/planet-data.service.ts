@@ -32,6 +32,7 @@ export interface Planet {
   rings?: string;
   contents?: PlanetContent;
   facts?: string[];
+  diameterKm?: number;
 }
 
 export interface SolarSystem {

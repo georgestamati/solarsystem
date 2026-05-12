@@ -179,7 +179,8 @@
         "Light from the Sun takes about 8 minutes and 20 seconds to reach Earth.",
         "The Sun is about 4.6 billion years old \u2014 roughly halfway through its life.",
         "The Sun's surface temperature is about 5,500\u00b0C, but its corona reaches over 1,000,000\u00b0C."
-      ]
+      ],
+      "diameterKm": 1392700
     },
     {
       "name": "mercury",
@@ -221,7 +222,8 @@
         "A day on Mercury (sunrise to sunrise) lasts 176 Earth days.",
         "Mercury is the smallest planet in the Solar System.",
         "Despite being closest to the Sun, Venus is hotter than Mercury."
-      ]
+      ],
+      "diameterKm": 4879
     },
     {
       "name": "venus",
@@ -266,7 +268,8 @@
         "A day on Venus is longer than a year on Venus.",
         "The surface pressure on Venus is 92 times that of Earth.",
         "Venus is the brightest natural object in the night sky after the Moon."
-      ]
+      ],
+      "diameterKm": 12104
     },
     {
       "name": "earth",
@@ -325,7 +328,8 @@
         "Earth's magnetic field protects it from solar wind.",
         "The Earth's core is as hot as the surface of the Sun.",
         "71% of Earth's surface is covered by water."
-      ]
+      ],
+      "diameterKm": 12756
     },
     {
       "name": "mars",
@@ -401,7 +405,8 @@
         "A Martian day (sol) is 24 hours and 37 minutes.",
         "Mars has two tiny moons: Phobos and Deimos.",
         "The red color of Mars comes from iron oxide (rust) on its surface."
-      ]
+      ],
+      "diameterKm": 6792
     },
     {
       "name": "jupiter",
@@ -507,7 +512,8 @@
         "Jupiter has 95 known moons, including the four large Galilean moons.",
         "Jupiter's magnetic field is 20,000 times stronger than Earth's.",
         "One day on Jupiter lasts just under 10 hours \u2014 the shortest in the Solar System."
-      ]
+      ],
+      "diameterKm": 142984
     },
     {
       "name": "saturn",
@@ -657,7 +663,8 @@
         "Saturn is the least dense planet \u2014 it would float on water.",
         "Saturn has 146 known moons, including Titan with a thick atmosphere.",
         "Winds on Saturn can reach 1,800 km/h."
-      ]
+      ],
+      "diameterKm": 120536
     },
     {
       "name": "uranus",
@@ -779,7 +786,8 @@
         "Uranus has 13 known rings, first discovered in 1977.",
         "It takes Uranus 84 Earth years to orbit the Sun.",
         "Uranus was the first planet discovered with a telescope, in 1781."
-      ]
+      ],
+      "diameterKm": 51118
     },
     {
       "name": "neptune",
@@ -855,7 +863,8 @@
         "Neptune was discovered through mathematical prediction before it was observed.",
         "Neptune has a storm called the Great Dark Spot, similar to Jupiter's Red Spot.",
         "One year on Neptune equals 165 Earth years."
-      ]
+      ],
+      "diameterKm": 49528
     }
   ]
 }
