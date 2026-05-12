@@ -11,6 +11,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -44,7 +45,7 @@ const UNIFORM_DURATION = 10;
 @Component({
   selector: 'app-galaxy',
   standalone: true,
-  imports: [MenuComponent, ParallaxDirective, FormsModule],
+  imports: [MenuComponent, ParallaxDirective, FormsModule, RouterLink],
   templateUrl: './galaxy.component.html',
   styleUrl: './galaxy.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
