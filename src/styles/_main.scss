@@ -1,7 +1,7 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
-// ── Base reset ────────────────────────────────────────────────────────────────
+// Base reset
 
 html, body {
   width: 100%;
@@ -25,7 +25,7 @@ body {
   font-weight: 300;
 }
 
-// ── App shell ─────────────────────────────────────────────────────────────────
+// App shell
 
 .container {
   width: 100%;
@@ -36,7 +36,6 @@ body {
   background-size: cover;
 
   // 3.1 GPU-composited star drift: oversized pseudo-element slides via transform
-  // instead of animating background-position (which triggers repaints).
   &:before {
     content: '';
     position: absolute;
@@ -50,7 +49,7 @@ body {
   }
 }
 
-// ── Shared orbit / planet primitives ─────────────────────────────────────────
+// Shared orbit / planet primitives
 
 .planet-wrap {
   position: absolute;
@@ -89,7 +88,7 @@ body {
   }
 }
 
-// ── Per-planet orbit animations ───────────────────────────────────────────────
+// Per-planet orbit animations
 
 #sun {
   &.orbit { animation-duration: $sunOrbitalRotation; }
@@ -181,14 +180,46 @@ body {
   .planet { @include axialInclination($neptuneAxisInclination); animation-duration: $neptuneOrbitalRotation; }
 }
 
-// ── Shared state helpers ──────────────────────────────────────────────────────
+// Shared state helpers
 
 .active   { opacity: 1; }
 .visible  { opacity: 1; visibility: visible; }
 .hidden   { opacity: 0; visibility: hidden; }
 .row-flex { display: flex; flex-direction: column; align-items: center; }
 
-// ── Error page ────────────────────────────────────────────────────────────────
+// Feature 1: View Transitions - planet morph between galaxy and detail
+
+@keyframes vt-planet-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes vt-planet-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.4); }
+}
+
+::view-transition-old(root) {
+  animation: vt-planet-out 0.35s ease both;
+}
+
+::view-transition-new(root) {
+  animation: vt-planet-in 0.35s ease both;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+// Error page
 
 .error {
   position: absolute;

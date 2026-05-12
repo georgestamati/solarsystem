@@ -6,12 +6,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { PlanetDataService, Planet } from '../services/planet-data.service';
 import { VoiceService } from '../services/voice.service';
 import { SessionService } from '../services/session.service';
+import { FullscreenService } from '../services/fullscreen.service';
 import { MenuComponent } from '../menu/menu.component';
 import { ParallaxDirective } from '../directives/parallax.directive';
 
@@ -28,6 +28,7 @@ export class GalaxyComponent implements OnInit, OnDestroy {
   private readonly voice = inject(VoiceService);
   private readonly session = inject(SessionService);
   private readonly router = inject(Router);
+  readonly fullscreen = inject(FullscreenService);
 
   private readonly solarSystem$ = this.data.getAll();
 
