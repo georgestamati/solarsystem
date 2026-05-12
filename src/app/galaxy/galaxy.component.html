@@ -1,0 +1,79 @@
+<app-menu [planets]="planets()"></app-menu>
+
+<!-- Feature 7: Fullscreen toggle -->
+<button
+  class="fullscreen-btn"
+  type="button"
+  (click)="fullscreen.toggle()"
+  [attr.aria-label]="fullscreen.isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen'"
+  [attr.title]="fullscreen.isFullscreen() ? 'Exit fullscreen' : 'Enter fullscreen'"
+>{{ fullscreen.isFullscreen() ? '✕' : '⤢' }}</button>
+
+<!-- Feature 2: Orbit speed control panel -->
+<div class="speed-control" role="group" aria-label="Orbit speed control">
+  <span class="speed-control__label">Orbit speed</span>
+  <div class="speed-control__presets">
+    <button
+      type="button"
+      class="speed-control__btn"
+      [class.active]="speedMode() === 'real'"
+      (click)="setSpeedMode('real')"
+      title="Real orbital proportions"
+    >Real</button>
+    <button
+      type="button"
+      class="speed-control__btn"
+      [class.active]="speedMode() === 'uniform'"
+      (click)="setSpeedMode('uniform')"
+      title="All planets orbit at the same speed"
+    >Uniform</button>
+    <button
+      type="button"
+      class="speed-control__btn"
+      [class.active]="speedMode() === 'custom'"
+      title="Custom speed multiplier"
+    >{{ customSpeed() }}×</button>
+  </div>
+  <input
+    class="speed-control__slider"
+    type="range"
+    min="1"
+    max="200"
+    step="1"
+    [value]="customSpeed()"
+    (input)="onCustomSpeedChange($event)"
+    aria-label="Speed multiplier"
+  />
+</div>
+
+<div id="universe" class="universe__session">
+  <div class="page-index">
+    <div id="galaxy" class="galaxy-view--3D" appParallax #galaxyRef>
+
+      <!-- Sun (static centre, no orbit animation) -->
+      <div id="sun" class="orbit">
+        <div class="planet-wrap">
+          <div
+            class="planet"
+            role="button"
+            tabindex="0"
+            aria-label="Open Sun details"
+            [style.viewTransitionName]="'planet-sun'"
+            (click)="navigate('sun')"
+            (keydown.enter)="navigate('sun')"
+            (keydown.space)="navigate('sun'); $event.preventDefault()"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Planets loaded from data -->
+      @for (planet of orbitPlanets(); track planet.name) {
+        @if (planet.name === 'earth') {
+          <div
+            id="earth"
+            class="orbit orbit-border"
+            role="button"
+            tabindex="0"
+            aria-label="Open Earth details"
+            (click)="navigate('earth')"
+            (keydown.enter)="naviga

@@ -1,0 +1,268 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Base reset
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+a {
+  font-family: 'gravediggerregular', sans-serif;
+  text-decoration: none;
+}
+
+body {
+  overflow: hidden;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 300;
+}
+
+// App shell
+
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #000 url('/img/stars.png') no-repeat;
+  background-size: cover;
+
+  // 3.1 GPU-composited star drift: oversized pseudo-element slides via transform
+  &:before {
+    content: '';
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    width: calc(100% + 2000px);
+    height: calc(100% + 2000px);
+    background: url('/img/clip-stars.png') repeat top center;
+    animation: clippingStars 50s linear infinite;
+    will-change: transform;
+  }
+}
+
+// Shared orbit / planet primitives
+
+.planet-wrap {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  will-change: transform;
+}
+
+.planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include elementPosition(1em, 1em, -0.5em, -0.5em);
+  border-radius: 50%;
+  background: #202020 repeat-x;
+  background-size: cover;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include elementPosition(12em, 12em, -6em, -6em);
+  border-radius: 50%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  &.orbit-border {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+  }
+}
+
+// Per-planet orbit animations
+// Feature 2: animation durations driven by CSS custom properties so JS
+// speed control can update them at runtime.
+
+#sun {
+  &.orbit { animation-duration: calc(var(--sun-duration, #{$sunOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 50%); animation-duration: calc(var(--sun-duration, #{$sunOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($sunAxisInclination); animation-duration: calc(var(--sun-duration, #{$sunOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+#mercury {
+  &.orbit { animation-name: mercuryOrbit; animation-duration: calc(var(--mercury-duration, #{$mercuryOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 0); animation-duration: calc(var(--mercury-duration, #{$mercuryOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($mercuryAxisInclination); animation-duration: calc(var(--mercury-duration, #{$mercuryOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+#venus {
+  &.orbit { animation-name: venusOrbit; animation-duration: calc(var(--venus-duration, #{$venusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 100%); animation-duration: calc(var(--venus-duration, #{$venusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($venusAxisInclination); animation-duration: calc(var(--venus-duration, #{$venusOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+#earth {
+  &.orbit { animation-name: earthOrbit; animation-duration: calc(var(--earth-duration, #{$earthOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(100%, 50%); animation-duration: calc(var(--earth-duration, #{$earthOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet {
+    @include axialInclination($earthAxisInclination);
+    animation-duration: calc(var(--earth-duration, #{$earthOrbitalRotation}) / var(--orbit-speed, 1));
+
+    #moon {
+      @include elementPosition(1.8em, 1.8em, -0.9em, -0.9em);
+      animation-name: suborbit;
+      animation-duration: calc(var(--moon-duration, #{$moonOrbitalRotation}) / var(--orbit-speed, 1));
+
+      .planet-wrap {
+        left: 50%;
+        top: -1px;
+        animation-duration: calc(var(--moon-duration, #{$moonOrbitalRotation}) / var(--orbit-speed, 1));
+      }
+
+      .planet {
+        @include elementPosition(0.3em, 0.3em, -0.15em, -0.15em);
+        background-image: url('/img/moons/earth/moon.jpg');
+        border-radius: 50%;
+        animation-duration: calc(var(--moon-duration, #{$moonOrbitalRotation}) / var(--orbit-speed, 1));
+      }
+    }
+  }
+}
+
+#mars {
+  &.orbit { animation-name: marsOrbit; animation-duration: calc(var(--mars-duration, #{$marsOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 100%); animation-duration: calc(var(--mars-duration, #{$marsOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($marsAxisInclination); animation-duration: calc(var(--mars-duration, #{$marsOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+#jupiter {
+  &.orbit { animation-name: jupiterOrbit; animation-duration: calc(var(--jupiter-duration, #{$jupiterOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 0); animation-duration: calc(var(--jupiter-duration, #{$jupiterOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($jupiterAxisInclination); animation-duration: calc(var(--jupiter-duration, #{$jupiterOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+#saturn {
+  &.orbit { animation-name: saturnOrbit; animation-duration: calc(var(--saturn-duration, #{$saturnOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(0, 50%); animation-duration: calc(var(--saturn-duration, #{$saturnOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($saturnAxisInclination); animation-duration: calc(var(--saturn-duration, #{$saturnOrbitalRotation}) / var(--orbit-speed, 1)); }
+
+  .rings {
+    @include elementPosition(2em, 2em, -0.5em, -0.5em);
+    border-radius: 50%;
+    transform: rotateX(90deg);
+    background: $saturnRingsBackground;
+  }
+}
+
+#uranus {
+  &.orbit { animation-name: uranusOrbit; animation-duration: calc(var(--uranus-duration, #{$uranusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(0%, 100%); animation-duration: calc(var(--uranus-duration, #{$uranusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($uranusAxisInclination); animation-duration: calc(var(--uranus-duration, #{$uranusOrbitalRotation}) / var(--orbit-speed, 1)); }
+
+  .rings {
+    @include elementPosition(1.8em, 1.8em, -0.4em, -0.4em);
+    border-radius: 50%;
+    background: $uranusRingsBackground;
+    transform: rotateX(60deg);
+  }
+}
+
+#neptune {
+  &.orbit { animation-name: neptuneOrbit; animation-duration: calc(var(--neptune-duration, #{$neptuneOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(100%, 50%); animation-duration: calc(var(--neptune-duration, #{$neptuneOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($neptuneAxisInclination); animation-duration: calc(var(--neptune-duration, #{$neptuneOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+#asteroids {
+  &.orbit { animation-name: asteroidOrbit; animation-duration: calc(var(--asteroids-duration, #{$asteroidOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { animation-duration: calc(var(--asteroids-duration, #{$asteroidOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+// Shared state helpers
+
+.active   { opacity: 1; }
+.visible  { opacity: 1; visibility: visible; }
+.hidden   { opacity: 0; visibility: hidden; }
+.row-flex { display: flex; flex-direction: column; align-items: center; }
+
+// Feature 1: View Transitions - planet morph between galaxy and detail
+
+@keyframes vt-planet-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes vt-planet-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.4); }
+}
+
+::view-transition-old(root) {
+  animation: vt-planet-out 0.35s ease both;
+}
+
+::view-transition-new(root) {
+  animation: vt-planet-in 0.35s ease both;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+// Error page
+
+.error {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+
+  &__status {
+    padding: 0 20px;
+
+    &--digit {
+      display: inline-block;
+      margin: 0 10px;
+
+      .loader__planet {
+        width: 150px;
+        height: 150px;
+        margin: auto;
+      }
+
+      &.number {
+        @extend a;
+        color: #000;
+        font-size: 150px;
+        text-shadow: 0 0 30px #8ff, 0 0 100px #000, 0 0 50px #5ff, -20px -10px 100px #000;
+      }
+    }
+  }
+
+  &__message {
+    @extend a;
+    padding: 50px 20px;
+    font-size: 24px;
+    line-height: 1.5;
+    letter-spacing: 2px;
+  }
+}
