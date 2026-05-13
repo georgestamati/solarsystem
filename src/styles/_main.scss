@@ -89,69 +89,71 @@ body {
 }
 
 // Per-planet orbit animations
+// Feature 2: animation durations driven by CSS custom properties so JS
+// speed control can update them at runtime.
 
 #sun {
-  &.orbit { animation-duration: $sunOrbitalRotation; }
-  .planet-wrap { @include planetPosition(50%, 50%); animation-duration: $sunOrbitalRotation; }
-  .planet { @include axialInclination($sunAxisInclination); animation-duration: $sunOrbitalRotation; }
+  &.orbit { animation-duration: calc(var(--sun-duration, #{$sunOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 50%); animation-duration: calc(var(--sun-duration, #{$sunOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($sunAxisInclination); animation-duration: calc(var(--sun-duration, #{$sunOrbitalRotation}) / var(--orbit-speed, 1)); }
 }
 
 #mercury {
-  &.orbit { animation-name: mercuryOrbit; animation-duration: $mercuryOrbitalRotation; }
-  .planet-wrap { @include planetPosition(50%, 0); animation-duration: $mercuryOrbitalRotation; }
-  .planet { @include axialInclination($mercuryAxisInclination); animation-duration: $mercuryOrbitalRotation; }
+  &.orbit { animation-name: mercuryOrbit; animation-duration: calc(var(--mercury-duration, #{$mercuryOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 0); animation-duration: calc(var(--mercury-duration, #{$mercuryOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($mercuryAxisInclination); animation-duration: calc(var(--mercury-duration, #{$mercuryOrbitalRotation}) / var(--orbit-speed, 1)); }
 }
 
 #venus {
-  &.orbit { animation-name: venusOrbit; animation-duration: $venusOrbitalRotation; }
-  .planet-wrap { @include planetPosition(50%, 100%); animation-duration: $venusOrbitalRotation; }
-  .planet { @include axialInclination($venusAxisInclination); animation-duration: $venusOrbitalRotation; }
+  &.orbit { animation-name: venusOrbit; animation-duration: calc(var(--venus-duration, #{$venusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 100%); animation-duration: calc(var(--venus-duration, #{$venusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($venusAxisInclination); animation-duration: calc(var(--venus-duration, #{$venusOrbitalRotation}) / var(--orbit-speed, 1)); }
 }
 
 #earth {
-  &.orbit { animation-name: earthOrbit; animation-duration: $earthOrbitalRotation; }
-  .planet-wrap { @include planetPosition(100%, 50%); animation-duration: $earthOrbitalRotation; }
+  &.orbit { animation-name: earthOrbit; animation-duration: calc(var(--earth-duration, #{$earthOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(100%, 50%); animation-duration: calc(var(--earth-duration, #{$earthOrbitalRotation}) / var(--orbit-speed, 1)); }
   .planet {
     @include axialInclination($earthAxisInclination);
-    animation-duration: $earthOrbitalRotation;
+    animation-duration: calc(var(--earth-duration, #{$earthOrbitalRotation}) / var(--orbit-speed, 1));
 
     #moon {
       @include elementPosition(1.8em, 1.8em, -0.9em, -0.9em);
       animation-name: suborbit;
-      animation-duration: $moonOrbitalRotation;
+      animation-duration: calc(var(--moon-duration, #{$moonOrbitalRotation}) / var(--orbit-speed, 1));
 
       .planet-wrap {
         left: 50%;
         top: -1px;
-        animation-duration: $moonOrbitalRotation;
+        animation-duration: calc(var(--moon-duration, #{$moonOrbitalRotation}) / var(--orbit-speed, 1));
       }
 
       .planet {
         @include elementPosition(0.3em, 0.3em, -0.15em, -0.15em);
         background-image: url('/img/moons/earth/moon.jpg');
         border-radius: 50%;
-        animation-duration: $moonOrbitalRotation;
+        animation-duration: calc(var(--moon-duration, #{$moonOrbitalRotation}) / var(--orbit-speed, 1));
       }
     }
   }
 }
 
 #mars {
-  &.orbit { animation-name: marsOrbit; animation-duration: $marsOrbitalRotation; }
-  .planet-wrap { @include planetPosition(50%, 100%); animation-duration: $marsOrbitalRotation; }
-  .planet { @include axialInclination($marsAxisInclination); animation-duration: $marsOrbitalRotation; }
+  &.orbit { animation-name: marsOrbit; animation-duration: calc(var(--mars-duration, #{$marsOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 100%); animation-duration: calc(var(--mars-duration, #{$marsOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($marsAxisInclination); animation-duration: calc(var(--mars-duration, #{$marsOrbitalRotation}) / var(--orbit-speed, 1)); }
 }
 
 #jupiter {
-  &.orbit { animation-name: jupiterOrbit; animation-duration: $jupiterOrbitalRotation; }
-  .planet-wrap { @include planetPosition(50%, 0); animation-duration: $jupiterOrbitalRotation; }
-  .planet { @include axialInclination($jupiterAxisInclination); animation-duration: $jupiterOrbitalRotation; }
+  &.orbit { animation-name: jupiterOrbit; animation-duration: calc(var(--jupiter-duration, #{$jupiterOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(50%, 0); animation-duration: calc(var(--jupiter-duration, #{$jupiterOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($jupiterAxisInclination); animation-duration: calc(var(--jupiter-duration, #{$jupiterOrbitalRotation}) / var(--orbit-speed, 1)); }
 }
 
 #saturn {
-  &.orbit { animation-name: saturnOrbit; animation-duration: $saturnOrbitalRotation; }
-  .planet-wrap { @include planetPosition(0, 50%); animation-duration: $saturnOrbitalRotation; }
-  .planet { @include axialInclination($saturnAxisInclination); animation-duration: $saturnOrbitalRotation; }
+  &.orbit { animation-name: saturnOrbit; animation-duration: calc(var(--saturn-duration, #{$saturnOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(0, 50%); animation-duration: calc(var(--saturn-duration, #{$saturnOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($saturnAxisInclination); animation-duration: calc(var(--saturn-duration, #{$saturnOrbitalRotation}) / var(--orbit-speed, 1)); }
 
   .rings {
     @include elementPosition(2em, 2em, -0.5em, -0.5em);
@@ -162,9 +164,9 @@ body {
 }
 
 #uranus {
-  &.orbit { animation-name: uranusOrbit; animation-duration: $uranusOrbitalRotation; }
-  .planet-wrap { @include planetPosition(0%, 100%); animation-duration: $uranusOrbitalRotation; }
-  .planet { @include axialInclination($uranusAxisInclination); animation-duration: $uranusOrbitalRotation; }
+  &.orbit { animation-name: uranusOrbit; animation-duration: calc(var(--uranus-duration, #{$uranusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(0%, 100%); animation-duration: calc(var(--uranus-duration, #{$uranusOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($uranusAxisInclination); animation-duration: calc(var(--uranus-duration, #{$uranusOrbitalRotation}) / var(--orbit-speed, 1)); }
 
   .rings {
     @include elementPosition(1.8em, 1.8em, -0.4em, -0.4em);
@@ -175,9 +177,14 @@ body {
 }
 
 #neptune {
-  &.orbit { animation-name: neptuneOrbit; animation-duration: $neptuneOrbitalRotation; }
-  .planet-wrap { @include planetPosition(100%, 50%); animation-duration: $neptuneOrbitalRotation; }
-  .planet { @include axialInclination($neptuneAxisInclination); animation-duration: $neptuneOrbitalRotation; }
+  &.orbit { animation-name: neptuneOrbit; animation-duration: calc(var(--neptune-duration, #{$neptuneOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { @include planetPosition(100%, 50%); animation-duration: calc(var(--neptune-duration, #{$neptuneOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet { @include axialInclination($neptuneAxisInclination); animation-duration: calc(var(--neptune-duration, #{$neptuneOrbitalRotation}) / var(--orbit-speed, 1)); }
+}
+
+#asteroids {
+  &.orbit { animation-name: asteroidOrbit; animation-duration: calc(var(--asteroids-duration, #{$asteroidOrbitalRotation}) / var(--orbit-speed, 1)); }
+  .planet-wrap { animation-duration: calc(var(--asteroids-duration, #{$asteroidOrbitalRotation}) / var(--orbit-speed, 1)); }
 }
 
 // Shared state helpers

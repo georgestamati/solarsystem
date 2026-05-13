@@ -1,0 +1,97 @@
+@use '../../styles/variables' as *;
+
+.help-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-dialog {
+  width: min(480px, 90vw);
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    color: var(--color-accent);
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.2s ease;
+
+    &:hover { color: #fff; }
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 12px 0;
+
+    tr { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+
+    td { padding: 10px 20px; }
+  }
+
+  &__keys {
+    white-space: nowrap;
+    width: 1%;
+
+    kbd {
+      display: inline-block;
+      padding: 2px 7px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--color-accent);
+      margin-right: 3px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+  }
+
+  &__desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__hint {
+    padding: 10px 20px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 0;
+    text-align: center;
+
+    kbd {
+      display: inline-block;
+      padding: 1px 5px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      font-size: 10px;
+    }
+  }
+}

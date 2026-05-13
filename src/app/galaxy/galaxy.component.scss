@@ -99,6 +99,140 @@
   }
 }
 
+// Feature 2: Orbit speed control panel
+
+.speed-control {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: var(--z-menu-button);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 10px 12px;
+  backdrop-filter: blur(6px);
+
+  &__label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__presets {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__btn {
+    font-size: 11px;
+    padding: 3px 8px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--color-accent);
+    }
+
+    &.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #000;
+    }
+  }
+
+  &__slider {
+    width: 140px;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+}
+
+// Feature 4: Compare link button
+
+.compare-btn {
+  position: fixed;
+  top: 16px;
+  right: 70px;
+  z-index: var(--z-menu-button);
+  font-size: 12px;
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Feature 9: Theme toggle button
+
+.theme-btn {
+  position: fixed;
+  bottom: 120px;
+  right: 16px;
+  z-index: var(--z-menu-button);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
+// Feature 8: Audio mute button
+
+.mute-btn {
+  position: fixed;
+  bottom: 68px;
+  right: 16px;
+  z-index: var(--z-menu-button);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
 // Feature 7: Fullscreen toggle button
 
 .fullscreen-btn {
@@ -130,5 +264,15 @@
   .page-index {
     transform: scale(0.78);
     transform-origin: center center;
+  }
+
+  .speed-control {
+    bottom: 8px;
+    left: 8px;
+    padding: 8px 10px;
+
+    &__slider {
+      width: 110px;
+    }
   }
 }

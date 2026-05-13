@@ -120,6 +120,14 @@
             </div>
           </div>
         </div>
+
+        <!-- Feature 6: Facts carousel -->
+        <app-facts-carousel [facts]="p.facts ?? []" />
+
+        <!-- Feature 11: Planet size comparison -->
+        @if (p.diameterKm) {
+          <app-size-comparison [planetName]="p.name" [diameterKm]="p.diameterKm" />
+        }
       </div>
     </div>
   </div>

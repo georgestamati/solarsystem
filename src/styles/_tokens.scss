@@ -1,12 +1,14 @@
 // CSS custom properties — defined on :root, consumed across all component styles.
-// Centralising these makes theming (e.g. dark/light toggle) a one-file change.
 
 :root {
   // ── Colour palette ──────────────────────────────────────────────────────────
-  --color-accent:      aqua;          // primary interactive / highlight colour
-  --color-bg:          #000;          // page background
-  --color-text:        #fff;          // body text
-  --color-overlay:     rgba(0,0,0,0.9);  // menu overlay background
+  --color-accent:      aqua;
+  --color-bg:          #000;
+  --color-text:        #fff;
+  --color-overlay:     rgba(0,0,0,0.9);
+  --color-surface:     rgba(255,255,255,0.05);
+  --color-border:      rgba(255,255,255,0.15);
+  --color-text-muted:  rgba(255,255,255,0.4);
 
   // ── Z-index scale ───────────────────────────────────────────────────────────
   --z-loader:          1;
@@ -23,4 +25,16 @@
   // ── Shared shadows ──────────────────────────────────────────────────────────
   --shadow-planet-inset: inset -9px -2px 39px 15px #000;
   --shadow-sun: 0 0 30px 12px orange, 0 0 100px 20px orange inset;
+}
+
+// Feature 9: Light theme overrides
+[data-theme='light'] {
+  --color-accent:      #0066cc;
+  --color-bg:          #f0f0f0;
+  --color-text:        #111;
+  --color-overlay:     rgba(240,240,240,0.95);
+  --color-surface:     rgba(0,0,0,0.04);
+  --color-border:      rgba(0,0,0,0.12);
+  --color-text-muted:  rgba(0,0,0,0.4);
+  --shadow-planet-inset: inset -9px -2px 39px 15px rgba(0,0,0,0.5);
 }

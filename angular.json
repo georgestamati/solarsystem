@@ -22,14 +22,30 @@
             "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [{ "glob": "**/*", "input": "src/assets" }],
-            "styles": ["src/styles.scss"]
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets"
+              },
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
-                { "type": "initial", "maximumWarning": "500kB", "maximumError": "1MB" },
-                { "type": "anyComponentStyle", "maximumWarning": "4kB", "maximumError": "8kB" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
               ],
               "outputHashing": "all"
             },
@@ -45,8 +61,12 @@
           "builder": "@angular/build:dev-server",
           "options": {},
           "configurations": {
-            "production": { "buildTarget": "solarsystem:build:production" },
-            "development": { "buildTarget": "solarsystem:build:development" }
+            "production": {
+              "buildTarget": "solarsystem:build:production"
+            },
+            "development": {
+              "buildTarget": "solarsystem:build:development"
+            }
           },
           "defaultConfiguration": "development"
         },

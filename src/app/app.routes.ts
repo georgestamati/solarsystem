@@ -14,6 +14,13 @@ export const routes: Routes = [
       import('./galaxy/galaxy.component').then(m => m.GalaxyComponent),
   },
   {
+    path: 'compare',
+    loadComponent: () =>
+      import('./planet-compare/planet-compare.component').then(
+        m => m.PlanetCompareComponent
+      ),
+  },
+  {
     path: ':planet',
     loadComponent: () =>
       import('./planet-detail/planet-detail.component').then(

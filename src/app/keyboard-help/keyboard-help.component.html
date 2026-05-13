@@ -1,0 +1,25 @@
+@if (isOpen()) {
+  <div class="help-backdrop" role="presentation" (click)="onBackdrop($event)">
+    <div class="help-dialog" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+      <div class="help-dialog__header">
+        <h2 class="help-dialog__title">Keyboard Shortcuts</h2>
+        <button type="button" class="help-dialog__close" (click)="close()" aria-label="Close">&times;</button>
+      </div>
+      <table class="help-dialog__table">
+        <tbody>
+          @for (s of shortcuts; track s.description) {
+            <tr>
+              <td class="help-dialog__keys">
+                @for (key of s.keys; track key) {
+                  <kbd>{{ key }}</kbd>
+                }
+              </td>
+              <td class="help-dialog__desc">{{ s.description }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <p class="help-dialog__hint">Press <kbd>?</kbd> to toggle this dialog</p>
+    </div>
+  </div>
+}
