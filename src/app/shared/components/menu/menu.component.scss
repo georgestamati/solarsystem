@@ -1,0 +1,32 @@
+@use '../../../../styles/variables' as *;
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-menu-button);
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__link {
+    display: block;
+    padding: 4px 10px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--color-accent);
+    }
+  }
+}

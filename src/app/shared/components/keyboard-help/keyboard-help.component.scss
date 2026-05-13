@@ -1,0 +1,97 @@
+@use '../../../../styles/variables' as *;
+
+.keyboard-help {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+
+  &__dialog {
+    background: var(--color-dialog-bg);
+    border: 1px solid var(--color-panel-border);
+    border-radius: 8px;
+    padding: 24px;
+    min-width: 320px;
+    max-width: 480px;
+    width: 90%;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-btn-text);
+  }
+
+  &__close {
+    background: transparent;
+    border: 1px solid var(--color-panel-border);
+    border-radius: 3px;
+    color: var(--color-btn-text);
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+
+    &:hover { opacity: 1; }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__keys {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  &__key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 24px;
+    padding: 0 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    font-size: 11px;
+    color: var(--color-btn-text);
+    letter-spacing: 0.5px;
+  }
+
+  &__desc {
+    font-size: 12px;
+    color: var(--color-panel-text);
+    text-align: right;
+  }
+}

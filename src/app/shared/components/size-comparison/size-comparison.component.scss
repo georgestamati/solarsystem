@@ -1,0 +1,40 @@
+@use '../../../../styles/variables' as *;
+
+.size-comparison {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 12px;
+  background: var(--color-panel-bg);
+  border: 1px solid var(--color-panel-border);
+  border-radius: 6px;
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__circle {
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.7;
+    transition: width 0.4s ease, height 0.4s ease;
+  }
+
+  &__label {
+    font-size: 10px;
+    color: var(--color-panel-text);
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  &__ratio {
+    font-size: 11px;
+    color: var(--color-btn-text);
+    margin-top: 4px;
+    text-align: center;
+  }
+}
