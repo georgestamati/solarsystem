@@ -1,0 +1,843 @@
+html, body
+	width: 100%
+	height: 100%
+
+a
+	font-family: 'gravediggerregular', sans-serif
+	text-decoration: none
+
+body
+	overflow: hidden
+	color: #fff
+	font-size: 10px
+	font-weight: 300
+
+.container
+	width: 100%
+	height: 100%
+	overflow: hidden
+	background: #000 url('../img/stars.png') no-repeat
+	background-size: cover
+	&:before
+		content: ''
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		bottom: 0
+		background: url('../img/clip-stars.png') repeat top center
+		animation: clippingStars 50s linear infinite
+
+.loader
+	position: absolute
+	z-index: 1
+	display: flex
+	align-items: center
+	justify-content: center
+	flex-direction: column
+	height: 100%
+	width: 100%
+	overflow: hidden
+	&.loader__same-session
+		@include animationMixin(scaleLoader, 5s, 0s)
+	&.loader__new-session
+		@include scaleElement(0, scale(0,0))
+		@include animationMixin(scaleUpOnClick, 5s, 0s)
+	&.loader__new-session--clicked
+		@include animationMixin(scaleDownOnClick, 2s, 0s)
+
+.loader__wrapper
+	width: 100%
+	text-align: center
+	&--input
+		position: relative
+		padding: 10px 30px
+		margin: 0.5em 0 1em
+		font-size: 1em
+		font-family: 'gravediggerregular', sans-serif
+		color: aqua
+		line-height: 1
+		background: transparent
+		border: 1px solid aqua
+		box-sizing: border-box
+		cursor: pointer
+::-webkit-input-placeholder
+	color: aqua
+::-moz-placeholder
+	color: aqua
+
+.loader__welcome
+	width: 100%
+	background: transparent
+	@include scaleElement(0, scale(0,0))
+	font-size: 3em
+	font-family: 'gravediggerregular', sans-serif
+	line-height: 1.4
+	color: aqua
+	&.welcome__message
+		@include animationMixin(scaleUniverse, 2s, 1s)
+		margin-top: -100px
+	&.control__message
+		@include animationMixin(scaleUniverse, 2s, 4s)
+
+.loader__redirect
+	position: absolute
+	top: 100%
+	left: 0
+	right: 0
+	margin: 0 auto
+	@include scaleElement(0, scale(0,0))
+	@include animationMixin(scaleUniverse, 2s, 1s)
+
+.loader__control-buttons
+	display: flex
+	justify-content: center
+	&.ask__code
+		position: fixed
+		top: 11px
+		right: 75px
+		margin: 0
+		button
+			margin: 0
+
+.loader__control-button
+	cursor: pointer
+
+.loader__text
+	text-align: center
+	&.loader__text--error
+		border: 1px solid red
+		outline: none
+	&.loader__text--animation
+		animation-name: shakeLoaderText
+		animation-duration: 0.5s
+
+.loader__button
+	bottom: -50%
+	cursor: pointer
+
+.loader__planet
+	position: relative
+	width: 200px
+	height: 200px
+	margin: 30px auto
+	border-radius: 50%
+	background: url('../img/planets/earth.jpg') repeat-x
+	background-size: cover
+	background-position-x: -450px
+	animation: animatedBackground 8s infinite linear
+	&:after
+		content: ""
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		border-radius: 50%
+		box-shadow: 0 0 30px #8ff, 0 0 100px #000 inset, 0 0 50px #5ff inset, -20px -10px 100px #000 inset
+		animation: loaderAnimation 2s infinite linear
+
+.menu__button
+	position: fixed
+	top: 15px
+	right: 15px
+	z-index: 99
+	width: 30px
+	height: 30px
+	cursor: pointer
+	&--line
+		position: absolute
+		opacity: 1
+		width: 100%
+		height: 3px
+		background: aqua
+		transition: all 0.2s ease
+		&.span1
+			top: 0
+		&.span2
+			top: 10px
+		&.span3
+			top: 20px
+	&.active
+		transition: all 0.2s ease
+		.span1
+			transform: translateY(10px) translateX(0) rotate(45deg)
+		.span2
+			opacity: 0
+		.span3
+			transform: translateY(-10px) translateX(0) rotate(-45deg)
+
+.menu__overlay
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	opacity: 0
+	visibility: hidden
+	transition: opacity .35s, visibility .35s, width .35s
+	text-align: center
+	background-color: #000
+	&.open
+		opacity: 0.9
+		visibility: visible
+		z-index: 98
+	.dropdown__bottom
+		position: fixed
+		top: initial
+		bottom: 0
+
+.menu
+	margin: 0
+	text-align: center
+	a
+		color: aqua
+		font-size: 18px
+		transition: all ease .3s
+		&:hover
+			color: #fff
+			font-size: 22px
+			@include menuItems()
+	&.desktop-menu
+		position: absolute
+		top: 50%
+		left: 50%
+		transform: translate(-50%, -50%)
+		height: 100%
+		padding: 50px 0
+		box-sizing: border-box
+		li
+			position: relative
+			list-style: none
+			height: 10%
+			&:hover .dropdown
+				opacity: 1
+				visibility: visible
+				transition: all .1s ease
+				a
+					opacity: 1
+					visibility: visible
+					margin-left: 0
+					@include menuItems()
+		a:hover
+			@include menuItems()
+	&.main-page-link
+		position: fixed
+		left: 0
+		right: 0
+		padding: 10px 0
+		z-index: 1
+		background-color: #000
+	&.mobile-menu
+		display: -webkit-box
+		align-items: center
+		width: 100%
+		height: 100%
+		padding: 40px 0 0 0
+		overflow: auto
+		white-space: nowrap
+	.menu-item
+		position: relative
+		display: block
+		width: 100%
+		a
+			font-size: 32px
+			text-align: center
+			text-decoration: none
+		> div > .planet
+			animation-name: animatedBackground
+			animation-duration: 10s !important
+			animation-timing-function: linear
+			animation-iteration-count: infinite
+	.planet
+		position: static
+		width: 200px
+		height: 200px
+		margin: 50px auto 50px
+		font-size: inherit
+		background-repeat: repeat-x
+		background-size: 400px
+		transform-style: preserve-3d
+		box-shadow: inset -9px -2px 39px 15px #000
+
+	#uranus .rings
+		@include elementPosition(38em, 20em, 0em, -9em)
+		background: $uranusRingsBackground
+	#saturn .rings
+		position: absolute
+		@include elementPosition(38em, 20em, 0em, -9em)
+		background: $saturnRingsBackground
+		transform: rotateX(40deg)
+	.moons-wrapper
+		display: none
+		div
+			transform: scale(0.75)
+	#uranus .moons-wrapper .planet, #neptune .moons-wrapper .planet
+		background-size: 1000px
+		background-position: 450px -300px
+	.info__controls
+		flex-wrap: wrap
+		&--read__text
+			flex: 0 1 100%
+			padding-top: 20px
+	.moons-wrapper
+		position: absolute
+		width: 100%
+		.moon
+			position: relative
+			margin: 40px auto 80px
+
+.dropdown
+	position: absolute
+	top: 0
+	left: 100%
+	opacity: 0
+	visibility: hidden
+	padding-left: 30px
+	text-align: left
+	transition: all .5s ease
+	a
+		display: block
+		opacity: 0
+		visibility: hidden
+		margin-bottom: 25px
+		margin-left: 30px
+		@include menuItems()
+		font-size: 16px
+		&:last-child
+			padding-bottom: 0
+
+#universe
+	width: 100%
+	height: 100%
+	@include scaleElement(0, scale(0,0))
+	&.universe__same-session
+		@include animationMixin(scaleUniverse, 1s, 4s)
+	&.universe__new-session--clicked
+		@include animationMixin(scaleUpOnClick, 2s, 0s)
+
+#galaxy
+	position: relative
+	width: 100%
+	height: 100%
+	.page-planet &
+		position: absolute
+		transition: all 0.5s ease
+
+.planet-wrap
+	position: absolute
+	top: -1px
+	left: 50%
+
+.planet
+	position: absolute
+	top: 50%
+	left: 50%
+	@include elementPosition(1em, 1em, -0.5em, -0.5em)
+	border-radius: 50%
+	background: #202020 repeat-x
+	background-size: cover
+	animation-iteration-count: infinite
+	animation-timing-function: linear
+	transform-style: preserve-3d
+
+.orbit
+	position: absolute
+	top: 50%
+	left: 50%
+	@include elementPosition(12em, 12em, -6em, -6em)
+	border-radius: 50%
+	animation-iteration-count: infinite
+	animation-timing-function: linear
+	transform-style: preserve-3d
+	&.orbit-border
+		border: 1px solid rgba(255, 255, 255, 0.4)
+
+#sun
+	&.orbit
+		animation-duration: $sunOrbitalRotation
+	.planet-wrap
+		@include planetPosition(50%, 50%)
+		animation-duration: $sunOrbitalRotation
+	.planet
+		@include axialInclination($sunAxisInclination)
+		animation-duration: $sunOrbitalRotation
+
+#mercury
+	&.orbit
+		animation-name: mercuryOrbit
+		animation-duration: $mercuryOrbitalRotation
+	.planet-wrap
+		@include planetPosition(50%, 0)
+		animation-duration: $mercuryOrbitalRotation
+	.planet
+		@include axialInclination($mercuryAxisInclination)
+		animation-duration: $mercuryOrbitalRotation
+
+#venus
+	&.orbit
+		animation-name: venusOrbit
+		animation-duration: $venusOrbitalRotation
+	.planet-wrap
+		@include planetPosition(50%, 100%)
+		animation-duration: $venusOrbitalRotation
+	.planet
+		@include axialInclination($venusAxisInclination)
+		animation-duration: $venusOrbitalRotation
+
+#earth
+	&.orbit
+		animation-name: earthOrbit
+		animation-duration: $earthOrbitalRotation
+	.planet-wrap
+		@include planetPosition(100%, 50%)
+		animation-duration: $earthOrbitalRotation
+	.planet
+		@include axialInclination($earthAxisInclination)
+		animation-duration: $earthOrbitalRotation
+		#moon
+			@include elementPosition(1.8em, 1.8em, -0.9em, -0.9em)
+			animation-name: suborbit
+			animation-duration: $moonOrbitalRotation
+			.planet-wrap
+				left: 50%
+				top: -1px
+				animation-duration: $moonOrbitalRotation
+			.planet
+				@include elementPosition(0.3em, 0.3em, -0.15em, -0.15em)
+				background-image: url('../img/moons/earth/moon.jpg')
+				border-radius: 50%
+				animation-duration: $moonOrbitalRotation
+
+#mars
+	&.orbit
+		animation-name: marsOrbit
+		animation-duration: $marsOrbitalRotation
+	.planet-wrap
+		@include planetPosition(50%, 100%)
+		animation-duration: $marsOrbitalRotation
+	.planet
+		@include axialInclination($marsAxisInclination)
+		animation-duration: $marsOrbitalRotation
+
+#jupiter
+	&.orbit
+		animation-name: jupiterOrbit
+		animation-duration: $jupiterOrbitalRotation
+	.planet-wrap
+		@include planetPosition(50%, 0)
+		animation-duration: $jupiterOrbitalRotation
+	.planet
+		@include axialInclination($jupiterAxisInclination)
+		animation-duration: $jupiterOrbitalRotation
+
+#saturn
+	&.orbit
+		animation-name: saturnOrbit
+		animation-duration: $saturnOrbitalRotation
+	.planet-wrap
+		@include planetPosition(0, 50%)
+		animation-duration: $saturnOrbitalRotation
+	.planet
+		@include axialInclination($saturnAxisInclination)
+		animation-duration: $saturnOrbitalRotation
+	.rings
+		@include elementPosition(2em, 2em, -0.5em, -0.5em)
+		border-radius: 50%
+		transform: rotateX(90deg)
+		background: radial-gradient(ellipse at center, rgba(24,19,25,0) 0%,rgba(53,52,51,0) 34%,rgba(55,54,52,1) 36%,rgba(56,55,53,1) 37%,rgba(68,67,66,1) 38%,rgba(56,55,53,1) 39%,rgba(68,67,66,1) 40%,rgba(56,55,53,1) 41%,rgba(87,77,76,1) 42%,rgba(87,77,76,1) 44%,rgba(113,110,103,1) 46%,rgba(113,110,103,1) 48%,rgba(113,98,93,1) 49%,rgba(113,98,93,1) 51%,rgba(122,115,105,1) 52%,rgba(113,98,93,1) 53%,rgba(113,98,93,1) 54%,rgba(122,115,105,1) 55%,rgba(106,99,89,1) 56%,rgba(106,99,89,1) 58%,rgba(79,76,76,0) 60%,rgba(65,64,70,1) 61%,rgba(65,64,70,1) 62%,rgba(90,85,89,1) 63%,rgba(78,74,73,1) 65%,rgba(78,73,74,1) 67%,rgba(78,73,74,0) 68%,rgba(78,73,75,1) 69%,rgba(78,73,75,1) 70%,rgba(78,73,76,0) 71%,rgba(77,72,76,0) 72%,rgba(24,19,25,0) 100%)
+
+#uranus
+	&.orbit
+		animation-name: uranusOrbit
+		animation-duration: $uranusOrbitalRotation
+	.planet-wrap
+		@include planetPosition(0%, 100%)
+		animation-duration: $uranusOrbitalRotation
+	.planet
+		@include axialInclination($uranusAxisInclination)
+		animation-duration: $uranusOrbitalRotation
+	.rings
+		@include elementPosition(1.8em, 1.8em, -0.4em, -0.4em)
+		border-radius: 50%
+		background: radial-gradient(ellipse at center, rgba(24,19,25,0) 40%, rgba(113,97,95,0.1) 42%, rgba(113, 97, 95, 1) 52%, rgba(0,0,0,0.1) 55%, rgba(65, 64, 59, 1) 59%, rgba(78,73,74,0.1) 65%, rgba(78, 73, 75, 1) 66%)
+		transform: rotateX(60deg)
+
+#neptune
+	&.orbit
+		animation-name: neptuneOrbit
+		animation-duration: $neptuneOrbitalRotation
+	.planet-wrap
+		@include planetPosition(100%, 50%)
+		animation-duration: $neptuneOrbitalRotation
+	.planet
+		@include axialInclination($neptuneAxisInclination)
+		animation-duration: $neptuneOrbitalRotation
+
+.page-index
+	#sun
+		font-size: $sunOrbitSize
+		.planet
+			font-size: $sun3dViewSize
+			transform: rotateX(110deg)
+			box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset
+			animation: sunRays 5s infinite linear
+	#mercury
+		font-size: $mercuryOrbitSize
+		.planet
+			font-size: $mercury3dViewSize
+	#venus
+		font-size: $venusOrbitSize
+		.planet
+			font-size: $venus3dViewSize
+	#earth
+		font-size: $earthOrbitSize
+		.planet
+			font-size: $earth3dViewSize
+	#mars
+		font-size: $marsOrbitSize
+		.planet
+			font-size: $mars3dViewSize
+	#asteroids
+		font-size: $asteroidOrbitSize
+	#jupiter
+		font-size: $jupiterOrbitSize
+		.planet
+			font-size: $jupiter3dViewSize
+	#saturn
+		font-size: $saturnOrbitSize
+		.planet
+			font-size: $saturn3dViewSize
+	#uranus
+		font-size: $uranusOrbitSize
+		.planet
+			font-size: $uranus3dViewSize
+	#neptune
+		font-size: $neptuneOrbitSize
+		.planet
+			font-size: $neptune3dViewSize
+
+.galaxy-view--3D
+	//font-size: 85%
+	transform: rotateX(70deg) scale3d(1,1,1)
+	transform-style: preserve-3d
+	transition: all 1s ease
+	.planet-wrap
+		transform-style: preserve-3d
+		animation-name: invert
+		animation-iteration-count: infinite
+		animation-timing-function: linear
+		.planet
+			animation-name: animatedBackground
+			box-shadow: inset -10px 0px 20px -3px #000
+
+.wrapper
+	display: flex
+	justify-content: space-between
+	height: 100%
+	padding: 30px
+	box-sizing: border-box
+	> div
+		position: relative
+		width: 50%
+	.planet-wrapper
+		box-sizing: border-box
+		> .planet
+			position: fixed
+			top: -250px
+			left: -500px
+			width: 1000px
+			height: 1000px
+			padding: 14px
+			margin: 40px auto
+			background-repeat: repeat-x
+			box-shadow: inset -9px -2px 39px 15px #000
+			transition: all 1s ease
+	#uranus
+		.rings
+			@include elementPosition(1700px, 700px, 100px, -370px)
+	#saturn
+		.rings
+			@include elementPosition(2300px, 520px, 300px, -650px)
+			transform: rotateX(40deg)
+
+.info__contents
+	> div
+		position: absolute
+		top: 0
+		z-index: 9
+		opacity: 0
+		visibility: hidden
+		transform: translateX(1000px)
+		transition: all 0.5s ease
+	.slide__left
+		width: 100%
+		opacity: 1
+		visibility: visible
+		transform: translateX(0px)
+		background: rgba(0, 0, 0, 0.6)
+		border-radius: 5px
+	&--title
+		@extend .error__message
+		padding: 20px !important
+	&--read__text, &--display__gallery
+		display: flex
+		padding: 0 20px
+		a
+			@extend .loader__wrapper--input
+			color: #fff
+			border-color: #fff
+	&--content
+		font-family: Arial, serif
+		font-size: 17px
+		max-height: 250px
+		overflow-y: scroll
+		.planet-tooltip
+			position: static
+			opacity: 1
+			margin: 0 20px
+			transform: scale(1)
+			font-size: 14px
+		li
+			margin-bottom: 10px
+		&::-webkit-scrollbar
+			width: 8px
+			background-color: transparent
+		&::-webkit-scrollbar-thumb
+			background: rgba(0, 255, 255, 0.4)
+			box-shadow: inset 0 0 6px rgba(0,0,0,0.5)
+		&::-webkit-scrollbar-track
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)
+			background-color: transparent
+	&--gallery
+		&__row
+			display: flex
+			flex-wrap: wrap
+
+.info__img
+	opacity: 0.75
+	width: 100%
+	cursor: pointer
+	backface-visibility: hidden
+	transition: opacity 0.3s ease
+	&:hover
+		opacity: 1
+		transition: opacity 0.3s ease
+
+.column
+	display: flex
+	align-items: center
+	width: calc( 20% - 10px )
+	height: 100px
+	margin: 5px
+	overflow: hidden
+
+.info__modal
+	display: none
+	position: absolute !important
+	z-index: 9999
+	left: 0
+	top: 0
+	//width: 100%
+	//height: 100%
+	overflow: auto
+	background-color: black
+	&--content
+		display: flex
+		flex-direction: column
+		position: relative
+		max-width: 1200px
+		//width: 90%
+		width: 100%
+		padding: 50px 0 0
+		margin: auto
+
+		&__hero
+			display: none
+			//height: 500px
+			height: calc(50vh - 50px)
+			margin-bottom: 50px
+			overflow: hidden
+			text-align: center
+			img
+				height: 100%
+		&__row
+			display: flex
+			flex-wrap: wrap
+			height: calc(50vh - 50px)
+
+	a
+		cursor: pointer
+		position: absolute
+		top: 50%
+		z-index: 99
+		width: auto
+		padding: 16px
+		margin-top: -50px
+		color: white
+		font-weight: bold
+		font-size: 20px
+		transition: 0.6s ease
+		border-radius: 0 3px 3px 0
+		user-select: none
+		&.prev
+			left: 0
+		&.next
+			right: 0
+
+.close
+	color: white
+	position: absolute
+	top: 10px
+	right: 25px
+	font-size: 35px
+	font-weight: bold
+	z-index: 1
+	cursor: pointer
+	&:hover, &:focus
+		color: #999
+		text-decoration: none
+
+.active
+	opacity: 1
+
+.info__controls
+	display: flex
+	justify-content: center
+	width: 100%
+	top: 50%
+	right: 0
+	z-index: 1
+	visibility: visible
+	.info-wrapper &
+		position: absolute
+		transform: translateY(-50%) rotateZ(90deg)
+	&--button
+		@extend .loader__wrapper--input
+		margin: 0
+
+.moons-wrapper
+	position: relative
+	.planet-wrapper &
+		margin: 100px
+		z-index: 2
+
+.moon
+	position: absolute
+	display: block
+	width: 150px
+	height: 150px
+	margin: 0 auto
+	background-size: cover
+	border-radius: 50%
+	box-shadow: inset -9px -2px 39px 15px #000
+	transform-style: preserve-3d
+	transition: all 1s ease
+	cursor: pointer
+	&#saturn .rings
+		@include elementPosition(320px, 100%, 0, -80px)
+	&#uranus .rings
+		@include elementPosition(100%, 320px, -80px, 0)
+		transform: rotateY(130deg)
+	a
+		display: block
+		height: 100%
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		pointer-events: none
+	&:hover, &.hovered
+		z-index: 99
+		opacity: 1
+		transform: scale(1.2) !important
+		transition: all 1s ease
+		.moon-tooltip
+			opacity: 1
+			transform: scale(1) translateY(-50%)
+	.tooltip
+		position: absolute
+		opacity: 0
+		transform: scale(0)
+
+#uranus .moon, #neptune .moon
+	background-size: initial
+	background-position: 350px 150px
+
+.page-planet
+	#sun > .planet
+		animation-name: sunRays
+		animation-duration: 5s
+		animation-timing-function: linear
+		animation-iteration-count: infinite
+
+.tooltip
+	top: 50%
+	left: 110%
+	padding: 8px 20px
+	border-radius: 5px
+	background: rgba(30,25,97,0.9)
+	transition: all 1s ease
+	color: #fff
+	&:after
+		content: ''
+		position: absolute
+		bottom: 50%
+		left: -4px
+		transform: translateX(-50%)
+		border-bottom: 10px solid transparent
+		border-top: 10px solid transparent
+		border-right: 10px solid rgba(30,25,97,0.9)
+	th, td
+		padding: 0 10px 5px 0
+		line-height: 1.5
+		white-space: nowrap
+
+.tooltip__name
+	text-align: center
+
+.info-wrapper
+	width: 50%
+	visibility: hidden
+
+.visible
+	opacity: 1
+	visibility: visible
+
+.hidden
+	opacity: 0
+	visibility: hidden
+
+.row-flex
+	display: flex
+	flex-direction: column
+	align-items: center
+
+.error
+	position: absolute
+	left: 50%
+	top: 50%
+	transform: translate(-50%, -50%)
+	width: 100%
+	text-align: center
+	&__status
+		padding: 0 20px
+		&--digit
+			display: inline-block
+			margin: 0 10px
+			.loader__planet
+				width: 150px
+				height: 150px
+				margin: auto
+			&.number
+				@extend a
+				color: #000
+				font-size: 150px
+				text-shadow: 0 0 30px #8ff, 0 0 100px #000, 0 0 50px #5ff, -20px -10px 100px #000
+	&__message
+		@extend a
+		padding: 50px 20px
+		font-size: 24px
+		line-height: 1.5
+		letter-spacing: 2px

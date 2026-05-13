@@ -1,0 +1,36 @@
+@mixin elementPosition($width, $height, $marginTop, $marginLeft)
+	width: $width
+	height: $height
+	margin-top: $marginTop
+	margin-left: $marginLeft
+
+@mixin axialInclination($deg)
+	transform: rotateZ($deg)
+
+@mixin planetPosition($top, $left)
+	top: $top
+	left: $left
+
+@mixin moonPosition($top, $left, $scale)
+	top: $top
+	left: $left
+	transform: scale($scale)
+
+@mixin scaleElement($opacity, $transform)
+	opacity: $opacity
+	transform: $transform
+
+@mixin animationMixin($name, $duration, $delay)
+	animation: $name $duration $delay
+	animation-fill-mode: forwards
+
+@mixin menuItems()
+	@for $i from 0 through length($moons)
+		&:nth-child(#{$i})
+			transition: all .2s #{$i * .05}s ease
+
+@function stars($s, $max-area, $min-area : 0, $star-size : 0)
+	$stars : #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(127,127,127, random(100)*.01 + 0.3)
+	@for $i from 1 to $s
+		$stars: '#{$stars} , #{$min-area + random($max-area)}px #{$min-area + random($max-area)}px 0 #{$star-size}px rgba(127,127,127, #{random(100)*.01 + 0.3})'
+	@return unquote($stars)

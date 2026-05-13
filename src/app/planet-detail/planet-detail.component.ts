@@ -16,13 +16,15 @@ import { TitleCasePipe, KeyValuePipe } from '@angular/common';
 import { PlanetDataService, Planet, Moon } from '../services/planet-data.service';
 import { VoiceService } from '../services/voice.service';
 import { MenuComponent } from '../menu/menu.component';
+import { FactsCarouselComponent } from '../facts-carousel/facts-carousel.component';
+import { SizeComparisonComponent } from '../size-comparison/size-comparison.component';
 
 type SidebarTab = 'profile' | 'intro' | 'description' | null;
 
 @Component({
   selector: 'app-planet-detail',
   standalone: true,
-  imports: [MenuComponent, TitleCasePipe, KeyValuePipe],
+  imports: [MenuComponent, TitleCasePipe, KeyValuePipe, FactsCarouselComponent, SizeComparisonComponent],
   templateUrl: './planet-detail.component.html',
   styleUrl: './planet-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
