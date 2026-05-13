@@ -23,14 +23,14 @@ export class AudioService {
   toggleMute(): void {
     this.isMuted.update(m => {
       const next = !m;
-      localStorage.setItem('audio-muted', String(next));
+      try { localStorage.setItem('audio-muted', String(next)); } catch { /* storage unavailable */ }
       return next;
     });
   }
 
   setVolume(v: number): void {
     this.volume.set(v);
-    localStorage.setItem('audio-volume', String(v));
+    try { localStorage.setItem('audio-volume', String(v)); } catch { /* storage unavailable */ }
   }
 
   /** Short whoosh — played on route transitions */

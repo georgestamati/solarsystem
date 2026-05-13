@@ -10,6 +10,13 @@
   --color-border:      rgba(255,255,255,0.15);
   --color-text-muted:  rgba(255,255,255,0.4);
 
+  // ── Panel / glass surfaces ───────────────────────────────────────────────────
+  --color-panel-bg:    rgba(0,0,0,0.7);
+  --color-panel-border: rgba(255,255,255,0.15);
+  --color-panel-text:  rgba(255,255,255,0.5);
+  --color-btn-text:    #fff;
+  --color-dialog-bg:   #0a0a0a;
+
   // ── Z-index scale ───────────────────────────────────────────────────────────
   --z-loader:          1;
   --z-info-controls:   1;
@@ -37,4 +44,10 @@
   --color-border:      rgba(0,0,0,0.12);
   --color-text-muted:  rgba(0,0,0,0.4);
   --shadow-planet-inset: inset -9px -2px 39px 15px rgba(0,0,0,0.5);
+
+  --color-panel-bg:    rgba(255,255,255,0.85);
+  --color-panel-border: rgba(0,0,0,0.15);
+  --color-panel-text:  rgba(0,0,0,0.5);
+  --color-btn-text:    #111;
+  --color-dialog-bg:   #f8f8f8;
 }

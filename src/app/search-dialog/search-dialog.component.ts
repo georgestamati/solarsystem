@@ -2,16 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   effect,
   ElementRef,
-  HostListener,
   inject,
   signal,
   viewChild,
 } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { PlanetDataService, Planet, Moon } from '../services/planet-data.service';
+import { TitleCasePipe } from '@angular/common';
+import { PlanetDataService, Planet } from '../services/planet-data.service';
+import { KeyboardService } from '../services/keyboard.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
@@ -32,9 +33,13 @@ interface SearchResult {
 export class SearchDialogComponent {
   private readonly router = inject(Router);
   private readonly data = inject(PlanetDataService);
+  private readonly kb = inject(KeyboardService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('searchInput');
+  private focusTimeout?: ReturnType<typeof setTimeout>;
 
-  readonly isOpen = signal(false);
+  // Delegate open state to KeyboardService — single source of truth
+  readonly isOpen = this.kb.searchOpen;
   readonly query = signal('');
   readonly activeIndex = signal(0);
 
@@ -63,62 +68,57 @@ export class SearchDialogComponent {
   });
 
   constructor() {
+    // Reset active index when results change
     effect(() => {
-      // Reset active index whenever results change
       this.results();
       this.activeIndex.set(0);
     });
-  }
 
-  @HostListener('document:keydown', ['$event'])
-  onKeydown(e: KeyboardEvent): void {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      this.open();
-      return;
-    }
-    if (!this.isOpen()) return;
+    // When dialog opens, focus input; when it closes, reset query
+    effect(() => {
+      if (this.isOpen()) {
+        this.query.set('');
+        // Cancel any pending focus and schedule a fresh one
+        clearTimeout(this.focusTimeout);
+        this.focusTimeout = setTimeout(() => {
+          this.inputRef()?.nativeElement.focus();
+        }, 50);
+      } else {
+        clearTimeout(this.focusTimeout);
+        this.query.set('');
+      }
+    });
 
-    if (e.key === 'Escape') { this.close(); return; }
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      this.activeIndex.update(i => Math.min(i + 1, this.results().length - 1));
-    }
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      this.activeIndex.update(i => Math.max(i - 1, 0));
-    }
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      this.select(this.results()[this.activeIndex()]);
-    }
-  }
-
-  open(): void {
-    this.isOpen.set(true);
-    this.query.set('');
-    // Focus input after render
-    setTimeout(() => this.inputRef()?.nativeElement.focus(), 50);
-  }
-
-  close(): void {
-    this.isOpen.set(false);
-    this.query.set('');
+    // Cleanup timeout on destroy
+    this.destroyRef.onDestroy(() => clearTimeout(this.focusTimeout));
   }
 
   onInput(e: Event): void {
     this.query.set((e.target as HTMLInputElement).value);
   }
 
+  onKeydown(e: KeyboardEvent): void {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      this.activeIndex.update(i => Math.min(i + 1, this.results().length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      this.activeIndex.update(i => Math.max(i - 1, 0));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      this.select(this.results()[this.activeIndex()]);
+    }
+  }
+
   select(result: SearchResult | undefined): void {
     if (!result) return;
-    this.close();
+    this.kb.searchOpen.set(false);
     this.router.navigateByUrl(result.route);
   }
 
   onBackdropClick(e: MouseEvent): void {
     if ((e.target as HTMLElement).classList.contains('search-backdrop')) {
-      this.close();
+      this.kb.searchOpen.set(false);
     }
   }
 }

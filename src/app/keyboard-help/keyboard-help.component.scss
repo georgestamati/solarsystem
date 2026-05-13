@@ -13,8 +13,8 @@
 
 .help-dialog {
   width: min(480px, 90vw);
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--color-dialog-bg);
+  border: 1px solid var(--color-panel-border);
   border-radius: 10px;
   overflow: hidden;
 
@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--color-border);
   }
 
   &__title {
@@ -37,14 +37,14 @@
   &__close {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--color-text-muted);
     font-size: 20px;
     cursor: pointer;
     padding: 0 4px;
     line-height: 1;
     transition: color 0.2s ease;
 
-    &:hover { color: #fff; }
+    &:hover { color: var(--color-text); }
   }
 
   &__table {
@@ -52,7 +52,7 @@
     border-collapse: collapse;
     padding: 12px 0;
 
-    tr { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    tr { border-bottom: 1px solid var(--color-border); }
 
     td { padding: 10px 20px; }
   }
@@ -64,32 +64,32 @@
     kbd {
       display: inline-block;
       padding: 2px 7px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid var(--color-border);
       border-radius: 4px;
       font-size: 11px;
       color: var(--color-accent);
       margin-right: 3px;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--color-surface);
     }
   }
 
   &__desc {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-text-muted);
   }
 
   &__hint {
     padding: 10px 20px;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.3);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-border);
     margin: 0;
     text-align: center;
 
     kbd {
       display: inline-block;
       padding: 1px 5px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid var(--color-border);
       border-radius: 3px;
       font-size: 10px;
     }

@@ -22,6 +22,7 @@
         [attr.aria-activedescendant]="'result-' + activeIndex()"
         [value]="query()"
         (input)="onInput($event)"
+        (keydown)="onKeydown($event)"
       />
       <ul
         id="search-results"

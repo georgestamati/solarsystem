@@ -14,8 +14,8 @@
 
 .search-dialog {
   width: min(560px, 90vw);
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: var(--color-dialog-bg);
+  border: 1px solid var(--color-panel-border);
   border-radius: 10px;
   overflow: hidden;
 
@@ -24,15 +24,15 @@
     box-sizing: border-box;
     padding: 16px 20px;
     font-size: 16px;
-    color: #fff;
+    color: var(--color-text);
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--color-border);
     outline: none;
     font-family: inherit;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.3);
+      color: var(--color-text-muted);
     }
   }
 
@@ -54,37 +54,37 @@
 
     &.active,
     &:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--color-surface);
     }
 
     &--name {
       font-size: 14px;
-      color: #fff;
+      color: var(--color-text);
     }
 
     &--sub {
       font-size: 11px;
-      color: rgba(255, 255, 255, 0.4);
+      color: var(--color-text-muted);
     }
   }
 
   &__empty {
     padding: 16px 20px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--color-text-muted);
     text-align: center;
   }
 
   &__hint {
     padding: 8px 20px;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.3);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-text-muted);
+    border-top: 1px solid var(--color-border);
 
     kbd {
       display: inline-block;
       padding: 1px 5px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid var(--color-border);
       border-radius: 3px;
       font-size: 10px;
     }

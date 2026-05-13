@@ -12,7 +12,7 @@ export class ThemeService {
     effect(() => {
       const t = this.theme();
       this.doc.documentElement.setAttribute('data-theme', t);
-      localStorage.setItem('theme', t);
+      try { localStorage.setItem('theme', t); } catch { /* storage unavailable */ }
     });
   }
 
@@ -24,7 +24,6 @@ export class ThemeService {
     try {
       const saved = localStorage.getItem('theme') as Theme | null;
       if (saved === 'dark' || saved === 'light') return saved;
-      // Respect OS preference
       return window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     } catch {
       return 'dark';

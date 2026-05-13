@@ -1,4 +1,4 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 import { KeyboardHelpComponent } from './keyboard-help/keyboard-help.component';
@@ -17,19 +17,8 @@ import { ThemeService } from './services/theme.service';
   styleUrl: './app.scss',
 })
 export class App {
-  private readonly kb = inject(KeyboardService);
-  // ThemeService initialises itself via effect() in constructor
+  // KeyboardService bootstraps its global listener in constructor (singleton)
+  private readonly _kb = inject(KeyboardService);
+  // ThemeService applies data-theme attribute via effect() in constructor
   private readonly _theme = inject(ThemeService);
-
-  @HostListener('document:keydown', ['$event'])
-  onKeydown(e: KeyboardEvent): void {
-    const tag = (e.target as HTMLElement).tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-
-    if (e.key === 'ArrowLeft')  this.kb.navigatePrev();
-    if (e.key === 'ArrowRight') this.kb.navigateNext();
-    if (e.key === 'f' || e.key === 'F') {
-      // Fullscreen is handled per-component; nothing here globally
-    }
-  }
 }
