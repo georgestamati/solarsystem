@@ -1,0 +1,29 @@
+@if (facts().length > 0) {
+  <div
+    class="facts-carousel"
+    (mouseenter)="isPaused.set(true)"
+    (mouseleave)="isPaused.set(false)"
+    (focus)="isPaused.set(true)"
+    (blur)="isPaused.set(false)"
+    aria-live="polite"
+    aria-label="Did you know?"
+  >
+    <div class="facts-carousel__label">Did you know?</div>
+    <p class="facts-carousel__text">{{ currentFact() }}</p>
+    <div class="facts-carousel__controls">
+      <button type="button" class="facts-carousel__btn" (click)="prev()" aria-label="Previous fact">&#8249;</button>
+      <div class="facts-carousel__dots">
+        @for (f of facts(); track $index; let i = $index) {
+          <button
+            type="button"
+            class="facts-carousel__dot"
+            [class.active]="currentIndex() === i"
+            (click)="currentIndex.set(i)"
+            [attr.aria-label]="'Fact ' + (i + 1)"
+          ></button>
+        }
+      </div>
+      <button type="button" class="facts-carousel__btn" (click)="next()" aria-label="Next fact">&#8250;</button>
+    </div>
+  </div>
+}

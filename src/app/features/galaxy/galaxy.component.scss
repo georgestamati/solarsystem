@@ -1,0 +1,263 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#universe {
+  width: 100%;
+  height: 100%;
+  @include scaleElement(0, scale(0, 0));
+
+  &.universe__session {
+    @include animationMixin(scaleUniverse, 1s, 0s);
+  }
+}
+
+#galaxy {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.page-index {
+  // 3.2 Sun glow: static base glow on .planet, brightness pulse via ::after opacity.
+  #sun {
+    font-size: $sunOrbitSize;
+
+    .planet {
+      font-size: $sun3dViewSize;
+      transform: rotateX(110deg);
+      box-shadow: 0 0 30px 12px orange, 0 0 100px 20px orange inset;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 50px 20px orange, 0 0 120px 30px orange inset;
+        pointer-events: none;
+        animation: sunRaysFade 5s infinite linear;
+        will-change: opacity;
+      }
+    }
+  }
+
+  #mercury   { font-size: $mercuryOrbitSize;  .planet { font-size: $mercury3dViewSize; } }
+  #venus     { font-size: $venusOrbitSize;    .planet { font-size: $venus3dViewSize; } }
+  #earth     { font-size: $earthOrbitSize;    .planet { font-size: $earth3dViewSize; } }
+  #mars      { font-size: $marsOrbitSize;     .planet { font-size: $mars3dViewSize; } }
+  #asteroids { font-size: $asteroidOrbitSize; }
+  #jupiter   { font-size: $jupiterOrbitSize;  .planet { font-size: $jupiter3dViewSize; } }
+  #saturn    { font-size: $saturnOrbitSize;   .planet { font-size: $saturn3dViewSize; } }
+  #uranus    { font-size: $uranusOrbitSize;   .planet { font-size: $uranus3dViewSize; } }
+  #neptune   { font-size: $neptuneOrbitSize;  .planet { font-size: $neptune3dViewSize; } }
+}
+
+.galaxy-view--3D {
+  transform: rotateX(70deg) scale3d(1, 1, 1);
+  transform-style: preserve-3d;
+  transition: transform 1s ease, opacity 1s ease;
+
+  .planet-wrap {
+    transform-style: preserve-3d;
+    animation-name: invert;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    will-change: transform;
+
+    // 3.1 Planet texture scrolls via ::before translateX (GPU-composited).
+    .planet {
+      overflow: hidden;
+      will-change: transform;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-repeat: repeat-x;
+        background-size: auto 100%;
+        animation: animatedBackground 8s infinite linear;
+        will-change: transform;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        box-shadow: inset -10px 0 20px -3px #000;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+// Feature 2: Orbit speed control panel
+
+.speed-control {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: var(--z-menu-button);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--color-panel-bg);
+  border: 1px solid var(--color-panel-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  backdrop-filter: blur(6px);
+
+  &__label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-panel-text);
+  }
+
+  &__presets {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__btn {
+    font-size: 11px;
+    padding: 3px 8px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    color: var(--color-btn-text);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+
+    &:hover { border-color: var(--color-accent); }
+
+    &.active {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #000;
+    }
+  }
+
+  &__slider {
+    width: 140px;
+    accent-color: var(--color-accent);
+    cursor: pointer;
+  }
+}
+
+// Feature 4: Compare link button
+
+.compare-btn {
+  position: fixed;
+  top: 16px;
+  right: 70px;
+  z-index: var(--z-menu-button);
+  font-size: 12px;
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &:hover { opacity: 1; }
+}
+
+// Feature 9: Theme toggle button
+
+.theme-btn {
+  position: fixed;
+  bottom: 120px;
+  right: 16px;
+  z-index: var(--z-menu-button);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+
+  &:hover, &:focus-visible { opacity: 1; }
+}
+
+// Feature 8: Audio mute button
+
+.mute-btn {
+  position: fixed;
+  bottom: 68px;
+  right: 16px;
+  z-index: var(--z-menu-button);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+
+  &:hover, &:focus-visible { opacity: 1; }
+}
+
+// Feature 7: Fullscreen toggle button
+
+.fullscreen-btn {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: var(--z-menu-button);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--color-accent);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+
+  &:hover, &:focus-visible { opacity: 1; }
+}
+
+@media (max-width: $bp-md) {
+  .page-index {
+    transform: scale(0.78);
+    transform-origin: center center;
+  }
+
+  .speed-control {
+    bottom: 8px;
+    left: 8px;
+    padding: 8px 10px;
+
+    &__slider { width: 110px; }
+  }
+}
