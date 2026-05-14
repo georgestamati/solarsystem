@@ -1,17 +1,17 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   computed,
+  DestroyRef,
+  ElementRef,
   inject,
-  OnDestroy,
-  OnInit,
+  input,
+  linkedSignal,
   signal,
   viewChild,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
 import { TitleCasePipe, KeyValuePipe } from '@angular/common';
 import { PlanetDataService, Planet, Moon } from '../../core/services/planet-data.service';
 import { VoiceService } from '../../core/services/voice.service';
@@ -29,18 +29,43 @@ type SidebarTab = 'profile' | 'intro' | 'description' | null;
   styleUrl: './planet-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlanetDetailComponent implements OnInit, OnDestroy {
-  private readonly route  = inject(ActivatedRoute);
+export class PlanetDetailComponent {
   private readonly router = inject(Router);
   private readonly data   = inject(PlanetDataService);
   private readonly voice  = inject(VoiceService);
 
-  private readonly modalDialog = viewChild<ElementRef<HTMLElement>>('modalDialog');
   private readonly closeButton = viewChild<ElementRef<HTMLButtonElement>>('closeButton');
 
-  readonly planet        = signal<Planet | null>(null);
-  readonly allPlanets    = signal<Planet[]>([]);
-  readonly activeTab     = signal<SidebarTab>(null);
+  /**
+   * Route param `:planet` injected directly as a signal input via
+   * withComponentInputBinding() — no ActivatedRoute or toSignal() needed.
+   */
+  readonly planet_param = input<string>('', { alias: 'planet' });
+
+  /** All planets from the resource — used for prev/next navigation. */
+  readonly allPlanets = this.data.planets;
+
+  /** The resolved Planet object — null while loading or if name not found. */
+  readonly planet = computed<Planet | null>(() => {
+    const name = this.planet_param();
+    if (!name) return null;
+    const found = this.data.getPlanet(name) ?? null;
+    if (!found && this.data.planets().length > 0) {
+      // Data is loaded but planet not found — redirect
+      this.router.navigateByUrl('/galaxy');
+    }
+    return found;
+  });
+
+  /**
+   * Active sidebar tab — automatically resets to null whenever the planet
+   * changes, using linkedSignal's computed source pattern.
+   */
+  readonly activeTab = linkedSignal<Planet | null, SidebarTab>({
+    source: this.planet,
+    computation: () => null,
+  });
+
   readonly hoveredMoon   = signal<Moon | null>(null);
   readonly galleryImages = signal<string[]>([]);
   readonly modalOpen     = signal(false);
@@ -55,22 +80,13 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   });
 
   constructor() {
-    this.route.paramMap
-      .pipe(
-        switchMap(() => this.data.getAll()),
-        takeUntilDestroyed()
-      )
-      .subscribe(sys => {
-        this.allPlanets.set(sys.records);
-        const name  = this.route.snapshot.paramMap.get('planet') ?? '';
-        const found = sys.records.find(p => p.name === name) ?? null;
-        if (!found) {
-          this.router.navigateByUrl('/galaxy');
-        } else {
-          this.planet.set(found);
-        }
-      });
+    const destroyRef = inject(DestroyRef);
 
+    // Start voice recognition; stop + cancel speech on destroy
+    this.voice.start();
+    destroyRef.onDestroy(() => { this.voice.stop(); speechSynthesis.cancel(); });
+
+    // Voice command handling — auto-cleaned up via takeUntilDestroyed
     this.voice.commands$.pipe(takeUntilDestroyed()).subscribe(cmd => {
       if (cmd.type === 'sidebar' && cmd.payload) this.toggleTab(cmd.payload as SidebarTab);
       if (cmd.type === 'gallery')                this.openGallery();
@@ -78,9 +94,6 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
       if (cmd.type === 'navigate' && cmd.payload) this.router.navigateByUrl('/' + cmd.payload);
     });
   }
-
-  ngOnInit(): void    { this.voice.start(); }
-  ngOnDestroy(): void { this.voice.stop(); speechSynthesis.cancel(); }
 
   toggleTab(tab: SidebarTab): void {
     this.activeTab.update(current => (current === tab ? null : tab));
@@ -117,23 +130,4 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   onModalKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape')     this.closeModal();
     if (event.key === 'ArrowLeft')  this.prevSlide();
-    if (event.key === 'ArrowRight') this.nextSlide();
-  }
-
-  readActiveText(): void {
-    const tab = this.activeTab();
-    const p   = this.planet();
-    if (!p || !tab) return;
-    const content =
-      tab === 'intro'       ? p.contents?.introduction?.content?.join(' ') :
-      tab === 'description' ? p.contents?.description?.content?.join(' ')  : '';
-    if (content) {
-      const utt = new SpeechSynthesisUtterance(content);
-      speechSynthesis.speak(utt);
-    }
-  }
-
-  navigatePlanet(name: string): void {
-    this.router.navigateByUrl('/' + name);
-  }
-}
+    if (event.key === 'ArrowRight') thi

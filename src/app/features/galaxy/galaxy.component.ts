@@ -5,15 +5,12 @@ import {
   effect,
   ElementRef,
   inject,
-  OnDestroy,
-  OnInit,
   signal,
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PlanetDataService, Planet } from '../../core/services/planet-data.service';
 import { VoiceService } from '../../core/services/voice.service';
 import { SessionService } from '../../core/services/session.service';
@@ -51,7 +48,7 @@ const UNIFORM_DURATION = 10;
   styleUrl: './galaxy.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GalaxyComponent implements OnInit, OnDestroy {
+export class GalaxyComponent {
   private readonly data    = inject(PlanetDataService);
   private readonly voice   = inject(VoiceService);
   private readonly session = inject(SessionService);
@@ -60,15 +57,12 @@ export class GalaxyComponent implements OnInit, OnDestroy {
   readonly audio           = inject(AudioService);
   readonly theme           = inject(ThemeService);
 
-  private readonly solarSystem$ = this.data.getAll();
+  /** Live planet list straight from the httpResource signal. */
+  readonly planets = this.data.planets;
 
-  readonly planets = toSignal(this.solarSystem$.pipe(map(s => s.records)), {
-    initialValue: [] as Planet[],
-  });
-
-  /** Planets excluding the Sun (sun is rendered separately as the static centre). */
+  /** Planets excluding the Sun (rendered separately as the static centre). */
   readonly orbitPlanets = computed(() =>
-    this.planets().filter(p => p.name !== 'sun')
+    this.planets().filter((p: Planet) => p.name !== 'sun')
   );
 
   readonly speedMode   = signal<SpeedMode>('real');
@@ -77,7 +71,10 @@ export class GalaxyComponent implements OnInit, OnDestroy {
   private readonly galaxyRef = viewChild<ElementRef<HTMLElement>>('galaxyRef');
 
   constructor() {
-    // Apply CSS custom property durations whenever speed or mode changes
+    // Mark intro seen immediately on construction (replaces ngOnInit)
+    this.session.markIntroSeen();
+
+    // Apply CSS custom-property durations whenever speed mode or multiplier changes
     effect(() => {
       const mode  = this.speedMode();
       const speed = this.customSpeed();
@@ -101,19 +98,13 @@ export class GalaxyComponent implements OnInit, OnDestroy {
       el.style.setProperty('--orbit-speed', mode === 'custom' ? String(speed) : '1');
     });
 
-    // Voice commands for the galaxy view
+    // Voice commands — auto-cleaned up when component is destroyed
     this.voice.commands$.pipe(takeUntilDestroyed()).subscribe(cmd => {
       if (cmd.type === 'navigate' && cmd.payload) {
         this.router.navigateByUrl('/' + cmd.payload);
       }
     });
   }
-
-  ngOnInit(): void {
-    this.session.markIntroSeen();
-  }
-
-  ngOnDestroy(): void { /* voice not running on galaxy page */ }
 
   navigate(planet: string): void {
     this.audio.playClick();

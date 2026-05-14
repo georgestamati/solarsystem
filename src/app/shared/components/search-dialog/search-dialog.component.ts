@@ -11,10 +11,8 @@ import {
 } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { PlanetDataService, Planet, Moon } from '../../../core/services/planet-data.service';
+import { PlanetDataService } from '../../../core/services/planet-data.service';
 import { KeyboardService } from '../../../core/services/keyboard.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
 
 interface SearchResult {
   label: string;
@@ -31,20 +29,18 @@ interface SearchResult {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchDialogComponent {
-  private readonly router    = inject(Router);
-  private readonly data      = inject(PlanetDataService);
-  private readonly kb        = inject(KeyboardService);
+  private readonly router     = inject(Router);
+  private readonly data       = inject(PlanetDataService);
+  private readonly kb         = inject(KeyboardService);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly inputRef  = viewChild<ElementRef<HTMLInputElement>>('searchInput');
+  private readonly inputRef   = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   readonly isOpen      = this.kb.searchOpen;
   readonly query       = signal('');
   readonly activeIndex = signal(0);
 
-  private readonly allPlanets = toSignal(
-    this.data.getAll().pipe(map(s => s.records)),
-    { initialValue: [] as Planet[] }
-  );
+  /** Direct signal from the httpResource — no Observable bridge needed. */
+  private readonly allPlanets = this.data.planets;
 
   readonly results = computed<SearchResult[]>(() => {
     const q       = this.query().toLowerCase().trim();
