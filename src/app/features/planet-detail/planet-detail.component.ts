@@ -14,6 +14,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 import { TitleCasePipe, KeyValuePipe } from '@angular/common';
 import { PlanetDataService, Planet, Moon } from '../../core/services/planet-data.service';
+import { PlanetImagesService } from '../../core/services/planet-images.service';
 import { VoiceService } from '../../core/services/voice.service';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { FactsCarouselComponent } from '../../shared/components/facts-carousel/facts-carousel.component';
@@ -34,6 +35,7 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly data   = inject(PlanetDataService);
   private readonly voice  = inject(VoiceService);
+  readonly images = inject(PlanetImagesService);
 
   private readonly modalDialog = viewChild<ElementRef<HTMLElement>>('modalDialog');
   private readonly closeButton = viewChild<ElementRef<HTMLButtonElement>>('closeButton');
@@ -89,16 +91,14 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   hoverMoon(moon: Moon | null): void { this.hoveredMoon.set(moon); }
 
   moonImageUrl(planetName: string, moonName: string): string {
-    return `url(assets/img/moons/${planetName}/${moonName}.jpg)`;
+    return this.images.moonThumbUrl(planetName, moonName);
   }
 
   openGallery(): void {
     const p = this.planet();
     if (!p) return;
-    const images = Array.from({ length: 6 }, (_, i) =>
-      `assets/img/planets/${p.name}/${i + 1}.jpg`
-    );
-    this.galleryImages.set(images);
+    const imgs = this.images.planetGallery(p.name);
+    this.galleryImages.set(imgs);
     this.modalOpen.set(true);
     setTimeout(() => this.closeButton()?.nativeElement.focus(), 50);
   }
@@ -110,6 +110,4 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
     this.modalIndex.update(i => (i - 1 + len) % len);
   }
 
-  nextImage(): void {
-    const len = this.galleryImages().length;
-    this.modal
+  nextImage(): void {

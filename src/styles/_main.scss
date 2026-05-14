@@ -32,7 +32,7 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
-  background: #000 url('/assets/img/stars.png') no-repeat;
+  background: #000 url('/assets/img/stars.png') no-repeat center center / cover;
   background-size: cover;
 
   // 3.1 GPU-composited star drift: oversized pseudo-element slides via transform
@@ -250,5 +250,4 @@ body {
       }
 
       &.number {
-        @extend a;
-        col
+        @
