@@ -2,11 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
 } from '@angular/core';
 import { DecimalPipe, TitleCasePipe } from '@angular/common';
-import { PlanetImagesService } from '../../core/services/planet-images.service';
 
 const EARTH_DIAMETER = 12756;
 
@@ -19,7 +17,6 @@ const EARTH_DIAMETER = 12756;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SizeComparisonComponent {
-  readonly images = inject(PlanetImagesService);
   readonly planetName = input<string>('');
   readonly diameterKm = input<number>(EARTH_DIAMETER);
 
@@ -32,4 +29,7 @@ export class SizeComparisonComponent {
   readonly earthSize = 40;
 
   readonly ratio = computed(() => {
-    const r =
+    const r = this.diameterKm() / EARTH_DIAMETER;
+    return r >= 1 ? `${r.toFixed(1)}× Earth` : `${(1 / r).toFixed(1)}× smaller than Earth`;
+  });
+}

@@ -10,7 +10,6 @@ import { TitleCasePipe, KeyValuePipe } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { PlanetDataService, Planet } from '../../core/services/planet-data.service';
-import { PlanetImagesService } from '../../core/services/planet-images.service';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 
 // Approximate diameters in km for size visualization
@@ -37,7 +36,6 @@ const DIAMETER_KM: Record<string, number> = {
 export class PlanetCompareComponent {
   private readonly data   = inject(PlanetDataService);
   private readonly router = inject(Router);
-  readonly images = inject(PlanetImagesService);
 
   readonly allPlanets = toSignal(
     this.data.getAll().pipe(map(s => s.records)),
@@ -74,4 +72,7 @@ export class PlanetCompareComponent {
     return Math.max(12, Math.round((d / this.maxDiameter()) * 120));
   }
 
-  descriptionEntries(planet: Planet): { key: string; value: string }[
+  descriptionEntries(planet: Planet): { key: string; value: string }[] {
+    const desc = planet.description;
+    if (!desc) return [];
+    return Object.entries(desc).map(([key, value]) => ({ key, 
