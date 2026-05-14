@@ -4,12 +4,13 @@
   <div id="universe" class="universe__same-session">
     <div id="galaxy" class="page-planet">
       <div class="wrapper">
+
         <!-- Planet + moons -->
         <div class="planet-wrapper">
           <div
             [id]="p.name"
             class="planet"
-            [style.backgroundImage]="'url(img/planets/' + p.name + '.jpg)'"
+            [style.backgroundImage]="'url(assets/img/' + p.name + '.jpg)'"
             [style.viewTransitionName]="'planet-' + p.name"
           ></div>
 
@@ -30,24 +31,24 @@
                   tabindex="0"
                   [attr.aria-describedby]="'moon-tooltip-' + moon.name"
                 >
-                    <div
-                      class="tooltip"
-                      [id]="'moon-tooltip-' + moon.name"
-                      role="tooltip"
-                      [class.visible]="hoveredMoon() === moon"
-                    >
-                      <table>
-                        <tr class="tooltip__name">
-                          <th colspan="2">{{ moon.name | titlecase }}</th>
+                  <div
+                    class="tooltip"
+                    [id]="'moon-tooltip-' + moon.name"
+                    role="tooltip"
+                    [class.visible]="hoveredMoon() === moon"
+                  >
+                    <table>
+                      <tr class="tooltip__name">
+                        <th colspan="2">{{ moon.name | titlecase }}</th>
+                      </tr>
+                      @for (entry of moon.description | keyvalue; track entry.key) {
+                        <tr>
+                          <td>{{ entry.key }}</td>
+                          <td>{{ entry.value }}</td>
                         </tr>
-                        @for (entry of moon.description | keyvalue; track entry.key) {
-                          <tr>
-                            <td>{{ entry.key }}</td>
-                            <td>{{ entry.value }}</td>
-                          </tr>
-                        }
-                      </table>
-                    </div>
+                      }
+                    </table>
+                  </div>
                 </div>
               }
             </div>
@@ -99,10 +100,7 @@
             </div>
 
             <!-- Description -->
-            <div
-              class="info__contents--description"
-              [class.slide__left]="activeTab() === 'description'"
-            >
+            <div class="info__contents--description" [class.slide__left]="activeTab() === 'description'">
               <div class="info__contents--title">{{ p.contents?.description?.title }}</div>
               <div class="info__contents--content">
                 @for (line of p.contents?.description?.content ?? []; track $index) {
@@ -128,6 +126,7 @@
         @if (p.diameterKm) {
           <app-size-comparison [planetName]="p.name" [diameterKm]="p.diameterKm" />
         }
+
       </div>
     </div>
   </div>
@@ -150,4 +149,8 @@
           <img [src]="galleryImages()[modalIndex()]" [alt]="p.name" />
         </div>
         <button type="button" class="prev" (click)="prevSlide()" aria-label="Previous image">&#10094;</button>
-        <button type="button" class="next" (click)="nextSlide()" aria-label="
+        <button type="button" class="next" (click)="nextSlide()" aria-label="Next image">&#10095;</button>
+      </div>
+    </div>
+  }
+}

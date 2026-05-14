@@ -58,7 +58,7 @@ export class PlanetCompareComponent {
   toggle(name: string): void {
     this.selected.update(sel => {
       if (sel.includes(name)) return sel.filter(n => n !== name);
-      if (sel.length >= 3)    return sel; // max 3
+      if (sel.length >= 3)    return sel;
       return [...sel, name];
     });
   }

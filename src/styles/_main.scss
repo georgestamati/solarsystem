@@ -1,5 +1,6 @@
 @use 'variables' as *;
 @use 'mixins' as *;
+@use 'animations';
 
 // Base reset
 
@@ -250,7 +251,7 @@ body {
       }
 
       &.number {
-        @extend a;
+        @include section-title();
         color: #000;
         font-size: 150px;
         text-shadow: 0 0 30px #8ff, 0 0 100px #000, 0 0 50px #5ff, -20px -10px 100px #000;
@@ -259,7 +260,7 @@ body {
   }
 
   &__message {
-    @extend a;
+    @include section-title();
     padding: 50px 20px;
     font-size: 24px;
     line-height: 1.5;

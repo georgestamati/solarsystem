@@ -125,8 +125,9 @@ export class GalaxyComponent implements OnInit, OnDestroy {
   }
 
   onCustomSpeedChange(event: Event): void {
-    const val = Number((event.target as HTMLInputElement).value);
-    this.customSpeed.set(val);
-    this.speedMode.set('custom');
+    const val = parseFloat((event.target as HTMLInputElement).value);
+    if (!isNaN(val) && val > 0) {
+      this.customSpeed.set(val);
+    }
   }
 }

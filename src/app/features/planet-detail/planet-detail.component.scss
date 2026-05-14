@@ -6,3 +6,356 @@
   width: 100%;
   height: 100%;
 }
+
+// ── Universe / page shell ────────────────────────────────────────────────────
+
+#universe {
+  width: 100%;
+  height: 100%;
+  @include scaleElement(0, scale(0, 0));
+
+  &.universe__same-session {
+    @include animationMixin(scaleUniverse, 1s, 4s);
+  }
+}
+
+#galaxy {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &.page-planet {
+    position: absolute;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+}
+
+// ── Wrapper layout ───────────────────────────────────────────────────────────
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+
+  > div {
+    position: relative;
+    width: 50%;
+  }
+}
+
+// ── Planet display ───────────────────────────────────────────────────────────
+
+.planet-wrapper {
+  box-sizing: border-box;
+
+  > .planet {
+    position: fixed;
+    top: -250px;
+    left: -500px;
+    width: 1000px;
+    height: 1000px;
+    padding: 14px;
+    margin: 40px auto;
+    background-repeat: repeat-x;
+    box-shadow: var(--shadow-planet-inset);
+    border-radius: 50%;
+    background-size: cover;
+    animation: animatedBackground 8s infinite linear;
+    will-change: background-position;
+    transition: background-image 0.5s ease;
+  }
+
+  #uranus .rings {
+    @include elementPosition(1700px, 700px, 100px, -370px);
+  }
+
+  #saturn .rings {
+    @include elementPosition(2300px, 520px, 300px, -650px);
+    transform: rotateX(40deg);
+  }
+}
+
+// ── Moons ────────────────────────────────────────────────────────────────────
+
+.moons-wrapper {
+  position: relative;
+  margin: 100px;
+  z-index: var(--z-moons-wrapper);
+}
+
+.moon {
+  position: absolute;
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  background-size: cover;
+  border-radius: 50%;
+  box-shadow: var(--shadow-planet-inset);
+  transform-style: preserve-3d;
+  transition: transform 1s ease, opacity 1s ease;
+  cursor: pointer;
+
+  &#saturn .rings {
+    @include elementPosition(320px, 100%, 0, -80px);
+  }
+
+  &#uranus .rings {
+    @include elementPosition(100%, 320px, -80px, 0);
+    transform: rotateY(130deg);
+  }
+
+  &:hover,
+  &:focus-visible {
+    z-index: var(--z-moon-hover);
+    transform: scale(1.2) !important;
+
+    .tooltip {
+      opacity: 1;
+      transform: scale(1) translateY(-50%);
+    }
+  }
+}
+
+// ── Moon tooltip ─────────────────────────────────────────────────────────────
+
+.tooltip {
+  position: absolute;
+  top: 50%;
+  left: 110%;
+  padding: 8px 20px;
+  border-radius: 5px;
+  background: rgba(30, 25, 97, 0.9);
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  color: #fff;
+  z-index: var(--z-moon-hover);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 50%;
+    left: -4px;
+    transform: translateX(-50%);
+    border-bottom: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-right: 10px solid rgba(30, 25, 97, 0.9);
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: scale(1) translateY(-50%);
+  }
+
+  th, td {
+    padding: 0 10px 5px 0;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+}
+
+.tooltip__name {
+  text-align: center;
+}
+
+// ── Info sidebar ─────────────────────────────────────────────────────────────
+
+.info-wrapper {
+  width: 50%;
+  visibility: hidden;
+
+  &.visible {
+    visibility: visible;
+  }
+}
+
+.info__controls {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: var(--z-info-controls);
+  transform: translateY(-50%) rotateZ(90deg);
+  visibility: visible;
+
+  &--button {
+    @include action-button();
+    margin: 0;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+
+    &.active {
+      background: var(--color-accent);
+      color: #000;
+    }
+  }
+}
+
+.info__contents {
+  > div {
+    position: absolute;
+    top: 0;
+    z-index: var(--z-info-contents);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(1000px);
+    transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+  }
+
+  .slide__left {
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+  }
+
+  &--title {
+    @include section-title();
+    padding: 20px;
+  }
+
+  &--read__text,
+  &--display__gallery {
+    display: flex;
+    padding: 0 20px;
+  }
+
+  &--read__link,
+  &--display__gallery--link {
+    @include action-button();
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-accent);
+      color: #000;
+    }
+  }
+
+  &--content {
+    font-family: Arial, serif;
+    font-size: 17px;
+    max-height: 250px;
+    overflow-y: scroll;
+    padding: 0 20px;
+
+    p {
+      margin: 0 0 10px;
+      line-height: 1.6;
+    }
+
+    .planet-tooltip {
+      position: static;
+      opacity: 1;
+      margin: 0;
+      transform: scale(1);
+      font-size: 14px;
+      width: 100%;
+
+      td {
+        padding: 4px 8px 4px 0;
+        line-height: 1.5;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 255, 255, 0.4);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+  }
+}
+
+// ── Image gallery modal ───────────────────────────────────────────────────────
+
+.info__modal {
+  position: fixed !important;
+  inset: 0;
+  z-index: 9999;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: none;
+  flex-direction: column;
+
+  &--content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 1200px;
+    width: 100%;
+    padding: 50px 60px 0;
+    margin: auto;
+    box-sizing: border-box;
+
+    &__hero {
+      height: calc(90vh - 100px);
+      overflow: hidden;
+      text-align: center;
+
+      img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+  z-index: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+
+  &:hover,
+  &:focus {
+    color: #999;
+  }
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-accent);
+  }
+}
+
+.prev { left: 0; }
+.next { right: 0; }

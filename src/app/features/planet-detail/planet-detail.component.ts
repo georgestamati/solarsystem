@@ -38,13 +38,13 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   private readonly modalDialog = viewChild<ElementRef<HTMLElement>>('modalDialog');
   private readonly closeButton = viewChild<ElementRef<HTMLButtonElement>>('closeButton');
 
-  readonly planet      = signal<Planet | null>(null);
-  readonly allPlanets  = signal<Planet[]>([]);
-  readonly activeTab   = signal<SidebarTab>(null);
-  readonly hoveredMoon = signal<Moon | null>(null);
+  readonly planet        = signal<Planet | null>(null);
+  readonly allPlanets    = signal<Planet[]>([]);
+  readonly activeTab     = signal<SidebarTab>(null);
+  readonly hoveredMoon   = signal<Moon | null>(null);
   readonly galleryImages = signal<string[]>([]);
-  readonly modalOpen   = signal(false);
-  readonly modalIndex  = signal(0);
+  readonly modalOpen     = signal(false);
+  readonly modalIndex    = signal(0);
 
   readonly tabs: SidebarTab[] = ['profile', 'intro', 'description'];
 
@@ -73,13 +73,13 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
 
     this.voice.commands$.pipe(takeUntilDestroyed()).subscribe(cmd => {
       if (cmd.type === 'sidebar' && cmd.payload) this.toggleTab(cmd.payload as SidebarTab);
-      if (cmd.type === 'gallery')               this.openGallery();
-      if (cmd.type === 'home')                  this.router.navigateByUrl('/galaxy');
+      if (cmd.type === 'gallery')                this.openGallery();
+      if (cmd.type === 'home')                   this.router.navigateByUrl('/galaxy');
       if (cmd.type === 'navigate' && cmd.payload) this.router.navigateByUrl('/' + cmd.payload);
     });
   }
 
-  ngOnInit(): void  { this.voice.start(); }
+  ngOnInit(): void    { this.voice.start(); }
   ngOnDestroy(): void { this.voice.stop(); speechSynthesis.cancel(); }
 
   toggleTab(tab: SidebarTab): void {
@@ -89,30 +89,48 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   hoverMoon(moon: Moon | null): void { this.hoveredMoon.set(moon); }
 
   moonImageUrl(planetName: string, moonName: string): string {
-    return `url(img/moons/${planetName}/${moonName}.jpg)`;
+    // Only earth's moon has a dedicated image; others use the planet texture as fallback
+    if (moonName === 'moon') return `url(assets/img/moon.jpg)`;
+    return `url(assets/img/${planetName}.jpg)`;
   }
 
   openGallery(): void {
     const p = this.planet();
     if (!p) return;
-    const images = Array.from({ length: 6 }, (_, i) =>
-      `/img/planets/${p.name}/${i + 1}.jpg`
-    );
-    this.galleryImages.set(images);
+    this.galleryImages.set([`assets/img/${p.name}.jpg`]);
     this.modalOpen.set(true);
     setTimeout(() => this.closeButton()?.nativeElement.focus(), 50);
   }
 
-  closeGallery(): void { this.modalOpen.set(false); }
+  closeModal(): void { this.modalOpen.set(false); }
 
-  prevImage(): void {
+  prevSlide(): void {
     const len = this.galleryImages().length;
     this.modalIndex.update(i => (i - 1 + len) % len);
   }
 
-  nextImage(): void {
+  nextSlide(): void {
     const len = this.galleryImages().length;
     this.modalIndex.update(i => (i + 1) % len);
+  }
+
+  onModalKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape')     this.closeModal();
+    if (event.key === 'ArrowLeft')  this.prevSlide();
+    if (event.key === 'ArrowRight') this.nextSlide();
+  }
+
+  readActiveText(): void {
+    const tab = this.activeTab();
+    const p   = this.planet();
+    if (!p || !tab) return;
+    const content =
+      tab === 'intro'       ? p.contents?.introduction?.content?.join(' ') :
+      tab === 'description' ? p.contents?.description?.content?.join(' ')  : '';
+    if (content) {
+      const utt = new SpeechSynthesisUtterance(content);
+      speechSynthesis.speak(utt);
+    }
   }
 
   navigatePlanet(name: string): void {

@@ -91,8 +91,4 @@ export class KeyboardService {
     const next = PLANET_ORDER[(idx + 1) % PLANET_ORDER.length];
     this.router.navigateByUrl('/' + next);
   }
-
-  goGalaxy(): void {
-    this.router.navigateByUrl('/galaxy');
-  }
 }

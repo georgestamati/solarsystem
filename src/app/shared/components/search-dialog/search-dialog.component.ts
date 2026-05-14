@@ -109,7 +109,7 @@ export class SearchDialogComponent {
   }
 
   select(result: SearchResult): void {
-    this.close();
     this.router.navigateByUrl(result.route);
+    this.close();
   }
 }
