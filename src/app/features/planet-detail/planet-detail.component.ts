@@ -89,14 +89,14 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   hoverMoon(moon: Moon | null): void { this.hoveredMoon.set(moon); }
 
   moonImageUrl(planetName: string, moonName: string): string {
-    return `url(img/moons/${planetName}/${moonName}.jpg)`;
+    return `url(assets/img/moons/${planetName}/${moonName}.jpg)`;
   }
 
   openGallery(): void {
     const p = this.planet();
     if (!p) return;
     const images = Array.from({ length: 6 }, (_, i) =>
-      `/img/planets/${p.name}/${i + 1}.jpg`
+      `assets/img/planets/${p.name}/${i + 1}.jpg`
     );
     this.galleryImages.set(images);
     this.modalOpen.set(true);
@@ -112,10 +112,4 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
 
   nextImage(): void {
     const len = this.galleryImages().length;
-    this.modalIndex.update(i => (i + 1) % len);
-  }
-
-  navigatePlanet(name: string): void {
-    this.router.navigateByUrl('/' + name);
-  }
-}
+    this.modal

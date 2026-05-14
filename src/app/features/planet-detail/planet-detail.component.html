@@ -9,7 +9,7 @@
           <div
             [id]="p.name"
             class="planet"
-            [style.backgroundImage]="'url(img/planets/' + p.name + '.jpg)'"
+            [style.backgroundImage]="'url(assets/img/planets/' + p.name + '.jpg)'"
             [style.viewTransitionName]="'planet-' + p.name"
           ></div>
 
@@ -150,4 +150,4 @@
           <img [src]="galleryImages()[modalIndex()]" [alt]="p.name" />
         </div>
         <button type="button" class="prev" (click)="prevSlide()" aria-label="Previous image">&#10094;</button>
-        <button type="button" class="next" (click)="nextSlide()" aria-label="
+        <button type="button" class="next" (click)="nextSlide()" aria-
