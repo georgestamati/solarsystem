@@ -1,0 +1,29 @@
+<div class="size-comp" aria-label="Size comparison with Earth">
+  <div class="size-comp__title">Size vs Earth</div>
+  <div class="size-comp__visual">
+    <!-- Earth reference -->
+    <div class="size-comp__item">
+      <div
+        class="size-comp__circle size-comp__circle--earth"
+        [style.width.px]="earthSize"
+        [style.height.px]="earthSize"
+        aria-label="Earth"
+      ></div>
+      <span class="size-comp__label">Earth</span>
+    </div>
+
+    <!-- This planet -->
+    <div class="size-comp__item">
+      <div
+        class="size-comp__circle"
+        [style.width.px]="relativeSize()"
+        [style.height.px]="relativeSize()"
+        [style.backgroundImage]="'url(img/planets/' + planetName() + '.jpg)'"
+        [attr.aria-label]="planetName()"
+      ></div>
+      <span class="size-comp__label">{{ planetName() | titlecase }}</span>
+    </div>
+  </div>
+  <div class="size-comp__ratio">{{ ratio() }}</div>
+  <div class="size-comp__diameter">Diameter: {{ diameterKm() | number }} km</div>
+</div>

@@ -1,0 +1,16 @@
+<nav class="menu" aria-label="Planet navigation">
+  <ul class="menu__list">
+    <li class="menu__item">
+      <a class="menu__link" routerLink="/galaxy" aria-label="Go to galaxy view">Galaxy</a>
+    </li>
+    @for (planet of planets(); track planet.name) {
+      <li class="menu__item">
+        <a
+          class="menu__link"
+          [routerLink]="'/' + planet.name"
+          [attr.aria-label]="(planet.name | titlecase) + ' details'"
+        >{{ planet.name | titlecase }}</a>
+      </li>
+    }
+  </ul>
+</nav>
