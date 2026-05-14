@@ -4,26 +4,26 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./desktop-welcome/desktop-welcome.component').then(
+      import('./features/desktop-welcome/desktop-welcome.component').then(
         m => m.DesktopWelcomeComponent
       ),
   },
   {
     path: 'galaxy',
     loadComponent: () =>
-      import('./galaxy/galaxy.component').then(m => m.GalaxyComponent),
+      import('./features/galaxy/galaxy.component').then(m => m.GalaxyComponent),
   },
   {
     path: 'compare',
     loadComponent: () =>
-      import('./planet-compare/planet-compare.component').then(
+      import('./features/planet-compare/planet-compare.component').then(
         m => m.PlanetCompareComponent
       ),
   },
   {
     path: ':planet',
     loadComponent: () =>
-      import('./planet-detail/planet-detail.component').then(
+      import('./features/planet-detail/planet-detail.component').then(
         m => m.PlanetDetailComponent
       ),
   },
