@@ -32,7 +32,7 @@ body {
   height: 100%;
   overflow: hidden;
   position: relative;
-  background: #000 url('/img/stars.png') no-repeat;
+  background: #000 url('/assets/img/stars.png') no-repeat;
   background-size: cover;
 
   // 3.1 GPU-composited star drift: oversized pseudo-element slides via transform
@@ -43,7 +43,7 @@ body {
     left: -1000px;
     width: calc(100% + 2000px);
     height: calc(100% + 2000px);
-    background: url('/img/clip-stars.png') repeat top center;
+    background: url('/assets/img/clip-stars.png') repeat top center;
     animation: clippingStars 50s linear infinite;
     will-change: transform;
   }
@@ -130,7 +130,7 @@ body {
 
       .planet {
         @include elementPosition(0.3em, 0.3em, -0.15em, -0.15em);
-        background-image: url('/img/moons/earth/moon.jpg');
+        background-image: url('/assets/img/moons/earth/moon.jpg');
         border-radius: 50%;
         animation-duration: calc(var(--moon-duration, #{$moonOrbitalRotation}) / var(--orbit-speed, 1));
       }
@@ -251,18 +251,4 @@ body {
 
       &.number {
         @extend a;
-        color: #000;
-        font-size: 150px;
-        text-shadow: 0 0 30px #8ff, 0 0 100px #000, 0 0 50px #5ff, -20px -10px 100px #000;
-      }
-    }
-  }
-
-  &__message {
-    @extend a;
-    padding: 50px 20px;
-    font-size: 24px;
-    line-height: 1.5;
-    letter-spacing: 2px;
-  }
-}
+        col
