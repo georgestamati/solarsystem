@@ -27,5 +27,5 @@ export const routes: Routes = [
         m => m.PlanetDetailComponent
       ),
   },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: 'galaxy' },
 ];

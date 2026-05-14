@@ -58,7 +58,7 @@ export class PlanetCompareComponent {
   toggle(name: string): void {
     this.selected.update(sel => {
       if (sel.includes(name)) return sel.filter(n => n !== name);
-      if (sel.length >= 3)    return sel; // max 3
+      if (sel.length >= 3)    return sel;
       return [...sel, name];
     });
   }
@@ -75,4 +75,8 @@ export class PlanetCompareComponent {
   descriptionEntries(planet: Planet): { key: string; value: string }[] {
     const desc = planet.description;
     if (!desc) return [];
-    return Object.entries(desc).map(([key, value]) => ({ key, 
+    return Object.entries(desc).map(([key, value]) => ({ key, value }));
+  }
+
+  goBack(): void { this.router.navigateByUrl('/galaxy'); }
+}

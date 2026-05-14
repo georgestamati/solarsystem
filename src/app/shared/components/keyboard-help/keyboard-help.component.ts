@@ -12,7 +12,7 @@ interface Shortcut {
 
 const SHORTCUTS: Shortcut[] = [
   { keys: ['Ctrl', 'K'],   description: 'Open planet search' },
-  { keys: ['←', '→'],     description: 'Navigate between planets (on planet page)' },
+  { keys: ['\u2190', '\u2192'],     description: 'Navigate between planets (on planet page)' },
   { keys: ['Esc'],         description: 'Close dialogs / Go to galaxy' },
   { keys: ['?'],           description: 'Show this help dialog' },
   { keys: ['F'],           description: 'Toggle fullscreen' },
