@@ -89,7 +89,9 @@ export class PlanetDetailComponent implements OnInit, OnDestroy {
   hoverMoon(moon: Moon | null): void { this.hoveredMoon.set(moon); }
 
   moonImageUrl(planetName: string, moonName: string): string {
-    return `url(assets/img/${moonName}.jpg)`;
+    // Only earth's moon has a dedicated image; others use the planet texture as fallback
+    if (moonName === 'moon') return `url(assets/img/moon.jpg)`;
+    return `url(assets/img/${planetName}.jpg)`;
   }
 
   openGallery(): void {

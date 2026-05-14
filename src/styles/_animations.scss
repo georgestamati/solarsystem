@@ -1,0 +1,103 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ── Orbit keyframes ───────────────────────────────────────────────────────────
+
+@keyframes mercuryOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($mercuryOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($mercuryOrbitalInclination); }
+}
+@keyframes venusOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($venusOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($venusOrbitalInclination); }
+}
+@keyframes earthOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($earthOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($earthOrbitalInclination); }
+}
+@keyframes marsOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($marsOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($marsOrbitalInclination); }
+}
+@keyframes asteroidOrbit {
+  0%   { transform: rotateZ(0deg); }
+  100% { transform: rotateZ(-360deg); }
+}
+@keyframes jupiterOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($jupiterOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($jupiterOrbitalInclination); }
+}
+@keyframes saturnOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($saturnOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($saturnOrbitalInclination); }
+}
+@keyframes uranusOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($uranusOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($uranusOrbitalInclination); }
+}
+@keyframes neptuneOrbit {
+  0%   { transform: rotateZ(0deg)    rotateY($neptuneOrbitalInclination); }
+  100% { transform: rotateZ(-360deg) rotateY($neptuneOrbitalInclination); }
+}
+
+// ── Sub-orbit (Moon) ──────────────────────────────────────────────────────────
+
+@keyframes suborbit {
+  0%   { transform: rotateX(90deg) rotateZ(0deg); }
+  100% { transform: rotateX(90deg) rotateZ(-360deg); }
+}
+
+// ── Planet wrap counter-rotation (keeps texture upright) ──────────────────────
+
+@keyframes invert {
+  0%   { transform: rotateX(-90deg) rotateY(360deg) rotateZ(0deg); }
+  100% { transform: rotateX(-90deg) rotateY(0deg)   rotateZ(0deg); }
+}
+
+// ── Planet texture scroll ─────────────────────────────────────────────────────
+
+@keyframes animatedBackground {
+  0%   { background-position-x: 0; }
+  100% { background-position-x: -600px; }
+}
+
+// ── Star-field drift (container ::before) ─────────────────────────────────────
+
+@keyframes clippingStars {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-1000px, 1000px); }
+}
+
+// ── Universe scale in/out ─────────────────────────────────────────────────────
+
+@keyframes scaleUniverse {
+  0%   { @include scaleElement(0, scale(0)); }
+  100% { @include scaleElement(1, scale(1)); }
+}
+
+@keyframes scaleUpOnClick {
+  100% { @include scaleElement(1, scale(1)); }
+}
+
+@keyframes scaleDownOnClick {
+  100% { @include scaleElement(0, scale(0)); }
+}
+
+// ── Sun glow pulse ────────────────────────────────────────────────────────────
+
+@keyframes sunRaysFade {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+// ── View Transitions ──────────────────────────────────────────────────────────
+
+@keyframes vt-planet-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes vt-planet-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.4); }
+}
