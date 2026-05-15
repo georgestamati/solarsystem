@@ -39,8 +39,6 @@ export interface SolarSystem {
   records: Planet[];
 }
 
-const FALLBACK: SolarSystem = { title: '', records: [] };
-
 @Injectable({ providedIn: 'root' })
 export class PlanetDataService {
   /** Reactive HTTP resource — automatically re-fetches if URL signal changes. */

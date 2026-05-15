@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   ElementRef,
   inject,
   input,
@@ -45,21 +46,19 @@ export class PlanetDetailComponent {
   /** All planets from the resource — used for prev/next navigation. */
   readonly allPlanets = this.data.planets;
 
-  /** The resolved Planet object — null while loading or if name not found. */
+  /**
+   * The resolved Planet object — pure derivation, no side-effects.
+   * Returns null while the resource is still loading.
+   */
   readonly planet = computed<Planet | null>(() => {
     const name = this.planet_param();
     if (!name) return null;
-    const found = this.data.getPlanet(name) ?? null;
-    if (!found && this.data.planets().length > 0) {
-      // Data is loaded but planet not found — redirect
-      this.router.navigateByUrl('/galaxy');
-    }
-    return found;
+    return this.data.getPlanet(name) ?? null;
   });
 
   /**
    * Active sidebar tab — automatically resets to null whenever the planet
-   * changes, using linkedSignal's computed source pattern.
+   * changes, using linkedSignal's source+computation pattern.
    */
   readonly activeTab = linkedSignal<Planet | null, SidebarTab>({
     source: this.planet,
@@ -81,6 +80,20 @@ export class PlanetDetailComponent {
 
   constructor() {
     const destroyRef = inject(DestroyRef);
+
+    /**
+     * Redirect to /galaxy if the route param names a planet that doesn't exist
+     * once the data has loaded. Uses effect() — the correct place for router
+     * side-effects that react to signal changes (not computed()).
+     */
+    effect(() => {
+      const name    = this.planet_param();
+      const loaded  = this.data.planets().length > 0;
+      const missing = name && loaded && !this.data.getPlanet(name);
+      if (missing) {
+        this.router.navigateByUrl('/galaxy');
+      }
+    });
 
     // Start voice recognition; stop + cancel speech on destroy
     this.voice.start();
@@ -118,16 +131,4 @@ export class PlanetDetailComponent {
   closeModal(): void { this.modalOpen.set(false); }
 
   prevSlide(): void {
-    const len = this.galleryImages().length;
-    this.modalIndex.update(i => (i - 1 + len) % len);
-  }
-
-  nextSlide(): void {
-    const len = this.galleryImages().length;
-    this.modalIndex.update(i => (i + 1) % len);
-  }
-
-  onModalKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape')     this.closeModal();
-    if (event.key === 'ArrowLeft')  this.prevSlide();
-    if (event.key === 'ArrowRight') thi
+    const len = this.ga
