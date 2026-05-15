@@ -1,5 +1,6 @@
-import { computed, Injectable } from '@angular/core';
-import { httpResource } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, Observable, of, retry, shareReplay } from 'rxjs';
 
 export interface PlanetDescription {
   [key: string]: string;
@@ -41,20 +42,25 @@ export interface SolarSystem {
 
 @Injectable({ providedIn: 'root' })
 export class PlanetDataService {
-  /** Reactive HTTP resource — automatically re-fetches if URL signal changes. */
-  readonly solarSystem = httpResource<SolarSystem>('/data/planets.json');
+  private readonly http = inject(HttpClient);
+  readonly error = signal<string | null>(null);
+  private readonly fallbackData: SolarSystem = { title: '', records: [] };
 
-  /** Convenience signal: the planet array (empty while loading or on error). */
-  readonly planets = computed(() => this.solarSystem.value()?.records ?? []);
+  private readonly solarSystem$ = this.http.get<SolarSystem>('/data/planets.json').pipe(
+    retry(2),
+    catchError((error) => {
+      this.error.set('Unable to load planet data.');
+      console.error('Planet data request failed.', error);
+      return of(this.fallbackData);
+    }),
+    shareReplay(1)
+  );
 
-  /** True while the initial request is in flight. */
-  readonly isLoading = this.solarSystem.isLoading;
+  getAll(): Observable<SolarSystem> {
+    return this.solarSystem$;
+  }
 
-  /** Non-null when the request has failed. */
-  readonly hasError = this.solarSystem.error;
-
-  /** Look up a single planet by name (undefined while loading). */
-  getPlanet(name: string): Planet | undefined {
-    return this.planets().find(p => p.name === name);
+  getPlanet(name: string): Observable<Planet | undefined> {
+    return this.solarSystem$.pipe(map((sys) => sys.records.find((p) => p.name === name)));
   }
 }

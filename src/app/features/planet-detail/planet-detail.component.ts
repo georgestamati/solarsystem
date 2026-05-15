@@ -38,16 +38,16 @@ export class PlanetDetailComponent {
   private readonly closeButton = viewChild<ElementRef<HTMLButtonElement>>('closeButton');
 
   /**
-   * Route param `:planet` injected directly as a signal input via
-   * withComponentInputBinding() — no ActivatedRoute or toSignal() needed.
+   * Route param :planet injected directly as a signal input via
+   * withComponentInputBinding() -- no ActivatedRoute or toSignal() needed.
    */
   readonly planet_param = input<string>('', { alias: 'planet' });
 
-  /** All planets from the resource — used for prev/next navigation. */
+  /** All planets from the resource -- used for prev/next navigation in menu. */
   readonly allPlanets = this.data.planets;
 
   /**
-   * The resolved Planet object — pure derivation, no side-effects.
+   * The resolved Planet object -- pure derivation, no side-effects.
    * Returns null while the resource is still loading.
    */
   readonly planet = computed<Planet | null>(() => {
@@ -57,7 +57,7 @@ export class PlanetDetailComponent {
   });
 
   /**
-   * Active sidebar tab — automatically resets to null whenever the planet
+   * Active sidebar tab -- automatically resets to null whenever the planet
    * changes, using linkedSignal's source+computation pattern.
    */
   readonly activeTab = linkedSignal<Planet | null, SidebarTab>({
@@ -83,8 +83,7 @@ export class PlanetDetailComponent {
 
     /**
      * Redirect to /galaxy if the route param names a planet that doesn't exist
-     * once the data has loaded. Uses effect() — the correct place for router
-     * side-effects that react to signal changes (not computed()).
+     * once data has loaded. effect() is correct for router side-effects.
      */
     effect(() => {
       const name    = this.planet_param();
@@ -99,7 +98,7 @@ export class PlanetDetailComponent {
     this.voice.start();
     destroyRef.onDestroy(() => { this.voice.stop(); speechSynthesis.cancel(); });
 
-    // Voice command handling — auto-cleaned up via takeUntilDestroyed
+    // Voice command handling -- auto-cleaned up via takeUntilDestroyed
     this.voice.commands$.pipe(takeUntilDestroyed()).subscribe(cmd => {
       if (cmd.type === 'sidebar' && cmd.payload) this.toggleTab(cmd.payload as SidebarTab);
       if (cmd.type === 'gallery')                this.openGallery();
@@ -131,4 +130,35 @@ export class PlanetDetailComponent {
   closeModal(): void { this.modalOpen.set(false); }
 
   prevSlide(): void {
-    const len = this.ga
+    const len = this.galleryImages().length;
+    this.modalIndex.update(i => (i - 1 + len) % len);
+  }
+
+  nextSlide(): void {
+    const len = this.galleryImages().length;
+    this.modalIndex.update(i => (i + 1) % len);
+  }
+
+  onModalKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape')     this.closeModal();
+    if (event.key === 'ArrowLeft')  this.prevSlide();
+    if (event.key === 'ArrowRight') this.nextSlide();
+  }
+
+  readActiveText(): void {
+    const tab = this.activeTab();
+    const p   = this.planet();
+    if (!p || !tab) return;
+    const content =
+      tab === 'intro'       ? p.contents?.introduction?.content?.join(' ') :
+      tab === 'description' ? p.contents?.description?.content?.join(' ')  : '';
+    if (content) {
+      const utt = new SpeechSynthesisUtterance(content);
+      speechSynthesis.speak(utt);
+    }
+  }
+
+  navigatePlanet(name: string): void {
+    this.router.navigateByUrl('/' + name);
+  }
+}
