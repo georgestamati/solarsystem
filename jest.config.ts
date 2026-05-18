@@ -8,7 +8,7 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|js|mjs|html|svg)$': [
       'jest-preset-angular',
-      { tsconfig: '<rootDir>/tsconfig.spec.json', stringifyContentPathRegex: /\.(html|svg)$/ },
+      { tsconfig: '<rootDir>/tsconfig.spec.json', stringifyContentPathRegex: '\\.(html|svg)$' },
     ],
   },
   transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular/common/locales/.*\\.js$))'],

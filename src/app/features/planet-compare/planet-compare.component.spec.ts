@@ -107,4 +107,5 @@ describe('PlanetCompareComponent', () => {
     comp.goBack();
     expect(spy).toHaveBeenCalledWith('/galaxy');
   });
-});
+
+  i

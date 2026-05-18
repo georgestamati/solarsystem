@@ -121,4 +121,5 @@ describe('GalaxyComponent', () => {
     stubs.voice.commands$.next({ type: 'home' });
     expect(spy).not.toHaveBeenCalled();
   });
-});
+
+  i

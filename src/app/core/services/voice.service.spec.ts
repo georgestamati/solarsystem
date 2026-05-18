@@ -154,4 +154,5 @@ describe('VoiceService', () => {
     service.start();
     expect(ctor).toHaveBeenCalled();
   });
-});
+
+  i

@@ -97,4 +97,5 @@ describe('ThemeService', () => {
     expect(mockDoc.documentElement.setAttribute)
       .toHaveBeenCalledWith('data-theme', 'dark');
   });
-});
+
+  i

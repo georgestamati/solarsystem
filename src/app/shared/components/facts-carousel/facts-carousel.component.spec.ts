@@ -111,4 +111,5 @@ describe('FactsCarouselComponent (fake timers)', () => {
     jest.advanceTimersByTime(5000);
     expect(comp.currentIndex()).toBe(0);
   });
-});
+
+  i

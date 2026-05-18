@@ -230,4 +230,5 @@ describe('PlanetDetailComponent', () => {
     TestBed.flushEffects();
     expect(spy).toHaveBeenCalledWith('/galaxy');
   });
-});
+
+  i

@@ -74,8 +74,8 @@ describe('SearchDialogComponent', () => {
   it('should reset activeIndex to 0 when results change', () => {
     comp.activeIndex.set(2);
     comp.query.set('ear'); // triggers results recompute
-    // Flush effects so the effect that resets activeIndex runs
-    TestBed.flushEffects();
+    // detectChanges runs the effect that resets activeIndex
+    fixture.detectChanges();
     expect(comp.activeIndex()).toBe(0);
   });
 
@@ -170,4 +170,4 @@ describe('SearchDialogComponent', () => {
     expect(kbStub.searchOpen()).toBe(false);
   });
 
-  // --- effect: cle
+  // --- effect: clear

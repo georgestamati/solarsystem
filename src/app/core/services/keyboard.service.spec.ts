@@ -135,6 +135,11 @@ describe('KeyboardService', () => {
     expect(service.helpOpen()).toBe(false);
   });
 
+  it('should NOT toggle helpOpen when Meta+? is pressed', () => {
+    key('?', { metaKey: true });
+    expect(service.helpOpen()).toBe(false);
+  });
+
   // --- Arrow navigation ---
 
   it('should navigate to previous planet on ArrowLeft', () => {
@@ -188,11 +193,4 @@ describe('KeyboardService', () => {
 
   // --- f/F key: no-op (handled in template) ---
 
-  it('should not throw on f key', () => {
-    expect(() => key('f')).not.toThrow();
-  });
-
-  it('should not throw on F key', () => {
-    expect(() => key('F')).not.toThrow();
-  });
-});
+  it('should not throw on f key', (
