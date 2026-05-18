@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { signal } from '@angular/core';
 import { App } from './app';
 import { KeyboardService } from './core/services/keyboard.service';
@@ -23,8 +23,8 @@ describe('App', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, RouterTestingModule],
-      providers: [
+      imports: [App],
+      providers: [provideRouter([]), 
         { provide: KeyboardService, useValue: makeKbStub() },
         { provide: ThemeService, useValue: makeThemeStub() },
       ],

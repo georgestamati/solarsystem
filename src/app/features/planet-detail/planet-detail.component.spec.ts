@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { PlanetDetailComponent } from './planet-detail.component';
@@ -45,8 +45,8 @@ describe('PlanetDetailComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [PlanetDetailComponent, RouterTestingModule],
-      providers: [
+      imports: [PlanetDetailComponent],
+      providers: [provideRouter([]), 
         { provide: PlanetDataService, useValue: stubs.data },
         { provide: VoiceService,      useValue: stubs.voice },
       ],

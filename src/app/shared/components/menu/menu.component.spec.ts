@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { MenuComponent } from './menu.component';
 import { Planet } from '../../../core/services/planet-data.service';
 
@@ -13,8 +13,9 @@ describe('MenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuComponent, RouterTestingModule],
-    }).compileComponents();
+      imports: [MenuComponent],
+      providers: [provideRouter([])],
+    });
     fixture = TestBed.createComponent(MenuComponent);
   });
 
@@ -42,6 +43,4 @@ describe('MenuComponent', () => {
   it('should render planet names in title-case', () => {
     fixture.componentRef.setInput('planets', [{ name: 'mercury' }]);
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('Mercury');
-  });
-});
+    expect(fixture.nativeElement.textCon

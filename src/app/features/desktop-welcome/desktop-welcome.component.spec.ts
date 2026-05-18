@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { DesktopWelcomeComponent } from './desktop-welcome.component';
 
 describe('DesktopWelcomeComponent', () => {
@@ -7,8 +7,9 @@ describe('DesktopWelcomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DesktopWelcomeComponent, RouterTestingModule],
-    }).compileComponents();
+      imports: [DesktopWelcomeComponent],
+      providers: [provideRouter([])],
+    });
     fixture = TestBed.createComponent(DesktopWelcomeComponent);
     fixture.detectChanges();
   });
@@ -18,6 +19,4 @@ describe('DesktopWelcomeComponent', () => {
   });
 
   it('should render without errors', () => {
-    expect(fixture.nativeElement).toBeTruthy();
-  });
-});
+    expect(fixture.n

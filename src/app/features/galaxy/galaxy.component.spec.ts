@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { GalaxyComponent, SpeedMode } from './galaxy.component';
@@ -35,8 +35,8 @@ describe('GalaxyComponent', () => {
   beforeEach(async () => {
     stubs = makeStubs();
     await TestBed.configureTestingModule({
-      imports: [GalaxyComponent, RouterTestingModule],
-      providers: [
+      imports: [GalaxyComponent],
+      providers: [provideRouter([]), 
         { provide: PlanetDataService,  useValue: stubs.data },
         { provide: VoiceService,       useValue: stubs.voice },
         { provide: SessionService,     useValue: stubs.session },
