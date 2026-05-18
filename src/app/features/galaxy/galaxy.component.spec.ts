@@ -36,7 +36,7 @@ describe('GalaxyComponent', () => {
     stubs = makeStubs();
     await TestBed.configureTestingModule({
       imports: [GalaxyComponent],
-      providers: [provideRouter([]), 
+      providers: [provideRouter([]),
         { provide: PlanetDataService,  useValue: stubs.data },
         { provide: VoiceService,       useValue: stubs.voice },
         { provide: SessionService,     useValue: stubs.session },
@@ -122,4 +122,45 @@ describe('GalaxyComponent', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  i
+  it('voice navigate command without payload does not navigate', () => {
+    const spy = jest.spyOn(router, 'navigateByUrl');
+    stubs.voice.commands$.next({ type: 'navigate' }); // no payload
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('setSpeedMode to "uniform" updates speedMode signal', () => {
+    comp.setSpeedMode('uniform');
+    expect(comp.speedMode()).toBe('uniform');
+  });
+
+  it('setSpeedMode to "custom" updates speedMode signal', () => {
+    comp.setSpeedMode('custom');
+    expect(comp.speedMode()).toBe('custom');
+  });
+
+  it('setSpeedMode back to "real" updates speedMode signal', () => {
+    comp.setSpeedMode('uniform');
+    comp.setSpeedMode('real');
+    expect(comp.speedMode()).toBe('real');
+  });
+
+  it('customSpeed can be updated independently', () => {
+    comp.customSpeed.set(3);
+    expect(comp.customSpeed()).toBe(3);
+  });
+
+  it('effect runs without throwing when mode changes to uniform', () => {
+    expect(() => {
+      comp.setSpeedMode('uniform');
+      fixture.detectChanges();
+    }).not.toThrow();
+  });
+
+  it('effect runs without throwing when mode changes to custom', () => {
+    expect(() => {
+      comp.setSpeedMode('custom');
+      comp.customSpeed.set(2);
+      fixture.detectChanges();
+    }).not.toThrow();
+  });
+});

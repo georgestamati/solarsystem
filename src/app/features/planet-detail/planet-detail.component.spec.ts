@@ -46,7 +46,7 @@ describe('PlanetDetailComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [PlanetDetailComponent],
-      providers: [provideRouter([]), 
+      providers: [provideRouter([]),
         { provide: PlanetDataService, useValue: stubs.data },
         { provide: VoiceService,      useValue: stubs.voice },
       ],
@@ -202,9 +202,33 @@ describe('PlanetDetailComponent', () => {
     expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
   });
 
+  it('readActiveText() with profile tab produces no speech (empty content)', () => {
+    comp.toggleTab('profile');
+    (window.speechSynthesis.speak as jest.Mock).mockClear();
+    comp.readActiveText();
+    expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
+  });
+
+  it('readActiveText() does not speak when intro content is undefined', () => {
+    const noContentPlanet: Planet = { name: 'venus', diameterKm: 12104 };
+    stubs.data.getPlanet.mockReturnValue(noContentPlanet);
+    stubs.data.planets.set([noContentPlanet]);
+    fixture.componentRef.setInput('planet', 'venus');
+    fixture.detectChanges();
+    comp.toggleTab('intro');
+    (window.speechSynthesis.speak as jest.Mock).mockClear();
+    comp.readActiveText();
+    expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
+  });
+
   it('voice sidebar command opens tab', () => {
     stubs.voice.commands$.next({ type: 'sidebar', payload: 'profile' });
     expect(comp.activeTab()).toBe('profile');
+  });
+
+  it('voice sidebar command without payload does not toggle tab', () => {
+    stubs.voice.commands$.next({ type: 'sidebar' }); // no payload
+    expect(comp.activeTab()).toBeNull();
   });
 
   it('voice gallery command opens gallery', () => {
@@ -227,8 +251,47 @@ describe('PlanetDetailComponent', () => {
   it('effect redirects to galaxy for unknown planet', () => {
     const spy = jest.spyOn(router, 'navigateByUrl');
     fixture.componentRef.setInput('planet', 'pluto');
-    TestBed.flushEffects();
+    fixture.detectChanges();
     expect(spy).toHaveBeenCalledWith('/galaxy');
   });
 
-  i
+  it('effect does NOT redirect when planet param is empty string', () => {
+    const spy = jest.spyOn(router, 'navigateByUrl');
+    spy.mockClear();
+    fixture.componentRef.setInput('planet', '');
+    fixture.detectChanges();
+    // empty name -> guard if (missing) is false -> no redirect
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('effect does NOT redirect when planet list is still empty (loading)', () => {
+    const emptyDataStub = {
+      planets: signal([] as Planet[]),
+      getPlanet: jest.fn(() => undefined),
+    };
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [PlanetDetailComponent],
+      providers: [provideRouter([]),
+        { provide: PlanetDataService, useValue: emptyDataStub },
+        { provide: VoiceService, useValue: stubs.voice },
+      ],
+    });
+    const f = TestBed.createComponent(PlanetDetailComponent);
+    f.componentRef.setInput('planet', 'earth');
+    const spy = jest.spyOn(TestBed.inject(Router), 'navigateByUrl');
+    f.detectChanges();
+    // planets().length === 0 -> loaded = false -> no redirect
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('stops voice recognition on destroy', () => {
+    fixture.destroy();
+    expect(stubs.voice.stop).toHaveBeenCalled();
+  });
+
+  it('cancels speech synthesis on destroy', () => {
+    fixture.destroy();
+    expect(window.speechSynthesis.cancel).toHaveBeenCalled();
+  });
+});
