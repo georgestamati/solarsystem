@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TitleCasePipe, KeyValuePipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { PlanetDataService, Planet } from '../../core/services/planet-data.service';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 
@@ -35,8 +37,10 @@ export class PlanetCompareComponent {
   private readonly data   = inject(PlanetDataService);
   private readonly router = inject(Router);
 
-  /** Direct signal from httpResource — no Observable bridge needed. */
-  readonly allPlanets = this.data.planets;
+  readonly allPlanets = toSignal(
+    this.data.getAll().pipe(map(s => s.records)),
+    { initialValue: [] as Planet[] }
+  );
 
   readonly selected = signal<string[]>([]);
 

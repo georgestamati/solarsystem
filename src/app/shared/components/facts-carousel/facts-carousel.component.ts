@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  DestroyRef,
-  inject,
   input,
+  OnDestroy,
+  OnInit,
   signal,
 } from '@angular/core';
 
@@ -15,7 +15,7 @@ import {
   styleUrl: './facts-carousel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FactsCarouselComponent {
+export class FactsCarouselComponent implements OnInit, OnDestroy {
   readonly facts = input<string[]>([]);
 
   readonly currentIndex = signal(0);
@@ -27,14 +27,18 @@ export class FactsCarouselComponent {
     return f[this.currentIndex() % f.length];
   });
 
-  constructor() {
-    const destroyRef = inject(DestroyRef);
-    const id = setInterval(() => {
+  private intervalId?: ReturnType<typeof setInterval>;
+
+  ngOnInit(): void {
+    this.intervalId = setInterval(() => {
       if (!this.isPaused() && this.facts().length > 1) {
         this.currentIndex.update(i => (i + 1) % this.facts().length);
       }
     }, 5000);
-    destroyRef.onDestroy(() => clearInterval(id));
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalId);
   }
 
   prev(): void {
