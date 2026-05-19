@@ -98,4 +98,20 @@ describe('ThemeService', () => {
       .toHaveBeenCalledWith('data-theme', 'dark');
   });
 
-  i
+  i  it('should fall back to "dark" when matchMedia is undefined', () => {
+    Object.defineProperty(window, 'matchMedia', { writable: true, value: undefined });
+    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(null);
+    jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {});
+    mockDoc = buildDoc();
+    TestBed.configureTestingModule({
+      providers: [{ provide: DOCUMENT, useValue: mockDoc }],
+    });
+    service = TestBed.inject(ThemeService);
+    expect(service.theme()).toBe('dark');
+  });
+
+  it('should fall back to OS preference when stored value is unknown', () => {
+    configure('unknown' as any, true);
+    expect(service.theme()).toBe('light');
+  });
+});

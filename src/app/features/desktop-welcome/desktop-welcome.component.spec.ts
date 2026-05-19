@@ -19,4 +19,6 @@ describe('DesktopWelcomeComponent', () => {
   });
 
   it('should render without errors', () => {
-    expect(fixture.n
+    expect(fixture.nativeElement).toBeTruthy();
+  });
+});

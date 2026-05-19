@@ -43,4 +43,6 @@ describe('MenuComponent', () => {
   it('should render planet names in title-case', () => {
     fixture.componentRef.setInput('planets', [{ name: 'mercury' }]);
     fixture.detectChanges();
-    expect(fixture.nativeElement.textCon
+    expect(fixture.nativeElement.textContent()).toContain('Mercury');
+  });
+});

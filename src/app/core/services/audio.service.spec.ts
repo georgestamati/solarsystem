@@ -175,3 +175,15 @@ describe('AudioService', () => {
   });
 
   /
+  it('should reuse the existing AudioContext on subsequent calls', () => {
+    service.playWhoosh();
+    service.playWhoosh();
+    expect((window as any).AudioContext).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call resume when AudioContext state is running', () => {
+    mockCtx.state = 'running';
+    service.playWhoosh();
+    expect(mockCtx.resume).not.toHaveBeenCalled();
+  });
+});
