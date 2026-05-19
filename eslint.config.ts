@@ -6,7 +6,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
-  // ── Global ignores ──────────────────────────────────────────────────────────
+  // --- Global ignores ---
   {
     ignores: [
       'dist/**',
@@ -19,7 +19,7 @@ export default tseslint.config(
     ],
   },
 
-  // ── TypeScript source files ──────────────────────────────────────────────────
+  // --- TypeScript source files ---
   {
     files: ['**/*.ts'],
     extends: [
@@ -38,7 +38,7 @@ export default tseslint.config(
       },
     },
     rules: {
-      // ── Angular-specific ────────────────────────────────────────────────────
+      // Angular-specific
       '@angular-eslint/directive-selector': [
         'error',
         { type: 'attribute', prefix: 'app', style: 'camelCase' },
@@ -61,7 +61,7 @@ export default tseslint.config(
       '@angular-eslint/prefer-output-readonly': 'error',
       '@angular-eslint/prefer-output-emitter-ref': 'warn',
 
-      // ── TypeScript strict best practices ────────────────────────────────────
+      // TypeScript strict best practices
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
@@ -83,7 +83,7 @@ export default tseslint.config(
       '@typescript-eslint/prefer-nullish-coalescing': 'error',
       '@typescript-eslint/prefer-optional-chain': 'error',
 
-      // ── General JS best practices ────────────────────────────────────────────
+      // General JS best practices
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       eqeqeq: ['error', 'always', { null: 'ignore' }],
       'no-var': 'error',
@@ -92,12 +92,12 @@ export default tseslint.config(
       'prefer-template': 'error',
       curly: ['error', 'all'],
 
-      // ── Prettier (formatting errors as lint errors) ──────────────────────────
+      // Prettier
       'prettier/prettier': 'error',
     },
   },
 
-  // ── HTML templates ───────────────────────────────────────────────────────────
+  // --- HTML templates ---
   {
     files: ['**/*.html'],
     extends: [
@@ -114,10 +114,15 @@ export default tseslint.config(
     },
   },
 
-  // ── Spec / test files — relax some strict rules ──────────────────────────────
+  // --- Spec / test files: relax strict rules ---
   {
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-flo
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/unbound-method': 'off',
+      'no-console': 'off',
+    },
+  },
+);
