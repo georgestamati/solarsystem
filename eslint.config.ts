@@ -58,6 +58,8 @@ export default tseslint.config(
       '@angular-eslint/no-inputs-metadata-property': 'error',
       '@angular-eslint/no-outputs-metadata-property': 'error',
       '@angular-eslint/no-queries-metadata-property': 'error',
+      '@angular-eslint/prefer-output-readonly': 'error',
+      '@angular-eslint/prefer-output-emitter-ref': 'warn',
 
       // ── TypeScript strict best practices ────────────────────────────────────
       '@typescript-eslint/explicit-function-return-type': 'off',
@@ -118,9 +120,4 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
-      '@typescript-eslint/no-floating-promises': 'off',
-      '@typescript-eslint/unbound-method': 'off',
-      'no-console': 'off',
-    },
-  },
-);
+      '@typescript-eslint/no-flo
