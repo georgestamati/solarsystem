@@ -193,4 +193,15 @@ describe('KeyboardService', () => {
 
   // --- f/F key: no-op (handled in template) ---
 
-  it('should not throw on f key', (
+  it('should not throw on f key', () => {
+    expect(() => {
+      dispatch('f');
+      dispatch('F');
+    }).not.toThrow();
+  });
+
+  it('Meta+? should NOT toggle helpOpen', () => {
+    dispatch('?', { metaKey: true });
+    expect(service.helpOpen()).toBe(false);
+  });
+});

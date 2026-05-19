@@ -108,4 +108,14 @@ describe('PlanetCompareComponent', () => {
     expect(spy).toHaveBeenCalledWith('/galaxy');
   });
 
-  i
+  i  it('selectedPlanets() filters out unknown planet names', () => {
+    comp.selected.set(['earth', 'unknownplanet']);
+    expect(comp.selectedPlanets().length).toBe(1);
+    expect(comp.selectedPlanets()[0].name).toBe('earth');
+  });
+
+  it('maxDiameter() uses Earth floor for unknown planet names', () => {
+    comp.selected.set(['unknownplanet']);
+    expect(comp.maxDiameter()).toBe(12756);
+  });
+});

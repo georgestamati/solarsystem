@@ -155,4 +155,20 @@ describe('VoiceService', () => {
     expect(ctor).toHaveBeenCalled();
   });
 
-  i
+  i  it('should reuse the same recognition instance after stop/restart', () => {
+    const { ctor } = buildSR();
+    (window as any).SpeechRecognition = ctor;
+    service.start();
+    service.stop();
+    service.start();
+    expect(ctor).toHaveBeenCalledTimes(1);
+  });
+
+  it('stop() does nothing when recognition exists but is not running', () => {
+    const { ctor, instance } = buildSR();
+    (window as any).SpeechRecognition = ctor;
+    // Don't start — running stays false
+    service.stop();
+    expect(instance.stop).not.toHaveBeenCalled();
+  });
+});

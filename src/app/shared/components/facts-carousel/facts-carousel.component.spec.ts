@@ -112,4 +112,15 @@ describe('FactsCarouselComponent (fake timers)', () => {
     expect(comp.currentIndex()).toBe(0);
   });
 
-  i
+  i  it('resumes auto-advance after unpausing', () => {
+    fixture.componentRef.setInput('facts', FACTS);
+    comp.isPaused.set(true);
+    fixture.detectChanges();
+    jest.advanceTimersByTime(5000);
+    expect(comp.currentIndex()).toBe(0); // still paused
+
+    comp.isPaused.set(false);
+    jest.advanceTimersByTime(5000);
+    expect(comp.currentIndex()).toBe(1);
+  });
+});

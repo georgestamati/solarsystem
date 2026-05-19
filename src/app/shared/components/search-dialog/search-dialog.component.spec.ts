@@ -170,4 +170,34 @@ describe('SearchDialogComponent', () => {
     expect(kbStub.searchOpen()).toBe(false);
   });
 
-  // --- effect: clear
+  // --- effect: clearquery on open ---
+
+  it('opening dialog resets query to empty string', () => {
+    comp.query.set('mars');
+    kbStub.searchOpen.set(true);
+    fixture.detectChanges();
+    expect(comp.query()).toBe('');
+  });
+
+  it('ArrowDown does nothing when results are empty', () => {
+    comp.query.set('zzz_no_match');
+    fixture.detectChanges();
+    expect(() =>
+      comp.onKeydown({ key: 'ArrowDown', preventDefault: jest.fn() } as unknown as KeyboardEvent)
+    ).not.toThrow();
+  });
+
+  it('ArrowUp does nothing when results are empty', () => {
+    comp.query.set('zzz_no_match');
+    fixture.detectChanges();
+    expect(() =>
+      comp.onKeydown({ key: 'ArrowUp', preventDefault: jest.fn() } as unknown as KeyboardEvent)
+    ).not.toThrow();
+  });
+
+  it('destroyRef clears the focus timeout on destroy', () => {
+    kbStub.searchOpen.set(true);
+    fixture.detectChanges();
+    expect(() => fixture.destroy()).not.toThrow();
+  });
+});
